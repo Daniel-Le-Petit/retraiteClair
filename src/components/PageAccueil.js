@@ -231,33 +231,6 @@ const PageAccueil = () => {
         </div>
       </div>
 
-      {/* Modal d'éligibilité */}
-      {showEligibility && (
-        <div className="modal-overlay" onClick={() => setShowEligibility(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Test d'éligibilité</h3>
-            <p style={{textAlign: 'left'}}>Pour être éligible à la retraite progressive, vous devez :</p>
-            <ul style={{textAlign: 'left'}}>
-              <li>✅ Avoir au moins 60 ans (ou 55 ans dans certains cas)</li>
-              <li>✅ Avoir cotisé au moins 150 trimestres</li>
-              <li>✅ Avoir l'accord de votre employeur pour un temps partiel</li>
-              <li>✅ Travailler entre 40% et 80% du temps plein</li>
-            </ul>
-            <p style={{textAlign: 'left'}}><strong>Prochaines étapes :</strong></p>
-            <ol style={{textAlign: 'left'}}>
-              <li>Contactez votre employeur</li>
-              <li>Renseignez-vous auprès de votre caisse de retraite</li>
-              <li>Utilisez notre simulateur pour calculer vos revenus</li>
-            </ol>
-            <button 
-              className="modal-close"
-              onClick={() => setShowEligibility(false)}
-            >
-              Fermer
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
