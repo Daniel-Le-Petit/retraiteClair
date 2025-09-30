@@ -1,0 +1,189 @@
+/* Styles pour la page Conseils */
+.conseils-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.conseils-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.conseils-section {
+  margin-bottom: 4rem;
+}
+
+.conseils-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.conseils-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #059669);
+  border-radius: 2px;
+}
+
+.conseils-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.conseil-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.conseil-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.conseil-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border-color: #10b981;
+}
+
+.conseil-card.conseil-tip {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-color: #f59e0b;
+}
+
+.conseil-card.conseil-tip::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.conseil-card.conseil-tip:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.2);
+}
+
+.conseil-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #e0f2fe, #a7f3d0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+  transition: all 0.3s ease;
+}
+
+.conseil-card:hover .conseil-icon {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #a7f3d0, #10b981);
+  color: white;
+}
+
+.conseil-card.conseil-tip .conseil-icon {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #f59e0b;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+}
+
+.conseil-card.conseil-tip:hover .conseil-icon {
+  background: linear-gradient(135deg, #fde68a, #f59e0b);
+  color: white;
+}
+
+.conseil-card h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.conseil-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .conseils-container {
+    padding: 1rem;
+  }
+  
+  .conseils-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .conseils-section h3 {
+    font-size: 1.5rem;
+  }
+  
+  .conseils-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .conseil-card {
+    padding: 1.5rem;
+  }
+  
+  .conseil-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .conseil-card h4 {
+    font-size: 1.1rem;
+  }
+  
+  .conseil-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .conseils-container h2 {
+    font-size: 1.75rem;
+  }
+  
+  .conseils-section h3 {
+    font-size: 1.3rem;
+  }
+  
+  .conseil-card {
+    padding: 1.25rem;
+  }
+}

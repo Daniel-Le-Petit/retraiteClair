@@ -10,28 +10,16 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       badge: 0
     },
     {
-      id: 'saisie',
-      label: 'Saisie',
+      id: 'calculateur',
+      label: 'Calculateur avancé',
       icon: Calculator,
       badge: 1
-    },
-    {
-      id: 'resultats',
-      label: 'Résultats',
-      icon: BarChart3,
-      badge: 2
-    },
-    {
-      id: 'scenarios',
-      label: 'Scénarios',
-      icon: TrendingUp,
-      badge: 3
     },
     {
       id: 'conseils',
       label: 'Conseils',
       icon: CheckCircle,
-      badge: 4
+      badge: 2
     }
   ];
 

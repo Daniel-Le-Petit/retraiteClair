@@ -189,6 +189,22 @@ body {
   width: 100%;
 }
 
+.calculator-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.calculator-title svg {
+  color: #10b981;
+}
+
 .input-group {
   margin-bottom: 25px;
 }
@@ -509,6 +525,20 @@ body {
 .step-item p {
   color: #6b7280;
   line-height: 1.6;
+}
+
+.official-link {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.official-link:hover {
+  color: #059669;
+  border-bottom-color: #059669;
+  text-decoration: none;
 }
 
 /* FAQ Section */

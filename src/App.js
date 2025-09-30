@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import PageAccueil from './components/PageAccueil';
-import SaisiePage from './components/SaisiePage';
-import ResultatsPage from './components/ResultatsPage';
-import ScenariosPage from './components/ScenariosPage';
+import CalculateurAvance from './components/CalculateurAvance';
 import ConseilsPage from './components/ConseilsPage';
 import './index.css';
 import './sidebar.css';
@@ -11,6 +9,9 @@ import './definition-styles.css';
 import './hero-styles.css';
 import './eligibility-styles.css';
 import './financial-impact-styles.css';
+import './personal-info-styles.css';
+import './calculateur-avance-styles.css';
+import './conseils-styles.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('accueil');
@@ -23,12 +24,8 @@ function App() {
     switch (currentPage) {
       case 'accueil':
         return <PageAccueil />;
-      case 'saisie':
-        return <SaisiePage />;
-      case 'resultats':
-        return <ResultatsPage />;
-      case 'scenarios':
-        return <ScenariosPage />;
+      case 'calculateur':
+        return <CalculateurAvance />;
       case 'conseils':
         return <ConseilsPage />;
       default:

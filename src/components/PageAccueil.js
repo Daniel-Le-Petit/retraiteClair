@@ -8,7 +8,8 @@ import {
   Target,
   Calculator,
   HelpCircle,
-  FileText
+  FileText,
+  Zap
 } from 'lucide-react';
 import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
@@ -76,7 +77,10 @@ const PageAccueil = () => {
         <h2>Combien vais-je toucher ?</h2>
         <div className="calculator-content">
           <div className="calculator-container">
-            <h3>Calculateur rapide</h3>
+            <h3 className="calculator-title">
+              <Zap size={24} />
+              Calculateur rapide
+            </h3>
             
             {/* Ligne 1: 3 champs d'entrée */}
             <div className="input-row">
@@ -193,7 +197,19 @@ const PageAccueil = () => {
           <div className="step-item">
             <div className="step-number">2</div>
             <h3>Calculez vos revenus</h3>
-            <p>Utilisez notre calculateur pour estimer vos revenus en retraite progressive</p>
+            <p>
+              Utilisez notre calculateur pour estimer vos revenus de retraite progressive. 
+              Pour obtenir des informations précises et personnalisées, nous vous recommandons de consulter le{' '}
+              <a 
+                href="https://www.lassuranceretraite.fr/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="official-link"
+              >
+                simulateur officiel
+              </a>{' '}
+              disponible sur lassuranceretraite.fr
+            </p>
           </div>
           <div className="step-item">
             <div className="step-number">3</div>
