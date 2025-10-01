@@ -11,8 +11,8 @@ const PageAccueil = () => {
   const stepsDetails = [
     {
       icon: CheckCircle,
-      title: "Vérifiez votre éligibilité",
-      shortDescription: "Testez si vous remplissez les conditions d'âge et de cotisations",
+      title: "Éligibilité",
+      shortDescription: "Vérifiez vos conditions d'âge et de cotisations",
       detailedContent: {
         intro: "Avant de vous lancer dans la retraite progressive, il est essentiel de vérifier que vous remplissez tous les critères d'éligibilité.",
         criteria: {
@@ -50,8 +50,8 @@ const PageAccueil = () => {
     },
     {
       icon: Calculator,
-      title: "Calculez vos revenus",
-      shortDescription: "Utilisez notre calculateur pour estimer vos revenus de retraite progressive",
+      title: "Revenus",
+      shortDescription: "Estimez vos revenus avec notre calculateur",
       detailedContent: {
         intro: "Une fois votre éligibilité confirmée, il est crucial d'estimer vos revenus futurs pour planifier sereinement votre transition.",
         whatToCalculate: {
@@ -88,8 +88,8 @@ const PageAccueil = () => {
     },
     {
       icon: Briefcase,
-      title: "Contactez votre employeur",
-      shortDescription: "Discutez de la possibilité d'un temps partiel avec votre employeur",
+      title: "Employeur",
+      shortDescription: "Négociez votre passage à temps partiel",
       detailedContent: {
         intro: "Le passage en retraite progressive nécessite obligatoirement l'accord de votre employeur. Cette étape est cruciale pour la réussite de votre projet.",
         preparation: {
@@ -128,8 +128,8 @@ const PageAccueil = () => {
     },
     {
       icon: FileText,
-      title: "Renseignez-vous",
-      shortDescription: "Contactez votre caisse de retraite pour les démarches administratives",
+      title: "Démarches",
+      shortDescription: "Rassemblez vos documents et faites votre demande",
       detailedContent: {
         intro: "Une fois l'accord de votre employeur obtenu, vous devez effectuer les démarches administratives auprès de votre caisse de retraite.",
         whoToContact: {
@@ -174,19 +174,19 @@ const PageAccueil = () => {
   const faqItems = [
     {
       question: "Qu'est-ce que la retraite progressive ?",
-      answer: "La retraite progressive vous permet de travailler à temps partiel (40% à 80%) tout en percevant une partie de votre retraite (30% à 50%). C'est une transition en douceur vers la retraite complète."
+      answer: "C'est votre sas vers la retraite ! Vous réduisez votre temps de travail (40% à 80%) tout en touchant déjà une partie de votre pension (30% à 50%). Une transition en douceur qui vous permet de garder un pied dans la vie active."
     },
     {
-      question: "Qui peut bénéficier de la retraite progressive ?",
-      answer: "Vous devez avoir au moins 60 ans (ou 55 ans dans certains cas), avoir cotisé au moins 150 trimestres, et avoir l'accord de votre employeur pour un temps partiel."
+      question: "Suis-je éligible ?",
+      answer: "Pour en bénéficier, il vous faut : 60 ans minimum (ou 55 ans dans certains cas), 150 trimestres cotisés, et l'accord de votre employeur. Pas de panique si vous n'avez pas tous vos trimestres, vous pouvez quand même commencer !"
     },
     {
-      question: "Comment calculer mes revenus ?",
-      answer: "Vos revenus = (Salaire brut - cotisations) × temps partiel + Pension progressive. Utilisez notre calculateur pour une estimation précise."
+      question: "Combien vais-je toucher ?",
+      answer: "Le calcul est simple : votre salaire à temps partiel + votre pension progressive. Notre calculateur vous donne une estimation en quelques clics. N'oubliez pas : c'est indicatif, le simulateur officiel M@rel reste la référence."
     },
     {
-      question: "Puis-je changer de pourcentage de temps partiel ?",
-      answer: "Oui, vous pouvez ajuster votre temps partiel entre 40% et 80% selon vos besoins et l'accord de votre employeur."
+      question: "Puis-je ajuster mon temps partiel ?",
+      answer: "Absolument ! Vous pouvez modifier votre pourcentage entre 40% et 80% selon vos besoins. L'important c'est de bien négocier avec votre employeur et de prévoir les démarches administratives."
     }
   ];
 
@@ -212,7 +212,7 @@ const PageAccueil = () => {
           <div className="image-overlay-steps">
             <h2 className="section-title-on-image">Comment commencer ?</h2>
             <p className="section-description-on-image">
-              Suivez ces 4 étapes pour réussir votre transition en retraite progressive
+              4 étapes simples pour réussir votre transition en douceur
             </p>
           </div>
         </div>

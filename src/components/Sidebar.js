@@ -11,7 +11,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
     },
     {
       id: 'calculateur',
-      label: 'Calculateur avancé',
+      label: 'Estimation de votre retraite progressive',
       icon: Calculator,
       badge: 1
     },

@@ -27,6 +27,43 @@
   margin-right: auto;
 }
 
+/* Accordion styles */
+.conseils-accordion {
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.conseils-accordion .accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.conseils-accordion .accordion-header:hover {
+  background: #f1f5f9;
+}
+
+.conseils-accordion .accordion-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.conseils-accordion .accordion-content {
+  padding: 2rem;
+  background: white;
+}
+
 .conseils-section {
   margin-bottom: 4rem;
 }
@@ -319,7 +356,7 @@
   margin: 0;
 }
 
-.checklist li {
+.checklist-item {
   padding: 0.75rem;
   margin-bottom: 0.5rem;
   background: white;
@@ -329,11 +366,53 @@
   line-height: 1.5;
   transition: all 0.3s ease;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.checklist li:hover {
+.checklist-item:hover {
   background: #dcfce7;
   transform: translateX(5px);
+}
+
+.checklist-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #10b981;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checklist-checkbox:checked {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+.checklist-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checklist-checkbox + label {
+  cursor: pointer;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.checklist-checkbox:checked + label {
+  text-decoration: line-through;
+  color: #10b981;
+  opacity: 0.7;
 }
 
 .conseil-card h4 {

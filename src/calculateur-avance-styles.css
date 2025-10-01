@@ -21,8 +21,43 @@
   font-size: 1.1rem;
   color: #64748b;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto 1rem auto;
   line-height: 1.6;
+}
+
+.disclaimer-notice {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0 auto 2rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.disclaimer-notice p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #92400e;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.validation-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem auto 2rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.validation-error p {
+  margin: 0;
+  font-size: 1rem;
+  color: #dc2626;
+  font-weight: 600;
 }
 
 /* Navigation par onglets */
@@ -1010,6 +1045,82 @@
   border-bottom-color: #059669;
 }
 
+/* Bar Chart pour scénarios */
+.scenarios-bar-chart {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.scenarios-bar-chart .chart-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.scenarios-bar-chart .chart-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  height: 350px;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.scenarios-bar-chart .chart-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 120px;
+}
+
+.scenarios-bar-chart .bar-container {
+  height: 280px;
+  width: 60px;
+  background: #e2e8f0;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  display: flex;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.scenarios-bar-chart .bar-fill {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+  min-height: 20px;
+}
+
+.scenarios-bar-chart .bar-label {
+  text-align: center;
+}
+
+.scenarios-bar-chart .scenario-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.scenarios-bar-chart .scenario-percentage {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.scenarios-bar-chart .scenario-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
 
 .flow-box {
   padding: 2rem 3rem;
@@ -1700,6 +1811,32 @@
 
   .official-simulator-link p {
     font-size: 0.85rem;
+  }
+
+  .scenarios-bar-chart {
+    padding: 1rem;
+  }
+
+  .scenarios-bar-chart .chart-container {
+    height: 250px;
+    gap: 0.5rem;
+  }
+
+  .scenarios-bar-chart .bar-container {
+    height: 150px;
+    width: 40px;
+  }
+
+  .scenarios-bar-chart .scenario-name {
+    font-size: 0.8rem;
+  }
+
+  .scenarios-bar-chart .scenario-percentage {
+    font-size: 0.7rem;
+  }
+
+  .scenarios-bar-chart .scenario-amount {
+    font-size: 0.9rem;
   }
 
 

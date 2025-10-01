@@ -21,6 +21,31 @@ const CalculateurAvance = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
+  const [validationError, setValidationError] = useState('');
+
+  // Fonction de validation pour l'onglet Résultats
+  const validateForResults = () => {
+    if (!formData.salaireBrut || formData.salaireBrut === '') {
+      setValidationError('Vous devez entrer le "Salaire brut mensuel"');
+      return false;
+    }
+    
+    // Si pas de pension estimée, la calculer automatiquement
+    if (!formData.pensionEstimee || formData.pensionEstimee === '') {
+      // Calculer la pension estimée basée sur le salaire brut
+      // Estimation basée sur un taux de remplacement moyen de 50% du salaire net
+      const salaireNet = formData.salaireBrut * 0.78; // -22% de cotisations
+      const pensionEstimee = salaireNet * 0.5; // 50% du salaire net
+      
+      setFormData(prev => ({
+        ...prev,
+        pensionEstimee: Math.round(pensionEstimee)
+      }));
+    }
+    
+    setValidationError('');
+    return true;
+  };
 
   // Charger les données sauvegardées au montage
   useEffect(() => {
@@ -173,10 +198,13 @@ const CalculateurAvance = () => {
     <div className="page-content">
       <div className="calculateur-avance-container">
         <div className="section-header">
-          <h1 className="section-title">Calculateur avancé</h1>
+          <h1 className="section-title">Estimation de votre retraite progressive</h1>
           <p className="section-description">
             Saisissez vos données, consultez vos résultats et comparez différents scénarios
           </p>
+          <div className="disclaimer-notice">
+            <p>Cet outil fournit une estimation indicative. Pour une projection complète, consultez le simulateur officiel M@rel.</p>
+          </div>
         </div>
 
         {/* Navigation par onglets */}
@@ -187,7 +215,15 @@ const CalculateurAvance = () => {
               <button
                 key={tab.id}
                 className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  if (tab.id === 'resultats') {
+                    if (validateForResults()) {
+                      setActiveTab(tab.id);
+                    }
+                  } else {
+                    setActiveTab(tab.id);
+                  }
+                }}
               >
                 <Icon size={20} />
                 <span>{tab.label}</span>
@@ -195,6 +231,13 @@ const CalculateurAvance = () => {
             );
           })}
         </div>
+
+        {/* Message d'erreur de validation */}
+        {validationError && (
+          <div className="validation-error">
+            <p>{validationError}</p>
+          </div>
+        )}
 
         {/* Contenu des onglets */}
         <div className="tab-content">
@@ -320,7 +363,7 @@ const CalculateurAvance = () => {
                           type="range"
                           min="40"
                           max="80"
-                          step="5"
+                          step="10"
                           value={formData.tempsPartiel}
                           onChange={(e) => handleInputChange('tempsPartiel', e.target.value)}
                           className="slider-input-modern"
@@ -328,7 +371,9 @@ const CalculateurAvance = () => {
                       </div>
                       <div className="slider-labels">
                         <span className="slider-label">40%</span>
+                        <span className="slider-label">50%</span>
                         <span className="slider-label">60%</span>
+                        <span className="slider-label">70%</span>
                         <span className="slider-label">80%</span>
                       </div>
                     </div>
@@ -496,38 +541,35 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  <div className="scenarios-grid">
-                    {scenarios.map((scenario) => {
-                      const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
-                      
-                      return (
-                        <div key={scenario.nom} className="scenario-card">
-                          <div className="scenario-header" style={{ backgroundColor: scenario.couleur }}>
-                            <h4>{scenario.nom}</h4>
-                            <div className="scenario-percentage">{scenario.tempsPartiel}%</div>
+                  {/* Bar Chart pour comparaison des scénarios */}
+                  <div className="scenarios-bar-chart">
+                    <div className="chart-title">Revenus nets mensuels par scénario</div>
+                    <div className="chart-container">
+                      {scenarios.map((scenario) => {
+                        const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
+                        const maxRevenu = Math.max(...scenarios.map(s => calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal));
+                        const barHeight = (resultats.revenuTotal / maxRevenu) * 100;
+                        
+                        return (
+                          <div key={scenario.nom} className="chart-bar">
+                            <div className="bar-container">
+                              <div 
+                                className="bar-fill" 
+                                style={{ 
+                                  height: `${barHeight}%`,
+                                  backgroundColor: scenario.couleur
+                                }}
+                              ></div>
+                            </div>
+                            <div className="bar-label">
+                              <div className="scenario-name">{scenario.nom}</div>
+                              <div className="scenario-percentage">{scenario.tempsPartiel}%</div>
+                              <div className="scenario-amount">{resultats.revenuTotal} €</div>
+                            </div>
                           </div>
-                          
-                          <div className="scenario-content">
-                            {resultats && (
-                              <div className="scenario-results">
-                                <div className="result-item">
-                                  <span>Salaire partiel:</span>
-                                  <span>{resultats.salairePartiel} €</span>
-                                </div>
-                                <div className="result-item">
-                                  <span>Pension progressive:</span>
-                                  <span>{resultats.pensionProgressive} €</span>
-                                </div>
-                                <div className="result-item total">
-                                  <span>Revenu total:</span>
-                                  <span>{resultats.revenuTotal} €</span>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -668,30 +710,6 @@ const CalculateurAvance = () => {
                       />
                     </div>
 
-                    <div className="form-group slider-group">
-                      <label className="form-label">
-                        <User size={18} />
-                        Temps partiel souhaité (%)
-                      </label>
-                      <div className="modern-slider-container">
-                        <input
-                          type="range"
-                          min="40"
-                          max="80"
-                          value={formData.tempsPartiel}
-                          onChange={(e) => handleInputChange('tempsPartiel', e.target.value)}
-                          className="modern-slider"
-                        />
-                        <div className="slider-track">
-                          <div className="slider-fill" style={{width: `${((formData.tempsPartiel - 40) / 40) * 100}%`}}></div>
-                        </div>
-                        <div className="slider-labels">
-                          <span>40%</span>
-                          <span className="slider-value">{formData.tempsPartiel}%</span>
-                          <span>80%</span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
