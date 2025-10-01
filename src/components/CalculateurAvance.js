@@ -541,33 +541,85 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  {/* Bar Chart pour comparaison des scénarios */}
-                  <div className="scenarios-bar-chart">
-                    <div className="chart-container">
-                      {scenarios.map((scenario) => {
-                        const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
-                        const maxRevenu = Math.max(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
-                        const barHeight = (parseFloat(resultats.revenuTotal) / maxRevenu) * 100;
-                        
-                        return (
-                          <div key={scenario.nom} className="chart-bar">
-                            <div className="bar-container">
-                              <div 
-                                className="bar-fill" 
-                                style={{ 
-                                  height: `${barHeight}%`,
-                                  backgroundColor: scenario.couleur
-                                }}
-                              ></div>
+                  {/* Graphique moderne pour comparaison des scénarios */}
+                  <div className="modern-scenarios-chart">
+                    <div className="chart-header">
+                      <h3>Revenus nets mensuels par scénario</h3>
+                      <div className="chart-subtitle">Visualisez l'impact de votre choix de temps partiel</div>
+                    </div>
+                    
+                    <div className="chart-visualization">
+                      <div className="chart-grid">
+                        {scenarios.map((scenario, index) => {
+                          const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
+                          const maxRevenu = Math.max(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
+                          const minRevenu = Math.min(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
+                          const heightPercentage = ((parseFloat(resultats.revenuTotal) - minRevenu) / (maxRevenu - minRevenu)) * 100;
+                          const isHighest = parseFloat(resultats.revenuTotal) === maxRevenu;
+                          
+                          return (
+                            <div key={scenario.nom} className={`scenario-column ${isHighest ? 'highlighted' : ''}`}>
+                              <div className="column-header">
+                                <div className="scenario-name">{scenario.nom}</div>
+                                <div className="scenario-percentage">{scenario.tempsPartiel}%</div>
+                              </div>
+                              
+                              <div className="column-visual">
+                                <div className="value-display">
+                                  <span className="amount">{resultats.revenuTotal} €</span>
+                                  <span className="currency">/mois</span>
+                                </div>
+                                
+                                <div className="progress-container">
+                                  <div 
+                                    className="progress-bar"
+                                    style={{ 
+                                      height: `${Math.max(heightPercentage, 15)}%`,
+                                      background: `linear-gradient(135deg, ${scenario.couleur}, ${scenario.couleur}dd)`,
+                                      boxShadow: `0 4px 20px ${scenario.couleur}40`
+                                    }}
+                                  >
+                                    <div className="progress-glow"></div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="column-footer">
+                                <div className="trend-indicator">
+                                  {index > 0 && (
+                                    <span className={`trend ${parseFloat(resultats.revenuTotal) > parseFloat(calculerScenario(scenarios[index-1].tempsPartiel, maintienCotisation100).revenuTotal) ? 'up' : 'down'}`}>
+                                      {parseFloat(resultats.revenuTotal) > parseFloat(calculerScenario(scenarios[index-1].tempsPartiel, maintienCotisation100).revenuTotal) ? '↗' : '↘'}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                            <div className="bar-label">
-                              <div className="scenario-name">{scenario.nom}</div>
-                              <div className="scenario-percentage">{scenario.tempsPartiel}%</div>
-                              <div className="scenario-amount">{resultats.revenuTotal} €</div>
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
+                      
+                      <div className="chart-legend">
+                        <div className="legend-item">
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #8b5cf6, #a855f7)' }}></div>
+                          <span>Minimum légal</span>
+                        </div>
+                        <div className="legend-item">
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #ef4444, #f87171)' }}></div>
+                          <span>Conservateur</span>
+                        </div>
+                        <div className="legend-item">
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #10b981, #34d399)' }}></div>
+                          <span>Équilibré</span>
+                        </div>
+                        <div className="legend-item">
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)' }}></div>
+                          <span>Progressif</span>
+                        </div>
+                        <div className="legend-item">
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24)' }}></div>
+                          <span>Maximum légal</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
