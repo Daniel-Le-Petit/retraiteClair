@@ -1059,7 +1059,7 @@
   font-weight: 700;
   color: #1e293b;
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   margin-top: 0;
 }
 
@@ -1067,7 +1067,7 @@
   display: flex;
   justify-content: space-around;
   align-items: end;
-  height: 350px;
+  height: 150px;
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -1081,7 +1081,7 @@
 }
 
 .scenarios-bar-chart .bar-container {
-  height: 280px;
+  height: 90px;
   width: 60px;
   background: #e2e8f0;
   border-radius: 8px 8px 0 0;

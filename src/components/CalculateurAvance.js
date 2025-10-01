@@ -543,12 +543,11 @@ const CalculateurAvance = () => {
 
                   {/* Bar Chart pour comparaison des scénarios */}
                   <div className="scenarios-bar-chart">
-                    <div className="chart-title">Revenus nets mensuels par scénario</div>
                     <div className="chart-container">
                       {scenarios.map((scenario) => {
                         const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
-                        const maxRevenu = Math.max(...scenarios.map(s => calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal));
-                        const barHeight = (resultats.revenuTotal / maxRevenu) * 100;
+                        const maxRevenu = Math.max(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
+                        const barHeight = (parseFloat(resultats.revenuTotal) / maxRevenu) * 100;
                         
                         return (
                           <div key={scenario.nom} className="chart-bar">
