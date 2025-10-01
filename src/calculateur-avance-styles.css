@@ -351,7 +351,7 @@
 .surcotisation-btn {
   flex: 1;
   padding: 1rem 1.5rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #d1d5db;
   border-radius: 10px;
   font-weight: 600;
   font-size: 0.95rem;
@@ -359,51 +359,23 @@
   transition: all 0.3s ease;
   text-align: center;
   white-space: nowrap;
-}
-
-/* État par défaut : 60% sélectionné (blanc sur vert) */
-.surcotisation-btn:first-child {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  border-color: #10b981;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-
-/* État par défaut : 100% non sélectionné (noir sur gris) */
-.surcotisation-btn:last-child {
   background: #e5e7eb;
   color: #1f2937;
-  border-color: #d1d5db;
 }
 
-/* Quand 60% est actif (déjà le défaut) */
-.surcotisation-btn.active:first-child {
+/* Quand un bouton est actif (classe .active) */
+.surcotisation-btn.active {
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   border-color: #10b981;
   box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
-/* Quand 60% n'est PAS actif (100% est sélectionné) */
-.surcotisation-btn:not(.active):first-child {
-  background: #e5e7eb;
-  color: #1f2937;
-  border-color: #d1d5db;
-  box-shadow: none;
-}
-
-/* Quand 100% est actif */
-.surcotisation-btn.active:last-child {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
+/* Hover states - seulement pour les boutons non actifs */
+.surcotisation-btn:not(.active):hover {
   border-color: #10b981;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-}
-
-/* Hover states */
-.surcotisation-btn:hover {
+  background: #f0fdf4;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
 /* Conteneur de saisie de date */
