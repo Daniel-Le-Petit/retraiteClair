@@ -370,15 +370,11 @@ const CalculateurAvance = () => {
 
                     {/* Graphique 3D */}
                     <div className="chart-container">
-                      <div className="chart-title-highlight">
-                        <h3>📊 Évolution de vos revenus</h3>
-                        <p>Visualisez votre transition financière en un coup d'œil</p>
-                      </div>
                       <div className="flow-chart">
                         {/* Étape 1 : Salaire actuel */}
                         <div className="flow-step">
                           <div className="flow-label">Salaire mensuel actuel à temps plein</div>
-                          <div className="flow-box purple">
+                          <div className="flow-box blue">
                             <span className="flow-amount">{resultats.salaireActuel} €</span>
                           </div>
                         </div>
@@ -442,7 +438,7 @@ const CalculateurAvance = () => {
                         {/* Étape 3 : Retraite finale */}
                         <div className="flow-step">
                           <div className="flow-label">Pension complète à la retraite définitive</div>
-                          <div className="flow-box green">
+                          <div className="flow-box orange">
                             <span className="flow-amount">{resultats.pensionEstimee} €</span>
                           </div>
                         </div>
@@ -722,15 +718,11 @@ const CalculateurAvance = () => {
                     </div>
 
                     <div className="chart-container">
-                      <div className="chart-title-highlight">
-                        <h3>📊 Évolution de vos revenus</h3>
-                        <p>Visualisez votre transition financière en un coup d'œil</p>
-                      </div>
                       <div className="flow-chart">
                         {/* Étape 1 : Salaire actuel */}
                         <div className="flow-step">
                           <div className="flow-label">Salaire mensuel actuel à temps plein</div>
-                          <div className="flow-box purple">
+                          <div className="flow-box blue">
                             <span className="flow-amount">{resultats.salaireActuel} €</span>
                           </div>
                         </div>
@@ -794,7 +786,7 @@ const CalculateurAvance = () => {
                         {/* Étape 3 : Retraite finale */}
                         <div className="flow-step">
                           <div className="flow-label">Pension complète à la retraite définitive</div>
-                          <div className="flow-box green">
+                          <div className="flow-box orange">
                             <span className="flow-amount">{resultats.pensionEstimee} €</span>
                           </div>
                         </div>
