@@ -130,3 +130,4 @@ const ResultatsPage = () => {
 };
 
 export default ResultatsPage;
+

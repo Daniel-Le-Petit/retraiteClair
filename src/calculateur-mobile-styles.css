@@ -1,0 +1,266 @@
+/* Styles spécifiques mobile pour le calculateur */
+
+/* Format accordéon pour mobile */
+@media (max-width: 768px) {
+  .tabs-navigation {
+    display: none;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .calculateur-avance-container {
+    padding-bottom: 100px; /* Espace pour le sticky button */
+  }
+
+  .accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .accordion-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-section.expanded {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .accordion-section.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-header:active {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  }
+
+  .accordion-section.expanded .accordion-header {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-bottom-color: #047857;
+  }
+
+  .accordion-section.expanded .accordion-header * {
+    color: white !important;
+  }
+
+  .accordion-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .accordion-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  }
+
+  .accordion-section.expanded .accordion-icon {
+    background: white;
+    color: #10b981;
+  }
+
+  .accordion-title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .accordion-title h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+  }
+
+  .accordion-title .subtitle {
+    font-size: 0.85rem;
+    color: #6b7280;
+  }
+
+  .accordion-toggle {
+    color: #10b981;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-section.expanded .accordion-toggle {
+    transform: rotate(180deg);
+    color: white;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .accordion-section.expanded .accordion-content {
+    max-height: 5000px;
+  }
+
+  .accordion-body {
+    padding: 20px;
+  }
+
+  /* Badge de statut */
+  .section-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #10b981;
+    color: white;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+
+  .section-badge.pending {
+    background: #f59e0b;
+  }
+
+  .section-badge.completed {
+    background: #10b981;
+  }
+
+  /* Sticky CTA mobile */
+  .mobile-sticky-cta {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-sticky-cta {
+      display: block;
+    }
+  }
+
+  .mobile-sticky-cta button {
+    width: 100%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  }
+
+  .mobile-sticky-cta button:disabled {
+    background: #d1d5db;
+    box-shadow: none;
+  }
+
+  /* Progress bar mobile */
+  .mobile-progress {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .progress-text {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    transition: width 0.3s ease;
+    border-radius: 4px;
+  }
+
+  /* Ajustements des champs pour mobile */
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 0.95rem;
+  }
+
+  input[type="number"],
+  input[type="text"] {
+    font-size: 16px !important; /* Évite le zoom sur iOS */
+  }
+
+  /* Graph responsive */
+  .chart-3d {
+    overflow-x: auto;
+  }
+
+  .chart-bars {
+    min-width: 300px;
+  }
+
+  /* Scenarios cards en colonne sur mobile */
+  .scenarios-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Desktop garde les onglets */
+@media (min-width: 769px) {
+  .accordion-container {
+    display: none;
+  }
+
+  .mobile-sticky-cta {
+    display: none !important;
+  }
+
+  .mobile-progress {
+    display: none;
+  }
+}
+

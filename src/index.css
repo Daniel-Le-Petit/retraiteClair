@@ -75,6 +75,40 @@ body {
   margin: 0 auto;
 }
 
+.faq-header-image {
+  width: 100%;
+  max-width: 900px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+.faq-header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  filter: brightness(0.95);
+}
+
+.faq-header-image:hover img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.faq-header-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+}
+
 .definition-section h2,
 .eligibility-section h2,
 .calculator-section h2,
@@ -480,6 +514,38 @@ body {
 }
 
 /* Steps Section */
+.steps-header-image {
+  width: 100%;
+  max-width: 1000px;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 20px;
+  margin: 0 auto 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.steps-header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.steps-header-image:hover img {
+  transform: scale(1.05);
+}
+
+.steps-header-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3));
+}
+
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -525,6 +591,299 @@ body {
 .step-item p {
   color: #6b7280;
   line-height: 1.6;
+}
+
+/* Clickable steps */
+.step-item.clickable {
+  cursor: pointer;
+}
+
+.step-more {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.step-item:hover .step-more {
+  opacity: 1;
+}
+
+/* Modal pour les étapes */
+.steps-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.steps-modal-content {
+  background: white;
+  border-radius: 24px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.steps-modal-content .modal-header {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 40px 30px;
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.steps-modal-content .modal-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+  text-align: left;
+}
+
+.steps-modal-content .modal-body {
+  padding: 30px;
+}
+
+.steps-modal-content .modal-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #334155;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+.steps-modal-content .modal-section {
+  margin: 25px 0;
+}
+
+.steps-modal-content .modal-section h4 {
+  color: #1e293b;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+}
+
+.steps-modal-content .modal-subsection {
+  background: #f8fafc;
+  padding: 15px;
+  border-left: 4px solid #10b981;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.steps-modal-content .modal-subsection strong {
+  display: block;
+  color: #10b981;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.steps-modal-content .modal-subsection p {
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.steps-modal-content .modal-ordered-list {
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+}
+
+.steps-modal-content .modal-ordered-list li {
+  padding: 12px 15px;
+  background: #f1f5f9;
+  border-left: 3px solid #10b981;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.steps-modal-content .modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.steps-modal-content .modal-list li {
+  padding: 12px 15px;
+  background: #f8fafc;
+  border-left: 3px solid #64748b;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.steps-modal-content .modal-list li::before {
+  content: "✓ ";
+  color: #10b981;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.document-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.document-link:hover {
+  color: #1d4ed8;
+  border-bottom-color: #1d4ed8;
+}
+
+.steps-modal-content .modal-example {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  padding: 20px;
+  border-radius: 12px;
+  margin: 25px 0;
+}
+
+.steps-modal-content .modal-example h4 {
+  color: #1e40af;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.steps-modal-content .modal-example p {
+  color: #1e40af;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.steps-modal-content .modal-contract {
+  background: #fef3c7;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 25px 0;
+  border-left: 4px solid #f59e0b;
+}
+
+.steps-modal-content .modal-contract h4 {
+  color: #92400e;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.steps-modal-content .modal-contract p {
+  color: #78350f;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.steps-modal-content .modal-timeline {
+  background: #f0fdf4;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 25px 0;
+  border-left: 4px solid #10b981;
+}
+
+.steps-modal-content .modal-timeline h4 {
+  color: #065f46;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+}
+
+.steps-modal-content .modal-timeline p {
+  color: #047857;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.steps-modal-content .modal-tip {
+  background: #ecfdf5;
+  padding: 15px 20px;
+  border-radius: 10px;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+  line-height: 1.6;
+  margin-top: 25px;
+}
+
+.steps-modal-content .modal-tip strong {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Responsive pour les modaux des étapes */
+@media (max-width: 768px) {
+  .steps-modal-content {
+    max-width: 100%;
+    max-height: 95vh;
+    border-radius: 20px;
+  }
+
+  .steps-modal-content .modal-header {
+    padding: 30px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .steps-modal-content .modal-header h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .steps-modal-content .modal-body {
+    padding: 20px;
+  }
+
+  .steps-modal-content .modal-intro {
+    font-size: 1rem;
+  }
+
+  .steps-modal-content .modal-section h4 {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-modal-overlay {
+    padding: 10px;
+  }
+
+  .steps-modal-content {
+    border-radius: 16px;
+  }
+
+  .steps-modal-content .modal-header {
+    padding: 25px 15px;
+  }
+
+  .steps-modal-content .modal-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .steps-modal-content .modal-body {
+    padding: 15px;
+  }
 }
 
 .official-link {
@@ -675,6 +1034,14 @@ body {
   .steps-section,
   .faq-section {
     padding: 40px 20px;
+  }
+
+  .section-image-header,
+  .eligibility-hero-image,
+  .steps-header-image,
+  .faq-header-image {
+    height: 200px;
+    margin-bottom: 30px;
   }
   
   .definition-section h2,

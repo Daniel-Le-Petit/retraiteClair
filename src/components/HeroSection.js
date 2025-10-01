@@ -3,6 +3,13 @@ import React from 'react';
 const HeroSection = () => {
   return (
     <section className="hero-section-modern">
+      <div className="hero-background-image">
+        <img 
+          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80" 
+          alt="Personnes travaillant ensemble"
+          loading="lazy"
+        />
+      </div>
       <div className="hero-container">
         <div className="hero-content">
           <h1 className="hero-title">RetraiteClair</h1>
@@ -11,10 +18,12 @@ const HeroSection = () => {
             La retraite progressive vous permet de travailler à temps partiel tout en percevant une partie de votre retraite. Comprenez, vérifiez, simulez et agissez.
           </p>
         </div>
-        <div className="hero-decoration">
-          <div className="decoration-circle circle-1"></div>
-          <div className="decoration-circle circle-2"></div>
-          <div className="decoration-circle circle-3"></div>
+        <div className="hero-image">
+          <img 
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80" 
+            alt="Femme souriante planifiant sa retraite"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
@@ -22,3 +31,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

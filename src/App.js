@@ -11,6 +11,7 @@ import './eligibility-styles.css';
 import './financial-impact-styles.css';
 import './personal-info-styles.css';
 import './calculateur-avance-styles.css';
+import './calculateur-mobile-styles.css';
 import './conseils-styles.css';
 
 function App() {
