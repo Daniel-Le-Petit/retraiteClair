@@ -239,15 +239,25 @@
 
 .card-more {
   color: #10b981;
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border: 2px solid #dcfce7;
 }
 
 .definition-card-modern:hover .card-more {
   opacity: 1;
+  background: #dcfce7;
+  transform: translateX(5px);
 }
 
 /* Modal Overlay */
@@ -282,11 +292,12 @@
   border-radius: 24px;
   max-width: 700px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 85vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 20px;
 }
 
 @keyframes slideUp {

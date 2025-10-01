@@ -14,15 +14,13 @@ const CalculateurAvance = () => {
     anneeNaissance: '',
     debutRetraite: '',
     dureeRetraite: '',
-    surcotisation: '60', // '60' par défaut
     tempsPartiel: 60
   });
   const [resultats, setResultats] = useState(null);
-  const [isSaved, setIsSaved] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
-  const [showSurcotisationExplanation, setShowSurcotisationExplanation] = useState(false);
+  const [maintienCotisation100, setMaintienCotisation100] = useState(false);
 
   // Charger les données sauvegardées au montage
   useEffect(() => {
@@ -36,7 +34,16 @@ const CalculateurAvance = () => {
   useEffect(() => {
     if (formData.salaireBrut && formData.pensionEstimee && formData.tempsPartiel) {
       const salaireNet = formData.salaireBrut * 0.78; // -22% de cotisations
-      const salairePartiel = salaireNet * (formData.tempsPartiel / 100);
+      let salairePartiel = salaireNet * (formData.tempsPartiel / 100);
+      
+      // Si maintien cotisations à 100%, déduire les cotisations supplémentaires
+      if (maintienCotisation100) {
+        const cotisationsNormales = formData.salaireBrut * (formData.tempsPartiel / 100) * 0.22;
+        const cotisationsSur100 = formData.salaireBrut * 0.22;
+        const cotisationsSupplementaires = cotisationsSur100 - cotisationsNormales;
+        salairePartiel = salairePartiel - cotisationsSupplementaires;
+      }
+      
       const pensionProgressive = formData.pensionEstimee * (1 - formData.tempsPartiel / 100);
       const revenuTotal = salairePartiel + pensionProgressive;
 
@@ -48,7 +55,7 @@ const CalculateurAvance = () => {
         salaireActuel: formData.salaireBrut
       });
     }
-  }, [formData]);
+  }, [formData, maintienCotisation100]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -57,25 +64,19 @@ const CalculateurAvance = () => {
     }));
   };
 
-  const handleSave = () => {
-    localStorage.setItem('retraiteClair_personalInfo', JSON.stringify(formData));
-    setIsSaved(true);
-    // Passer automatiquement à l'onglet Résultats après sauvegarde
-    setActiveTab('resultats');
-    setExpandedSections({
-      saisie: false,
-      resultats: true,
-      scenarios: false
-    });
-    setTimeout(() => setIsSaved(false), 3000);
-  };
-
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
       ...prev,
       [section]: !prev[section]
     }));
   };
+
+  // Sauvegarder automatiquement les données dans le localStorage
+  useEffect(() => {
+    if (formData.salaireBrut || formData.pensionEstimee) {
+      localStorage.setItem('retraiteClair_personalInfo', JSON.stringify(formData));
+    }
+  }, [formData]);
 
   // Vérifier si tous les champs requis sont remplis
   const isFormComplete = () => {
@@ -131,16 +132,27 @@ const CalculateurAvance = () => {
   ];
 
   const scenarios = [
+    { nom: 'Minimum légal', tempsPartiel: 40, couleur: '#8b5cf6' },
     { nom: 'Conservateur', tempsPartiel: 50, couleur: '#ef4444' },
     { nom: 'Équilibré', tempsPartiel: 60, couleur: '#10b981' },
-    { nom: 'Progressif', tempsPartiel: 70, couleur: '#3b82f6' }
+    { nom: 'Progressif', tempsPartiel: 70, couleur: '#3b82f6' },
+    { nom: 'Maximum légal', tempsPartiel: 80, couleur: '#f59e0b' }
   ];
 
-  const calculerScenario = (tempsPartiel) => {
+  const calculerScenario = (tempsPartiel, avecCotisation100 = false) => {
     if (!formData.salaireBrut || !formData.pensionEstimee) return null;
     
-    const salaireNet = formData.salaireBrut * 0.78;
-    const salairePartiel = salaireNet * (tempsPartiel / 100);
+    const salaireNet = formData.salaireBrut * 0.78; // Salaire net (- 22% cotisations)
+    let salairePartiel = salaireNet * (tempsPartiel / 100);
+    
+    // Si maintien cotisations à 100%, on déduit les cotisations supplémentaires
+    if (avecCotisation100) {
+      const cotisationsNormales = formData.salaireBrut * (tempsPartiel / 100) * 0.22;
+      const cotisationsSur100 = formData.salaireBrut * 0.22;
+      const cotisationsSupplementaires = cotisationsSur100 - cotisationsNormales;
+      salairePartiel = salairePartiel - cotisationsSupplementaires;
+    }
+    
     const pensionProgressive = formData.pensionEstimee * (1 - tempsPartiel / 100);
     const revenuTotal = salairePartiel + pensionProgressive;
 
@@ -289,48 +301,6 @@ const CalculateurAvance = () => {
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">
-                      <User size={18} />
-                      Surcotisation pour pension pleine
-                      <button 
-                        type="button"
-                        className="info-toggle-btn"
-                        onClick={() => setShowSurcotisationExplanation(!showSurcotisationExplanation)}
-                        title={showSurcotisationExplanation ? "Masquer l'explication" : "Afficher l'explication"}
-                      >
-                        {showSurcotisationExplanation ? "−" : "+"}
-                      </button>
-                    </label>
-                    <div className="surcotisation-options">
-                      <button
-                        type="button"
-                        className={`surcotisation-btn ${formData.surcotisation === '100' ? 'active' : ''}`}
-                        onClick={() => handleInputChange('surcotisation', '60')}
-                      >
-                        Cotisation sur 60%
-                      </button>
-                      <button
-                        type="button"
-                        className={`surcotisation-btn ${formData.surcotisation === '100' ? 'active' : ''}`}
-                        onClick={() => handleInputChange('surcotisation', '100')}
-                      >
-                        Cotisation sur 100%
-                      </button>
-                    </div>
-                    {showSurcotisationExplanation && (
-                      <div className="surcotisation-explanation">
-                        <p><strong>Qu'est-ce que la surcotisation ?</strong></p>
-                        <p>La surcotisation vous permet de continuer à cotiser pendant votre retraite progressive pour améliorer votre pension définitive.</p>
-                        <ul>
-                          <li><strong>60% :</strong> Vous cotisez sur 60% de votre salaire d'origine. Impact modéré sur votre pension finale.</li>
-                          <li><strong>100% :</strong> Vous cotisez sur 100% de votre salaire d'origine. Impact maximal sur votre pension finale.</li>
-                        </ul>
-                        <p><em>Plus vous cotisez, plus votre pension définitive sera élevée, mais plus vos cotisations mensuelles seront importantes.</em></p>
-                      </div>
-                    )}
-                  </div>
-
                 </div>
 
                 {/* Slider sur toute la largeur */}
@@ -370,24 +340,6 @@ const CalculateurAvance = () => {
 
                 <div className="form-grid">
                 </div>
-
-                <div className="form-actions">
-                  <button 
-                    className="save-button"
-                    onClick={handleSave}
-                    disabled={!isFormComplete()}
-                  >
-                    <Save size={20} />
-                    Sauvegarder
-                  </button>
-                  
-                  {isSaved && (
-                    <div className="save-success">
-                      <CheckCircle size={20} />
-                      <span>Données sauvegardées ! Passage aux résultats...</span>
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
           )}
@@ -400,6 +352,22 @@ const CalculateurAvance = () => {
                   <div className="results-summary">
                     <h3>Vos revenus estimés en retraite progressive</h3>
                     
+                    {/* Toggle pour maintien des cotisations */}
+                    <div className="cotisation-toggle-container">
+                      <label className="toggle-label">Maintien des cotisations à 100%</label>
+                      <div 
+                        className="toggle-switch"
+                        onClick={() => setMaintienCotisation100(!maintienCotisation100)}
+                      >
+                        <div className={`toggle-option left ${!maintienCotisation100 ? 'active' : ''}`}>
+                          NON
+                        </div>
+                        <div className={`toggle-option right ${maintienCotisation100 ? 'active' : ''}`}>
+                          OUI
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Graphique 3D */}
                     <div className="chart-container">
                       <div className="chart-3d">
@@ -467,9 +435,26 @@ const CalculateurAvance = () => {
               {formData.salaireBrut && formData.pensionEstimee ? (
                 <div className="scenarios-container">
                   <h3>Comparaison des scénarios</h3>
+                  
+                  {/* Toggle pour maintien des cotisations */}
+                  <div className="cotisation-toggle-container">
+                    <label className="toggle-label">Maintien des cotisations à 100%</label>
+                    <div 
+                      className="toggle-switch"
+                      onClick={() => setMaintienCotisation100(!maintienCotisation100)}
+                    >
+                      <div className={`toggle-option left ${!maintienCotisation100 ? 'active' : ''}`}>
+                        NON
+                      </div>
+                      <div className={`toggle-option right ${maintienCotisation100 ? 'active' : ''}`}>
+                        OUI
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="scenarios-grid">
                     {scenarios.map((scenario) => {
-                      const resultats = calculerScenario(scenario.tempsPartiel);
+                      const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
                       
                       return (
                         <div key={scenario.nom} className="scenario-card">
@@ -639,48 +624,6 @@ const CalculateurAvance = () => {
                       />
                     </div>
 
-                    <div className="form-group surcotisation-group">
-                      <label className="form-label">
-                        <User size={18} />
-                        Surcotisation pour pension pleine
-                        <button 
-                          type="button"
-                          className="info-toggle-btn"
-                          onClick={() => setShowSurcotisationExplanation(!showSurcotisationExplanation)}
-                          title={showSurcotisationExplanation ? "Masquer l'explication" : "Afficher l'explication"}
-                        >
-                          {showSurcotisationExplanation ? "−" : "+"}
-                        </button>
-                      </label>
-                      {showSurcotisationExplanation && (
-                        <div className="surcotisation-explanation">
-                          <h4>Qu'est-ce que la surcotisation ?</h4>
-                          <p>La surcotisation vous permet de continuer à cotiser pendant votre retraite progressive pour améliorer votre pension définitive.</p>
-                          <ul>
-                            <li><strong>60% :</strong> Vous cotisez sur 60% de votre salaire d'origine. Impact modéré sur votre pension finale.</li>
-                            <li><strong>100% :</strong> Vous cotisez sur 100% de votre salaire d'origine. Impact maximal sur votre pension finale.</li>
-                          </ul>
-                          <p className="note">Plus vous cotisez, plus votre pension définitive sera élevée, mais plus vos cotisations mensuelles seront importantes.</p>
-                        </div>
-                      )}
-                      <div className="surcotisation-buttons">
-                        <button
-                          type="button"
-                          className={`surcotisation-btn ${formData.surcotisation === '60' ? 'active' : ''}`}
-                          onClick={() => handleInputChange('surcotisation', '60')}
-                        >
-                          Cotisation sur 60%
-                        </button>
-                        <button
-                          type="button"
-                          className={`surcotisation-btn ${formData.surcotisation === '100' ? 'active' : ''}`}
-                          onClick={() => handleInputChange('surcotisation', '100')}
-                        >
-                          Cotisation sur 100%
-                        </button>
-                      </div>
-                    </div>
-
                     <div className="form-group slider-group">
                       <label className="form-label">
                         <User size={18} />
@@ -706,15 +649,6 @@ const CalculateurAvance = () => {
                       </div>
                     </div>
                   </div>
-
-                  <button
-                    className={`save-button ${isFormComplete() ? '' : 'disabled'}`}
-                    onClick={handleSave}
-                    disabled={!isFormComplete()}
-                  >
-                    <Save size={20} />
-                    {isSaved ? 'Sauvegardé ✓' : 'Sauvegarder'}
-                  </button>
                 </div>
               </div>
             </div>
@@ -740,6 +674,22 @@ const CalculateurAvance = () => {
                   <div className="resultats-tab">
                     <div className="results-header">
                       <h3>Vos revenus estimés en retraite progressive</h3>
+                    </div>
+
+                    {/* Toggle pour maintien des cotisations */}
+                    <div className="cotisation-toggle-container">
+                      <label className="toggle-label">Maintien des cotisations à 100%</label>
+                      <div 
+                        className="toggle-switch"
+                        onClick={() => setMaintienCotisation100(!maintienCotisation100)}
+                      >
+                        <div className={`toggle-option left ${!maintienCotisation100 ? 'active' : ''}`}>
+                          NON
+                        </div>
+                        <div className={`toggle-option right ${maintienCotisation100 ? 'active' : ''}`}>
+                          OUI
+                        </div>
+                      </div>
                     </div>
 
                     <div className="chart-container">
@@ -823,11 +773,25 @@ const CalculateurAvance = () => {
                       <p>Explorez comment vos revenus varient selon le temps partiel choisi</p>
                     </div>
 
+                    {/* Toggle pour maintien des cotisations */}
+                    <div className="cotisation-toggle-container">
+                      <label className="toggle-label">Maintien des cotisations à 100%</label>
+                      <div 
+                        className="toggle-switch"
+                        onClick={() => setMaintienCotisation100(!maintienCotisation100)}
+                      >
+                        <div className={`toggle-option left ${!maintienCotisation100 ? 'active' : ''}`}>
+                          NON
+                        </div>
+                        <div className={`toggle-option right ${maintienCotisation100 ? 'active' : ''}`}>
+                          OUI
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="scenarios-grid">
                       {scenarios.map((scenario) => {
-                        const scenarioSalairePartiel = (formData.salaireBrut * 0.78 * scenario.tempsPartiel) / 100;
-                        const scenarioPensionProgressive = formData.pensionEstimee * (1 - scenario.tempsPartiel / 100);
-                        const scenarioRevenuTotal = scenarioSalairePartiel + scenarioPensionProgressive;
+                        const resultatsScenario = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
 
                         return (
                           <div key={scenario.nom} className="scenario-card">
@@ -837,20 +801,22 @@ const CalculateurAvance = () => {
                             </div>
                             
                             <div className="scenario-content">
-                              <div className="scenario-results">
-                                <div className="result-item">
-                                  <span>Salaire partiel:</span>
-                                  <span>{scenarioSalairePartiel.toFixed(0)} €</span>
+                              {resultatsScenario && (
+                                <div className="scenario-results">
+                                  <div className="result-item">
+                                    <span>Salaire partiel:</span>
+                                    <span>{resultatsScenario.salairePartiel} €</span>
+                                  </div>
+                                  <div className="result-item">
+                                    <span>Pension progressive:</span>
+                                    <span>{resultatsScenario.pensionProgressive} €</span>
+                                  </div>
+                                  <div className="result-item total">
+                                    <span>Revenu total:</span>
+                                    <span>{resultatsScenario.revenuTotal} €</span>
+                                  </div>
                                 </div>
-                                <div className="result-item">
-                                  <span>Pension progressive:</span>
-                                  <span>{scenarioPensionProgressive.toFixed(0)} €</span>
-                                </div>
-                                <div className="result-item total">
-                                  <span>Revenu total:</span>
-                                  <span>{scenarioRevenuTotal.toFixed(0)} €</span>
-                                </div>
-                              </div>
+                              )}
                             </div>
                           </div>
                         );
@@ -871,17 +837,23 @@ const CalculateurAvance = () => {
         <div className="mobile-sticky-cta">
           <button onClick={() => {
             if (isFormComplete()) {
-              handleSave();
               setExpandedSections({
                 saisie: false,
                 resultats: true,
                 scenarios: false
               });
+              // Scroll vers la section Résultats
+              setTimeout(() => {
+                document.querySelector('.accordion-section:nth-child(3)')?.scrollIntoView({ 
+                  behavior: 'smooth', 
+                  block: 'start' 
+                });
+              }, 100);
             }
           }} disabled={!isFormComplete()}>
             {isFormComplete() ? (
               <>
-                <CheckCircle size={20} />
+                <BarChart3 size={20} />
                 Voir mes résultats
               </>
             ) : (

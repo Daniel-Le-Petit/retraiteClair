@@ -10,11 +10,21 @@
   font-weight: 700;
   color: #1e293b;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   background: linear-gradient(135deg, #10b981, #059669);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.conseils-intro {
+  text-align: center;
+  font-size: 1.15rem;
+  color: #64748b;
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .conseils-section {
@@ -121,6 +131,211 @@
   color: white;
 }
 
+/* Icônes par couleur */
+.conseil-icon.green {
+  background: linear-gradient(135deg, #dcfce7, #a7f3d0);
+  color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.conseil-icon.blue {
+  background: linear-gradient(135deg, #dbeafe, #93c5fd);
+  color: #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+}
+
+.conseil-icon.purple {
+  background: linear-gradient(135deg, #f3e8ff, #d8b4fe);
+  color: #8b5cf6;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.conseil-icon.orange {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  color: #f59e0b;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.orange {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+.conseil-icon.red {
+  background: linear-gradient(135deg, #fee2e2, #fca5a5);
+  color: #ef4444;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.red {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.conseil-icon.yellow {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #f59e0b;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);
+}
+
+.conseil-card:hover .conseil-icon.yellow {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+}
+
+/* Cards spéciales */
+.conseil-card.alert-card {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border-color: #fca5a5;
+}
+
+.conseil-card.alert-card::before {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.conseil-card.timing-card {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-color: #fde68a;
+}
+
+.conseil-card.timing-card::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+/* Grille 2 colonnes */
+.conseils-grid.two-columns {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Ressources officielles */
+.ressources-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.ressource-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #10b981;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ressource-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.ressource-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #dcfce7, #a7f3d0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.ressource-content h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.ressource-content p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+.ressource-content a {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.ressource-content a:hover {
+  color: #059669;
+  border-bottom-color: #059669;
+}
+
+.ressource-content strong {
+  color: #1e293b;
+}
+
+/* Checklist section */
+.checklist-section {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
+}
+
+.checklist-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.checklist-column h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #10b981;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: white;
+  border-radius: 8px;
+  color: #047857;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.checklist li:hover {
+  background: #dcfce7;
+  transform: translateX(5px);
+}
+
 .conseil-card h4 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -144,6 +359,11 @@
   
   .conseils-container h2 {
     font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .conseils-intro {
+    font-size: 1rem;
     margin-bottom: 2rem;
   }
   
@@ -154,6 +374,24 @@
   .conseils-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .conseils-grid.two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .ressources-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .checklist-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .checklist-section {
+    padding: 1.5rem;
   }
   
   .conseil-card {
@@ -171,6 +409,15 @@
   
   .conseil-card p {
     font-size: 0.9rem;
+  }
+
+  .ressource-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ressource-icon {
+    margin: 0 auto;
   }
 }
 
