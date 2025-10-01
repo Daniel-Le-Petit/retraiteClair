@@ -541,83 +541,219 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  {/* Graphique moderne pour comparaison des scénarios */}
-                  <div className="modern-scenarios-chart">
+                  {/* Graphique en barres empilées - Décomposition des revenus */}
+                  <div className="stacked-bar-chart">
                     <div className="chart-header">
-                      <h3>Revenus nets mensuels par scénario</h3>
-                      <div className="chart-subtitle">Visualisez l'impact de votre choix de temps partiel</div>
+                      <h3>Revenu Retraite Progressive</h3>
+                      <div className="chart-subtitle">Répartition des revenus en retraite progressive selon le pourcentage d'activité</div>
                     </div>
                     
-                    <div className="chart-visualization">
-                      <div className="chart-grid">
-                        {scenarios.map((scenario, index) => {
-                          const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
-                          const maxRevenu = Math.max(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
-                          const minRevenu = Math.min(...scenarios.map(s => parseFloat(calculerScenario(s.tempsPartiel, maintienCotisation100).revenuTotal)));
-                          const heightPercentage = ((parseFloat(resultats.revenuTotal) - minRevenu) / (maxRevenu - minRevenu)) * 100;
-                          const isHighest = parseFloat(resultats.revenuTotal) === maxRevenu;
+                    <div className="stacked-bar-container">
+                      <svg className="stacked-bar-svg" viewBox="0 0 800 500">
+                        <defs>
+                          {/* Dégradés pour chaque section */}
+                          <linearGradient id="salaireBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#3B82F6" />
+                            <stop offset="100%" stopColor="#1D4ED8" />
+                          </linearGradient>
+                          <linearGradient id="pensionBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#10B981" />
+                            <stop offset="100%" stopColor="#059669" />
+                          </linearGradient>
+                          <linearGradient id="perteBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#EF4444" />
+                            <stop offset="100%" stopColor="#DC2626" />
+                          </linearGradient>
+                        </defs>
+                        
+                        {/* Grille de fond */}
+                        <g className="grid-lines">
+                          {[0, 1000, 2000, 3000, 4000, 5000, 6000, 7000].map((amount, index) => {
+                            const y = 80 + ((7000 - amount) / 7000) * 240; // Ajusté pour 0-7000€
+                            return (
+                              <g key={index}>
+                                <line x1="80" y1={y} x2="720" y2={y} stroke="#e2e8f0" strokeWidth="1" opacity="0.3"/>
+                                <text x="70" y={y + 5} fontSize="12" fill="#64748b" textAnchor="end">
+                                  {amount}€
+                                </text>
+                              </g>
+                            );
+                          })}
+                        </g>
+                        
+                        {/* Axe X */}
+                        <line x1="80" y1="380" x2="720" y2="380" stroke="#374151" strokeWidth="2"/>
+                        
+                        {/* Labels de l'axe X */}
+                        <text x="400" y="440" fontSize="14" fill="#374151" textAnchor="middle" fontWeight="600">
+                          % Activité
+                        </text>
+                        
+                        {/* Calcul et affichage des barres empilées - VERSION CORRIGÉE */}
+                        {(() => {
+                          const salaireBrut = parseFloat(formData.salaireBrut) || 3000;
+                          const salaireNet = salaireBrut * 0.78;
+                          const pensionEstimee = parseFloat(formData.pensionEstimee) || 1500;
+                          
+                          // Calculer les données pour chaque scénario
+                          const barData = scenarios.map((scenario, index) => {
+                            const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
+                            const salairePartiel = parseFloat(resultats.salairePartiel);
+                            const pensionProgressive = parseFloat(resultats.pensionProgressive);
+                            
+                            // Calculer la perte de gain (différence entre salaire plein et salaire partiel)
+                            const perteGain = salaireNet - salairePartiel;
+                            
+                            return {
+                              x: 120 + (index * 120),
+                              width: 80,
+                              salairePartiel,
+                              pensionProgressive,
+                              perteGain,
+                              total: salaireNet
+                            };
+                          });
+                          
+                          const maxHeight = 240; // Réduit de 20% (300 * 0.8 = 240)
+                          const scale = maxHeight / 7000; // 7000€ = hauteur max
+                          const baseY = 380; // Position de base (axe X)
                           
                           return (
-                            <div key={scenario.nom} className={`scenario-column ${isHighest ? 'highlighted' : ''}`}>
-                              <div className="column-header">
-                                <div className="scenario-name">{scenario.nom}</div>
-                                <div className="scenario-percentage">{scenario.tempsPartiel}%</div>
-                              </div>
-                              
-                              <div className="column-visual">
-                                <div className="value-display">
-                                  <span className="amount">{resultats.revenuTotal} €</span>
-                                  <span className="currency">/mois</span>
-                                </div>
+                            <g>
+                              {/* Barres empilées */}
+                              {barData.map((bar, index) => {
+                                const scenario = scenarios[index];
                                 
-                                <div className="progress-container">
-                                  <div 
-                                    className="progress-bar"
-                                    style={{ 
-                                      height: `${Math.max(heightPercentage, 15)}%`,
-                                      background: `linear-gradient(135deg, ${scenario.couleur}, ${scenario.couleur}dd)`,
-                                      boxShadow: `0 4px 20px ${scenario.couleur}40`
-                                    }}
-                                  >
-                                    <div className="progress-glow"></div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              <div className="column-footer">
-                                <div className="trend-indicator">
-                                  {index > 0 && (
-                                    <span className={`trend ${parseFloat(resultats.revenuTotal) > parseFloat(calculerScenario(scenarios[index-1].tempsPartiel, maintienCotisation100).revenuTotal) ? 'up' : 'down'}`}>
-                                      {parseFloat(resultats.revenuTotal) > parseFloat(calculerScenario(scenarios[index-1].tempsPartiel, maintienCotisation100).revenuTotal) ? '↗' : '↘'}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
+                                // Calcul des hauteurs
+                                const salaireHeight = bar.salairePartiel * scale;
+                                const pensionHeight = bar.pensionProgressive * scale;
+                                const perteHeight = bar.perteGain * scale;
+                                
+                                // Calcul des positions Y (du bas vers le haut)
+                                const salaireY = baseY - salaireHeight; // Position du salaire (en bas)
+                                const pensionY = salaireY - pensionHeight; // Position de la pension (au milieu)
+                                const perteY = pensionY - perteHeight; // Position de la perte (en haut)
+                                
+                                return (
+                                  <g key={scenario.nom}>
+                                    {/* ORDRE DE DESSIN CORRECT : Du bas vers le haut */}
+                                    
+                                    {/* 1. Section Salaire (Bleu) - DESSINÉE EN PREMIER (en bas) */}
+                                    <rect
+                                      x={bar.x}
+                                      y={salaireY}
+                                      width={bar.width}
+                                      height={salaireHeight}
+                                      fill="url(#salaireBarGradient)"
+                                      stroke="white"
+                                      strokeWidth="2"
+                                      className="bar-section salaire-section"
+                                    />
+                                    
+                                    {/* 2. Section Pension (Vert) - DESSINÉE EN DEUXIÈME (au milieu) */}
+                                    <rect
+                                      x={bar.x}
+                                      y={pensionY}
+                                      width={bar.width}
+                                      height={pensionHeight}
+                                      fill="url(#pensionBarGradient)"
+                                      stroke="white"
+                                      strokeWidth="2"
+                                      className="bar-section pension-section"
+                                    />
+                                    
+                                    {/* 3. Section Perte (Rouge) - DESSINÉE EN DERNIER (en haut) */}
+                                    <rect
+                                      x={bar.x}
+                                      y={perteY}
+                                      width={bar.width}
+                                      height={perteHeight}
+                                      fill="url(#perteBarGradient)"
+                                      stroke="white"
+                                      strokeWidth="2"
+                                      className="bar-section perte-section"
+                                    />
+                                    
+                                    {/* Montants dans chaque section */}
+                                    {/* Salaire */}
+                                    {salaireHeight > 25 && (
+                                      <text
+                                        x={bar.x + bar.width/2}
+                                        y={salaireY + salaireHeight/2 + 4}
+                                        fontSize="10"
+                                        fill="white"
+                                        textAnchor="middle"
+                                        fontWeight="700"
+                                        className="amount-text"
+                                      >
+                                        {Math.round(bar.salairePartiel)} €
+                                      </text>
+                                    )}
+                                    
+                                    {/* Pension */}
+                                    {pensionHeight > 25 && (
+                                      <text
+                                        x={bar.x + bar.width/2}
+                                        y={pensionY + pensionHeight/2 + 4}
+                                        fontSize="10"
+                                        fill="white"
+                                        textAnchor="middle"
+                                        fontWeight="700"
+                                        className="amount-text"
+                                      >
+                                        {Math.round(bar.pensionProgressive)} €
+                                      </text>
+                                    )}
+                                    
+                                    {/* Perte */}
+                                    {perteHeight > 25 && (
+                                      <text
+                                        x={bar.x + bar.width/2}
+                                        y={perteY + perteHeight/2 + 4}
+                                        fontSize="10"
+                                        fill="white"
+                                        textAnchor="middle"
+                                        fontWeight="700"
+                                        className="amount-text"
+                                      >
+                                        {Math.round(bar.perteGain)} €
+                                      </text>
+                                    )}
+                                    
+                                    {/* Label du pourcentage */}
+                                    <text
+                                      x={bar.x + bar.width/2}
+                                      y="415"
+                                      fontSize="14"
+                                      fill="#374151"
+                                      textAnchor="middle"
+                                      fontWeight="600"
+                                    >
+                                      {scenario.tempsPartiel}%
+                                    </text>
+                                  </g>
+                                );
+                              })}
+                            </g>
                           );
-                        })}
-                      </div>
-                      
-                      <div className="chart-legend">
+                        })()}
+                      </svg>
+                    </div>
+                    
+                    {/* Légende */}
+                    <div className="stacked-bar-legend">
+                      <div className="legend-items">
                         <div className="legend-item">
-                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #8b5cf6, #a855f7)' }}></div>
-                          <span>Minimum légal</span>
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)' }}></div>
+                          <span className="legend-label">Salaire</span>
                         </div>
                         <div className="legend-item">
-                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #ef4444, #f87171)' }}></div>
-                          <span>Conservateur</span>
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #10B981, #059669)' }}></div>
+                          <span className="legend-label">Pension</span>
                         </div>
                         <div className="legend-item">
-                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #10b981, #34d399)' }}></div>
-                          <span>Équilibré</span>
-                        </div>
-                        <div className="legend-item">
-                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #3b82f6, #60a5fa)' }}></div>
-                          <span>Progressif</span>
-                        </div>
-                        <div className="legend-item">
-                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #f59e0b, #fbbf24)' }}></div>
-                          <span>Maximum légal</span>
+                          <div className="legend-color" style={{ background: 'linear-gradient(135deg, #EF4444, #DC2626)' }}></div>
+                          <span className="legend-label">Perte</span>
                         </div>
                       </div>
                     </div>
