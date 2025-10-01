@@ -209,8 +209,13 @@ const PageAccueil = () => {
             alt="Planifier sa retraite progressive"
             loading="lazy"
           />
+          <div className="image-overlay-steps">
+            <h2 className="section-title-on-image">Comment commencer ?</h2>
+            <p className="section-description-on-image">
+              Suivez ces 4 étapes pour réussir votre transition en retraite progressive
+            </p>
+          </div>
         </div>
-        <h2>Comment commencer ?</h2>
         <div className="steps-grid">
           {stepsDetails.map((step, index) => (
             <div 
@@ -403,8 +408,13 @@ const PageAccueil = () => {
             alt="Questions fréquentes sur la retraite"
             loading="lazy"
           />
+          <div className="image-overlay-faq">
+            <h2 className="section-title-on-image">Questions fréquentes</h2>
+            <p className="section-description-on-image">
+              Trouvez rapidement les réponses à vos questions sur la retraite progressive
+            </p>
+          </div>
         </div>
-        <h2>Questions fréquentes</h2>
         <div className="faq-list">
           {faqItems.map((item, index) => (
             <div key={index} className="faq-item">

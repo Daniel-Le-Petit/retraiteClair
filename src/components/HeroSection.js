@@ -18,13 +18,6 @@ const HeroSection = () => {
             La retraite progressive vous permet de travailler à temps partiel tout en percevant une partie de votre retraite. Comprenez, vérifiez, simulez et agissez.
           </p>
         </div>
-        <div className="hero-image">
-          <img 
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=80" 
-            alt="Femme souriante planifiant sa retraite"
-            loading="lazy"
-          />
-        </div>
       </div>
     </section>
   );

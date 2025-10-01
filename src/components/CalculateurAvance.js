@@ -221,7 +221,7 @@ const CalculateurAvance = () => {
                   <div className="form-group">
                     <label className="form-label">
                       <Euro size={18} />
-                      Pension mensuelle estimée au taux plein (€)
+                      Pension mensuelle nette estimée au taux plein (€)
                     </label>
                     <input
                       type="number"
@@ -370,6 +370,10 @@ const CalculateurAvance = () => {
 
                     {/* Graphique 3D */}
                     <div className="chart-container">
+                      <div className="chart-title-highlight">
+                        <h3>📊 Évolution de vos revenus</h3>
+                        <p>Visualisez votre transition financière en un coup d'œil</p>
+                      </div>
                       <div className="chart-3d">
                         <div className="chart-bars">
                           {/* Barre Salaire brut */}
@@ -547,7 +551,7 @@ const CalculateurAvance = () => {
                     <div className="form-group">
                       <label className="form-label">
                         <Euro size={18} />
-                        Pension mensuelle estimée au taux plein (€)
+                        Pension mensuelle nette estimée au taux plein (€)
                       </label>
                       <input
                         type="number"
@@ -693,6 +697,10 @@ const CalculateurAvance = () => {
                     </div>
 
                     <div className="chart-container">
+                      <div className="chart-title-highlight">
+                        <h3>📊 Évolution de vos revenus</h3>
+                        <p>Visualisez votre transition financière en un coup d'œil</p>
+                      </div>
                       <div className="chart-3d">
                         <div className="chart-bars">
                           <div className="chart-bar-container">

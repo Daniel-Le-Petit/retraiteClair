@@ -78,7 +78,7 @@ body {
 .faq-header-image {
   width: 100%;
   max-width: 900px;
-  height: 250px;
+  height: 300px;
   overflow: hidden;
   border-radius: 20px;
   margin: 0 auto 50px;
@@ -91,22 +91,53 @@ body {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  filter: brightness(0.95);
+  filter: brightness(0.85);
 }
 
 .faq-header-image:hover img {
   transform: scale(1.05);
-  filter: brightness(1);
+  filter: brightness(0.9);
 }
 
-.faq-header-image::after {
-  content: '';
+.image-overlay-faq {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(124, 58, 237, 0.4));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
+.image-overlay-faq .section-title-on-image {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 0.75rem 0;
+  text-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    2px 2px 0px rgba(124, 58, 237, 0.8);
+  text-align: center;
+}
+
+.image-overlay-faq .section-description-on-image {
+  font-size: 1.15rem;
+  color: white;
+  margin: 0;
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.6;
+  text-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
 }
 
 .definition-section h2,
@@ -517,7 +548,7 @@ body {
 .steps-header-image {
   width: 100%;
   max-width: 1000px;
-  height: 280px;
+  height: 320px;
   overflow: hidden;
   border-radius: 20px;
   margin: 0 auto 50px;
@@ -530,20 +561,53 @@ body {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  filter: brightness(0.85);
 }
 
 .steps-header-image:hover img {
   transform: scale(1.05);
+  filter: brightness(0.9);
 }
 
-.steps-header-image::after {
-  content: '';
+.image-overlay-steps {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.3));
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(37, 99, 235, 0.4));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
+.image-overlay-steps .section-title-on-image {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 0 0.75rem 0;
+  text-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    2px 2px 0px rgba(37, 99, 235, 0.8);
+  text-align: center;
+}
+
+.image-overlay-steps .section-description-on-image {
+  font-size: 1.2rem;
+  color: white;
+  margin: 0;
+  max-width: 650px;
+  text-align: center;
+  line-height: 1.6;
+  text-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
 }
 
 .steps-grid {
@@ -1040,8 +1104,42 @@ body {
   .eligibility-hero-image,
   .steps-header-image,
   .faq-header-image {
-    height: 200px;
+    height: 220px;
     margin-bottom: 30px;
+  }
+
+  .image-overlay-steps .section-title-on-image,
+  .image-overlay-faq .section-title-on-image {
+    font-size: 1.8rem;
+  }
+
+  .image-overlay-steps .section-description-on-image,
+  .image-overlay-faq .section-description-on-image {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .steps-header-image,
+  .faq-header-image {
+    height: 180px;
+    border-radius: 16px;
+  }
+
+  .image-overlay-steps,
+  .image-overlay-faq {
+    padding: 1.25rem;
+  }
+
+  .image-overlay-steps .section-title-on-image,
+  .image-overlay-faq .section-title-on-image {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .image-overlay-steps .section-description-on-image,
+  .image-overlay-faq .section-description-on-image {
+    font-size: 0.85rem;
   }
   
   .definition-section h2,

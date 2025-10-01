@@ -82,13 +82,15 @@ const EligibilitySection = () => {
           alt="Consultation retraite"
           loading="lazy"
         />
+        <div className="image-overlay">
+          <h2 className="section-title-on-image">Suis-je éligible ?</h2>
+          <p className="section-description-on-image">
+            Testez votre éligibilité en quelques clics et découvrez les conditions à remplir.
+          </p>
+        </div>
       </div>
       <div className="container">
         <div className="eligibility-content">
-          <h2 className="section-title">Suis-je éligible ?</h2>
-          <p className="section-description">
-            Testez votre éligibilité en quelques clics et découvrez les conditions à remplir.
-          </p>
           
           <div className="eligibility-cards">
             {eligibilityItems.map((item, index) => {
