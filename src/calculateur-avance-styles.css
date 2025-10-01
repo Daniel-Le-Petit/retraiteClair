@@ -880,6 +880,211 @@
   border: 3px solid #10b981;
 }
 
+/* Flow Chart Vertical */
+.flow-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.flow-step {
+  width: 100%;
+  text-align: center;
+}
+
+.flow-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.flow-label-main {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #065f46;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Calcul en ligne */
+.flow-calculation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+}
+
+.calc-item {
+  text-align: center;
+}
+
+.calc-amount {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.calc-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.calc-operator {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #10b981;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calc-result {
+  text-align: center;
+  background: linear-gradient(135deg, #10b981, #059669);
+  padding: 1.25rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.calc-result-amount {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.flow-box {
+  padding: 2rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.flow-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.flow-box.purple {
+  background: linear-gradient(135deg, #660099, #4d0073);
+}
+
+.flow-box.blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.flow-box.orange {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.flow-box.green {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.flow-amount {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.flow-sublabel {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0.5rem;
+}
+
+/* Retraite progressive - 2 boîtes côte à côte */
+.flow-boxes-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.flow-boxes-row .flow-box {
+  flex: 1;
+  max-width: 300px;
+}
+
+.flow-plus {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #10b981;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Flèche verte */
+.flow-arrow {
+  width: 100px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.arrow-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Signe égal */
+.flow-equals {
+  width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem auto;
+}
+
+.equals-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Résultat total */
+.flow-result-total {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.flow-result-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #065f46;
+  margin-bottom: 1rem;
+}
+
+.flow-result-box {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 3px solid #10b981;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.flow-result-amount {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #065f46;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .chart-3d {
   text-align: center;
   display: flex;
@@ -1333,8 +1538,102 @@
   }
 
   .chart-container {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     border-width: 2px;
+  }
+
+  .flow-chart {
+    max-width: 100%;
+  }
+
+  .flow-label {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .flow-box {
+    padding: 1.5rem 2rem;
+  }
+
+  .flow-amount {
+    font-size: 2rem;
+  }
+
+  .flow-sublabel {
+    font-size: 0.85rem;
+  }
+
+  .flow-boxes-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .flow-boxes-row .flow-box {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .flow-plus {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+  }
+
+  .flow-arrow {
+    width: 80px;
+    height: 50px;
+    margin: 0.5rem 0;
+  }
+
+  .flow-equals {
+    width: 120px;
+    height: 35px;
+    margin: 1rem auto;
+  }
+
+  .flow-result-label {
+    font-size: 1rem;
+  }
+
+  .flow-result-box {
+    padding: 1.25rem 1.5rem;
+    max-width: 100%;
+  }
+
+  .flow-result-amount {
+    font-size: 2.2rem;
+  }
+
+  .flow-label-main {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .flow-calculation {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .calc-amount {
+    font-size: 1.5rem;
+  }
+
+  .calc-label {
+    font-size: 0.85rem;
+  }
+
+  .calc-operator {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+  }
+
+  .calc-result {
+    padding: 1rem 1.5rem;
+    width: 100%;
+  }
+
+  .calc-result-amount {
+    font-size: 2.5rem;
   }
 
   .chart-bars {

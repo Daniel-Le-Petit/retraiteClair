@@ -374,53 +374,78 @@ const CalculateurAvance = () => {
                         <h3>📊 Évolution de vos revenus</h3>
                         <p>Visualisez votre transition financière en un coup d'œil</p>
                       </div>
-                      <div className="chart-3d">
-                        <div className="chart-bars">
-                          {/* Barre Salaire brut */}
-                          <div className="chart-bar-container">
-                            <div className="chart-bar chart-bar-salaire" style={{height: `${(resultats.salaireActuel / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                              <span className="chart-value">{resultats.salaireActuel} €</span>
-                            </div>
-                            <div className="chart-explanation">Salaire mensuel actuel à temps plein</div>
-                          </div>
-                          
-                          {/* Barre Retraite Progressive (stacked) */}
-                          <div className="chart-bar-container">
-                            <div className="chart-bar-stacked">
-                              <div className="chart-bar chart-bar-salaire-partiel" style={{height: `${(resultats.salairePartiel / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                                <span className="chart-value">{resultats.salairePartiel} €</span>
-                              </div>
-                              <div className="chart-bar chart-bar-pension" style={{height: `${(resultats.pensionProgressive / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                                <span className="chart-value">{resultats.pensionProgressive} €</span>
-                              </div>
-                            </div>
-                            <div className="chart-explanation">
-                              <div className="explanation-item">
-                                <span className="explanation-color blue"></span>
-                                <span>Salaire net à temps partiel</span>
-                              </div>
-                              <div className="explanation-item">
-                                <span className="explanation-color orange"></span>
-                                <span>Pension progressive</span>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Barre Retraite finale */}
-                          <div className="chart-bar-container">
-                            <div className="chart-bar chart-bar-retraite-finale" style={{height: `${(resultats.pensionEstimee / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                              <span className="chart-value">{resultats.pensionEstimee} €</span>
-                            </div>
-                            <div className="chart-explanation">Pension complète à la retraite définitive</div>
+                      <div className="flow-chart">
+                        {/* Étape 1 : Salaire actuel */}
+                        <div className="flow-step">
+                          <div className="flow-label">Salaire mensuel actuel à temps plein</div>
+                          <div className="flow-box purple">
+                            <span className="flow-amount">{resultats.salaireActuel} €</span>
                           </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <div className="results-grid">
-                      <div className="result-card total">
-                        <h4>Revenu Retraite progressive (Temps partiel + Pension)</h4>
-                        <div className="result-value">{resultats.revenuTotal} €</div>
+                        {/* Flèche verte vers le bas */}
+                        <div className="flow-arrow">
+                          <svg viewBox="0 0 100 60" className="arrow-svg">
+                            <defs>
+                              <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#059669" />
+                              </linearGradient>
+                            </defs>
+                            <path d="M 50 0 L 50 45 M 30 30 L 50 50 L 70 30" 
+                                  stroke="url(#arrowGradient1)" 
+                                  strokeWidth="8" 
+                                  fill="none" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+
+                        {/* Étape 2 : Retraite progressive */}
+                        <div className="flow-step progressive">
+                          <div className="flow-label-main">Revenu en Retraite progressive</div>
+                          <div className="flow-calculation">
+                            <div className="calc-item">
+                              <div className="calc-amount">{resultats.salairePartiel} €</div>
+                              <div className="calc-label">Temps partiel</div>
+                            </div>
+                            <div className="calc-operator">+</div>
+                            <div className="calc-item">
+                              <div className="calc-amount">{resultats.pensionProgressive} €</div>
+                              <div className="calc-label">Pension</div>
+                            </div>
+                            <div className="calc-operator">=</div>
+                            <div className="calc-result">
+                              <div className="calc-result-amount">{resultats.revenuTotal} €</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Flèche verte vers le bas */}
+                        <div className="flow-arrow">
+                          <svg viewBox="0 0 100 60" className="arrow-svg">
+                            <defs>
+                              <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#059669" />
+                              </linearGradient>
+                            </defs>
+                            <path d="M 50 0 L 50 45 M 30 30 L 50 50 L 70 30" 
+                                  stroke="url(#arrowGradient2)" 
+                                  strokeWidth="8" 
+                                  fill="none" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+
+                        {/* Étape 3 : Retraite finale */}
+                        <div className="flow-step">
+                          <div className="flow-label">Pension complète à la retraite définitive</div>
+                          <div className="flow-box green">
+                            <span className="flow-amount">{resultats.pensionEstimee} €</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -701,51 +726,78 @@ const CalculateurAvance = () => {
                         <h3>📊 Évolution de vos revenus</h3>
                         <p>Visualisez votre transition financière en un coup d'œil</p>
                       </div>
-                      <div className="chart-3d">
-                        <div className="chart-bars">
-                          <div className="chart-bar-container">
-                            <div className="chart-bar chart-bar-salaire" style={{height: `${(resultats.salaireActuel / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                              <span className="chart-value">{resultats.salaireActuel} €</span>
-                            </div>
-                            <div className="chart-explanation">Salaire mensuel actuel à temps plein</div>
-                          </div>
-                          
-                          <div className="chart-bar-container">
-                            <div className="chart-bar-stacked">
-                              <div className="chart-bar chart-bar-salaire-partiel" style={{height: `${(resultats.salairePartiel / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                                <span className="chart-value">{resultats.salairePartiel} €</span>
-                              </div>
-                              <div className="chart-bar chart-bar-pension" style={{height: `${(resultats.pensionProgressive / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                                <span className="chart-value">{resultats.pensionProgressive} €</span>
-                              </div>
-                            </div>
-                            <div className="chart-explanation">
-                              <div className="explanation-item">
-                                <span className="explanation-color blue"></span>
-                                <span>Salaire net à temps partiel</span>
-                              </div>
-                              <div className="explanation-item">
-                                <span className="explanation-color orange"></span>
-                                <span>Pension progressive</span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="chart-bar-container">
-                            <div className="chart-bar chart-bar-retraite-finale" style={{height: `${(resultats.pensionEstimee / Math.max(resultats.salaireActuel, resultats.revenuTotal)) * 200}px`}}>
-                              <span className="chart-value">{resultats.pensionEstimee} €</span>
-                            </div>
-                            <div className="chart-explanation">Pension complète à la retraite définitive</div>
+                      <div className="flow-chart">
+                        {/* Étape 1 : Salaire actuel */}
+                        <div className="flow-step">
+                          <div className="flow-label">Salaire mensuel actuel à temps plein</div>
+                          <div className="flow-box purple">
+                            <span className="flow-amount">{resultats.salaireActuel} €</span>
                           </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <div className="results-grid">
-                      <div className="result-card highlight">
-                        <div className="result-label">💰 Revenu Retraite progressive</div>
-                        <div className="result-amount">{resultats.revenuTotal} €</div>
-                        <div className="result-detail">Temps partiel ({formData.tempsPartiel}%) + Pension</div>
+                        {/* Flèche verte vers le bas */}
+                        <div className="flow-arrow">
+                          <svg viewBox="0 0 100 60" className="arrow-svg">
+                            <defs>
+                              <linearGradient id="arrowGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#059669" />
+                              </linearGradient>
+                            </defs>
+                            <path d="M 50 0 L 50 45 M 30 30 L 50 50 L 70 30" 
+                                  stroke="url(#arrowGradient3)" 
+                                  strokeWidth="8" 
+                                  fill="none" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+
+                        {/* Étape 2 : Retraite progressive */}
+                        <div className="flow-step progressive">
+                          <div className="flow-label-main">Revenu en Retraite progressive</div>
+                          <div className="flow-calculation">
+                            <div className="calc-item">
+                              <div className="calc-amount">{resultats.salairePartiel} €</div>
+                              <div className="calc-label">Temps partiel</div>
+                            </div>
+                            <div className="calc-operator">+</div>
+                            <div className="calc-item">
+                              <div className="calc-amount">{resultats.pensionProgressive} €</div>
+                              <div className="calc-label">Pension</div>
+                            </div>
+                            <div className="calc-operator">=</div>
+                            <div className="calc-result">
+                              <div className="calc-result-amount">{resultats.revenuTotal} €</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Flèche verte vers le bas */}
+                        <div className="flow-arrow">
+                          <svg viewBox="0 0 100 60" className="arrow-svg">
+                            <defs>
+                              <linearGradient id="arrowGradient4" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#059669" />
+                              </linearGradient>
+                            </defs>
+                            <path d="M 50 0 L 50 45 M 30 30 L 50 50 L 70 30" 
+                                  stroke="url(#arrowGradient4)" 
+                                  strokeWidth="8" 
+                                  fill="none" 
+                                  strokeLinecap="round" 
+                                  strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+
+                        {/* Étape 3 : Retraite finale */}
+                        <div className="flow-step">
+                          <div className="flow-label">Pension complète à la retraite définitive</div>
+                          <div className="flow-box green">
+                            <span className="flow-amount">{resultats.pensionEstimee} €</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
