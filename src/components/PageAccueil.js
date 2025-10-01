@@ -205,8 +205,8 @@ const PageAccueil = () => {
       <div className="steps-section">
         <div className="steps-header-image">
           <img 
-            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80" 
-            alt="Démarrer sa retraite progressive"
+            src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=80" 
+            alt="Planifier sa retraite progressive"
             loading="lazy"
           />
         </div>

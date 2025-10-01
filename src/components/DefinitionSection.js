@@ -91,13 +91,6 @@ const DefinitionSection = () => {
   return (
     <>
       <section className="definition-section-modern">
-        <div className="section-image-header">
-          <img 
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80" 
-            alt="Planification de retraite progressive"
-            loading="lazy"
-          />
-        </div>
         <div className="container">
           <h2 className="section-title">Qu'est-ce que la retraite progressive ?</h2>
           
