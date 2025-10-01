@@ -566,20 +566,7 @@ const CalculateurAvance = () => {
                           </linearGradient>
                         </defs>
                         
-                        {/* Grille de fond */}
-                        <g className="grid-lines">
-                          {[0, 1000, 2000, 3000, 4000, 5000, 6000, 7000].map((amount, index) => {
-                            const y = 80 + ((7000 - amount) / 7000) * 240; // Ajusté pour 0-7000€
-                            return (
-                              <g key={index}>
-                                <line x1="80" y1={y} x2="720" y2={y} stroke="#e2e8f0" strokeWidth="1" opacity="0.3"/>
-                                <text x="70" y={y + 5} fontSize="12" fill="#64748b" textAnchor="end">
-                                  {amount}€
-                                </text>
-                              </g>
-                            );
-                          })}
-                        </g>
+                        {/* Grille de fond - sera mise à jour dynamiquement */}
                         
                         {/* Axe X */}
                         <line x1="80" y1="380" x2="720" y2="380" stroke="#374151" strokeWidth="2"/>
@@ -589,7 +576,7 @@ const CalculateurAvance = () => {
                           % Activité
                         </text>
                         
-                        {/* Calcul et affichage des barres empilées - VERSION CORRIGÉE */}
+                        {/* Calcul et affichage des barres empilées - ÉCHELLE DYNAMIQUE */}
                         {(() => {
                           const salaireBrut = parseFloat(formData.salaireBrut) || 3000;
                           const salaireNet = salaireBrut * 0.78;
@@ -614,12 +601,36 @@ const CalculateurAvance = () => {
                             };
                           });
                           
-                          const maxHeight = 240; // Réduit de 20% (300 * 0.8 = 240)
-                          const scale = maxHeight / 7000; // 7000€ = hauteur max
+                          // Calculer l'échelle dynamique basée sur le salaire brut
+                          const maxValue = Math.max(salaireBrut, salaireNet * 1.1); // 10% de marge au-dessus du salaire net
+                          const maxHeight = 240;
+                          const scale = maxHeight / maxValue;
                           const baseY = 380; // Position de base (axe X)
+                          
+                          // Générer les lignes de grille dynamiquement
+                          const gridLines = [];
+                          const step = Math.ceil(maxValue / 7 / 100) * 100; // Arrondir à la centaine supérieure
+                          for (let i = 0; i <= maxValue; i += step) {
+                            gridLines.push(i);
+                          }
                           
                           return (
                             <g>
+                              {/* Grille de fond dynamique */}
+                              <g className="grid-lines">
+                                {gridLines.map((amount, index) => {
+                                  const y = 80 + ((maxValue - amount) / maxValue) * 240;
+                                  return (
+                                    <g key={index}>
+                                      <line x1="80" y1={y} x2="720" y2={y} stroke="#e2e8f0" strokeWidth="1" opacity="0.3"/>
+                                      <text x="70" y={y + 5} fontSize="12" fill="#64748b" textAnchor="end">
+                                        {amount}€
+                                      </text>
+                                    </g>
+                                  );
+                                })}
+                              </g>
+                              
                               {/* Barres empilées */}
                               {barData.map((bar, index) => {
                                 const scenario = scenarios[index];
@@ -676,7 +687,7 @@ const CalculateurAvance = () => {
                                     
                                     {/* Montants dans chaque section */}
                                     {/* Salaire */}
-                                    {salaireHeight > 25 && (
+                                    {salaireHeight > 25 ? (
                                       <text
                                         x={bar.x + bar.width/2}
                                         y={salaireY + salaireHeight/2 + 4}
@@ -688,10 +699,22 @@ const CalculateurAvance = () => {
                                       >
                                         {Math.round(bar.salairePartiel)} €
                                       </text>
+                                    ) : (
+                                      <text
+                                        x={bar.x + bar.width + 5}
+                                        y={salaireY + salaireHeight/2 + 4}
+                                        fontSize="9"
+                                        fill="#3B82F6"
+                                        textAnchor="start"
+                                        fontWeight="600"
+                                        className="amount-text-side"
+                                      >
+                                        {Math.round(bar.salairePartiel)} €
+                                      </text>
                                     )}
                                     
                                     {/* Pension */}
-                                    {pensionHeight > 25 && (
+                                    {pensionHeight > 25 ? (
                                       <text
                                         x={bar.x + bar.width/2}
                                         y={pensionY + pensionHeight/2 + 4}
@@ -703,10 +726,22 @@ const CalculateurAvance = () => {
                                       >
                                         {Math.round(bar.pensionProgressive)} €
                                       </text>
+                                    ) : (
+                                      <text
+                                        x={bar.x + bar.width + 5}
+                                        y={pensionY + pensionHeight/2 + 4}
+                                        fontSize="9"
+                                        fill="#10B981"
+                                        textAnchor="start"
+                                        fontWeight="600"
+                                        className="amount-text-side"
+                                      >
+                                        {Math.round(bar.pensionProgressive)} €
+                                      </text>
                                     )}
                                     
                                     {/* Perte */}
-                                    {perteHeight > 25 && (
+                                    {perteHeight > 25 ? (
                                       <text
                                         x={bar.x + bar.width/2}
                                         y={perteY + perteHeight/2 + 4}
@@ -715,6 +750,18 @@ const CalculateurAvance = () => {
                                         textAnchor="middle"
                                         fontWeight="700"
                                         className="amount-text"
+                                      >
+                                        {Math.round(bar.perteGain)} €
+                                      </text>
+                                    ) : (
+                                      <text
+                                        x={bar.x + bar.width + 5}
+                                        y={perteY + perteHeight/2 + 4}
+                                        fontSize="9"
+                                        fill="#EF4444"
+                                        textAnchor="start"
+                                        fontWeight="600"
+                                        className="amount-text-side"
                                       >
                                         {Math.round(bar.perteGain)} €
                                       </text>
