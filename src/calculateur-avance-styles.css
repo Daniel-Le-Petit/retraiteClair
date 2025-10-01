@@ -341,16 +341,80 @@
   right: 0;
 }
 
+/* Surcotisation buttons */
+.surcotisation-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.surcotisation-btn {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* État par défaut : 60% sélectionné (blanc sur vert) */
+.surcotisation-btn:first-child {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* État par défaut : 100% non sélectionné (noir sur gris) */
+.surcotisation-btn:last-child {
+  background: #e5e7eb;
+  color: #1f2937;
+  border-color: #d1d5db;
+}
+
+/* Quand 60% est actif (déjà le défaut) */
+.surcotisation-btn.active:first-child {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Quand 60% n'est PAS actif (100% est sélectionné) */
+.surcotisation-btn:not(.active):first-child {
+  background: #e5e7eb;
+  color: #1f2937;
+  border-color: #d1d5db;
+  box-shadow: none;
+}
+
+/* Quand 100% est actif */
+.surcotisation-btn.active:last-child {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Hover states */
+.surcotisation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
 /* Conteneur de saisie de date */
 .date-input-container {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  position: relative;
+  width: 100%;
 }
 
 .date-input-manual {
-  flex: 1;
-  padding: 0.875rem 1rem;
+  width: 100%;
+  padding: 0.875rem 3.5rem 0.875rem 1rem;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
   background: #f8fafc;
@@ -374,25 +438,33 @@
 
 /* Bouton de sélection de date */
 .date-picker-button {
-  width: 48px;
-  height: 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  background: #f8fafc;
-  color: #374151;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
 }
 
 .date-picker-button:hover {
-  border-color: #10b981;
-  background: #f0fdf4;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.date-picker-button:active {
+  transform: translateY(-50%) scale(0.98);
 }
 
 
@@ -1108,13 +1180,29 @@
   }
   
   .date-input-container {
-    flex-direction: column;
-    gap: 0.75rem;
+    position: relative;
+  }
+  
+  .date-input-manual {
+    padding: 1rem 3.5rem 1rem 1rem;
+    font-size: 16px; /* Évite le zoom sur iOS */
   }
   
   .date-picker-button {
-    width: 100%;
+    width: 44px;
     height: 44px;
+    right: 6px;
+  }
+
+  .surcotisation-buttons {
+    gap: 0.75rem;
+    flex-direction: column;
+  }
+
+  .surcotisation-btn {
+    padding: 1.25rem 1rem;
+    font-size: 1rem;
+    width: 100%;
   }
   
   .chart-bars {
