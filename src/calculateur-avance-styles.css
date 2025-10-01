@@ -508,11 +508,13 @@
 
 /* Slider sur toute la largeur - Design moderne */
 .full-width-slider-section {
-  margin: 2rem 0;
+  margin: 2rem -2rem;
   padding: 2rem;
   background: #f8fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .slider-container-modern {
@@ -959,6 +961,53 @@
   font-weight: 900;
   color: white;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Notice d'estimation */
+.estimation-notice {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.estimation-notice p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #92400e;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Lien vers M@rel */
+.official-simulator-link {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.official-simulator-link p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.marel-link {
+  color: #10b981;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.marel-link:hover {
+  color: #059669;
+  border-bottom-color: #059669;
 }
 
 
@@ -1424,6 +1473,7 @@
   }
   
   .full-width-slider-section {
+    margin: 2rem -1rem;
     padding: 1.5rem;
   }
   
@@ -1632,6 +1682,24 @@
 
   .calc-result-amount {
     font-size: 2.5rem;
+  }
+
+  .estimation-notice {
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .estimation-notice p {
+    font-size: 0.85rem;
+  }
+
+  .official-simulator-link {
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+
+  .official-simulator-link p {
+    font-size: 0.85rem;
   }
 
 

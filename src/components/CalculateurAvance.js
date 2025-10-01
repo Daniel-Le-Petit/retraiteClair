@@ -350,7 +350,10 @@ const CalculateurAvance = () => {
               {resultats ? (
                 <div className="results-container">
                   <div className="results-summary">
-                    <h3>Vos revenus estimés en retraite progressive</h3>
+                    <h3>Évolution de vos revenus</h3>
+                    <div className="estimation-notice">
+                      <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
+                    </div>
                     
                     {/* Toggle pour maintien des cotisations */}
                     <div className="cotisation-toggle-container">
@@ -443,6 +446,22 @@ const CalculateurAvance = () => {
                           </div>
                         </div>
                       </div>
+                    </div>
+                    
+                    {/* Lien vers M@rel */}
+                    <div className="official-simulator-link">
+                      <p>
+                        Pour une estimation globale de votre retraite (tous régimes), consultez le{' '}
+                        <a 
+                          href="https://www.info-retraite.fr/portail-info/sites/PortailInformationnel/home/actualites-1/simulez-votre-retraite-gratuitem.html" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="marel-link"
+                        >
+                          simulateur officiel M@rel
+                        </a>
+                        .
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -698,7 +717,10 @@ const CalculateurAvance = () => {
                 {resultats ? (
                   <div className="resultats-tab">
                     <div className="results-header">
-                      <h3>Vos revenus estimés en retraite progressive</h3>
+                      <h3>Évolution de vos revenus</h3>
+                      <div className="estimation-notice">
+                        <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
+                      </div>
                     </div>
 
                     {/* Toggle pour maintien des cotisations */}
@@ -791,6 +813,22 @@ const CalculateurAvance = () => {
                           </div>
                         </div>
                       </div>
+                    </div>
+                    
+                    {/* Lien vers M@rel */}
+                    <div className="official-simulator-link">
+                      <p>
+                        Pour une estimation globale de votre retraite (tous régimes), consultez le{' '}
+                        <a 
+                          href="https://www.info-retraite.fr/portail-info/sites/PortailInformationnel/home/actualites-1/simulez-votre-retraite-gratuitem.html" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="marel-link"
+                        >
+                          simulateur officiel M@rel
+                        </a>
+                        .
+                      </p>
                     </div>
                   </div>
                 ) : (
