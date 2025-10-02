@@ -114,7 +114,7 @@ describe('FeedbackForm', () => {
       expect(screen.getByText('Message envoyé avec succès ! Merci pour votre retour.')).toBeInTheDocument();
     });
     
-    expect(fetch).toHaveBeenCalledWith('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+    expect(fetch).toHaveBeenCalledWith('https://formspree.io/f/mnngvdaw', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
