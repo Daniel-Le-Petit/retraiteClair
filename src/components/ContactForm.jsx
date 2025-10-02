@@ -12,12 +12,12 @@ const ContactForm = () => {
   const [status, setStatus] = useState('idle'); // idle, sending, sent, error
   const [errorMessage, setErrorMessage] = useState('');
 
-  // ✅ CONFIGURATION EMAILJS - Clés configurées
-  const EMAILJS_CONFIG = {
-    serviceId: 'service_b96jawv',        // Service ID Gmail configuré
-    templateId: 'template_sirltvl',      // Template ID configuré
-    publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
-  };
+      // ✅ CONFIGURATION EMAILJS - Clés configurées
+      const EMAILJS_CONFIG = {
+        serviceId: 'service_go62bxn',        // Service ID Gmail configuré (nouveau)
+        templateId: 'template_sirltvl',      // Template ID configuré
+        publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
+      };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -162,9 +162,6 @@ const ContactForm = () => {
         <div className="contact-header">
           <h2>Contactez-nous</h2>
           <p>Partagez vos suggestions, signalements de bugs ou questions pour améliorer RetraiteClair</p>
-          <div style={{background: '#d1fae5', padding: '10px', borderRadius: '5px', marginTop: '10px', fontSize: '0.9em', border: '1px solid #10b981'}}>
-            <strong>✅ Configuration terminée :</strong> Le formulaire est configuré et prêt à envoyer des emails sur retraiteClair@gmail.com
-          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="contact-form" noValidate>

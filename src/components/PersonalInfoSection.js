@@ -78,19 +78,29 @@ const PersonalInfoSection = () => {
                 const Icon = field.icon;
                 return (
                   <div key={field.id} className="form-group">
-                    <label className="form-label">
-                      <Icon size={18} />
-                      {field.label}
-                      {field.required && <span className="required">*</span>}
-                    </label>
-                    <input
-                      type={field.type}
-                      value={formData[field.id]}
-                      onChange={(e) => handleInputChange(field.id, e.target.value)}
-                      placeholder={field.placeholder}
-                      className="form-input"
-                      required={field.required}
-                    />
+                    {field.id !== 'salaireBrut' && (
+                      <label className="form-label">
+                        <Icon size={18} />
+                        {field.label}
+                        {field.required && <span className="required">*</span>}
+                      </label>
+                    )}
+                    <div className="input-container">
+                      <input
+                        type={field.type}
+                        value={formData[field.id]}
+                        onChange={(e) => handleInputChange(field.id, e.target.value)}
+                        placeholder={field.id === 'salaireBrut' ? 'Ex: 5000' : field.placeholder}
+                        className="form-input"
+                        required={field.required}
+                        maxLength={field.id === 'salaireBrut' ? 10 : undefined}
+                      />
+                      {field.id === 'salaireBrut' && (
+                        <div className="char-counter">
+                          {formData[field.id].length} / 10
+                        </div>
+                      )}
+                    </div>
                   </div>
                 );
               })}

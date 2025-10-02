@@ -6,7 +6,7 @@ Le formulaire de contact RetraiteClair est maintenant configuré et fonctionnel 
 
 ### 📧 **Clés EmailJS configurées :**
 
-- **Service ID** : `service_b96jawv` (Gmail)
+- **Service ID** : `service_go62bxn` (Gmail)
 - **Template ID** : `template_sirltvl`
 - **Public Key** : `gBCd9v4gii2QckAgK`
 

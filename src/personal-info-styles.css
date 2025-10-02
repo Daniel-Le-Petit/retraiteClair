@@ -102,6 +102,24 @@
   flex-direction: column;
 }
 
+.input-container {
+  position: relative;
+}
+
+.char-counter {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  color: #10b981;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
 .form-group.full-width {
   grid-column: 1 / -1;
 }
@@ -136,6 +154,94 @@
   border-color: #10b981;
   background: white;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Style spécial pour le champ Salaire brut mensuel */
+.form-group:has(input[value*="5000"]) .form-input,
+.form-group:has(input[placeholder*="5000"]) .form-input {
+  border: 2px solid #10b981;
+  background: #1a1a1a;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.form-group:has(input[value*="5000"]) .form-input::placeholder,
+.form-group:has(input[placeholder*="5000"]) .form-input::placeholder {
+  color: #10b981;
+}
+
+/* Style pour le champ salaire brut spécifiquement */
+.form-group:has(input[id="salaireBrut"]) .form-input {
+  border: 2px solid #10b981;
+  background: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding-top: 1.5rem; /* Espace pour le label intégré */
+  padding-right: 4rem; /* Espace pour le compteur */
+  position: relative;
+}
+
+.form-group:has(input[id="salaireBrut"]) .form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-group:has(input[id="salaireBrut"]) .form-input:focus {
+  border-color: #10b981;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Label intégré dans le champ salaire brut */
+.form-group:has(input[id="salaireBrut"]) .form-label {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 600;
+  background: #ffffff;
+  padding: 0 0.25rem;
+  z-index: 10;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* Masquer le label normal pour le champ salaire */
+.form-group:has(input[id="salaireBrut"]) .form-label {
+  display: none;
+}
+
+/* Créer un label intégré avec pseudo-élément */
+.form-group:has(input[id="salaireBrut"]) .input-container::before {
+  content: "Salaire brut mensuel (€)";
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 600;
+  background: #ffffff;
+  padding: 0 0.25rem;
+  z-index: 10;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* Style pour l'étoile rouge dans le label intégré */
+.form-group:has(input[id="salaireBrut"]) .input-container::after {
+  content: " *";
+  position: absolute;
+  top: 0.5rem;
+  left: calc(1rem + 7.8rem); /* Position après le texte */
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 700;
+  background: #ffffff;
+  padding: 0 0.25rem;
+  z-index: 10;
+  pointer-events: none;
+  transform: translateY(-50%);
 }
 
 .form-input::placeholder {

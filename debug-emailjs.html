@@ -25,7 +25,7 @@
         
         <div class="config">
             <h3>Configuration actuelle :</h3>
-            <p><strong>Service ID :</strong> service_b96jawv</p>
+            <p><strong>Service ID :</strong> service_go62bxn</p>
             <p><strong>Template ID :</strong> template_sirltvl</p>
             <p><strong>Public Key :</strong> gBCd9v4gii2QckAgK</p>
             <p><strong>Email de destination :</strong> retraiteClair@gmail.com</p>
@@ -37,8 +37,8 @@
         </div>
 
         <div class="form-group">
-            <label>Email :</label>
-            <input type="email" id="testEmail" value="retraiteClair@gmail.com" placeholder="votre@email.com">
+            <label>Email de l'expéditeur :</label>
+            <input type="email" id="testEmail" value="test@example.com" placeholder="votre@email.com">
         </div>
 
         <div class="form-group">
@@ -49,6 +49,7 @@
         <button onclick="testEmailJS()">Test EmailJS</button>
         <button onclick="testWithToEmail()">Test avec to_email</button>
         <button onclick="testWithToName()">Test avec to_name</button>
+        <button onclick="testWithFullInfo()">Test complet (nom + email)</button>
         <button onclick="clearLog()">Effacer les logs</button>
 
         <div id="result"></div>
@@ -98,7 +99,7 @@
                 log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
 
                 const response = await emailjs.send(
-                    'service_b96jawv',
+                    'service_go62bxn',
                     'template_sirltvl',
                     templateParams
                 );
@@ -139,7 +140,7 @@
                 log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
 
                 const response = await emailjs.send(
-                    'service_b96jawv',
+                    'service_go62bxn',
                     'template_sirltvl',
                     templateParams
                 );
@@ -179,7 +180,7 @@
                 log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
 
                 const response = await emailjs.send(
-                    'service_b96jawv',
+                    'service_go62bxn',
                     'template_sirltvl',
                     templateParams
                 );
@@ -201,11 +202,59 @@
             }
         }
 
+        async function testWithFullInfo() {
+            log('🔍 Test EmailJS avec toutes les informations...');
+            const resultDiv = document.getElementById('result');
+            const data = getTestData();
+            
+            try {
+                const templateParams = {
+                    from_name: data.name,
+                    from_email: data.email,
+                    message: data.message,
+                    reply_to: data.email,
+                    to_email: 'retraiteClair@gmail.com',
+                    to_name: 'RetraiteClair',
+                    subject: 'Test complet - ' + data.name + ' (' + data.email + ')',
+                    date: new Date().toLocaleString('fr-FR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                };
+
+                log(`Paramètres complets: ${JSON.stringify(templateParams, null, 2)}`);
+
+                const response = await emailjs.send(
+                    'service_go62bxn',
+                    'template_sirltvl',
+                    templateParams
+                );
+
+                log(`Status: ${response.status}`);
+                log(`Réponse: ${JSON.stringify(response)}`);
+
+                if (response.status === 200) {
+                    resultDiv.innerHTML = '<div class="success">✅ Test complet: SUCCÈS ! Vérifiez l\'email reçu pour voir le nom et l\'adresse de l\'expéditeur</div>';
+                    log('✅ Test complet: SUCCÈS !');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Test complet: ÉCHEC - Status ${response.status}</div>`;
+                    log(`❌ Test complet: ÉCHEC - Status ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Test complet: ERREUR - ${error.text || error.message}</div>`;
+                log(`❌ Test complet: ERREUR - ${error.text || error.message}`);
+                log(`Status: ${error.status}`);
+            }
+        }
+
         // Test automatique au chargement
         window.onload = function() {
             log('🚀 Debug EmailJS démarré');
             log('📧 Email de destination: retraiteClair@gmail.com');
-            log('🔗 Service: service_b96jawv');
+            log('🔗 Service: service_go62bxn');
             log('📄 Template: template_sirltvl');
             log('💡 Cliquez sur un bouton de test pour commencer');
         };
