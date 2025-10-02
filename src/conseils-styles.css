@@ -450,9 +450,23 @@
     font-size: 1.5rem;
   }
   
+  /* Accordion responsive */
+  .conseils-accordion .accordion-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .conseils-accordion .accordion-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .conseils-accordion .accordion-content {
+    padding: 1.5rem;
+  }
+  
   .conseils-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    margin-top: 1.5rem;
   }
 
   .conseils-grid.two-columns {
@@ -501,6 +515,10 @@
 }
 
 @media (max-width: 480px) {
+  .conseils-container {
+    padding: 0.75rem;
+  }
+  
   .conseils-container h2 {
     font-size: 1.75rem;
   }
@@ -509,8 +527,54 @@
     font-size: 1.3rem;
   }
   
+  /* Accordion iPhone */
+  .conseils-accordion .accordion-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .conseils-accordion .accordion-header h3 {
+    font-size: 1rem;
+  }
+  
+  .conseils-accordion .accordion-content {
+    padding: 1rem;
+  }
+  
+  .conseils-grid {
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
   .conseil-card {
     padding: 1.25rem;
+  }
+  
+  .conseil-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 1rem;
+  }
+  
+  .conseil-card h4 {
+    font-size: 1rem;
+  }
+  
+  .conseil-card p {
+    font-size: 0.85rem;
+  }
+  
+  .checklist-section {
+    padding: 1rem;
+  }
+  
+  .checklist-item {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .checklist-checkbox {
+    width: 16px;
+    height: 16px;
   }
 }
 

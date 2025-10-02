@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import PageAccueil from './components/PageAccueil';
 import CalculateurAvance from './components/CalculateurAvance';
 import ConseilsPage from './components/ConseilsPage';
+import FeedbackForm from './components/FeedbackForm';
 import './index.css';
 import './sidebar.css';
 import './definition-styles.css';
@@ -29,6 +30,8 @@ function App() {
         return <CalculateurAvance />;
       case 'conseils':
         return <ConseilsPage />;
+      case 'feedback':
+        return <FeedbackForm />;
       default:
         return <PageAccueil />;
     }

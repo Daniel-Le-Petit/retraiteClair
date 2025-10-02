@@ -262,3 +262,4 @@ Remplacer le JSX existant pour mobile uniquement (média query CSS)
 
 **Voulez-vous que j'implémente la Solution 1 (Accordéon) maintenant ?**
 
+

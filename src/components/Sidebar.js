@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Calculator, BarChart3, TrendingUp, CheckCircle } from 'lucide-react';
+import { Home, Calculator, BarChart3, TrendingUp, CheckCircle, MessageSquare } from 'lucide-react';
 
 const Sidebar = ({ currentPage, onPageChange }) => {
   const menuItems = [
@@ -20,6 +20,12 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       label: 'Conseils',
       icon: CheckCircle,
       badge: 2
+    },
+    {
+      id: 'feedback',
+      label: 'Votre avis',
+      icon: MessageSquare,
+      badge: 3
     }
   ];
 
