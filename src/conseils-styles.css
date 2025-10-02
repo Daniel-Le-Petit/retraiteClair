@@ -46,6 +46,13 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border-bottom: 1px solid #e2e8f0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .conseils-accordion .accordion-header:hover {
@@ -453,6 +460,8 @@
   /* Accordion responsive */
   .conseils-accordion .accordion-header {
     padding: 1rem 1.5rem;
+    min-height: 60px;
+    touch-action: manipulation;
   }
   
   .conseils-accordion .accordion-header h3 {
@@ -530,6 +539,9 @@
   /* Accordion iPhone */
   .conseils-accordion .accordion-header {
     padding: 0.75rem 1rem;
+    min-height: 50px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(16, 185, 129, 0.2);
   }
   
   .conseils-accordion .accordion-header h3 {

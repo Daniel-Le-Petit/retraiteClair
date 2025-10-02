@@ -56,7 +56,19 @@ const ConseilsPage = () => {
         
         {/* Section Optimisation financière - Accordion */}
         <div className="conseils-accordion">
-          <div className="accordion-header" onClick={() => toggleSection('optimisation')}>
+          <div 
+            className="accordion-header" 
+            onClick={() => toggleSection('optimisation')}
+            onTouchStart={() => toggleSection('optimisation')}
+            role="button"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSection('optimisation');
+              }
+            }}
+          >
             <h3>💰 Optimisation financière</h3>
             {expandedSections.optimisation ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
@@ -117,7 +129,19 @@ const ConseilsPage = () => {
 
         {/* Section Démarches administratives - Accordion */}
         <div className="conseils-accordion">
-          <div className="accordion-header" onClick={() => toggleSection('demarches')}>
+          <div 
+            className="accordion-header" 
+            onClick={() => toggleSection('demarches')}
+            onTouchStart={() => toggleSection('demarches')}
+            role="button"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSection('demarches');
+              }
+            }}
+          >
             <h3>📋 Démarches administratives</h3>
             {expandedSections.demarches ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
@@ -208,7 +232,19 @@ const ConseilsPage = () => {
 
         {/* Section Optimisation de la pension - Accordion */}
         <div className="conseils-accordion">
-          <div className="accordion-header" onClick={() => toggleSection('pension')}>
+          <div 
+            className="accordion-header" 
+            onClick={() => toggleSection('pension')}
+            onTouchStart={() => toggleSection('pension')}
+            role="button"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSection('pension');
+              }
+            }}
+          >
             <h3>📈 Optimisation de votre pension</h3>
             {expandedSections.pension ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
@@ -269,7 +305,19 @@ const ConseilsPage = () => {
 
         {/* Section Pièges à éviter - Accordion */}
         <div className="conseils-accordion">
-          <div className="accordion-header" onClick={() => toggleSection('pieges')}>
+          <div 
+            className="accordion-header" 
+            onClick={() => toggleSection('pieges')}
+            onTouchStart={() => toggleSection('pieges')}
+            role="button"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSection('pieges');
+              }
+            }}
+          >
             <h3>⚠️ Pièges à éviter</h3>
             {expandedSections.pieges ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
