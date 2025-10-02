@@ -22,8 +22,8 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       badge: 2
     },
     {
-      id: 'feedback',
-      label: 'Votre avis',
+      id: 'contact',
+      label: 'Contact',
       icon: MessageSquare,
       badge: 3
     }
@@ -32,7 +32,9 @@ const Sidebar = ({ currentPage, onPageChange }) => {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h1>RetraiteClair</h1>
+        <div className="logo-container">
+          <img src="/logo-retraiteclair-white-bg.svg" alt="RetraiteClair" className="logo" />
+        </div>
         <p>Simulateur de retraite progressive</p>
       </div>
       

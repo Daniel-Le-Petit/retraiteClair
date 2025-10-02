@@ -13,9 +13,28 @@
 }
 
 .sidebar-header {
-  padding: 30px 20px;
+  padding: 20px 15px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  margin-bottom: 15px;
+  /* Suppression du cadre et du fond */
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+  max-height: 45px;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .sidebar-header h1 {

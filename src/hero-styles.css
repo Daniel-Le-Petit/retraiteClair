@@ -41,6 +41,24 @@
   margin: 0 auto;
 }
 
+.hero-logo-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-logo {
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.hero-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+}
+
 .hero-title {
   font-size: 4.5rem;
   font-weight: 900;

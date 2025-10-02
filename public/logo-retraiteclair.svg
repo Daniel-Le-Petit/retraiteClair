@@ -1,0 +1,59 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Dégradé de fond -->
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bbf7d0;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Dégradé pour le texte -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#166534;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803d;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Ombres de feuilles en arrière-plan -->
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+    
+    <!-- Ombre portée pour le texte -->
+    <filter id="textShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#065f46" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Fond avec dégradé -->
+  <rect width="200" height="60" fill="url(#backgroundGradient)" rx="8"/>
+  
+  <!-- Ombres de feuilles floues en arrière-plan -->
+  <g filter="url(#blur)" opacity="0.3">
+    <path d="M160 15 C165 10, 170 15, 168 20 C170 25, 165 30, 160 25 C155 30, 150 25, 152 20 C150 15, 155 10, 160 15 Z" fill="#22c55e"/>
+    <path d="M170 25 C175 20, 180 25, 178 30 C180 35, 175 40, 170 35 C165 40, 160 35, 162 30 C160 25, 165 20, 170 25 Z" fill="#16a34a"/>
+  </g>
+  
+  <!-- Texte principal "retraiteClair" -->
+  <text x="20" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" 
+        fill="url(#textGradient)" filter="url(#textShadow)">
+    retraiteClair
+  </text>
+  
+  <!-- Groupe de trois feuilles après "Clair" - repositionnées pour ne pas cacher le texte -->
+  <g transform="translate(160, 15)">
+    <!-- Feuille 1 (vert clair) -->
+    <path d="M0 0 C5 -5, 10 0, 8 5 C10 10, 5 15, 0 10 C-5 15, -10 10, -8 5 C-10 0, -5 -5, 0 0 Z" 
+          fill="#4ade80" transform="translate(0, 0) rotate(15)"/>
+    
+    <!-- Feuille 2 (vert moyen) -->
+    <path d="M0 0 C5 -5, 10 0, 8 5 C10 10, 5 15, 0 10 C-5 15, -10 10, -8 5 C-10 0, -5 -5, 0 0 Z" 
+          fill="#22c55e" transform="translate(8, -2) rotate(45)"/>
+    
+    <!-- Feuille 3 (vert foncé) -->
+    <path d="M0 0 C5 -5, 10 0, 8 5 C10 10, 5 15, 0 10 C-5 15, -10 10, -8 5 C-10 0, -5 -5, 0 0 Z" 
+          fill="#16a34a" transform="translate(4, 8) rotate(-15)"/>
+  </g>
+  
+  <!-- Feuille subtile derrière le texte -->
+  <path d="M50 30 C55 25, 60 30, 58 35 C60 40, 55 45, 50 40 C45 45, 40 40, 42 35 C40 30, 45 25, 50 30 Z" 
+        fill="#22c55e" opacity="0.1" transform="rotate(20)"/>
+</svg>

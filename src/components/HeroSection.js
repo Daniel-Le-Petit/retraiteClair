@@ -12,11 +12,13 @@ const HeroSection = () => {
       </div>
       <div className="hero-container">
         <div className="hero-content">
-          <h1 className="hero-title">RetraiteClair</h1>
           <h2 className="hero-subtitle">Passez en douceur vers la retraite</h2>
           <p className="hero-description">
             La retraite progressive vous permet de travailler à temps partiel tout en percevant une partie de votre retraite. Comprenez, vérifiez, simulez et agissez.
           </p>
+          <div className="hero-logo-container">
+            <img src="/logo-retraiteclair.svg" alt="RetraiteClair" className="hero-logo" />
+          </div>
         </div>
       </div>
     </section>

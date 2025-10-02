@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug EmailJS - RetraiteClair</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .success { color: green; background: #d1fae5; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .error { color: red; background: #fee2e2; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .info { color: blue; background: #dbeafe; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        button { background: #2563eb; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; margin: 10px 5px; }
+        button:hover { background: #1d4ed8; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        .log { background: #000; color: #0f0; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; margin: 20px 0; }
+        .config { background: #f0f9ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug EmailJS - RetraiteClair</h1>
+        
+        <div class="config">
+            <h3>Configuration actuelle :</h3>
+            <p><strong>Service ID :</strong> service_b96jawv</p>
+            <p><strong>Template ID :</strong> template_sirltvl</p>
+            <p><strong>Public Key :</strong> gBCd9v4gii2QckAgK</p>
+            <p><strong>Email de destination :</strong> retraiteClair@gmail.com</p>
+        </div>
+
+        <div class="form-group">
+            <label>Nom :</label>
+            <input type="text" id="testName" value="Test Debug" placeholder="Votre nom">
+        </div>
+
+        <div class="form-group">
+            <label>Email :</label>
+            <input type="email" id="testEmail" value="retraiteClair@gmail.com" placeholder="votre@email.com">
+        </div>
+
+        <div class="form-group">
+            <label>Message :</label>
+            <textarea id="testMessage" rows="4" placeholder="Message de test...">Test de debug EmailJS - ${new Date().toLocaleString()}</textarea>
+        </div>
+
+        <button onclick="testEmailJS()">Test EmailJS</button>
+        <button onclick="testWithToEmail()">Test avec to_email</button>
+        <button onclick="testWithToName()">Test avec to_name</button>
+        <button onclick="clearLog()">Effacer les logs</button>
+
+        <div id="result"></div>
+        <div id="debug-log" class="log"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('debug-log').innerHTML = '';
+            document.getElementById('result').innerHTML = '';
+        }
+
+        function getTestData() {
+            return {
+                name: document.getElementById('testName').value,
+                email: document.getElementById('testEmail').value,
+                message: document.getElementById('testMessage').value
+            };
+        }
+
+        // Initialiser EmailJS
+        emailjs.init('gBCd9v4gii2QckAgK');
+
+        async function testEmailJS() {
+            log('🔍 Test EmailJS standard...');
+            const resultDiv = document.getElementById('result');
+            const data = getTestData();
+            
+            try {
+                const templateParams = {
+                    from_name: data.name,
+                    from_email: data.email,
+                    message: data.message,
+                    reply_to: data.email,
+                    to_name: 'RetraiteClair',
+                    subject: 'Test Debug - ' + data.name
+                };
+
+                log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
+
+                const response = await emailjs.send(
+                    'service_b96jawv',
+                    'template_sirltvl',
+                    templateParams
+                );
+
+                log(`Status: ${response.status}`);
+                log(`Réponse: ${JSON.stringify(response)}`);
+
+                if (response.status === 200) {
+                    resultDiv.innerHTML = '<div class="success">✅ EmailJS: SUCCÈS ! Email envoyé</div>';
+                    log('✅ EmailJS: SUCCÈS !');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ EmailJS: ÉCHEC - Status ${response.status}</div>`;
+                    log(`❌ EmailJS: ÉCHEC - Status ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ EmailJS: ERREUR - ${error.text || error.message}</div>`;
+                log(`❌ EmailJS: ERREUR - ${error.text || error.message}`);
+                log(`Status: ${error.status}`);
+            }
+        }
+
+        async function testWithToEmail() {
+            log('🔍 Test EmailJS avec to_email...');
+            const resultDiv = document.getElementById('result');
+            const data = getTestData();
+            
+            try {
+                const templateParams = {
+                    from_name: data.name,
+                    from_email: data.email,
+                    message: data.message,
+                    reply_to: data.email,
+                    to_email: 'retraiteClair@gmail.com',
+                    to_name: 'RetraiteClair',
+                    subject: 'Test Debug avec to_email - ' + data.name
+                };
+
+                log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
+
+                const response = await emailjs.send(
+                    'service_b96jawv',
+                    'template_sirltvl',
+                    templateParams
+                );
+
+                log(`Status: ${response.status}`);
+                log(`Réponse: ${JSON.stringify(response)}`);
+
+                if (response.status === 200) {
+                    resultDiv.innerHTML = '<div class="success">✅ EmailJS avec to_email: SUCCÈS !</div>';
+                    log('✅ EmailJS avec to_email: SUCCÈS !');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ EmailJS avec to_email: ÉCHEC - Status ${response.status}</div>`;
+                    log(`❌ EmailJS avec to_email: ÉCHEC - Status ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ EmailJS avec to_email: ERREUR - ${error.text || error.message}</div>`;
+                log(`❌ EmailJS avec to_email: ERREUR - ${error.text || error.message}`);
+                log(`Status: ${error.status}`);
+            }
+        }
+
+        async function testWithToName() {
+            log('🔍 Test EmailJS avec to_name seulement...');
+            const resultDiv = document.getElementById('result');
+            const data = getTestData();
+            
+            try {
+                const templateParams = {
+                    from_name: data.name,
+                    from_email: data.email,
+                    message: data.message,
+                    reply_to: data.email,
+                    to_name: 'retraiteClair@gmail.com',
+                    subject: 'Test Debug avec to_name - ' + data.name
+                };
+
+                log(`Paramètres: ${JSON.stringify(templateParams, null, 2)}`);
+
+                const response = await emailjs.send(
+                    'service_b96jawv',
+                    'template_sirltvl',
+                    templateParams
+                );
+
+                log(`Status: ${response.status}`);
+                log(`Réponse: ${JSON.stringify(response)}`);
+
+                if (response.status === 200) {
+                    resultDiv.innerHTML = '<div class="success">✅ EmailJS avec to_name: SUCCÈS !</div>';
+                    log('✅ EmailJS avec to_name: SUCCÈS !');
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ EmailJS avec to_name: ÉCHEC - Status ${response.status}</div>`;
+                    log(`❌ EmailJS avec to_name: ÉCHEC - Status ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ EmailJS avec to_name: ERREUR - ${error.text || error.message}</div>`;
+                log(`❌ EmailJS avec to_name: ERREUR - ${error.text || error.message}`);
+                log(`Status: ${error.status}`);
+            }
+        }
+
+        // Test automatique au chargement
+        window.onload = function() {
+            log('🚀 Debug EmailJS démarré');
+            log('📧 Email de destination: retraiteClair@gmail.com');
+            log('🔗 Service: service_b96jawv');
+            log('📄 Template: template_sirltvl');
+            log('💡 Cliquez sur un bouton de test pour commencer');
+        };
+    </script>
+</body>
+</html>
