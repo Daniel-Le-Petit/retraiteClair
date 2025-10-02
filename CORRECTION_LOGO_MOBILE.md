@@ -5,23 +5,21 @@ Le logo RetraiteClair n'était pas visible sur iPhone à cause d'un contraste in
 
 ## ✅ Solutions appliquées
 
-### 1. **Changement de logo**
-- ✅ **Logo normal** : Utilisation de `/logo-retraiteclair.svg` au lieu de `/logo-retraiteclair-white-bg.svg`
-- ✅ **Filtre d'inversion** : `filter: brightness(0) invert(1)` pour rendre le logo blanc
-- ✅ **Ombre portée** : `drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))` pour la visibilité
+### 1. **Amélioration de la lisibilité**
+- ✅ **Logo normal** : Utilisation de `/logo-retraiteclair.svg`
+- ✅ **Assombrissement** : `filter: brightness(0.8) contrast(1.2)` pour desktop
+- ✅ **Assombrissement mobile** : `filter: brightness(0.6) contrast(1.4)` pour mobile
+- ✅ **Assombrissement iPhone** : `filter: brightness(0.5) contrast(1.5)` pour iPhone
 
-### 2. **Fond vert identique à la sidebar**
-- ✅ **Dégradé vert** : `background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%)`
-- ✅ **Même style** : Identique au fond de la sidebar
-- ✅ **Padding** : `padding: 10px` pour l'espacement
-- ✅ **Coins arrondis** : `border-radius: 8px`
-- ✅ **Ombre portée** : `box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2)`
+### 2. **Suppression du fond**
+- ✅ **Pas de fond** : Le logo s'affiche directement sur le fond sombre
+- ✅ **Pas de cadre** : Plus d'effet visuel autour du logo
+- ✅ **Simplicité** : Design épuré et propre
 
 ### 3. **Optimisation mobile spécifique**
-- ✅ **Dégradé vert** : Même dégradé que la sidebar sur mobile
-- ✅ **Padding augmenté** : `padding: 12px` sur mobile
 - ✅ **Taille adaptée** : `max-height: 40px` sur mobile
-- ✅ **Ombre renforcée** : `box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2)`
+- ✅ **Assombrissement progressif** : Plus l'écran est petit, plus le logo est sombre
+- ✅ **Contraste optimisé** : Meilleure lisibilité sur tous les écrans
 
 ### 3. **Fichiers modifiés**
 
