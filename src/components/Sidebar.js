@@ -33,7 +33,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
     <div className="sidebar">
       <div className="sidebar-header">
         <div className="logo-container">
-          <img src="/logo-retraiteclair-white-bg.svg" alt="RetraiteClair" className="logo" />
+          <img src="/logo-retraiteclair.svg" alt="RetraiteClair" className="logo" />
         </div>
         <p>Simulateur de retraite progressive</p>
       </div>
