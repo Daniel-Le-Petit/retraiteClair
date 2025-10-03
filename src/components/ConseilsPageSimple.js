@@ -246,6 +246,97 @@ const ConseilsPageSimple = ({ onPageChange }) => {
           </div>
         </div>
 
+        {/* Section FAQ */}
+        <div className="conseils-section">
+          <h3>❓ Questions fréquentes sur la retraite progressive</h3>
+          <div className="conseils-grid">
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <FileText size={24} />
+              </div>
+              <h4>Quelle différence entre retraite progressive et retraite définitive ?</h4>
+              <p><strong>Retraite progressive :</strong> Vous travaillez à temps partiel (40% à 80%) tout en percevant une partie de votre retraite. Vous continuez à cotiser.</p>
+              <p><strong>Retraite définitive :</strong> Vous arrêtez complètement de travailler et percevez votre retraite complète.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Calculator size={24} />
+              </div>
+              <h4>Comment est calculée ma retraite pendant la période progressive ?</h4>
+              <p>Votre retraite progressive = <strong>% de temps partiel × retraite complète théorique</strong></p>
+              <p>Exemple : Si votre retraite complète serait de 2 000€/mois et que vous travaillez à 60%, vous percevez 1 200€/mois de retraite progressive.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Calendar size={24} />
+              </div>
+              <h4>Puis-je modifier mon temps partiel après le début ?</h4>
+              <p>Oui, vous pouvez modifier votre temps partiel avec l'accord de votre employeur. Les changements prennent effet au 1er du mois suivant.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Euro size={24} />
+              </div>
+              <h4>Mes cotisations sont-elles maintenues à 100% ?</h4>
+              <p>Oui, si vous le souhaitez. Vous pouvez maintenir vos cotisations sur votre salaire plein pour augmenter votre pension définitive, même en travaillant à temps partiel.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Shield size={24} />
+              </div>
+              <h4>Quels sont les avantages fiscaux ?</h4>
+              <p>La baisse de revenus peut vous faire changer de tranche d'imposition. Vous pouvez aussi continuer à verser sur un PER (déductible) tant que vous avez une activité.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Target size={24} />
+              </div>
+              <h4>Quand puis-je demander ma retraite progressive ?</h4>
+              <p>Vous devez avoir atteint l'âge légal de départ à la retraite (62 ans minimum) et avoir validé au moins 4 trimestres dans l'année précédant votre demande.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Section Sources et hypothèses */}
+        <div className="conseils-section">
+          <h3>📊 Sources et hypothèses de calcul</h3>
+          <div className="conseils-grid">
+            <div className="conseil-card">
+              <div className="conseil-icon purple">
+                <FileText size={24} />
+              </div>
+              <h4>Sources réglementaires</h4>
+              <p>Nos calculs sont basés sur la réglementation en vigueur :</p>
+              <ul>
+                <li>Code de la sécurité sociale</li>
+                <li>Loi de financement de la sécurité sociale 2024</li>
+                <li>Décrets d'application de la retraite progressive</li>
+                <li>Barèmes officiels des caisses de retraite</li>
+              </ul>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon purple">
+                <AlertCircle size={24} />
+              </div>
+              <h4>Hypothèses de calcul</h4>
+              <p><strong>Données 2024 :</strong></p>
+              <ul>
+                <li>Plafond SS : 3 666€/mois</li>
+                <li>Valeur du point Agirc-Arrco : 1,4158€</li>
+                <li>Âge légal : 62 ans minimum</li>
+                <li>Durée d'assurance : 43 ans (génération 1965)</li>
+              </ul>
+              <p><strong>Note :</strong> Ces valeurs peuvent évoluer selon les réformes.</p>
+            </div>
+          </div>
+        </div>
+
         {/* Section Optimisation de la pension */}
         <div className="conseils-section">
           <h3>📈 Comment optimiser sa pension de retraite progressive</h3>
@@ -604,6 +695,65 @@ const ConseilsPageSimple = ({ onPageChange }) => {
                   <label htmlFor="planification">Planifier ma retraite définitive</label>
                 </li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Section Call-to-Action */}
+        <div className="conseils-section">
+          <h3>🚀 Prêt à simuler votre retraite progressive ?</h3>
+          <div className="cta-container">
+            <div className="cta-card">
+              <div className="cta-icon">
+                <Calculator size={32} />
+              </div>
+              <h4>Testez notre simulateur gratuit</h4>
+              <p>Calculez vos revenus en retraite progressive en quelques minutes. Simulation personnalisée basée sur votre situation.</p>
+              <button 
+                className="cta-button primary"
+                onClick={() => navigate('/calculateur')}
+              >
+                🧮 Lancer la simulation
+              </button>
+            </div>
+
+            <div className="cta-card">
+              <div className="cta-icon">
+                <Mail size={32} />
+              </div>
+              <h4>Besoin d'aide personnalisée ?</h4>
+              <p>Nos experts vous accompagnent dans vos démarches et répondent à toutes vos questions sur la retraite progressive.</p>
+              <button 
+                className="cta-button secondary"
+                onClick={() => navigate('/contact')}
+              >
+                📞 Nous contacter
+              </button>
+            </div>
+
+            <div className="cta-card">
+              <div className="cta-icon">
+                <Users size={32} />
+              </div>
+              <h4>Partagez RetraiteClair</h4>
+              <p>Aidez vos proches à préparer leur retraite progressive. Partagez ce simulateur gratuit et ces conseils pratiques.</p>
+              <button 
+                className="cta-button tertiary"
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: 'RetraiteClair - Simulateur Retraite Progressive',
+                      text: 'Découvrez RetraiteClair, le simulateur gratuit pour calculer votre retraite progressive',
+                      url: window.location.origin
+                    });
+                  } else {
+                    navigator.clipboard.writeText(window.location.origin);
+                    alert('Lien copié dans le presse-papiers !');
+                  }
+                }}
+              >
+                📤 Partager
+              </button>
             </div>
           </div>
         </div>
