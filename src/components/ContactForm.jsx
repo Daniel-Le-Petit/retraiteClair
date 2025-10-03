@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import SEOHead from './SEOHead';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -157,8 +158,15 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="contact-container">
-      <div className="contact-card">
+    <>
+      <SEOHead
+        title="Contact RetraiteClair - Support Retraite Progressive"
+        description="Contactez RetraiteClair pour vos questions sur la retraite progressive. Support expert, conseils personnalisés et aide pour optimiser votre transition vers la retraite."
+        keywords="contact retraite progressive, support retraite, conseil retraite, aide retraite progressive, questions retraite"
+        canonical="/#/contact"
+      />
+      <div className="contact-container">
+        <div className="contact-card">
         <div className="contact-header">
           {/* H1 principal pour le SEO */}
           <h1 style={{position: 'absolute', left: '-9999px', top: '-9999px'}}>
@@ -290,7 +298,7 @@ const ContactForm = () => {
           )}
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
