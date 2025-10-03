@@ -61,21 +61,14 @@ const ConseilsPage = ({ onPageChange }) => {
         
         {/* Section Optimisation financière - Accordion */}
         <div className="conseils-accordion">
-          <div 
+          <button 
             className="accordion-header" 
             onClick={() => toggleSection('optimisation')}
-            role="button"
-            tabIndex="0"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleSection('optimisation');
-              }
-            }}
+            type="button"
           >
             <h3>💰 Comment optimiser financièrement sa retraite progressive</h3>
             {expandedSections.optimisation ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </div>
+          </button>
           {expandedSections.optimisation && (
             <div className="accordion-content">
               <div className="conseils-grid">
@@ -145,21 +138,14 @@ const ConseilsPage = ({ onPageChange }) => {
 
         {/* Section Démarches administratives - Accordion */}
         <div className="conseils-accordion">
-              <div 
+              <button 
                 className="accordion-header" 
                 onClick={() => toggleSection('demarches')}
-                role="button"
-                tabIndex="0"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleSection('demarches');
-                  }
-                }}
+                type="button"
               >
             <h3>📋 Démarches administratives pour la retraite progressive</h3>
             {expandedSections.demarches ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </div>
+          </button>
           {expandedSections.demarches && (
             <div className="accordion-content">
               <div className="conseils-grid">
@@ -253,21 +239,14 @@ const ConseilsPage = ({ onPageChange }) => {
 
         {/* Section Optimisation de la pension - Accordion */}
         <div className="conseils-accordion">
-              <div 
+              <button 
                 className="accordion-header" 
                 onClick={() => toggleSection('pension')}
-                role="button"
-                tabIndex="0"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleSection('pension');
-                  }
-                }}
+                type="button"
               >
             <h3>📈 Comment optimiser sa pension de retraite progressive</h3>
             {expandedSections.pension ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </div>
+          </button>
           {expandedSections.pension && (
             <div className="accordion-content">
               <div className="conseils-grid">
@@ -325,21 +304,14 @@ const ConseilsPage = ({ onPageChange }) => {
 
         {/* Section Pièges à éviter - Accordion */}
         <div className="conseils-accordion">
-              <div 
+              <button 
                 className="accordion-header" 
                 onClick={() => toggleSection('pieges')}
-                role="button"
-                tabIndex="0"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggleSection('pieges');
-                  }
-                }}
+                type="button"
               >
             <h3>⚠️ Pièges à éviter dans la retraite progressive</h3>
             {expandedSections.pieges ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </div>
+          </button>
           {expandedSections.pieges && (
             <div className="accordion-content">
               <div className="conseils-grid alert-grid">

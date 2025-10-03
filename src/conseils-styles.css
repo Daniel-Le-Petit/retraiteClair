@@ -45,7 +45,10 @@
   background: #f8fafc;
   cursor: pointer;
   transition: all 0.2s ease;
+  border: none;
   border-bottom: 1px solid #e2e8f0;
+  width: 100%;
+  text-align: left;
   -webkit-tap-highlight-color: rgba(16, 185, 129, 0.3);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -642,12 +645,19 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
   }
   
   .conseils-accordion .accordion-header:active {
     background: #e2e8f0;
     transform: scale(0.98);
     transition: all 0.1s ease;
+  }
+  
+  .conseils-accordion .accordion-header:focus {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
   }
 }
 
