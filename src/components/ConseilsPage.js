@@ -5,7 +5,7 @@ import {
   Shield, Phone, Mail, BookOpen, Calculator, Heart, ChevronDown, ChevronUp
 } from 'lucide-react';
 
-const ConseilsPage = () => {
+const ConseilsPage = ({ onPageChange }) => {
   const [expandedSections, setExpandedSections] = useState({
     optimisation: false,
     demarches: false,
@@ -51,7 +51,12 @@ const ConseilsPage = () => {
   return (
     <div className="page-content">
       <div className="conseils-container">
-        <h2>Conseils & Optimisation</h2>
+        {/* H1 principal pour le SEO */}
+        <h1 style={{position: 'absolute', left: '-9999px', top: '-9999px'}}>
+          Conseils Retraite Progressive : Optimisez Votre Transition 2024
+        </h1>
+        
+        <h2>Conseils & Optimisation de votre retraite progressive</h2>
         <p className="conseils-intro">La retraite progressive est un sas : vous gardez un pied dans la vie pro tout en activant déjà une partie de vos droits.</p>
         
         {/* Section Optimisation financière - Accordion */}
@@ -69,7 +74,7 @@ const ConseilsPage = () => {
               }
             }}
           >
-            <h3>💰 Optimisation financière</h3>
+            <h3>💰 Comment optimiser financièrement sa retraite progressive</h3>
             {expandedSections.optimisation ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
           {expandedSections.optimisation && (
@@ -81,6 +86,12 @@ const ConseilsPage = () => {
                   </div>
                   <h4>Choisissez le bon pourcentage</h4>
                   <p>Entre 60% et 70% de temps partiel offre souvent le meilleur équilibre entre revenus et qualité de vie. Utilisez notre calculateur pour trouver votre optimal.</p>
+                  <button 
+                    className="conseil-link-btn"
+                    onClick={() => onPageChange('calculateur')}
+                  >
+                    🧮 Tester avec le simulateur
+                  </button>
                 </div>
                 
                 <div className="conseil-card">
@@ -97,6 +108,12 @@ const ConseilsPage = () => {
                   </div>
                   <h4>Calculez l'impact fiscal</h4>
                   <p>La baisse de vos revenus peut vous faire changer de tranche d'imposition. Consultez un conseiller fiscal pour optimiser votre situation.</p>
+                  <button 
+                    className="conseil-link-btn"
+                    onClick={() => onPageChange('calculateur')}
+                  >
+                    💰 Simuler l'impact fiscal
+                  </button>
                 </div>
 
                 <div className="conseil-card">
@@ -142,7 +159,7 @@ const ConseilsPage = () => {
               }
             }}
           >
-            <h3>📋 Démarches administratives</h3>
+            <h3>📋 Démarches administratives pour la retraite progressive</h3>
             {expandedSections.demarches ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
           {expandedSections.demarches && (
@@ -178,6 +195,12 @@ const ConseilsPage = () => {
                   </div>
                   <h4>Prenez rendez-vous avec un conseiller</h4>
                   <p>Un entretien personnalisé (gratuit) vous aide à éviter les erreurs et à optimiser votre dossier. Appelez le 3960 ou prenez RDV en ligne.</p>
+                  <button 
+                    className="conseil-link-btn"
+                    onClick={() => onPageChange('contact')}
+                  >
+                    📞 Poser une question
+                  </button>
                 </div>
 
                 <div className="conseil-card">
@@ -245,7 +268,7 @@ const ConseilsPage = () => {
               }
             }}
           >
-            <h3>📈 Optimisation de votre pension</h3>
+            <h3>📈 Comment optimiser sa pension de retraite progressive</h3>
             {expandedSections.pension ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
           {expandedSections.pension && (
@@ -318,7 +341,7 @@ const ConseilsPage = () => {
               }
             }}
           >
-            <h3>⚠️ Pièges à éviter</h3>
+            <h3>⚠️ Pièges à éviter dans la retraite progressive</h3>
             {expandedSections.pieges ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
           </div>
           {expandedSections.pieges && (

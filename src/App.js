@@ -25,11 +25,11 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'accueil':
-        return <PageAccueil />;
+        return <PageAccueil onPageChange={handlePageChange} />;
       case 'calculateur':
         return <CalculateurAvance />;
       case 'conseils':
-        return <ConseilsPage />;
+        return <ConseilsPage onPageChange={handlePageChange} />;
       case 'contact':
         return <ContactForm />;
       default:

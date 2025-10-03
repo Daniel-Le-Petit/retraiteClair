@@ -1,0 +1,38 @@
+name: SEO Monitoring
+
+on:
+  schedule:
+    # Exécution hebdomadaire le lundi à 9h
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Permet l'exécution manuelle
+
+jobs:
+  seo-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run SEO monitoring
+      run: npm run seo-monitor
+      
+    - name: Upload SEO report
+      uses: actions/upload-artifact@v3
+      with:
+        name: seo-report
+        path: seo-report.json
+        
+    - name: Comment on issues if problems found
+      if: failure()
+      run: |
+        echo "SEO issues detected. Check the generated report."
+        exit 1

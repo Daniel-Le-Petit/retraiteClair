@@ -160,8 +160,13 @@ const ContactForm = () => {
     <div className="contact-container">
       <div className="contact-card">
         <div className="contact-header">
+          {/* H1 principal pour le SEO */}
+          <h1 style={{position: 'absolute', left: '-9999px', top: '-9999px'}}>
+            Contact RetraiteClair : Support et Questions Retraite Progressive
+          </h1>
+          
           <h2>Contactez-nous</h2>
-          <p>Partagez vos suggestions, signalements de bugs ou questions pour améliorer RetraiteClair</p>
+          <p>Partagez vos suggestions, signalements de bugs ou questions pour améliorer RetraiteClair. Notre équipe d'experts en retraite progressive vous accompagne dans vos démarches et répond à toutes vos questions sur le simulateur de retraite progressive.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="contact-form" noValidate>
@@ -235,9 +240,9 @@ const ContactForm = () => {
               aria-describedby="message-help"
               aria-invalid={status === 'error' && !formData.message}
             />
-            <small id="message-help" className="form-help">
-              Minimum 10 caractères ({formData.message.length}/10)
-            </small>
+                <small id="message-help" className="form-help">
+                  Minimum 10 caractères ({formData.message.length}/10). Décrivez votre question sur la retraite progressive, votre expérience avec le simulateur, ou vos suggestions d'amélioration.
+                </small>
           </div>
 
           <button

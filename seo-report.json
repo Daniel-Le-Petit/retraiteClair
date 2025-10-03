@@ -1,0 +1,92 @@
+{
+  "date": "2025-10-03T08:49:23.401Z",
+  "pages": [
+    {
+      "name": "Page d'accueil",
+      "h1": 1,
+      "h2": 3,
+      "h3": 1,
+      "status": "OK"
+    },
+    {
+      "name": "Conseils",
+      "h1": 1,
+      "h2": 1,
+      "h3": 8,
+      "status": "OK"
+    },
+    {
+      "name": "Contact",
+      "h1": 1,
+      "h2": 1,
+      "h3": 0,
+      "status": "OK"
+    },
+    {
+      "name": "Calculateur",
+      "h1": 1,
+      "h2": 0,
+      "h3": 11,
+      "status": "OK"
+    },
+    {
+      "file": "src/components/PageAccueil.js",
+      "keywordCounts": {
+        "retraite progressive": 15,
+        "simulateur retraite": 0,
+        "calcul retraite": 0,
+        "éligibilité retraite": 0
+      },
+      "density": "0.83%",
+      "status": "ATTENTION"
+    },
+    {
+      "file": "src/components/ConseilsPage.js",
+      "keywordCounts": {
+        "retraite progressive": 16,
+        "simulateur retraite": 0,
+        "calcul retraite": 0,
+        "éligibilité retraite": 0
+      },
+      "density": "0.81%",
+      "status": "ATTENTION"
+    },
+    {
+      "file": "src/components/ContactForm.jsx",
+      "keywordCounts": {
+        "retraite progressive": 4,
+        "simulateur retraite": 0,
+        "calcul retraite": 0,
+        "éligibilité retraite": 0
+      },
+      "density": "0.51%",
+      "status": "ATTENTION"
+    },
+    {
+      "file": "public/robots.txt",
+      "status": "OK",
+      "size": 260
+    },
+    {
+      "file": "public/sitemap.xml",
+      "status": "OK",
+      "size": 797
+    },
+    {
+      "file": "public/index.html",
+      "status": "OK",
+      "size": 2103
+    }
+  ],
+  "issues": [
+    "src/components/PageAccueil.js: Densité mots-clés trop faible (0.83%)",
+    "src/components/ConseilsPage.js: Densité mots-clés trop faible (0.81%)",
+    "src/components/ContactForm.jsx: Densité mots-clés trop faible (0.51%)"
+  ],
+  "recommendations": [
+    "🔧 Problèmes détectés - Voir la section issues",
+    "📊 Surveillez régulièrement Google Search Console",
+    "📈 Testez la vitesse avec PageSpeed Insights",
+    "🔍 Vérifiez les Core Web Vitals mensuellement"
+  ]
+}

@@ -4,7 +4,7 @@ import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
 import EligibilitySection from './EligibilitySection';
 
-const PageAccueil = () => {
+const PageAccueil = ({ onPageChange }) => {
   const [showFaq, setShowFaq] = useState(null);
   const [selectedStep, setSelectedStep] = useState(null);
 
@@ -45,7 +45,7 @@ const PageAccueil = () => {
             "Utilisez notre outil d'éligibilité pour un test rapide"
           ]
         },
-        tip: "Même si vous n'avez pas tous vos trimestres, vous pouvez commencer la retraite progressive à 60 ans. La pension partielle sera calculée sur vos droits acquis."
+        tip: "Même si vous n'avez pas tous vos trimestres, vous pouvez commencer la retraite progressive à 60 ans. La pension partielle sera calculée sur vos droits acquis. Utilisez notre simulateur de retraite progressive pour une estimation précise."
       }
     },
     {
@@ -83,7 +83,7 @@ const PageAccueil = () => {
           title: "Exemple de calcul :",
           text: "Salaire brut actuel : 3 500 € • Temps partiel : 60% • Pension estimée : 1 800 €\n→ Salaire net partiel : 1 638 € (60% de 2 730 €)\n→ Pension progressive : 720 € (40% de 1 800 €)\n→ Revenu total : 2 358 €"
         },
-        tip: "N'oubliez pas que vous continuerez à cotiser pendant la retraite progressive, ce qui augmentera votre pension définitive."
+        tip: "N'oubliez pas que vous continuerez à cotiser pendant la retraite progressive, ce qui augmentera votre pension définitive. Consultez nos conseils d'optimisation financière pour maximiser vos revenus."
       }
     },
     {
@@ -123,7 +123,7 @@ const PageAccueil = () => {
           title: "Formalisation :",
           text: "L'accord doit être formalisé par un avenant à votre contrat de travail, précisant la nouvelle durée de travail, la rémunération, et les conditions d'exercice."
         },
-        tip: "Si vous êtes fonctionnaire ou profession libérale, les règles peuvent différer. Renseignez-vous auprès de votre administration ou ordre professionnel."
+        tip: "Si vous êtes fonctionnaire ou profession libérale, les règles peuvent différer. Renseignez-vous auprès de votre administration ou ordre professionnel. Pour plus de détails, consultez notre guide des démarches administratives."
       }
     },
     {
@@ -166,7 +166,7 @@ const PageAccueil = () => {
           title: "Calendrier des démarches :",
           text: "Déposez votre demande au moins 4 mois avant la date souhaitée de début de la retraite progressive. La caisse de retraite dispose de 2 mois pour instruire votre dossier."
         },
-        tip: "Prenez rendez-vous avec un conseiller retraite pour un accompagnement personnalisé. C'est gratuit et très utile pour éviter les erreurs."
+        tip: "Prenez rendez-vous avec un conseiller retraite pour un accompagnement personnalisé. C'est gratuit et très utile pour éviter les erreurs. Vous pouvez aussi nous contacter pour toute question spécifique."
       }
     }
   ];
@@ -182,16 +182,21 @@ const PageAccueil = () => {
     },
     {
       question: "Combien vais-je toucher ?",
-      answer: "Le calcul est simple : votre salaire à temps partiel + votre pension progressive. Notre calculateur vous donne une estimation en quelques clics. N'oubliez pas : c'est indicatif, le simulateur officiel M@rel reste la référence."
+      answer: "Le calcul est simple : votre salaire à temps partiel + votre pension progressive. Notre simulateur de retraite progressive vous donne une estimation en quelques clics. N'oubliez pas : c'est indicatif, le simulateur officiel M@rel reste la référence."
     },
     {
       question: "Puis-je ajuster mon temps partiel ?",
-      answer: "Absolument ! Vous pouvez modifier votre pourcentage entre 40% et 80% selon vos besoins. L'important c'est de bien négocier avec votre employeur et de prévoir les démarches administratives."
+      answer: "Absolument ! Vous pouvez modifier votre pourcentage entre 40% et 80% selon vos besoins. L'important c'est de bien négocier avec votre employeur et de prévoir les démarches administratives. Consultez nos conseils pour optimiser votre retraite progressive."
     }
   ];
 
   return (
     <div className="homepage">
+      {/* H1 principal pour le SEO */}
+      <h1 style={{position: 'absolute', left: '-9999px', top: '-9999px'}}>
+        Retraite Progressive : Guide Complet 2024 - Simulateur Gratuit
+      </h1>
+      
       {/* Hero Section Moderne */}
       <HeroSection />
 
@@ -210,7 +215,7 @@ const PageAccueil = () => {
             loading="lazy"
           />
           <div className="image-overlay-steps">
-            <h2 className="section-title-on-image">Comment commencer ?</h2>
+            <h2 className="section-title-on-image">Comment commencer sa retraite progressive en 2024 ?</h2>
             <p className="section-description-on-image">
               4 étapes simples pour réussir votre transition en douceur
             </p>
@@ -393,6 +398,63 @@ const PageAccueil = () => {
               {stepsDetails[selectedStep].detailedContent.tip && (
                 <div className="modal-tip">
                   <strong>💡 Astuce :</strong> {stepsDetails[selectedStep].detailedContent.tip}
+                  
+                  {/* Liens internes contextuels */}
+                  {selectedStep === 0 && (
+                    <div className="modal-links">
+                      <button 
+                        className="modal-link-btn"
+                        onClick={() => {
+                          setSelectedStep(null);
+                          onPageChange('calculateur');
+                        }}
+                      >
+                        🧮 Utiliser le simulateur
+                      </button>
+                    </div>
+                  )}
+                  
+                  {selectedStep === 1 && (
+                    <div className="modal-links">
+                      <button 
+                        className="modal-link-btn"
+                        onClick={() => {
+                          setSelectedStep(null);
+                          onPageChange('conseils');
+                        }}
+                      >
+                        💡 Voir les conseils d'optimisation
+                      </button>
+                    </div>
+                  )}
+                  
+                  {selectedStep === 2 && (
+                    <div className="modal-links">
+                      <button 
+                        className="modal-link-btn"
+                        onClick={() => {
+                          setSelectedStep(null);
+                          onPageChange('conseils');
+                        }}
+                      >
+                        📋 Guide des démarches
+                      </button>
+                    </div>
+                  )}
+                  
+                  {selectedStep === 3 && (
+                    <div className="modal-links">
+                      <button 
+                        className="modal-link-btn"
+                        onClick={() => {
+                          setSelectedStep(null);
+                          onPageChange('contact');
+                        }}
+                      >
+                        📞 Nous contacter
+                      </button>
+                    </div>
+                  )}
               </div>
               )}
               </div>
@@ -409,7 +471,7 @@ const PageAccueil = () => {
             loading="lazy"
           />
           <div className="image-overlay-faq">
-            <h2 className="section-title-on-image">Questions fréquentes</h2>
+            <h2 className="section-title-on-image">Questions fréquentes sur la retraite progressive</h2>
             <p className="section-description-on-image">
               Trouvez rapidement les réponses à vos questions sur la retraite progressive
             </p>
