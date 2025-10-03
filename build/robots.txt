@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://retraiteclair.onrender.com/sitemap.xml
+
+# Pages principales
+Allow: /
+Allow: /calculateur
+Allow: /conseils
+Allow: /contact
+
+# Fichiers statiques
+Allow: /static/
+Allow: /favicon.ico
+Allow: /manifest.json
