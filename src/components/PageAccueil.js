@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, CheckCircle, Calculator, Briefcase, FileText } from 'lucide-react';
 import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
 import EligibilitySection from './EligibilitySection';
 
 const PageAccueil = ({ onPageChange }) => {
+  const navigate = useNavigate();
   const [showFaq, setShowFaq] = useState(null);
   const [selectedStep, setSelectedStep] = useState(null);
 
@@ -406,6 +408,7 @@ const PageAccueil = ({ onPageChange }) => {
                         className="modal-link-btn"
                         onClick={() => {
                           setSelectedStep(null);
+                          navigate('/calculateur');
                           onPageChange('calculateur');
                         }}
                       >
@@ -420,6 +423,7 @@ const PageAccueil = ({ onPageChange }) => {
                         className="modal-link-btn"
                         onClick={() => {
                           setSelectedStep(null);
+                          navigate('/conseils');
                           onPageChange('conseils');
                         }}
                       >
@@ -434,6 +438,7 @@ const PageAccueil = ({ onPageChange }) => {
                         className="modal-link-btn"
                         onClick={() => {
                           setSelectedStep(null);
+                          navigate('/conseils');
                           onPageChange('conseils');
                         }}
                       >
@@ -448,6 +453,7 @@ const PageAccueil = ({ onPageChange }) => {
                         className="modal-link-btn"
                         onClick={() => {
                           setSelectedStep(null);
+                          navigate('/contact');
                           onPageChange('contact');
                         }}
                       >

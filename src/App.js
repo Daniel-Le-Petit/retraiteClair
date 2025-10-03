@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import PageAccueil from './components/PageAccueil';
 import CalculateurAvance from './components/CalculateurAvance';
@@ -15,35 +16,43 @@ import './calculateur-avance-styles.css';
 import './calculateur-mobile-styles.css';
 import './conseils-styles.css';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   const [currentPage, setCurrentPage] = useState('accueil');
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'accueil':
-        return <PageAccueil onPageChange={handlePageChange} />;
-      case 'calculateur':
-        return <CalculateurAvance />;
-      case 'conseils':
-        return <ConseilsPage onPageChange={handlePageChange} />;
-      case 'contact':
-        return <ContactForm />;
-      default:
-        return <PageAccueil />;
-    }
-  };
+  // Mettre à jour currentPage basé sur l'URL
+  React.useEffect(() => {
+    const path = location.pathname;
+    if (path === '/') setCurrentPage('accueil');
+    else if (path === '/calculateur') setCurrentPage('calculateur');
+    else if (path === '/conseils') setCurrentPage('conseils');
+    else if (path === '/contact') setCurrentPage('contact');
+  }, [location.pathname]);
 
   return (
     <div className="App">
       <Sidebar currentPage={currentPage} onPageChange={handlePageChange} />
       <div className="main-content">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<PageAccueil onPageChange={handlePageChange} />} />
+          <Route path="/calculateur" element={<CalculateurAvance />} />
+          <Route path="/conseils" element={<ConseilsPage onPageChange={handlePageChange} />} />
+          <Route path="/contact" element={<ContactForm />} />
+        </Routes>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

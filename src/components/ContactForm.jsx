@@ -167,6 +167,23 @@ const ContactForm = () => {
           
           <h2>Contactez-nous</h2>
           <p>Partagez vos suggestions, signalements de bugs ou questions pour améliorer RetraiteClair. Notre équipe d'experts en retraite progressive vous accompagne dans vos démarches et répond à toutes vos questions sur le simulateur de retraite progressive.</p>
+          
+          <div className="contact-info">
+            <h3>Pourquoi nous contacter ?</h3>
+            <ul>
+              <li>📊 <strong>Questions sur le simulateur</strong> : Vous avez des difficultés avec le calculateur de retraite progressive ?</li>
+              <li>💡 <strong>Suggestions d'amélioration</strong> : Vous souhaitez voir de nouvelles fonctionnalités ?</li>
+              <li>🐛 <strong>Signalement de bugs</strong> : Vous avez rencontré un problème technique ?</li>
+              <li>📚 <strong>Conseils personnalisés</strong> : Vous avez besoin d'aide pour optimiser votre retraite progressive ?</li>
+              <li>🤝 <strong>Partenariat</strong> : Vous souhaitez collaborer avec RetraiteClair ?</li>
+            </ul>
+            
+            <h3>Notre engagement</h3>
+            <p>Nous nous engageons à vous répondre dans les <strong>24 heures</strong> pour toute question urgente concernant votre retraite progressive. Notre équipe d'experts analyse chaque demande avec attention pour vous fournir des réponses précises et personnalisées.</p>
+            
+            <h3>Ressources utiles</h3>
+            <p>Avant de nous contacter, consultez nos <a href="#conseils" onClick={() => window.location.hash = 'conseils'}>conseils d'optimisation</a> et utilisez notre <a href="#calculateur" onClick={() => window.location.hash = 'calculateur'}>simulateur de retraite progressive</a> pour une première estimation de vos revenus futurs.</p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="contact-form" noValidate>

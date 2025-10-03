@@ -1,33 +1,46 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Calculator, BarChart3, TrendingUp, CheckCircle, MessageSquare } from 'lucide-react';
 
 const Sidebar = ({ currentPage, onPageChange }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const menuItems = [
     {
       id: 'accueil',
       label: 'Accueil',
       icon: Home,
-      badge: 0
+      badge: 0,
+      path: '/'
     },
     {
       id: 'calculateur',
       label: 'Estimation de votre retraite progressive',
       icon: Calculator,
-      badge: 1
+      badge: 1,
+      path: '/calculateur'
     },
     {
       id: 'conseils',
       label: 'Conseils',
       icon: CheckCircle,
-      badge: 2
+      badge: 2,
+      path: '/conseils'
     },
     {
       id: 'contact',
       label: 'Contact',
       icon: MessageSquare,
-      badge: 3
+      badge: 3,
+      path: '/contact'
     }
   ];
+
+  const handleNavigation = (item) => {
+    navigate(item.path);
+    onPageChange(item.id);
+  };
 
   return (
     <div className="sidebar">
@@ -43,13 +56,13 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       <nav className="sidebar-nav">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = currentPage === item.id;
+          const isActive = location.pathname === item.path;
           
           return (
             <button
               key={item.id}
               className={`nav-item ${isActive ? 'active' : ''}`}
-              onClick={() => onPageChange(item.id)}
+              onClick={() => handleNavigation(item)}
             >
               <Icon size={20} />
               <span>{item.label}</span>
