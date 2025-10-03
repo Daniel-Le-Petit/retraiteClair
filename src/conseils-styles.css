@@ -527,6 +527,21 @@
   margin-bottom: 0;
 }
 
+.per-content ul {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.per-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.per-content li strong {
+  color: #10b981;
+  font-weight: 600;
+}
+
 /* Styles spécifiques pour mobile */
 @media (max-width: 768px) {
   .per-summary {

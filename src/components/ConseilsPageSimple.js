@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   CheckCircle, Clock, Percent, Lightbulb, BarChart3, FileText, 
   Euro, Users, Calendar, TrendingUp, AlertCircle, Target, 
@@ -6,6 +7,7 @@ import {
 } from 'lucide-react';
 
 const ConseilsPageSimple = ({ onPageChange }) => {
+  const navigate = useNavigate();
   const [checklistItems, setChecklistItems] = useState({
     age: false,
     trimestres: false,
@@ -57,7 +59,7 @@ const ConseilsPageSimple = ({ onPageChange }) => {
               <p>Entre 60% et 70% de temps partiel offre souvent le meilleur équilibre entre revenus et qualité de vie. Utilisez notre calculateur pour trouver votre optimal.</p>
               <button 
                 className="conseil-link-btn"
-                onClick={() => onPageChange('calculateur')}
+                onClick={() => navigate('/calculateur')}
               >
                 🧮 Tester avec le simulateur
               </button>
@@ -76,10 +78,35 @@ const ConseilsPageSimple = ({ onPageChange }) => {
                 <Calculator size={24} />
               </div>
               <h4>Calculez l'impact fiscal</h4>
-              <p>La baisse de vos revenus peut vous faire changer de tranche d'imposition. Consultez un conseiller fiscal pour optimiser votre situation.</p>
+              <p>La baisse de vos revenus peut vous faire changer de tranche d'imposition. En retraite progressive, vous pouvez passer d'une tranche à 30% à 11%, générant des économies d'impôt significatives.</p>
+              
+              <details className="per-details">
+                <summary className="per-summary">Voir l'exemple concret d'économie fiscale</summary>
+                <div className="per-content">
+                  <p><strong>Exemple concret :</strong> Marie, 62 ans, gagne 4 500€/mois en temps plein (54 000€/an). Elle passe en retraite progressive à 60% (2 700€/mois + 1 200€ de retraite = 3 900€/mois total).</p>
+                  
+                  <p><strong>Calcul fiscal :</strong></p>
+                  <ul>
+                    <li><strong>Temps plein :</strong> 54 000€/an → Tranche 30% (au-delà de 28 797€)</li>
+                    <li><strong>Retraite progressive :</strong> 46 800€/an → Tranche 11% (au-delà de 10 777€)</li>
+                    <li><strong>Économie d'impôt :</strong> ~2 400€/an (200€/mois)</li>
+                  </ul>
+                  
+                  <p><strong>Optimisations possibles :</strong></p>
+                  <ul>
+                    <li>Versements sur PER déductibles</li>
+                    <li>Dons aux associations (réduction d'impôt)</li>
+                    <li>Investissements locatifs (déficit foncier)</li>
+                    <li>Assurance-vie (abattements)</li>
+                  </ul>
+                  
+                  <p><strong>Conseil :</strong> Consultez un conseiller fiscal 6 mois avant votre passage en retraite progressive pour optimiser votre stratégie.</p>
+                </div>
+              </details>
+              
               <button 
                 className="conseil-link-btn"
-                onClick={() => onPageChange('calculateur')}
+                onClick={() => navigate('/calculateur')}
               >
                 💰 Simuler l'impact fiscal
               </button>
