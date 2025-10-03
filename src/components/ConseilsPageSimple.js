@@ -2,17 +2,10 @@ import React, { useState } from 'react';
 import { 
   CheckCircle, Clock, Percent, Lightbulb, BarChart3, FileText, 
   Euro, Users, Calendar, TrendingUp, AlertCircle, Target, 
-  Shield, Phone, Mail, BookOpen, Calculator, Heart, ChevronDown, ChevronUp
+  Shield, Phone, Mail, BookOpen, Calculator, Heart
 } from 'lucide-react';
 
-const ConseilsPage = ({ onPageChange }) => {
-  const [expandedSections, setExpandedSections] = useState({
-    optimisation: true,  // Toujours ouvert
-    demarches: true,     // Toujours ouvert
-    pension: true,       // Toujours ouvert
-    pieges: true         // Toujours ouvert
-  });
-
+const ConseilsPageSimple = ({ onPageChange }) => {
   const [checklistItems, setChecklistItems] = useState({
     age: false,
     trimestres: false,
@@ -33,13 +26,6 @@ const ConseilsPage = ({ onPageChange }) => {
     points: false,
     planification: false
   });
-
-  const toggleSection = (section) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
 
   const toggleChecklistItem = (item) => {
     setChecklistItems(prev => ({
@@ -62,141 +48,127 @@ const ConseilsPage = ({ onPageChange }) => {
         {/* Section Optimisation financière */}
         <div className="conseils-section">
           <h3>💰 Comment optimiser financièrement sa retraite progressive</h3>
-          <div className="conseils-content">
-              <div className="conseils-grid">
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <Euro size={24} />
-                  </div>
-                  <h4>Choisissez le bon pourcentage</h4>
-                  <p>Entre 60% et 70% de temps partiel offre souvent le meilleur équilibre entre revenus et qualité de vie. Utilisez notre calculateur pour trouver votre optimal.</p>
-                  <button 
-                    className="conseil-link-btn"
-                    onClick={() => onPageChange('calculateur')}
-                  >
-                    🧮 Tester avec le simulateur
-                  </button>
-                </div>
-                
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <TrendingUp size={24} />
-                  </div>
-                  <h4>Cotisez à 100% si possible</h4>
-                  <p>Maintenir vos cotisations sur votre salaire plein augmente significativement votre pension définitive. L'impact peut représenter +150€/mois à vie.</p>
-                </div>
-                
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <Calculator size={24} />
-                  </div>
-                  <h4>Calculez l'impact fiscal</h4>
-                  <p>La baisse de vos revenus peut vous faire changer de tranche d'imposition. Consultez un conseiller fiscal pour optimiser votre situation.</p>
-                  <button 
-                    className="conseil-link-btn"
-                    onClick={() => onPageChange('calculateur')}
-                  >
-                    💰 Simuler l'impact fiscal
-                  </button>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <Target size={24} />
-                  </div>
-                  <h4>Épargnez la différence</h4>
-                  <p>Si votre revenu en retraite progressive dépasse vos besoins, épargnez la différence pour constituer un capital ou compléter votre future pension.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <Shield size={24} />
-                  </div>
-                  <h4>Vérifiez vos complémentaires</h4>
-                  <p>Assurez-vous que vos régimes complémentaires (Agirc-Arrco) sont bien pris en compte dans votre demande de retraite progressive.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon green">
-                    <BarChart3 size={24} />
-                  </div>
-                  <h4>Anticipez les variations</h4>
-                  <p>Vos revenus peuvent varier selon votre ancienneté, primes, et régimes. Prévoyez une marge de sécurité de 10% dans vos calculs.</p>
-                </div>
+          <div className="conseils-grid">
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <Euro size={24} />
               </div>
+              <h4>Choisissez le bon pourcentage</h4>
+              <p>Entre 60% et 70% de temps partiel offre souvent le meilleur équilibre entre revenus et qualité de vie. Utilisez notre calculateur pour trouver votre optimal.</p>
+              <button 
+                className="conseil-link-btn"
+                onClick={() => onPageChange('calculateur')}
+              >
+                🧮 Tester avec le simulateur
+              </button>
             </div>
-          )}
+            
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <TrendingUp size={24} />
+              </div>
+              <h4>Cotisez à 100% si possible</h4>
+              <p>Maintenir vos cotisations sur votre salaire plein augmente significativement votre pension définitive. L'impact peut représenter +150€/mois à vie.</p>
+            </div>
+            
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <Calculator size={24} />
+              </div>
+              <h4>Calculez l'impact fiscal</h4>
+              <p>La baisse de vos revenus peut vous faire changer de tranche d'imposition. Consultez un conseiller fiscal pour optimiser votre situation.</p>
+              <button 
+                className="conseil-link-btn"
+                onClick={() => onPageChange('calculateur')}
+              >
+                💰 Simuler l'impact fiscal
+              </button>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <Target size={24} />
+              </div>
+              <h4>Épargnez la différence</h4>
+              <p>Si votre revenu en retraite progressive dépasse vos besoins, épargnez la différence pour constituer un capital ou compléter votre future pension.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <Shield size={24} />
+              </div>
+              <h4>Vérifiez vos complémentaires</h4>
+              <p>Assurez-vous que vos régimes complémentaires (Agirc-Arrco) sont bien pris en compte dans votre demande de retraite progressive.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <BarChart3 size={24} />
+              </div>
+              <h4>Anticipez les variations</h4>
+              <p>Vos revenus peuvent varier selon votre ancienneté, primes, et régimes. Prévoyez une marge de sécurité de 10% dans vos calculs.</p>
+            </div>
+          </div>
         </div>
 
-        {/* Section Démarches administratives - Accordion */}
-        <div className="conseils-accordion">
-              <button 
-                className="accordion-header" 
-                onClick={() => toggleSection('demarches')}
-                type="button"
-              >
-            <h3>📋 Démarches administratives pour la retraite progressive</h3>
-            {expandedSections.demarches ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </button>
-          {expandedSections.demarches && (
-            <div className="accordion-content">
-              <div className="conseils-grid">
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <Calendar size={24} />
-                  </div>
-                  <h4>Déposez 4 mois à l'avance</h4>
-                  <p>Votre demande doit être déposée au moins 4 mois avant la date souhaitée de début. Ne tardez pas, les délais peuvent être longs.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <FileText size={24} />
-                  </div>
-                  <h4>Vérifiez votre relevé</h4>
-                  <p>Obtenez votre relevé actualisé sur lassuranceretraite.fr. Vérifiez qu'aucune période n'est manquante avant de faire votre demande.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <Users size={24} />
-                  </div>
-                  <h4>Consultez tous vos régimes</h4>
-                  <p>Si vous avez cotisé à plusieurs régimes (privé, public, indépendant), contactez chacun d'eux séparément pour coordonner votre retraite progressive.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <Phone size={24} />
-                  </div>
-                  <h4>Prenez rendez-vous avec un conseiller</h4>
-                  <p>Un entretien personnalisé (gratuit) vous aide à éviter les erreurs et à optimiser votre dossier. Appelez le 3960 ou prenez RDV en ligne.</p>
-                  <button 
-                    className="conseil-link-btn"
-                    onClick={() => onPageChange('contact')}
-                  >
-                    📞 Poser une question
-                  </button>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <Mail size={24} />
-                  </div>
-                  <h4>Envoyez en recommandé avec AR</h4>
-                  <p>Pour votre demande officielle, utilisez un courrier recommandé avec accusé de réception. Conservez tous les justificatifs et copies.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon blue">
-                    <BookOpen size={24} />
-                  </div>
-                  <h4>Conservez toutes vos preuves</h4>
-                  <p>Gardez copies des avenants, attestations employeur, bulletins de salaire et correspondances avec les caisses de retraite pendant au moins 5 ans.</p>
-                </div>
+        {/* Section Démarches administratives */}
+        <div className="conseils-section">
+          <h3>📋 Démarches administratives pour la retraite progressive</h3>
+          <div className="conseils-grid">
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Calendar size={24} />
               </div>
+              <h4>Déposez 4 mois à l'avance</h4>
+              <p>Votre demande doit être déposée au moins 4 mois avant la date souhaitée de début. Ne tardez pas, les délais peuvent être longs.</p>
             </div>
-          )}
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <FileText size={24} />
+              </div>
+              <h4>Vérifiez votre relevé</h4>
+              <p>Obtenez votre relevé actualisé sur lassuranceretraite.fr. Vérifiez qu'aucune période n'est manquante avant de faire votre demande.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Users size={24} />
+              </div>
+              <h4>Consultez tous vos régimes</h4>
+              <p>Si vous avez cotisé à plusieurs régimes (privé, public, indépendant), contactez chacun d'eux séparément pour coordonner votre retraite progressive.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Phone size={24} />
+              </div>
+              <h4>Prenez rendez-vous avec un conseiller</h4>
+              <p>Un entretien personnalisé (gratuit) vous aide à éviter les erreurs et à optimiser votre dossier. Appelez le 3960 ou prenez RDV en ligne.</p>
+              <button 
+                className="conseil-link-btn"
+                onClick={() => onPageChange('contact')}
+              >
+                📞 Poser une question
+              </button>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <Mail size={24} />
+              </div>
+              <h4>Envoyez en recommandé avec AR</h4>
+              <p>Pour votre demande officielle, utilisez un courrier recommandé avec accusé de réception. Conservez tous les justificatifs et copies.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon blue">
+                <BookOpen size={24} />
+              </div>
+              <h4>Conservez toutes vos preuves</h4>
+              <p>Gardez copies des avenants, attestations employeur, bulletins de salaire et correspondances avec les caisses de retraite pendant au moins 5 ans.</p>
+            </div>
+          </div>
         </div>
 
         {/* Section Gestion du temps partiel */}
@@ -229,118 +201,96 @@ const ConseilsPage = ({ onPageChange }) => {
           </div>
         </div>
 
-        {/* Section Optimisation de la pension - Accordion */}
-        <div className="conseils-accordion">
-              <button 
-                className="accordion-header" 
-                onClick={() => toggleSection('pension')}
-                type="button"
-              >
-            <h3>📈 Comment optimiser sa pension de retraite progressive</h3>
-            {expandedSections.pension ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </button>
-          {expandedSections.pension && (
-            <div className="accordion-content">
-              <div className="conseils-grid">
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <TrendingUp size={24} />
-                  </div>
-                  <h4>Prolongez si vous le pouvez</h4>
-                  <p>Chaque année supplémentaire en retraite progressive augmente vos droits. Si vous êtes à l'aise financièrement, rester 3-4 ans optimise votre pension finale.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <Calculator size={24} />
-                  </div>
-                  <h4>Rachetez vos trimestres manquants</h4>
-                  <p>Avant de partir en retraite progressive, envisagez le rachat de trimestres. Cela augmente votre pension de base et donc votre pension progressive.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <Euro size={24} />
-                  </div>
-                  <h4>Cumulez emploi-retraite après</h4>
-                  <p>Après votre retraite définitive, vous pourrez cumuler emploi et retraite sans limite si vous avez le taux plein. Une option pour compléter vos revenus.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <Shield size={24} />
-                  </div>
-                  <h4>Sécurisez votre mutuelle</h4>
-                  <p>Vérifiez que votre mutuelle d'entreprise reste active à temps partiel. Sinon, souscrivez à une complémentaire individuelle avant de réduire votre temps.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <BarChart3 size={24} />
-                  </div>
-                  <h4>Surveillez vos points Agirc-Arrco</h4>
-                  <p>Vos points de retraite complémentaire continuent à s'accumuler. Vérifiez chaque année que tout est bien comptabilisé sur votre relevé.</p>
-                </div>
-
-                <div className="conseil-card">
-                  <div className="conseil-icon orange">
-                    <Lightbulb size={24} />
-                  </div>
-                  <h4>Consultez avant de décider</h4>
-                  <p>Un conseiller en gestion de patrimoine peut vous aider à optimiser votre stratégie globale (épargne, immobilier, fiscalité) pendant cette transition.</p>
-                </div>
+        {/* Section Optimisation de la pension */}
+        <div className="conseils-section">
+          <h3>📈 Comment optimiser sa pension de retraite progressive</h3>
+          <div className="conseils-grid">
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <TrendingUp size={24} />
               </div>
+              <h4>Prolongez si vous le pouvez</h4>
+              <p>Chaque année supplémentaire en retraite progressive augmente vos droits. Si vous êtes à l'aise financièrement, rester 3-4 ans optimise votre pension finale.</p>
             </div>
-          )}
+
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <Calculator size={24} />
+              </div>
+              <h4>Rachetez vos trimestres manquants</h4>
+              <p>Avant de partir en retraite progressive, envisagez le rachat de trimestres. Cela augmente votre pension de base et donc votre pension progressive.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <Euro size={24} />
+              </div>
+              <h4>Cumulez emploi-retraite après</h4>
+              <p>Après votre retraite définitive, vous pourrez cumuler emploi et retraite sans limite si vous avez le taux plein. Une option pour compléter vos revenus.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <Shield size={24} />
+              </div>
+              <h4>Sécurisez votre mutuelle</h4>
+              <p>Vérifiez que votre mutuelle d'entreprise reste active à temps partiel. Sinon, souscrivez à une complémentaire individuelle avant de réduire votre temps.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <BarChart3 size={24} />
+              </div>
+              <h4>Surveillez vos points Agirc-Arrco</h4>
+              <p>Vos points de retraite complémentaire continuent à s'accumuler. Vérifiez chaque année que tout est bien comptabilisé sur votre relevé.</p>
+            </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon orange">
+                <Lightbulb size={24} />
+              </div>
+              <h4>Consultez avant de décider</h4>
+              <p>Un conseiller en gestion de patrimoine peut vous aider à optimiser votre stratégie globale (épargne, immobilier, fiscalité) pendant cette transition.</p>
+            </div>
+          </div>
         </div>
 
-        {/* Section Pièges à éviter - Accordion */}
-        <div className="conseils-accordion">
-              <button 
-                className="accordion-header" 
-                onClick={() => toggleSection('pieges')}
-                type="button"
-              >
-            <h3>⚠️ Pièges à éviter dans la retraite progressive</h3>
-            {expandedSections.pieges ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-          </button>
-          {expandedSections.pieges && (
-            <div className="accordion-content">
-              <div className="conseils-grid alert-grid">
-                <div className="conseil-card alert-card">
-                  <div className="conseil-icon red">
-                    <AlertCircle size={24} />
-                  </div>
-                  <h4>Ne sous-estimez pas vos besoins</h4>
-                  <p>Calculez précisément vos dépenses mensuelles. Une baisse de revenus mal anticipée peut créer des difficultés financières.</p>
-                </div>
-
-                <div className="conseil-card alert-card">
-                  <div className="conseil-icon red">
-                    <AlertCircle size={24} />
-                  </div>
-                  <h4>Attention aux délais</h4>
-                  <p>Les démarches prennent du temps. Ne commencez pas vos négociations avec votre employeur trop tardivement.</p>
-                </div>
-
-                <div className="conseil-card alert-card">
-                  <div className="conseil-icon red">
-                    <AlertCircle size={24} />
-                  </div>
-                  <h4>Vérifiez votre mutuelle</h4>
-                  <p>Certaines mutuelles d'entreprise ne couvrent plus à temps partiel. Vérifiez avant de signer votre avenant.</p>
-                </div>
-
-                <div className="conseil-card alert-card">
-                  <div className="conseil-icon red">
-                    <AlertCircle size={24} />
-                  </div>
-                  <h4>Informez-vous sur le chômage</h4>
-                  <p>En cas de rupture de contrat pendant la retraite progressive, vos droits au chômage peuvent être limités. Privilégiez la stabilité.</p>
-                </div>
+        {/* Section Pièges à éviter */}
+        <div className="conseils-section">
+          <h3>⚠️ Pièges à éviter dans la retraite progressive</h3>
+          <div className="conseils-grid alert-grid">
+            <div className="conseil-card alert-card">
+              <div className="conseil-icon red">
+                <AlertCircle size={24} />
               </div>
+              <h4>Ne sous-estimez pas vos besoins</h4>
+              <p>Calculez précisément vos dépenses mensuelles. Une baisse de revenus mal anticipée peut créer des difficultés financières.</p>
             </div>
-          )}
+
+            <div className="conseil-card alert-card">
+              <div className="conseil-icon red">
+                <AlertCircle size={24} />
+              </div>
+              <h4>Attention aux délais</h4>
+              <p>Les démarches prennent du temps. Ne commencez pas vos négociations avec votre employeur trop tardivement.</p>
+            </div>
+
+            <div className="conseil-card alert-card">
+              <div className="conseil-icon red">
+                <AlertCircle size={24} />
+              </div>
+              <h4>Vérifiez votre mutuelle</h4>
+              <p>Certaines mutuelles d'entreprise ne couvrent plus à temps partiel. Vérifiez avant de signer votre avenant.</p>
+            </div>
+
+            <div className="conseil-card alert-card">
+              <div className="conseil-icon red">
+                <AlertCircle size={24} />
+              </div>
+              <h4>Informez-vous sur le chômage</h4>
+              <p>En cas de rupture de contrat pendant la retraite progressive, vos droits au chômage peuvent être limités. Privilégiez la stabilité.</p>
+            </div>
+          </div>
         </div>
 
         {/* Section Timing optimal */}
@@ -617,4 +567,4 @@ const ConseilsPage = ({ onPageChange }) => {
   );
 };
 
-export default ConseilsPage;
+export default ConseilsPageSimple;

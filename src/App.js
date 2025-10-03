@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import Sidebar from './components/Sidebar';
 import PageAccueil from './components/PageAccueil';
 import CalculateurAvance from './components/CalculateurAvance';
-import ConseilsPage from './components/ConseilsPage';
+import ConseilsPageSimple from './components/ConseilsPageSimple';
 import ContactForm from './components/ContactForm';
 import './index.css';
 import './sidebar.css';
@@ -40,7 +40,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<PageAccueil onPageChange={handlePageChange} />} />
           <Route path="/calculateur" element={<CalculateurAvance />} />
-          <Route path="/conseils" element={<ConseilsPage onPageChange={handlePageChange} />} />
+          <Route path="/conseils" element={<ConseilsPageSimple onPageChange={handlePageChange} />} />
           <Route path="/contact" element={<ContactForm />} />
         </Routes>
       </div>
