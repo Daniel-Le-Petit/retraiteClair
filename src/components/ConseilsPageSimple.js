@@ -108,6 +108,24 @@ const ConseilsPageSimple = ({ onPageChange }) => {
               <h4>Anticipez les variations</h4>
               <p>Vos revenus peuvent varier selon votre ancienneté, primes, et régimes. Prévoyez une marge de sécurité de 10% dans vos calculs.</p>
             </div>
+
+            <div className="conseil-card">
+              <div className="conseil-icon green">
+                <TrendingUp size={24} />
+              </div>
+              <h4>Optimisez votre fiscalité avec le PER</h4>
+              <p>La retraite progressive offre une opportunité fiscale : continuer à bénéficier des avantages du Plan d'Épargne Retraite (PER). Tant que vous conservez une activité, vos versements restent déductibles.</p>
+              
+              <details className="per-details">
+                <summary className="per-summary">Voir l'exemple et les détails</summary>
+                <div className="per-content">
+                  <p><strong>Exemple concret :</strong> Si vous gagnez 3 000€/mois en retraite progressive (60% de temps partiel) et versez 500€/mois sur votre PER, vous ne serez imposé que sur 2 500€. L'économie d'impôt peut représenter 150€/mois selon votre tranche d'imposition.</p>
+                  <p><strong>Double avantage :</strong> Si votre conjoint n'exerce plus d'activité professionnelle, il peut également profiter de cette déduction en versant sur son propre PER, jusqu'à 10% de ses revenus de l'année précédente.</p>
+                  <p><strong>Attention :</strong> Cet avantage fiscal disparaît dès que vous passez en retraite définitive. C'est pourquoi la période de retraite progressive est stratégique pour maximiser vos versements.</p>
+                  <p>La retraite progressive peut donc être une véritable opportunité fiscale à ne pas négliger pour préparer sereinement votre retraite définitive.</p>
+                </div>
+              </details>
+            </div>
           </div>
         </div>
 
