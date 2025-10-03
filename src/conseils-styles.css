@@ -542,6 +542,128 @@
   font-weight: 600;
 }
 
+/* Styles pour le calculateur fiscal */
+.fiscal-calculator {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.fiscal-calculator h5 {
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.fiscal-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-group label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.fiscal-input {
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.fiscal-input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.fiscal-calculate-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.fiscal-calculate-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.fiscal-result {
+  background: white;
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.fiscal-result h6 {
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.fiscal-result p {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.fiscal-result .economie {
+  background: #d1fae5;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #065f46;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.fiscal-result .note {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Responsive pour le calculateur fiscal */
+@media (max-width: 768px) {
+  .fiscal-calculator {
+    padding: 1rem;
+  }
+  
+  .fiscal-input {
+    padding: 0.625rem;
+  }
+  
+  .fiscal-calculate-btn {
+    padding: 0.875rem 1.25rem;
+  }
+}
+
 /* Styles spécifiques pour mobile */
 @media (max-width: 768px) {
   .per-summary {

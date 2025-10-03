@@ -104,12 +104,79 @@ const ConseilsPageSimple = ({ onPageChange }) => {
                 </div>
               </details>
               
-              <button 
-                className="conseil-link-btn"
-                onClick={() => navigate('/calculateur')}
-              >
-                💰 Simuler l'impact fiscal
-              </button>
+              <details className="per-details">
+                <summary className="per-summary">💰 Calculer mon impact fiscal</summary>
+                <div className="per-content">
+                  <div className="fiscal-calculator">
+                    <h5>Calculateur d'impact fiscal</h5>
+                    <p>Estimez votre économie d'impôt en passant en retraite progressive :</p>
+                    
+                    <div className="fiscal-inputs">
+                      <div className="input-group">
+                        <label>Salaire actuel (€/mois) :</label>
+                        <input 
+                          type="number" 
+                          id="salaire-actuel" 
+                          placeholder="Ex: 4000"
+                          className="fiscal-input"
+                        />
+                      </div>
+                      
+                      <div className="input-group">
+                        <label>Temps partiel souhaité (%) :</label>
+                        <input 
+                          type="number" 
+                          id="temps-partiel" 
+                          placeholder="Ex: 60"
+                          min="40" 
+                          max="80"
+                          className="fiscal-input"
+                        />
+                      </div>
+                      
+                      <button 
+                        className="fiscal-calculate-btn"
+                        onClick={() => {
+                          const salaire = parseFloat(document.getElementById('salaire-actuel').value);
+                          const tempsPartiel = parseFloat(document.getElementById('temps-partiel').value);
+                          
+                          if (salaire && tempsPartiel) {
+                            const revenuAnnuel = salaire * 12;
+                            const revenuProgressive = (salaire * tempsPartiel / 100) * 12;
+                            
+                            // Calcul simplifié des tranches d'imposition
+                            let trancheActuelle = '11%';
+                            let trancheProgressive = '11%';
+                            
+                            if (revenuAnnuel > 28797) trancheActuelle = '30%';
+                            if (revenuProgressive > 28797) trancheProgressive = '30%';
+                            
+                            const economie = revenuAnnuel > 28797 && revenuProgressive <= 28797 ? 
+                              (revenuAnnuel - 28797) * 0.19 : 0;
+                            
+                            const resultDiv = document.getElementById('fiscal-result');
+                            resultDiv.innerHTML = `
+                              <div class="fiscal-result">
+                                <h6>Résultat de votre simulation :</h6>
+                                <p><strong>Revenus actuels :</strong> ${revenuAnnuel.toLocaleString()}€/an (tranche ${trancheActuelle})</p>
+                                <p><strong>Revenus en retraite progressive :</strong> ${revenuProgressive.toLocaleString()}€/an (tranche ${trancheProgressive})</p>
+                                <p class="economie"><strong>Économie d'impôt estimée :</strong> ${economie.toLocaleString()}€/an (${Math.round(economie/12)}€/mois)</p>
+                                <p class="note">* Calcul simplifié basé sur les tranches 2024. Consultez un conseiller fiscal pour une estimation précise.</p>
+                              </div>
+                            `;
+                          } else {
+                            alert('Veuillez remplir tous les champs');
+                          }
+                        }}
+                      >
+                        🧮 Calculer mon économie
+                      </button>
+                      
+                      <div id="fiscal-result"></div>
+                    </div>
+                  </div>
+                </div>
+              </details>
             </div>
 
             <div className="conseil-card">
