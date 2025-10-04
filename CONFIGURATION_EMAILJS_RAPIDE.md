@@ -76,3 +76,4 @@ const EMAILJS_CONFIG = {
 
 ## 📧 Alternative rapide
 Si vous voulez tester immédiatement, vous pouvez temporairement utiliser un service de test comme [webhook.site](https://webhook.site) en remplaçant l'URL EmailJS par votre webhook.
+

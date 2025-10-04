@@ -211,3 +211,4 @@ Après avoir appliqué ce template, vous devriez recevoir des emails avec :
 - ✅ La date d'envoi
 - ✅ Le message complet
 - ✅ Un bouton pour répondre directement
+

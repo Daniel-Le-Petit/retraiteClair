@@ -188,3 +188,4 @@
 - **Confiance** : Transparence renforcée
 
 **🚀 Déployez maintenant pour une expérience utilisateur optimale !**
+

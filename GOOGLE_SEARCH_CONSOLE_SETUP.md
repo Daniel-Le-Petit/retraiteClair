@@ -188,3 +188,4 @@
 ---
 
 **🎯 Une fois configuré, Google Search Console vous donnera une visibilité complète sur les performances SEO de RetraiteClair et vous aidera à optimiser continuellement votre référencement naturel.**
+

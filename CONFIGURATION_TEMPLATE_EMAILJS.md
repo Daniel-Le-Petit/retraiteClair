@@ -68,3 +68,4 @@ Après cette configuration, le formulaire devrait :
 2. Vérifiez que l'adresse **"To Email"** est bien `dlepetit.maa@gmail.com`
 3. Vérifiez que le service Gmail est bien **connecté**
 4. Testez avec un email simple d'abord
+

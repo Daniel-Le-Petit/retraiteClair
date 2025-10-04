@@ -124,3 +124,4 @@
 **📱 Testez et confirmez le bon fonctionnement après déploiement.**
 
 **🔧 Si ça ne fonctionne toujours pas, nous essaierons une approche différente.**
+

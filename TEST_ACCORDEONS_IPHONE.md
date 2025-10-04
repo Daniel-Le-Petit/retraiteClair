@@ -120,3 +120,4 @@
 **🎯 Les accordéons devraient maintenant fonctionner parfaitement sur iPhone !**
 
 **📱 Testez et confirmez le bon fonctionnement après déploiement.**
+

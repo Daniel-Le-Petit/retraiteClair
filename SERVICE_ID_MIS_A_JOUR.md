@@ -40,3 +40,4 @@ const EMAILJS_CONFIG = {
 ## 🚀 Prêt à utiliser
 
 Le formulaire de contact est maintenant configuré avec le nouveau Service ID et devrait fonctionner correctement !
+

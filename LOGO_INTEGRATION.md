@@ -96,3 +96,4 @@ Le logo est maintenant visible :
 3. Ajuster les couleurs si nécessaire selon vos préférences
 
 Le logo retraiteClair est maintenant parfaitement intégré dans votre application !
+
