@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#134e4a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="1000" cy="100" r="80" fill="url(#accent)" opacity="0.3"/>
+  <circle cx="200" cy="530" r="120" fill="url(#accent)" opacity="0.2"/>
+  <circle cx="1100" cy="500" r="60" fill="url(#accent)" opacity="0.4"/>
+  
+  <!-- Main content -->
+  <g transform="translate(600, 315)">
+    <!-- Icon -->
+    <text x="0" y="-120" text-anchor="middle" font-size="120" fill="white" font-family="Arial, sans-serif">🏖️</text>
+    
+    <!-- Logo -->
+    <text x="0" y="-20" text-anchor="middle" font-size="80" font-weight="bold" fill="white" font-family="Arial, sans-serif">RetraiteClair</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="40" text-anchor="middle" font-size="36" fill="white" font-family="Arial, sans-serif" opacity="0.95">Simulateur Retraite Progressive Gratuit</text>
+    
+    <!-- Description -->
+    <text x="0" y="90" text-anchor="middle" font-size="24" fill="white" font-family="Arial, sans-serif" opacity="0.9">Calculez votre retraite progressive en quelques clics</text>
+    <text x="0" y="120" text-anchor="middle" font-size="24" fill="white" font-family="Arial, sans-serif" opacity="0.9">Guide complet, conseils d'experts et simulateur gratuit</text>
+    
+    <!-- Highlight box -->
+    <rect x="-280" y="150" width="560" height="50" rx="25" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <text x="0" y="180" text-anchor="middle" font-size="20" fill="white" font-family="Arial, sans-serif" font-weight="500">✨ Simulation Gratuite • Guide Complet • Conseils Experts</text>
+  </g>
+</svg>
