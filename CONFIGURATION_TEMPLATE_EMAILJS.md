@@ -69,3 +69,4 @@ Après cette configuration, le formulaire devrait :
 3. Vérifiez que le service Gmail est bien **connecté**
 4. Testez avec un email simple d'abord
 
+

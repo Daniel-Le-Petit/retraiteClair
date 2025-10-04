@@ -37,3 +37,4 @@ jobs:
         echo "SEO issues detected. Check the generated report."
         exit 1
 
+

@@ -217,3 +217,4 @@ cat seo-report.json
 
 **🎯 Avec ce système de monitoring, vous aurez une visibilité complète sur les performances SEO de RetraiteClair et pourrez réagir rapidement aux changements.**
 
+
