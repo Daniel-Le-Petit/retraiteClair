@@ -27,7 +27,7 @@
     <text x="0" y="-20" text-anchor="middle" font-size="80" font-weight="bold" fill="white" font-family="Arial, sans-serif">RetraiteClair</text>
     
     <!-- Subtitle -->
-    <text x="0" y="40" text-anchor="middle" font-size="36" fill="white" font-family="Arial, sans-serif" opacity="0.95">Simulateur Retraite Progressive Gratuit</text>
+    <text x="0" y="40" text-anchor="middle" font-size="36" fill="white" font-family="Arial, sans-serif" opacity="0.95">Simulateur de retraite progressive</text>
     
     <!-- Description -->
     <text x="0" y="90" text-anchor="middle" font-size="24" fill="white" font-family="Arial, sans-serif" opacity="0.9">Calculez votre retraite progressive en quelques clics</text>
