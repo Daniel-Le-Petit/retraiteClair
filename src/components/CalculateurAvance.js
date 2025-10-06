@@ -256,7 +256,7 @@ const CalculateurAvance = () => {
                       type="number"
                       value={formData.salaireBrut}
                       onChange={(e) => handleInputChange('salaireBrut', e.target.value)}
-                      placeholder="Ex: 6696"
+                      placeholder=""
                       className="form-input"
                     />
                   </div>
@@ -270,7 +270,7 @@ const CalculateurAvance = () => {
                       type="number"
                       value={formData.pensionEstimee}
                       onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
-                      placeholder="Ex: 4536"
+                      placeholder=""
                       className="form-input"
                     />
                   </div>
@@ -284,7 +284,7 @@ const CalculateurAvance = () => {
                       type="number"
                       value={formData.anneeNaissance}
                       onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
-                      placeholder="Ex: 1964"
+                      placeholder=""
                       className="form-input"
                       min="1900"
                       max="2010"
@@ -314,7 +314,7 @@ const CalculateurAvance = () => {
                             handleInputChange('debutRetraite', '');
                           }
                         }}
-                        placeholder="01/12/2025"
+                        placeholder=""
                         className="date-input-manual"
                       />
                       <button
@@ -337,7 +337,7 @@ const CalculateurAvance = () => {
                       type="number"
                       value={formData.dureeRetraite}
                       onChange={(e) => handleInputChange('dureeRetraite', e.target.value)}
-                      placeholder="Ex: 4"
+                      placeholder=""
                       className="form-input"
                       min="2"
                       max="20"
@@ -859,7 +859,7 @@ const CalculateurAvance = () => {
                         type="number"
                         value={formData.salaireBrut}
                         onChange={(e) => handleInputChange('salaireBrut', e.target.value)}
-                        placeholder="Ex: 6696"
+                        placeholder=""
                         className="form-input"
                       />
                     </div>
@@ -873,7 +873,7 @@ const CalculateurAvance = () => {
                         type="number"
                         value={formData.pensionEstimee}
                         onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
-                        placeholder="Ex: 4536"
+                        placeholder=""
                         className="form-input"
                       />
                     </div>
@@ -887,7 +887,7 @@ const CalculateurAvance = () => {
                         type="number"
                         value={formData.anneeNaissance}
                         onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
-                        placeholder="Ex: 1963"
+                        placeholder=""
                         className="form-input"
                       />
                     </div>
@@ -914,7 +914,7 @@ const CalculateurAvance = () => {
                               handleInputChange('debutRetraite', '');
                             }
                           }}
-                          placeholder="01/12/2025"
+                          placeholder=""
                           className="date-input-manual"
                         />
                         <button
@@ -937,7 +937,7 @@ const CalculateurAvance = () => {
                         type="number"
                         value={formData.dureeRetraite}
                         onChange={(e) => handleInputChange('dureeRetraite', e.target.value)}
-                        placeholder="Ex: 3"
+                        placeholder=""
                         min="2"
                         max="10"
                         className="form-input"
