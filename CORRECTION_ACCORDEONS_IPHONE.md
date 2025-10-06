@@ -94,3 +94,4 @@ Les sections accordéons ne s'ouvraient pas sur iPhone :
 Les accordéons devraient maintenant fonctionner parfaitement sur iPhone !
 
 
+

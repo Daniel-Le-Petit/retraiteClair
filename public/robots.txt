@@ -14,3 +14,7 @@ Allow: /contact
 Allow: /static/
 Allow: /favicon.ico
 Allow: /manifest.json
+
+# Blocage des répertoires techniques
+Disallow: /admin/
+Disallow: /api/

@@ -98,3 +98,4 @@ Le logo est maintenant visible :
 Le logo retraiteClair est maintenant parfaitement intégré dans votre application !
 
 
+

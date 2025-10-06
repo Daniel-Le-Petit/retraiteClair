@@ -305,3 +305,4 @@ NEXT_PUBLIC_BASE_URL=https://retraiteclair.onrender.com
 **🚀 La migration vers Next.js SSG est la solution optimale pour RetraiteClair !**
 
 
+

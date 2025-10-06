@@ -213,3 +213,4 @@ Après avoir appliqué ce template, vous devriez recevoir des emails avec :
 - ✅ Un bouton pour répondre directement
 
 
+
