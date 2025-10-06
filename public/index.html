@@ -55,8 +55,18 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialiser Meta Pixel
       fbq('init', '736513402739299');
-      fbq('track', 'PageView');
+      
+      // Vérifier le consentement avant de tracker
+      const consent = localStorage.getItem('consent-given');
+      if (consent === 'true') {
+        fbq('track', 'PageView');
+      } else {
+        // Attendre le consentement
+        fbq('consent', 'revoke');
+      }
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
@@ -128,5 +138,77 @@
     </noscript>
     
     <div id="root"></div>
+
+    <!-- RGPD Consent Banner -->
+    <div id="consent-banner" style="display: none;">
+      <div style="background: #f8f9fa; padding: 20px; border-top: 2px solid #0f766e; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+          <div style="flex: 1; min-width: 300px;">
+            <p style="margin: 0; font-size: 14px; color: #333; line-height: 1.4;">
+              🍪 Nous utilisons des cookies et Meta Pixel pour améliorer votre expérience et mesurer nos performances. 
+              <a href="/privacy-policy" style="color: #0f766e; text-decoration: underline;">En savoir plus</a>
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button onclick="acceptCookies()" style="background: #0f766e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; transition: background 0.2s;">
+              Accepter
+            </button>
+            <button onclick="declineCookies()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; transition: background 0.2s;">
+              Refuser
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    // RGPD Consent Management
+    function acceptCookies() {
+      localStorage.setItem('consent-given', 'true');
+      localStorage.setItem('consent-date', new Date().toISOString());
+      document.getElementById('consent-banner').style.display = 'none';
+      
+      // Activer Meta Pixel
+      if (typeof fbq !== 'undefined') {
+        fbq('consent', 'grant');
+        console.log('Meta Pixel consent granted');
+      }
+    }
+
+    function declineCookies() {
+      localStorage.setItem('consent-given', 'false');
+      localStorage.setItem('consent-date', new Date().toISOString());
+      document.getElementById('consent-banner').style.display = 'none';
+      
+      // Désactiver Meta Pixel
+      if (typeof fbq !== 'undefined') {
+        fbq('consent', 'revoke');
+        console.log('Meta Pixel consent revoked');
+      }
+    }
+
+    // Vérifier le consentement au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      const consent = localStorage.getItem('consent-given');
+      const consentDate = localStorage.getItem('consent-date');
+      
+      // Si pas de consentement ou consentement ancien (> 1 an), afficher la bannière
+      if (!consent || !consentDate) {
+        document.getElementById('consent-banner').style.display = 'block';
+      } else {
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        
+        if (new Date(consentDate) < oneYearAgo) {
+          document.getElementById('consent-banner').style.display = 'block';
+        } else if (consent === 'false') {
+          // Désactiver Meta Pixel si refusé
+          if (typeof fbq !== 'undefined') {
+            fbq('consent', 'revoke');
+          }
+        }
+      }
+    });
+    </script>
   </body>
 </html>
