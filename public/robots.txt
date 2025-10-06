@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://retraiteclair.com/sitemap.xml
+Sitemap: https://retraiteclair.onrender.com/sitemap.xml
 
 # Pages principales
 Allow: /
