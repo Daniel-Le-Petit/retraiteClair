@@ -120,3 +120,4 @@ if (consent === 'true') {
 **No more legal risk - the consent banner ensures Meta Pixel only tracks users who explicitly consent.**
 
 **🚀 SAFE TO PROCEED WITH DEPLOYMENT!**
+

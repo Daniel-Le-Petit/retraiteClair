@@ -227,3 +227,4 @@ Disallow: /api/
 **🎯 Résultat :** Toutes les configurations SEO et Google Search Console sont maintenant **OPÉRATIONNELLES** et **HARMONISÉES** avec le domaine principal `retraiteclair.com`.
 
 **📊 Impact :** Meilleure indexation, crawl optimisé, et préparation pour un référencement efficace de RetraiteClair.
+

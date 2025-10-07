@@ -365,3 +365,4 @@
 **💡 Conseil :** Créez une bibliothèque d'images réutilisables pour maintenir la cohérence visuelle et gagner du temps sur la création de contenu.
 
 **🎯 Objectif :** Des visuels professionnels qui renforcent la crédibilité de RetraiteClair et augmentent l'engagement de la communauté Facebook.
+

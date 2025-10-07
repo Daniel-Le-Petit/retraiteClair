@@ -349,3 +349,4 @@ const Simulateur = () => {
 **🎯 Résultat :** Meta Pixel correctement configuré avec conformité RGPD, tracking des conversions optimisé, et audiences personnalisées prêtes pour les campagnes Facebook Ads.
 
 **📊 Bénéfices :** Mesure précise des performances, optimisation des publicités, et création d'audiences qualifiées pour RetraiteClair.
+
