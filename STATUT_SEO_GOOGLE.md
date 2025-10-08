@@ -228,3 +228,4 @@ Disallow: /api/
 
 **📊 Impact :** Meilleure indexation, crawl optimisé, et préparation pour un référencement efficace de RetraiteClair.
 
+
