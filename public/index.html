@@ -90,8 +90,14 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
       
-      // Initialiser Meta Pixel
-      fbq('init', '736513402739299');
+      // Initialiser Meta Pixel avec autoConfig désactivé pour éviter les doubles tracking
+      fbq('init', '736513402739299', {
+        autoConfig: false,
+        debug: false
+      });
+      
+      // Désactiver les événements automatiques pour un contrôle total
+      fbq('set', 'autoConfig', false, '736513402739299');
       
       // Vérifier le consentement avant de tracker
       const consent = localStorage.getItem('consent-given');
@@ -203,10 +209,11 @@
       localStorage.setItem('consent-date', new Date().toISOString());
       document.getElementById('consent-banner').style.display = 'none';
       
-      // Activer Meta Pixel
+      // Activer Meta Pixel et tracker PageView
       if (typeof fbq !== 'undefined') {
         fbq('consent', 'grant');
-        console.log('Meta Pixel consent granted');
+        fbq('track', 'PageView');
+        console.log('Meta Pixel consent granted and PageView tracked');
       }
     }
 
