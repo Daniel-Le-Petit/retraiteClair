@@ -5,7 +5,7 @@ import PageAccueil from './components/PageAccueil';
 import CalculateurAvance from './components/CalculateurAvance';
 import ConseilsPageSimple from './components/ConseilsPageSimple';
 import ContactForm from './components/ContactForm';
-import BlogList from './components/Blog/BlogList';
+import BlogListStable from './components/Blog/BlogListStable';
 import BlogPostStable from './components/Blog/BlogPostStable';
 import './index.css';
 import './sidebar.css';
@@ -45,7 +45,7 @@ function AppContent() {
           <Route path="/calculateur" element={<CalculateurAvance />} />
           <Route path="/conseils" element={<ConseilsPageSimple onPageChange={handlePageChange} />} />
           <Route path="/contact" element={<ContactForm />} />
-          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog" element={<BlogListStable />} />
           <Route path="/blog/:slug" element={<BlogPostStable />} />
         </Routes>
       </div>
