@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, Calculator, BarChart3, TrendingUp, CheckCircle, MessageSquare } from 'lucide-react';
+import { Home, Calculator, BarChart3, TrendingUp, CheckCircle, MessageSquare, BookOpen } from 'lucide-react';
 
 const Sidebar = ({ currentPage, onPageChange }) => {
   const navigate = useNavigate();
@@ -22,17 +22,24 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       path: '/calculateur'
     },
     {
+      id: 'blog',
+      label: 'Blog & Conseils',
+      icon: BookOpen,
+      badge: 2,
+      path: '/blog'
+    },
+    {
       id: 'conseils',
       label: 'Conseils',
       icon: CheckCircle,
-      badge: 2,
+      badge: 3,
       path: '/conseils'
     },
     {
       id: 'contact',
       label: 'Contact',
       icon: MessageSquare,
-      badge: 3,
+      badge: 4,
       path: '/contact'
     }
   ];

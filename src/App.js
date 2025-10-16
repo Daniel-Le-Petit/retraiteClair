@@ -5,6 +5,8 @@ import PageAccueil from './components/PageAccueil';
 import CalculateurAvance from './components/CalculateurAvance';
 import ConseilsPageSimple from './components/ConseilsPageSimple';
 import ContactForm from './components/ContactForm';
+import BlogList from './components/Blog/BlogList';
+import BlogPostStable from './components/Blog/BlogPostStable';
 import './index.css';
 import './sidebar.css';
 import './definition-styles.css';
@@ -31,6 +33,7 @@ function AppContent() {
     else if (path === '/calculateur') setCurrentPage('calculateur');
     else if (path === '/conseils') setCurrentPage('conseils');
     else if (path === '/contact') setCurrentPage('contact');
+    else if (path.startsWith('/blog')) setCurrentPage('blog');
   }, [location.pathname]);
 
   return (
@@ -42,6 +45,8 @@ function AppContent() {
           <Route path="/calculateur" element={<CalculateurAvance />} />
           <Route path="/conseils" element={<ConseilsPageSimple onPageChange={handlePageChange} />} />
           <Route path="/contact" element={<ContactForm />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPostStable />} />
         </Routes>
       </div>
     </div>
