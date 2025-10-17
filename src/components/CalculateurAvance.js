@@ -69,15 +69,32 @@ const CalculateurAvance = () => {
         salairePartiel = salairePartiel - cotisationsSupplementaires;
       }
       
-      const pensionProgressive = formData.pensionEstimee * (1 - formData.tempsPartiel / 100);
+      // Calcul de la pension avec ou sans trimestres
+      let pensionProgressive;
+      let pensionEstimeeFinale = formData.pensionEstimee;
+      let calculAvecTrimestres = false;
+      
+      // Si les trimestres sont renseignés ET qu'aucune pension n'a été saisie manuellement, utiliser la formule officielle
+      if (formData.trimestresValides && formData.trimestresRequis && formData.salaireAnnuel && !formData.pensionEstimee) {
+        // Formule officielle : (Salaire annuel × 50%) × (Trimestres validés / Trimestres requis)
+        const salaireAnnuel = formData.salaireAnnuel || (formData.salaireBrut * 12);
+        const pensionAnnuelle = (salaireAnnuel * 0.5) * (formData.trimestresValides / formData.trimestresRequis);
+        pensionEstimeeFinale = pensionAnnuelle / 12; // Conversion en mensuel
+        calculAvecTrimestres = true;
+      }
+      // Sinon, utiliser la valeur saisie manuellement dans le champ "Pension estimée"
+      
+      pensionProgressive = pensionEstimeeFinale * (1 - formData.tempsPartiel / 100);
       const revenuTotal = salairePartiel + pensionProgressive;
 
       setResultats({
         salairePartiel: salairePartiel.toFixed(0),
         pensionProgressive: pensionProgressive.toFixed(0),
         revenuTotal: revenuTotal.toFixed(0),
-        pensionEstimee: formData.pensionEstimee,
-        salaireActuel: formData.salaireBrut
+        pensionEstimee: Math.round(pensionEstimeeFinale),
+        salaireActuel: formData.salaireBrut,
+        calculAvecTrimestres: calculAvecTrimestres,
+        pensionEstimeeFinale: Math.round(pensionEstimeeFinale)
       });
     }
   }, [formData, maintienCotisation100]);
@@ -244,58 +261,166 @@ const CalculateurAvance = () => {
           {/* Onglet Saisie */}
           {activeTab === 'saisie' && (
             <div className="saisie-tab">
+              {/* Section Champs Obligatoires */}
               <div className="form-section">
-                <h3>Informations personnelles</h3>
+                
                 <div className="form-grid">
-                  <div className="form-group">
+                  <div className="form-group required">
                     <label className="form-label">
                       <Euro size={18} />
-                      Salaire brut mensuel (€)
+                      Salaire brut mensuel (€) <span className="required-star">*</span>
                     </label>
+                    <p className="field-explanation">Utilisé pour calculer votre salaire à temps partiel</p>
                     <input
                       type="number"
                       value={formData.salaireBrut}
                       onChange={(e) => handleInputChange('salaireBrut', e.target.value)}
-                      placeholder=""
+                      placeholder="Ex: 3200"
                       className="form-input"
                     />
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group required">
                     <label className="form-label">
                       <Euro size={18} />
-                      Pension mensuelle nette estimée au taux plein (€)
+                      Pension mensuelle nette estimée au taux plein (€) <span className="required-star">*</span>
                     </label>
+                    <p className="field-explanation">Utilisée pour calculer la fraction de retraite versée</p>
                     <input
                       type="number"
                       value={formData.pensionEstimee}
                       onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
-                      placeholder=""
+                      placeholder="Ex: 1800"
                       className="form-input"
                     />
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group required full-width">
+                    <label className="form-label">
+                      <Clock size={18} />
+                      Temps partiel souhaité (%) <span className="required-star">*</span>
+                    </label>
+                    <p className="field-explanation">Détermine la part de salaire et la fraction de retraite</p>
+                    <div className="slider-container-modern">
+                      <div className="slider-wrapper">
+                        <div className="slider-track-modern">
+                          <div 
+                            className="slider-fill" 
+                            style={{ width: `${((formData.tempsPartiel - 40) / 40) * 100}%` }}
+                          ></div>
+                          <input
+                            type="range"
+                            min="40"
+                            max="80"
+                            step="10"
+                            value={formData.tempsPartiel}
+                            onChange={(e) => handleInputChange('tempsPartiel', e.target.value)}
+                            className="slider-input-modern"
+                          />
+                        </div>
+                        <div className="slider-labels">
+                          <span className="slider-label">40%</span>
+                          <span className="slider-label">50%</span>
+                          <span className="slider-label">60%</span>
+                          <span className="slider-label">70%</span>
+                          <span className="slider-label">80%</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="slider-value-display">
+                      <span className="slider-value-text">{formData.tempsPartiel}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section Champs Facultatifs */}
+              <div className="form-section">
+                
+                <div className="form-grid">
+                  <div className="form-group optional">
+                    <label className="form-label">
+                      <Euro size={18} />
+                      Salaire annuel moyen (€)
+                      <span className="optional-badge">Facultatif</span>
+                    </label>
+                    <p className="field-explanation">Pour affiner le calcul de la retraite si vous le connaissez</p>
+                    <input
+                      type="number"
+                      value={formData.salaireAnnuel || ''}
+                      onChange={(e) => handleInputChange('salaireAnnuel', e.target.value)}
+                      placeholder="Ex: 38400"
+                      className="form-input optional-input"
+                    />
+                  </div>
+
+                  <div className="form-group optional">
+                    <label className="form-label">
+                      <Calendar size={18} />
+                      Trimestres validés
+                      <span className="optional-badge">Facultatif</span>
+                    </label>
+                    <p className="field-explanation">Nombre de trimestres réellement acquis pour la retraite</p>
+                    <input
+                      type="number"
+                      value={formData.trimestresValides || ''}
+                      onChange={(e) => handleInputChange('trimestresValides', e.target.value)}
+                      placeholder="Ex: 165"
+                      className="form-input optional-input"
+                      min="0"
+                      max="200"
+                    />
+                  </div>
+
+                  <div className="form-group optional">
+                    <label className="form-label">
+                      <Calendar size={18} />
+                      Trimestres requis pour taux plein
+                      <span className="optional-badge">Facultatif</span>
+                    </label>
+                    <p className="field-explanation">Nombre de trimestres nécessaires pour une retraite complète</p>
+                    <input
+                      type="number"
+                      value={formData.trimestresRequis || ''}
+                      onChange={(e) => handleInputChange('trimestresRequis', e.target.value)}
+                      placeholder="Ex: 172"
+                      className="form-input optional-input"
+                      min="0"
+                      max="200"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Section Champs Informatifs */}
+              <div className="form-section">
+                
+                <div className="form-grid">
+                  <div className="form-group informational">
                     <label className="form-label">
                       <Calendar size={18} />
                       Année de naissance
+                      <span className="info-badge">Pour planification personnelle</span>
                     </label>
+                    <p className="field-explanation">Pour vérifier l'éligibilité à la retraite progressive</p>
                     <input
                       type="number"
                       value={formData.anneeNaissance}
                       onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
-                      placeholder=""
-                      className="form-input"
+                      placeholder="Ex: 1963"
+                      className="form-input info-input"
                       min="1900"
                       max="2010"
                     />
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group informational">
                     <label className="form-label">
                       <Calendar size={18} />
                       Début souhaité de la retraite progressive
+                      <span className="info-badge">Pour planification personnelle</span>
                     </label>
+                    <p className="field-explanation">Date prévue pour le début de votre retraite progressive</p>
                     <div className="date-input-container">
                       <input
                         type="text"
@@ -304,7 +429,6 @@ const CalculateurAvance = () => {
                           ''
                         }
                         onChange={(e) => {
-                          // Permettre la saisie manuelle au format DD/MM/YYYY
                           const value = e.target.value;
                           if (value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
                             const [day, month, year] = value.split('/');
@@ -314,8 +438,8 @@ const CalculateurAvance = () => {
                             handleInputChange('debutRetraite', '');
                           }
                         }}
-                        placeholder=""
-                        className="date-input-manual"
+                        placeholder="DD/MM/YYYY"
+                        className="date-input-manual info-input"
                       />
                       <button
                         type="button"
@@ -328,63 +452,39 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group informational">
                     <label className="form-label">
                       <Clock size={18} />
-                      Durée de la retraite progressive
+                      Durée de la retraite progressive (années)
+                      <span className="info-badge">Pour planification personnelle</span>
                     </label>
+                    <p className="field-explanation">Durée prévue de votre retraite progressive</p>
                     <input
                       type="number"
                       value={formData.dureeRetraite}
                       onChange={(e) => handleInputChange('dureeRetraite', e.target.value)}
-                      placeholder=""
-                      className="form-input"
+                      placeholder="Ex: 5"
+                      className="form-input info-input"
                       min="2"
                       max="20"
                     />
                   </div>
-
                 </div>
+              </div>
 
-                {/* Slider sur toute la largeur */}
-                <div className="full-width-slider-section">
-                  <label className="form-label">
-                    <Clock size={18} />
-                    Temps partiel souhaité (%)
-                  </label>
-                  <div className="slider-container-modern">
-                    <div className="slider-wrapper">
-                      <div className="slider-track-modern">
-                        <div 
-                          className="slider-fill" 
-                          style={{ width: `${((formData.tempsPartiel - 40) / 40) * 100}%` }}
-                        ></div>
-                        <input
-                          type="range"
-                          min="40"
-                          max="80"
-                          step="10"
-                          value={formData.tempsPartiel}
-                          onChange={(e) => handleInputChange('tempsPartiel', e.target.value)}
-                          className="slider-input-modern"
-                        />
-                      </div>
-                      <div className="slider-labels">
-                        <span className="slider-label">40%</span>
-                        <span className="slider-label">50%</span>
-                        <span className="slider-label">60%</span>
-                        <span className="slider-label">70%</span>
-                        <span className="slider-label">80%</span>
-                      </div>
-                    </div>
-                    <div className="slider-value-display">
-                      <span className="slider-value-text">{formData.tempsPartiel}%</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="form-grid">
-                </div>
+              {/* Bouton de calcul */}
+              <div className="calculate-button-section">
+                <button 
+                  className="btn-calculate"
+                  onClick={() => {
+                    if (validateForResults()) {
+                      setActiveTab('resultats');
+                    }
+                  }}
+                >
+                  <Calculator size={20} />
+                  Calculer mes revenus
+                </button>
               </div>
             </div>
           )}
@@ -398,6 +498,12 @@ const CalculateurAvance = () => {
                     <h3>Évolution de vos revenus</h3>
                     <div className="estimation-notice">
                       <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
+                      {resultats.calculAvecTrimestres && (
+                        <div className="trimestres-notice">
+                          <p>✅ <strong>Calcul automatique</strong> : Pension calculée avec la formule officielle basée sur vos trimestres validés (aucune pension manuelle saisie)</p>
+                        </div>
+                      )}
+                      
                     </div>
                     
                     {/* Toggle pour maintien des cotisations */}
@@ -450,17 +556,51 @@ const CalculateurAvance = () => {
                           <div className="flow-label-main">Revenu en Retraite progressive</div>
                           <div className="flow-calculation">
                             <div className="calc-item">
-                              <div className="calc-amount">{resultats.salairePartiel} €</div>
+                              <div className="calc-amount tooltip-container">
+                                {resultats.salairePartiel} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">💼 Calcul Temps Partiel</div>
+                                  <div className="tooltip-content">
+                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€</div>
+                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ - 22% = {resultats.salairePartiel}€</div>
+                                  </div>
+                                </div>
+                              </div>
                               <div className="calc-label">Temps partiel</div>
                             </div>
                             <div className="calc-operator">+</div>
                             <div className="calc-item">
-                              <div className="calc-amount">{resultats.pensionProgressive} €</div>
+                              <div className="calc-amount tooltip-container">
+                                {resultats.pensionProgressive} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">💰 Calcul Pension</div>
+                                  <div className="tooltip-content">
+                                    {resultats.calculAvecTrimestres ? (
+                                      <>
+                                        <div className="tooltip-step">{formData.salaireAnnuel || (formData.salaireBrut * 12)}€ × 50% × {formData.trimestresValides}/{formData.trimestresRequis} = {resultats.pensionEstimeeFinale * 12}€/an</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale * 12}€ ÷ 12 = {resultats.pensionEstimeeFinale}€/mois</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      </>
+                                    ) : (
+                                      <div className="tooltip-step">{formData.pensionEstimee}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
                               <div className="calc-label">Pension</div>
                             </div>
                             <div className="calc-operator">=</div>
                             <div className="calc-result">
-                              <div className="calc-result-amount">{resultats.revenuTotal} €</div>
+                              <div className="calc-result-amount tooltip-container">
+                                {resultats.revenuTotal} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">🧮 Calcul Total</div>
+                                  <div className="tooltip-content">
+                                    <div className="tooltip-step">{resultats.salairePartiel}€ + {resultats.pensionProgressive}€ = {resultats.revenuTotal}€</div>
+                                    <div className="tooltip-step">Salaire temps partiel + Pension progressive</div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -1024,17 +1164,51 @@ const CalculateurAvance = () => {
                           <div className="flow-label-main">Revenu en Retraite progressive</div>
                           <div className="flow-calculation">
                             <div className="calc-item">
-                              <div className="calc-amount">{resultats.salairePartiel} €</div>
+                              <div className="calc-amount tooltip-container">
+                                {resultats.salairePartiel} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">💼 Calcul Temps Partiel</div>
+                                  <div className="tooltip-content">
+                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€</div>
+                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ - 22% = {resultats.salairePartiel}€</div>
+                                  </div>
+                                </div>
+                              </div>
                               <div className="calc-label">Temps partiel</div>
                             </div>
                             <div className="calc-operator">+</div>
                             <div className="calc-item">
-                              <div className="calc-amount">{resultats.pensionProgressive} €</div>
+                              <div className="calc-amount tooltip-container">
+                                {resultats.pensionProgressive} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">💰 Calcul Pension</div>
+                                  <div className="tooltip-content">
+                                    {resultats.calculAvecTrimestres ? (
+                                      <>
+                                        <div className="tooltip-step">{formData.salaireAnnuel || (formData.salaireBrut * 12)}€ × 50% × {formData.trimestresValides}/{formData.trimestresRequis} = {resultats.pensionEstimeeFinale * 12}€/an</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale * 12}€ ÷ 12 = {resultats.pensionEstimeeFinale}€/mois</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      </>
+                                    ) : (
+                                      <div className="tooltip-step">{formData.pensionEstimee}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
                               <div className="calc-label">Pension</div>
                             </div>
                             <div className="calc-operator">=</div>
                             <div className="calc-result">
-                              <div className="calc-result-amount">{resultats.revenuTotal} €</div>
+                              <div className="calc-result-amount tooltip-container">
+                                {resultats.revenuTotal} €
+                                <div className="tooltip">
+                                  <div className="tooltip-title">🧮 Calcul Total</div>
+                                  <div className="tooltip-content">
+                                    <div className="tooltip-step">{resultats.salairePartiel}€ + {resultats.pensionProgressive}€ = {resultats.revenuTotal}€</div>
+                                    <div className="tooltip-step">Salaire temps partiel + Pension progressive</div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
