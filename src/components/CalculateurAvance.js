@@ -19,6 +19,7 @@ const CalculateurAvance = () => {
   const [resultats, setResultats] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedYear, setSelectedYear] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
   const [validationError, setValidationError] = useState('');
 
