@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  CheckCircle, Clock, Percent, Lightbulb, BarChart3, FileText, 
+  Clock, Percent, Lightbulb, BarChart3, FileText, 
   Euro, Users, Calendar, TrendingUp, AlertCircle, Target, 
-  Shield, Phone, Mail, BookOpen, Calculator, Heart
+  Shield, Phone, Mail, BookOpen, Calculator
 } from 'lucide-react';
 
 const ConseilsPageSimple = ({ onPageChange }) => {

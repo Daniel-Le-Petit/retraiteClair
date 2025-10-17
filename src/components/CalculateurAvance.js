@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, BarChart3, TrendingUp, Save, CheckCircle, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 
 const CalculateurAvance = () => {
   const [activeTab, setActiveTab] = useState('saisie');
@@ -19,7 +19,6 @@ const CalculateurAvance = () => {
   const [resultats, setResultats] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedYear, setSelectedYear] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
   const [validationError, setValidationError] = useState('');
 
@@ -720,7 +719,7 @@ const CalculateurAvance = () => {
                         {(() => {
                           const salaireBrut = parseFloat(formData.salaireBrut) || 3000;
                           const salaireNet = salaireBrut * 0.78;
-                          const pensionEstimee = parseFloat(formData.pensionEstimee) || 1500;
+                          // const pensionEstimee = parseFloat(formData.pensionEstimee) || 1500;
                           
                           // Calculer les données pour chaque scénario
                           const barData = scenarios.map((scenario, index) => {

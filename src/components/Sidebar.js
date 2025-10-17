@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, Calculator, BarChart3, TrendingUp, CheckCircle, MessageSquare, BookOpen } from 'lucide-react';
+import { Home, Calculator, CheckCircle, MessageSquare, BookOpen } from 'lucide-react';
 
 const Sidebar = ({ currentPage, onPageChange }) => {
   const navigate = useNavigate();

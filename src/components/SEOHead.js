@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 const SEOHead = ({ 
   title, 
@@ -8,7 +8,7 @@ const SEOHead = ({
   ogImage = "https://retraiteclair.onrender.com/og-image.svg"
 }) => {
   const baseUrl = "https://retraiteclair.onrender.com";
-  const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
+  // const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
 
   // Temporairement désactivé pour éviter l'erreur HelmetDispatcher
   // Les balises SEO sont déjà dans le fichier public/index.html
