@@ -285,7 +285,7 @@ const CalculateurAvance = () => {
                       <Euro size={18} />
                       Pension mensuelle nette estimée au taux plein (€) <span className="required-star">*</span>
                     </label>
-                    <p className="field-explanation">Utilisée pour calculer la fraction de retraite versée</p>
+                    <p className="field-explanation">Pension complète que vous toucheriez si vous preniez votre retraite à taux plein</p>
                     <input
                       type="number"
                       value={formData.pensionEstimee}
