@@ -55,7 +55,7 @@
 .form-group.required {
   border-left: 3px solid #dc2626;
   padding-left: 1rem;
-  background: transparent;
+  background: #f0fdf4;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
