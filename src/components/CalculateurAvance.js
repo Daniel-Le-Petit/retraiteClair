@@ -411,11 +411,11 @@ const CalculateurAvance = () => {
                   
                   <div className="form-grid">
                     <div className="form-group">
-                      <label className="form-label">
-                        <Euro size={18} />
-                        Salaire annuel moyen des 25 meilleures années (€)
-                      </label>
-                      <p className="field-explanation">Base de calcul officielle pour votre pension</p>
+                        <label className="form-label">
+                          <Euro size={18} />
+                          Salaire annuel moyen des 25 meilleures années (€ brut)
+                        </label>
+                        <p className="field-explanation">Base de calcul officielle pour votre pension - <strong>en salaire brut</strong></p>
                       <div className="data-source-info">
                         <span className="source-label">📄 Où trouver cette info :</span>
                         <ul className="source-list">
@@ -1149,9 +1149,9 @@ const CalculateurAvance = () => {
                       <div className="form-group">
                         <label className="form-label">
                           <Euro size={18} />
-                          Salaire annuel moyen des 25 meilleures années (€)
+                          Salaire annuel moyen des 25 meilleures années (€ brut)
                         </label>
-                        <p className="field-explanation">Base de calcul officielle pour votre pension</p>
+                        <p className="field-explanation">Base de calcul officielle pour votre pension - <strong>en salaire brut</strong></p>
                         <div className="data-source-info">
                           <span className="source-label">📄 Où trouver cette info :</span>
                           <ul className="source-list">
