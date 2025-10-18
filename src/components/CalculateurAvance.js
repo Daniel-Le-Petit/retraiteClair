@@ -338,32 +338,11 @@ const CalculateurAvance = () => {
                     <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
                     <div className="date-input-container">
                       <input
-                        type="text"
-                        value={formData.debutRetraite ? 
-                          new Date(formData.debutRetraite).toLocaleDateString('fr-FR') : 
-                          ''
-                        }
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          if (value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-                            const [day, month, year] = value.split('/');
-                            const dateString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                            handleInputChange('debutRetraite', dateString);
-                          } else if (value === '') {
-                            handleInputChange('debutRetraite', '');
-                          }
-                        }}
-                        placeholder="DD/MM/YYYY"
-                        className="date-input-manual"
+                        type="date"
+                        value={formData.debutRetraite}
+                        onChange={(e) => handleInputChange('debutRetraite', e.target.value)}
+                        className="form-input"
                       />
-                      <button
-                        type="button"
-                        className="date-picker-button"
-                        onClick={openDatePicker}
-                        title="Ouvrir le sélecteur de date"
-                      >
-                        📅
-                      </button>
                     </div>
                   </div>
 
@@ -1095,32 +1074,11 @@ const CalculateurAvance = () => {
                       <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
                       <div className="date-input-container">
                         <input
-                          type="text"
-                          value={formData.debutRetraite ? 
-                            new Date(formData.debutRetraite).toLocaleDateString('fr-FR') : 
-                            ''
-                          }
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            if (value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-                              const [day, month, year] = value.split('/');
-                              const dateString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                              handleInputChange('debutRetraite', dateString);
-                            } else if (value === '') {
-                              handleInputChange('debutRetraite', '');
-                            }
-                          }}
-                          placeholder="DD/MM/YYYY"
-                          className="date-input-manual"
+                          type="date"
+                          value={formData.debutRetraite}
+                          onChange={(e) => handleInputChange('debutRetraite', e.target.value)}
+                          className="form-input"
                         />
-                        <button
-                          type="button"
-                          className="date-picker-button"
-                          onClick={openDatePicker}
-                          title="Ouvrir le sélecteur de date"
-                        >
-                          📅
-                        </button>
                       </div>
                     </div>
 
