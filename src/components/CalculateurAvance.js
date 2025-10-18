@@ -881,7 +881,7 @@ const CalculateurAvance = () => {
                                       x={bar.x}
                                       y={revenuTotalY}
                                       width={bar.width}
-                                      height={revenueTotalHeight}
+                                      height={revenuTotalHeight}
                                       fill="url(#pensionBarGradient)"
                                       stroke="white"
                                       strokeWidth="2"
@@ -902,10 +902,10 @@ const CalculateurAvance = () => {
                                     
                                     {/* Montants dans chaque section */}
                                     {/* Revenu Total */}
-                                    {revenueTotalHeight > 30 && (
+                                    {revenuTotalHeight > 30 && (
                                       <text
                                         x={bar.x + bar.width/2}
-                                        y={revenuTotalY + revenueTotalHeight/2 + 4}
+                                        y={revenuTotalY + revenuTotalHeight/2 + 4}
                                         fontSize="11"
                                         fill="white"
                                         textAnchor="middle"
