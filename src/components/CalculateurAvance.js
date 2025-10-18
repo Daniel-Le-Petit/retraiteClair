@@ -801,16 +801,16 @@ const CalculateurAvance = () => {
                         {(() => {
                           const salaireBrut = parseFloat(formData.salaireBrut) || 3000;
                           const salaireNet = salaireBrut * 0.78;
-                          // const pensionEstimee = parseFloat(formData.pensionEstimee) || 1500;
                           
                           // Calculer les données pour chaque scénario
                           const barData = scenarios.map((scenario, index) => {
                             const resultats = calculerScenario(scenario.tempsPartiel, maintienCotisation100);
                             const salairePartiel = parseFloat(resultats.salairePartiel);
                             const pensionProgressive = parseFloat(resultats.pensionProgressive);
+                            const revenuTotal = parseFloat(resultats.revenuTotal);
                             
-                            // Calculer la perte de gain (différence entre salaire plein et salaire partiel)
-                            const perteGain = salaireNet - salairePartiel;
+                            // Calculer la perte par rapport au salaire net complet
+                            const perteGain = salaireNet - revenuTotal;
                             
                             return {
                               x: 120 + (index * 120),
@@ -818,12 +818,12 @@ const CalculateurAvance = () => {
                               salairePartiel,
                               pensionProgressive,
                               perteGain,
-                              total: salaireNet
+                              total: revenuTotal
                             };
                           });
                           
-                          // Calculer l'échelle fixe partant de 0 jusqu'au salaire brut
-                          const maxValue = salaireBrut; // Échelle fixe jusqu'au salaire brut
+                          // Calculer l'échelle fixe partant de 0 jusqu'au salaire net
+                          const maxValue = salaireNet; // Échelle fixe jusqu'au salaire net
                           const maxHeight = 240;
                           const scale = maxHeight / maxValue;
                           const baseY = 380; // Position de base (axe X)
@@ -857,44 +857,30 @@ const CalculateurAvance = () => {
                                 const scenario = scenarios[index];
                                 
                                 // Calcul des hauteurs
-                                const salaireHeight = bar.salairePartiel * scale;
-                                const pensionHeight = bar.pensionProgressive * scale;
-                                const perteHeight = bar.perteGain * scale;
+                                const revenuTotalHeight = bar.total * scale; // Hauteur du revenu total
+                                const perteHeight = bar.perteGain * scale; // Hauteur de la perte
                                 
                                 // Calcul des positions Y (du bas vers le haut)
-                                const salaireY = baseY - salaireHeight; // Position du salaire (en bas)
-                                const pensionY = salaireY - pensionHeight; // Position de la pension (au milieu)
-                                const perteY = pensionY - perteHeight; // Position de la perte (en haut)
+                                const revenuTotalY = baseY - revenuTotalHeight; // Position du revenu total (en bas)
+                                const perteY = revenuTotalY - perteHeight; // Position de la perte (en haut)
                                 
                                 return (
                                   <g key={scenario.nom}>
                                     {/* ORDRE DE DESSIN CORRECT : Du bas vers le haut */}
                                     
-                                    {/* 1. Section Salaire (Bleu) - DESSINÉE EN PREMIER (en bas) */}
+                                    {/* 1. Section Revenu Total (Vert) - DESSINÉE EN PREMIER (en bas) */}
                                     <rect
                                       x={bar.x}
-                                      y={salaireY}
+                                      y={revenuTotalY}
                                       width={bar.width}
-                                      height={salaireHeight}
-                                      fill="url(#salaireBarGradient)"
-                                      stroke="white"
-                                      strokeWidth="2"
-                                      className="bar-section salaire-section"
-                                    />
-                                    
-                                    {/* 2. Section Pension (Vert) - DESSINÉE EN DEUXIÈME (au milieu) */}
-                                    <rect
-                                      x={bar.x}
-                                      y={pensionY}
-                                      width={bar.width}
-                                      height={pensionHeight}
+                                      height={revenueTotalHeight}
                                       fill="url(#pensionBarGradient)"
                                       stroke="white"
                                       strokeWidth="2"
-                                      className="bar-section pension-section"
+                                      className="bar-section revenu-section"
                                     />
                                     
-                                    {/* 3. Section Perte (Rouge) - DESSINÉE EN DERNIER (en haut) */}
+                                    {/* 2. Section Perte (Rouge) - DESSINÉE EN DERNIER (en haut) */}
                                     <rect
                                       x={bar.x}
                                       y={perteY}
@@ -907,57 +893,18 @@ const CalculateurAvance = () => {
                                     />
                                     
                                     {/* Montants dans chaque section */}
-                                    {/* Salaire */}
-                                    {salaireHeight > 25 ? (
+                                    {/* Revenu Total */}
+                                    {revenueTotalHeight > 30 && (
                                       <text
                                         x={bar.x + bar.width/2}
-                                        y={salaireY + salaireHeight/2 + 4}
-                                        fontSize="10"
+                                        y={revenuTotalY + revenueTotalHeight/2 + 4}
+                                        fontSize="11"
                                         fill="white"
                                         textAnchor="middle"
                                         fontWeight="700"
                                         className="amount-text"
                                       >
-                                        {Math.round(bar.salairePartiel)} €
-                                      </text>
-                                    ) : (
-                                      <text
-                                        x={bar.x + bar.width + 5}
-                                        y={salaireY + salaireHeight/2 + 4}
-                                        fontSize="9"
-                                        fill="#3B82F6"
-                                        textAnchor="start"
-                                        fontWeight="600"
-                                        className="amount-text-side"
-                                      >
-                                        {Math.round(bar.salairePartiel)} €
-                                      </text>
-                                    )}
-                                    
-                                    {/* Pension */}
-                                    {pensionHeight > 25 ? (
-                                      <text
-                                        x={bar.x + bar.width/2}
-                                        y={pensionY + pensionHeight/2 + 4}
-                                        fontSize="10"
-                                        fill="white"
-                                        textAnchor="middle"
-                                        fontWeight="700"
-                                        className="amount-text"
-                                      >
-                                        {Math.round(bar.pensionProgressive)} €
-                                      </text>
-                                    ) : (
-                                      <text
-                                        x={bar.x + bar.width + 5}
-                                        y={pensionY + pensionHeight/2 + 4}
-                                        fontSize="9"
-                                        fill="#10B981"
-                                        textAnchor="start"
-                                        fontWeight="600"
-                                        className="amount-text-side"
-                                      >
-                                        {Math.round(bar.pensionProgressive)} €
+                                        {Math.round(bar.total)} €
                                       </text>
                                     )}
                                     
