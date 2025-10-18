@@ -447,6 +447,35 @@ const CalculateurAvance = () => {
                           <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
                         </ul>
                       </div>
+                      
+                      {/* Jauge des trimestres */}
+                      {formData.trimestresValides && formData.anneeNaissance && (
+                        <div className="quarters-progress">
+                          <div className="quarters-header">
+                            <span className="quarters-label">📊 Progression vers la retraite à taux plein</span>
+                            <span className="quarters-count">
+                              {formData.trimestresValides} / {calculateTrimestresRequis(formData.anneeNaissance)} trimestres
+                            </span>
+                          </div>
+                          <div className="quarters-bar">
+                            <div 
+                              className="quarters-fill"
+                              style={{
+                                width: `${Math.min(100, (parseFloat(formData.trimestresValides) / calculateTrimestresRequis(formData.anneeNaissance)) * 100)}%`
+                              }}
+                            ></div>
+                          </div>
+                          <div className="quarters-status">
+                            {parseFloat(formData.trimestresValides) >= calculateTrimestresRequis(formData.anneeNaissance) ? (
+                              <span className="quarters-complete">✅ Taux plein atteint !</span>
+                            ) : (
+                              <span className="quarters-missing">
+                                ⚠️ Il vous manque {calculateTrimestresRequis(formData.anneeNaissance) - parseFloat(formData.trimestresValides)} trimestres
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
                       <input
                         type="number"
                         value={formData.trimestresValides || ''}
@@ -1183,6 +1212,35 @@ const CalculateurAvance = () => {
                             <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
                           </ul>
                         </div>
+                        
+                        {/* Jauge des trimestres */}
+                        {formData.trimestresValides && formData.anneeNaissance && (
+                          <div className="quarters-progress">
+                            <div className="quarters-header">
+                              <span className="quarters-label">📊 Progression vers la retraite à taux plein</span>
+                              <span className="quarters-count">
+                                {formData.trimestresValides} / {calculateTrimestresRequis(formData.anneeNaissance)} trimestres
+                              </span>
+                            </div>
+                            <div className="quarters-bar">
+                              <div 
+                                className="quarters-fill"
+                                style={{
+                                  width: `${Math.min(100, (parseFloat(formData.trimestresValides) / calculateTrimestresRequis(formData.anneeNaissance)) * 100)}%`
+                                }}
+                              ></div>
+                            </div>
+                            <div className="quarters-status">
+                              {parseFloat(formData.trimestresValides) >= calculateTrimestresRequis(formData.anneeNaissance) ? (
+                                <span className="quarters-complete">✅ Taux plein atteint !</span>
+                              ) : (
+                                <span className="quarters-missing">
+                                  ⚠️ Il vous manque {calculateTrimestresRequis(formData.anneeNaissance) - parseFloat(formData.trimestresValides)} trimestres
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
                         <input
                           type="number"
                           value={formData.trimestresValides || ''}

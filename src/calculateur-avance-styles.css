@@ -2826,3 +2826,103 @@
   color: #1d4ed8;
   text-decoration: underline;
 }
+
+/* Styles pour la jauge des trimestres */
+.quarters-progress {
+  margin-top: 12px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+}
+
+.quarters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quarters-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.quarters-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #007bff;
+  background: #e3f2fd;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.quarters-bar {
+  width: 100%;
+  height: 12px;
+  background: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.quarters-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #28a745 0%, #20c997 50%, #17a2b8 100%);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.quarters-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.quarters-status {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.quarters-complete {
+  color: #28a745;
+  background: #d4edda;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.quarters-missing {
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* Responsive pour la jauge */
+@media (max-width: 768px) {
+  .quarters-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .quarters-count {
+    align-self: flex-end;
+  }
+}
