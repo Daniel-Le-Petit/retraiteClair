@@ -10,11 +10,13 @@ const CalculateurAvance = () => {
   });
   const [formData, setFormData] = useState({
     salaireBrut: '',
-    pensionEstimee: '',
-    anneeNaissance: '',
     debutRetraite: '',
-    dureeRetraite: '',
-    tempsPartiel: 60
+    tempsPartiel: 60,
+    // Mode avancé
+    salaireAnnuelMoyen: '',
+    trimestresValides: '',
+    anneeNaissance: '', // Pour calculer automatiquement les trimestres requis
+    pensionEstimee: '' // Optionnel pour comparaison
   });
   const [resultats, setResultats] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -22,6 +24,41 @@ const CalculateurAvance = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
   const [validationError, setValidationError] = useState('');
+  const [showAdvancedMode, setShowAdvancedMode] = useState(false);
+
+  // Fonction pour calculer les trimestres requis en fonction de l'année de naissance
+  const calculateTrimestresRequis = (anneeNaissance) => {
+    if (!anneeNaissance) return 166; // Valeur par défaut
+    
+    const birthYear = parseInt(anneeNaissance);
+    
+    // Règles selon l'année de naissance
+    if (birthYear <= 1951) {
+      return 150; // 37,5 ans
+    } else if (birthYear <= 1952) {
+      return 152; // 38 ans
+    } else if (birthYear <= 1953) {
+      return 154; // 38,5 ans
+    } else if (birthYear <= 1954) {
+      return 156; // 39 ans
+    } else if (birthYear <= 1955) {
+      return 158; // 39,5 ans
+    } else if (birthYear <= 1956) {
+      return 160; // 40 ans
+    } else if (birthYear <= 1957) {
+      return 161; // 40,25 ans
+    } else if (birthYear <= 1958) {
+      return 162; // 40,5 ans
+    } else if (birthYear <= 1959) {
+      return 163; // 40,75 ans
+    } else if (birthYear <= 1960) {
+      return 164; // 41 ans
+    } else if (birthYear <= 1961) {
+      return 165; // 41,25 ans
+    } else {
+      return 166; // 41,5 ans (nés après 1961)
+    }
+  };
 
   // Fonction de validation pour l'onglet Résultats
   const validateForResults = () => {
@@ -30,17 +67,9 @@ const CalculateurAvance = () => {
       return false;
     }
     
-    // Si pas de pension estimée, la calculer automatiquement
-    if (!formData.pensionEstimee || formData.pensionEstimee === '') {
-      // Calculer la pension estimée basée sur le salaire brut
-      // Estimation basée sur un taux de remplacement moyen de 50% du salaire net
-      const salaireNet = formData.salaireBrut * 0.78; // -22% de cotisations
-      const pensionEstimee = salaireNet * 0.5; // 50% du salaire net
-      
-      setFormData(prev => ({
-        ...prev,
-        pensionEstimee: Math.round(pensionEstimee)
-      }));
+    if (!formData.debutRetraite) {
+      setValidationError('Vous devez sélectionner une date de début de retraite progressive');
+      return false;
     }
     
     setValidationError('');
@@ -57,47 +86,66 @@ const CalculateurAvance = () => {
 
   // Calculer les résultats quand les données changent
   useEffect(() => {
-    if (formData.salaireBrut && formData.pensionEstimee && formData.tempsPartiel) {
-      const salaireNet = formData.salaireBrut * 0.78; // -22% de cotisations
+    if (formData.salaireBrut && formData.tempsPartiel) {
+      const salaireBrut = parseFloat(formData.salaireBrut);
+      const salaireNet = salaireBrut * 0.78; // -22% de cotisations
       let salairePartiel = salaireNet * (formData.tempsPartiel / 100);
       
       // Si maintien cotisations à 100%, déduire les cotisations supplémentaires
       if (maintienCotisation100) {
-        const cotisationsNormales = formData.salaireBrut * (formData.tempsPartiel / 100) * 0.22;
-        const cotisationsSur100 = formData.salaireBrut * 0.22;
+        const cotisationsNormales = salaireBrut * (formData.tempsPartiel / 100) * 0.22;
+        const cotisationsSur100 = salaireBrut * 0.22;
         const cotisationsSupplementaires = cotisationsSur100 - cotisationsNormales;
         salairePartiel = salairePartiel - cotisationsSupplementaires;
       }
       
-      // Calcul de la pension avec ou sans trimestres
-      let pensionProgressive;
-      let pensionEstimeeFinale = formData.pensionEstimee;
+      // Calcul de la pension selon le mode
+      let pensionProgressive, pensionEstimeeFinale;
       let calculAvecTrimestres = false;
+      let modeCalcul = 'simplifie';
       
-      // Si les trimestres sont renseignés ET qu'aucune pension n'a été saisie manuellement, utiliser la formule officielle
-      if (formData.trimestresValides && formData.trimestresRequis && formData.salaireAnnuel && !formData.pensionEstimee) {
+      if (showAdvancedMode && formData.salaireAnnuelMoyen && formData.trimestresValides && formData.anneeNaissance) {
+        // Mode avancé : calcul avec trimestres
+        const salaireAnnuelMoyen = parseFloat(formData.salaireAnnuelMoyen);
+        const trimestresValides = parseFloat(formData.trimestresValides);
+        const trimestresRequis = calculateTrimestresRequis(formData.anneeNaissance);
+        
         // Formule officielle : (Salaire annuel × 50%) × (Trimestres validés / Trimestres requis)
-        const salaireAnnuel = formData.salaireAnnuel || (formData.salaireBrut * 12);
-        const pensionAnnuelle = (salaireAnnuel * 0.5) * (formData.trimestresValides / formData.trimestresRequis);
+        const pensionAnnuelle = (salaireAnnuelMoyen * 0.5) * Math.min(1, trimestresValides / trimestresRequis);
         pensionEstimeeFinale = pensionAnnuelle / 12; // Conversion en mensuel
         calculAvecTrimestres = true;
+        modeCalcul = 'avance';
+      } else {
+        // Mode simplifié : estimation basée sur le salaire brut
+        // Taux de remplacement moyen de 45% du salaire net
+        pensionEstimeeFinale = salaireNet * 0.45;
+        modeCalcul = 'simplifie';
       }
-      // Sinon, utiliser la valeur saisie manuellement dans le champ "Pension estimée"
       
       pensionProgressive = pensionEstimeeFinale * (1 - formData.tempsPartiel / 100);
       const revenuTotal = salairePartiel + pensionProgressive;
+      
+      // Calcul des pertes
+      const perteSalaire = salaireNet - salairePartiel;
+      const pertePension = pensionEstimeeFinale - pensionProgressive;
 
       setResultats({
         salairePartiel: salairePartiel.toFixed(0),
         pensionProgressive: pensionProgressive.toFixed(0),
         revenuTotal: revenuTotal.toFixed(0),
         pensionEstimee: Math.round(pensionEstimeeFinale),
-        salaireActuel: formData.salaireBrut,
+        salaireActuel: salaireBrut,
+        salaireNet: salaireNet.toFixed(0),
         calculAvecTrimestres: calculAvecTrimestres,
-        pensionEstimeeFinale: Math.round(pensionEstimeeFinale)
+        pensionEstimeeFinale: Math.round(pensionEstimeeFinale),
+        modeCalcul: modeCalcul,
+        perteSalaire: perteSalaire.toFixed(0),
+        pertePension: pertePension.toFixed(0),
+        // Comparaison avec pension fournie si disponible
+        pensionFournie: formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : null
       });
     }
-  }, [formData, maintienCotisation100]);
+  }, [formData, maintienCotisation100, showAdvancedMode]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -115,7 +163,7 @@ const CalculateurAvance = () => {
 
   // Sauvegarder automatiquement les données dans le localStorage
   useEffect(() => {
-    if (formData.salaireBrut || formData.pensionEstimee) {
+    if (formData.salaireBrut || formData.anneeNaissance) {
       localStorage.setItem('retraiteClair_personalInfo', JSON.stringify(formData));
     }
   }, [formData]);
@@ -123,10 +171,8 @@ const CalculateurAvance = () => {
   // Vérifier si tous les champs requis sont remplis
   const isFormComplete = () => {
     return formData.salaireBrut && 
-           formData.pensionEstimee && 
-           formData.anneeNaissance && 
            formData.debutRetraite && 
-           formData.dureeRetraite;
+           formData.tempsPartiel;
   };
 
   // Fonctions pour le sélecteur de date
@@ -261,8 +307,12 @@ const CalculateurAvance = () => {
           {/* Onglet Saisie */}
           {activeTab === 'saisie' && (
             <div className="saisie-tab">
-              {/* Section Champs Obligatoires */}
+              {/* Section Mode Simplifié */}
               <div className="form-section">
+                <div className="section-header">
+                  <h3>⚡ Simulation simplifiée</h3>
+                  <p>Obtenez une estimation rapide avec les informations de base</p>
+                </div>
                 
                 <div className="form-grid">
                   <div className="form-group required">
@@ -270,7 +320,7 @@ const CalculateurAvance = () => {
                       <Euro size={18} />
                       Salaire brut mensuel (€) <span className="required-star">*</span>
                     </label>
-                    <p className="field-explanation">Utilisé pour calculer votre salaire à temps partiel</p>
+                    <p className="field-explanation">Votre salaire brut actuel</p>
                     <input
                       type="number"
                       value={formData.salaireBrut}
@@ -282,17 +332,39 @@ const CalculateurAvance = () => {
 
                   <div className="form-group required">
                     <label className="form-label">
-                      <Euro size={18} />
-                      Pension mensuelle nette estimée au taux plein (€) <span className="required-star">*</span>
+                      <Calendar size={18} />
+                      Date de début souhaitée <span className="required-star">*</span>
                     </label>
-                    <p className="field-explanation">Pension complète que vous toucheriez si vous preniez votre retraite à taux plein</p>
-                    <input
-                      type="number"
-                      value={formData.pensionEstimee}
-                      onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
-                      placeholder="Ex: 1800"
-                      className="form-input"
-                    />
+                    <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
+                    <div className="date-input-container">
+                      <input
+                        type="text"
+                        value={formData.debutRetraite ? 
+                          new Date(formData.debutRetraite).toLocaleDateString('fr-FR') : 
+                          ''
+                        }
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+                            const [day, month, year] = value.split('/');
+                            const dateString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                            handleInputChange('debutRetraite', dateString);
+                          } else if (value === '') {
+                            handleInputChange('debutRetraite', '');
+                          }
+                        }}
+                        placeholder="DD/MM/YYYY"
+                        className="date-input-manual"
+                      />
+                      <button
+                        type="button"
+                        className="date-picker-button"
+                        onClick={openDatePicker}
+                        title="Ouvrir le sélecteur de date"
+                      >
+                        📅
+                      </button>
+                    </div>
                   </div>
 
                   <div className="form-group required full-width">
@@ -332,145 +404,133 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Section Champs Facultatifs */}
-              <div className="form-section">
-                
-                <div className="form-grid">
-                  <div className="form-group optional">
-                    <label className="form-label">
-                      <Euro size={18} />
-                      Salaire annuel moyen (€)
-                      <span className="optional-badge">Facultatif</span>
-                    </label>
-                    <p className="field-explanation">Pour affiner le calcul de la retraite si vous le connaissez</p>
-                    <input
-                      type="number"
-                      value={formData.salaireAnnuel || ''}
-                      onChange={(e) => handleInputChange('salaireAnnuel', e.target.value)}
-                      placeholder="Ex: 38400"
-                      className="form-input optional-input"
-                    />
-                  </div>
-
-                  <div className="form-group optional">
-                    <label className="form-label">
-                      <Calendar size={18} />
-                      Trimestres validés
-                      <span className="optional-badge">Facultatif</span>
-                    </label>
-                    <p className="field-explanation">Nombre de trimestres réellement acquis pour la retraite</p>
-                    <input
-                      type="number"
-                      value={formData.trimestresValides || ''}
-                      onChange={(e) => handleInputChange('trimestresValides', e.target.value)}
-                      placeholder="Ex: 165"
-                      className="form-input optional-input"
-                      min="0"
-                      max="200"
-                    />
-                  </div>
-
-                  <div className="form-group optional">
-                    <label className="form-label">
-                      <Calendar size={18} />
-                      Trimestres requis pour taux plein
-                      <span className="optional-badge">Facultatif</span>
-                    </label>
-                    <p className="field-explanation">Nombre de trimestres nécessaires pour une retraite complète</p>
-                    <input
-                      type="number"
-                      value={formData.trimestresRequis || ''}
-                      onChange={(e) => handleInputChange('trimestresRequis', e.target.value)}
-                      placeholder="Ex: 172"
-                      className="form-input optional-input"
-                      min="0"
-                      max="200"
-                    />
-                  </div>
+                {/* Bouton pour mode avancé */}
+                <div className="advanced-toggle-section">
+                  <button 
+                    className="btn-advanced-toggle"
+                    onClick={() => setShowAdvancedMode(!showAdvancedMode)}
+                  >
+                    {showAdvancedMode ? '🔄 Revenir au mode simplifié' : '🎯 Affiner avec des données précises'}
+                  </button>
+                  <p className="advanced-explanation">
+                    {showAdvancedMode ? 
+                      'Mode simplifié : estimation basée sur votre salaire brut' : 
+                      'Mode avancé : calcul précis avec votre salaire annuel moyen et vos trimestres'
+                    }
+                  </p>
                 </div>
               </div>
 
-              {/* Section Champs Informatifs */}
-              <div className="form-section">
-                
-                <div className="form-grid">
-                  <div className="form-group informational">
-                    <label className="form-label">
-                      <Calendar size={18} />
-                      Année de naissance
-                      <span className="info-badge">Pour planification personnelle</span>
-                    </label>
-                    <p className="field-explanation">Pour vérifier l'éligibilité à la retraite progressive</p>
-                    <input
-                      type="number"
-                      value={formData.anneeNaissance}
-                      onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
-                      placeholder="Ex: 1963"
-                      className="form-input info-input"
-                      min="1900"
-                      max="2010"
-                    />
+              {/* Section Mode Avancé */}
+              {showAdvancedMode && (
+                <div className="form-section advanced-section">
+                  <div className="section-header">
+                    <h3>🎯 Mode avancé - Calcul précis</h3>
+                    <p>Affinez votre estimation avec des données détaillées pour un résultat plus proche de la réalité</p>
                   </div>
-
-                  <div className="form-group informational">
-                    <label className="form-label">
-                      <Calendar size={18} />
-                      Début souhaité de la retraite progressive
-                      <span className="info-badge">Pour planification personnelle</span>
-                    </label>
-                    <p className="field-explanation">Date prévue pour le début de votre retraite progressive</p>
-                    <div className="date-input-container">
+                  
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Euro size={18} />
+                        Salaire annuel moyen des 25 meilleures années (€)
+                      </label>
+                      <p className="field-explanation">Base de calcul officielle pour votre pension</p>
+                      <div className="data-source-info">
+                        <span className="source-label">📄 Où trouver cette info :</span>
+                        <ul className="source-list">
+                          <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                          <li>📋 <strong>Relevé de carrière</strong> téléchargeable sur votre compte</li>
+                          <li>💼 <strong>Fiches de paie</strong> de vos 25 meilleures années</li>
+                        </ul>
+                      </div>
                       <input
-                        type="text"
-                        value={formData.debutRetraite ? 
-                          new Date(formData.debutRetraite).toLocaleDateString('fr-FR') : 
-                          ''
-                        }
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          if (value.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-                            const [day, month, year] = value.split('/');
-                            const dateString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-                            handleInputChange('debutRetraite', dateString);
-                          } else if (value === '') {
-                            handleInputChange('debutRetraite', '');
-                          }
-                        }}
-                        placeholder="DD/MM/YYYY"
-                        className="date-input-manual info-input"
+                        type="number"
+                        value={formData.salaireAnnuelMoyen || ''}
+                        onChange={(e) => handleInputChange('salaireAnnuelMoyen', e.target.value)}
+                        placeholder="Ex: 45000"
+                        className="form-input"
                       />
-                      <button
-                        type="button"
-                        className="date-picker-button"
-                        onClick={openDatePicker}
-                        title="Ouvrir le sélecteur de date"
-                      >
-                        📅
-                      </button>
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Calendar size={18} />
+                        Trimestres validés
+                      </label>
+                      <p className="field-explanation">Nombre de trimestres réellement acquis</p>
+                      <div className="data-source-info">
+                        <span className="source-label">📄 Où trouver cette info :</span>
+                        <ul className="source-list">
+                          <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                          <li>📋 <strong>Relevé de carrière</strong> téléchargeable sur votre compte</li>
+                          <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
+                        </ul>
+                      </div>
+                      <input
+                        type="number"
+                        value={formData.trimestresValides || ''}
+                        onChange={(e) => handleInputChange('trimestresValides', e.target.value)}
+                        placeholder="Ex: 165"
+                        className="form-input"
+                        min="0"
+                        max="200"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Calendar size={18} />
+                        Année de naissance
+                      </label>
+                      <p className="field-explanation">Pour calculer automatiquement les trimestres requis selon votre génération</p>
+                      <input
+                        type="number"
+                        value={formData.anneeNaissance}
+                        onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
+                        placeholder="Ex: 1960"
+                        className="form-input"
+                        min="1900"
+                        max="2010"
+                      />
+                      {formData.anneeNaissance && (
+                        <div className="calculated-info">
+                          <span className="info-text">
+                            Trimestres requis : {calculateTrimestresRequis(formData.anneeNaissance)} 
+                            ({calculateTrimestresRequis(formData.anneeNaissance) / 4} ans)
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group optional">
+                      <label className="form-label">
+                        <Euro size={18} />
+                        Pension estimée (optionnel)
+                        <span className="optional-badge">Pour comparaison</span>
+                      </label>
+                      <p className="field-explanation">Si vous connaissez déjà votre pension, pour comparer avec notre calcul</p>
+                      <div className="data-source-info">
+                        <span className="source-label">📄 Où trouver cette info :</span>
+                        <ul className="source-list">
+                          <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                          <li>📋 <strong>Relevé de carrière</strong> avec estimation de pension</li>
+                          <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
+                        </ul>
+                      </div>
+                      <input
+                        type="number"
+                        value={formData.pensionEstimee || ''}
+                        onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
+                        placeholder="Ex: 1800"
+                        className="form-input optional-input"
+                      />
                     </div>
                   </div>
-
-                  <div className="form-group informational">
-                    <label className="form-label">
-                      <Clock size={18} />
-                      Durée de la retraite progressive (années)
-                      <span className="info-badge">Pour planification personnelle</span>
-                    </label>
-                    <p className="field-explanation">Durée prévue de votre retraite progressive</p>
-                    <input
-                      type="number"
-                      value={formData.dureeRetraite}
-                      onChange={(e) => handleInputChange('dureeRetraite', e.target.value)}
-                      placeholder="Ex: 5"
-                      className="form-input info-input"
-                      min="2"
-                      max="20"
-                    />
-                  </div>
-                  </div>
                 </div>
+              )}
+
 
               {/* Bouton de calcul */}
               <div className="calculate-button-section">
@@ -522,6 +582,19 @@ const CalculateurAvance = () => {
                       </div>
                     </div>
 
+                    {/* Mode de calcul */}
+                    <div className="calculation-mode-indicator">
+                      <div className={`mode-badge ${resultats.modeCalcul}`}>
+                        {resultats.modeCalcul === 'avance' ? '🎯 Calcul précis' : '⚡ Estimation rapide'}
+                      </div>
+                      <p className="mode-explanation">
+                        {resultats.modeCalcul === 'avance' ? 
+                          'Calcul basé sur votre salaire annuel moyen et vos trimestres' : 
+                          'Estimation basée sur votre salaire brut (taux de remplacement moyen 45%)'
+                        }
+                      </p>
+                    </div>
+
                     {/* Graphique 3D */}
                     <div className="chart-container">
                       <div className="flow-chart">
@@ -530,6 +603,11 @@ const CalculateurAvance = () => {
                           <div className="flow-label">Salaire mensuel actuel à temps plein</div>
                           <div className="flow-box blue">
                             <span className="flow-amount">{resultats.salaireActuel} €</span>
+                            <div className="flow-subtitle">Brut</div>
+                          </div>
+                          <div className="flow-box blue-light">
+                            <span className="flow-amount">{resultats.salaireNet} €</span>
+                            <div className="flow-subtitle">Net</div>
                           </div>
                         </div>
 
