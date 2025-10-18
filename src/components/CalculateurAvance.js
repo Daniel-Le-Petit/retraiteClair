@@ -642,8 +642,10 @@ const CalculateurAvance = () => {
                                 <div className="tooltip">
                                   <div className="tooltip-title">💼 Calcul Temps Partiel</div>
                                   <div className="tooltip-content">
-                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€</div>
-                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ - 22% = {resultats.salairePartiel}€</div>
+                                    <div className="tooltip-step">Salaire brut : {formData.salaireBrut}€</div>
+                                    <div className="tooltip-step">Temps partiel : {formData.tempsPartiel}%</div>
+                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ brut</div>
+                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ × 0.78 = {resultats.salairePartiel}€ net</div>
                                   </div>
                                 </div>
                               </div>
@@ -658,12 +660,18 @@ const CalculateurAvance = () => {
                                   <div className="tooltip-content">
                                     {resultats.calculAvecTrimestres ? (
                                       <>
-                                        <div className="tooltip-step">{formData.salaireAnnuel || (formData.salaireBrut * 12)}€ × 50% × {formData.trimestresValides}/{formData.trimestresRequis} = {resultats.pensionEstimeeFinale * 12}€/an</div>
+                                        <div className="tooltip-step">Salaire annuel moyen : {formData.salaireAnnuelMoyen}€</div>
+                                        <div className="tooltip-step">Trimestres : {formData.trimestresValides}/{calculateTrimestresRequis(formData.anneeNaissance)}</div>
+                                        <div className="tooltip-step">{formData.salaireAnnuelMoyen}€ × 50% × {formData.trimestresValides}/{calculateTrimestresRequis(formData.anneeNaissance)} = {resultats.pensionEstimeeFinale * 12}€/an</div>
                                         <div className="tooltip-step">{resultats.pensionEstimeeFinale * 12}€ ÷ 12 = {resultats.pensionEstimeeFinale}€/mois</div>
                                         <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
                                       </>
                                     ) : (
-                                      <div className="tooltip-step">{formData.pensionEstimee}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      <>
+                                        <div className="tooltip-step">Mode simplifié : estimation basée sur salaire brut</div>
+                                        <div className="tooltip-step">Pension estimée : {resultats.pensionEstimeeFinale}€/mois</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      </>
                                     )}
                                   </div>
                                 </div>
@@ -1328,8 +1336,10 @@ const CalculateurAvance = () => {
                                 <div className="tooltip">
                                   <div className="tooltip-title">💼 Calcul Temps Partiel</div>
                                   <div className="tooltip-content">
-                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€</div>
-                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ - 22% = {resultats.salairePartiel}€</div>
+                                    <div className="tooltip-step">Salaire brut : {formData.salaireBrut}€</div>
+                                    <div className="tooltip-step">Temps partiel : {formData.tempsPartiel}%</div>
+                                    <div className="tooltip-step">{formData.salaireBrut}€ × {formData.tempsPartiel}% = {(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ brut</div>
+                                    <div className="tooltip-step">{(formData.salaireBrut * formData.tempsPartiel / 100).toFixed(0)}€ × 0.78 = {resultats.salairePartiel}€ net</div>
                                   </div>
                                 </div>
                               </div>
@@ -1344,12 +1354,18 @@ const CalculateurAvance = () => {
                                   <div className="tooltip-content">
                                     {resultats.calculAvecTrimestres ? (
                                       <>
-                                        <div className="tooltip-step">{formData.salaireAnnuel || (formData.salaireBrut * 12)}€ × 50% × {formData.trimestresValides}/{formData.trimestresRequis} = {resultats.pensionEstimeeFinale * 12}€/an</div>
+                                        <div className="tooltip-step">Salaire annuel moyen : {formData.salaireAnnuelMoyen}€</div>
+                                        <div className="tooltip-step">Trimestres : {formData.trimestresValides}/{calculateTrimestresRequis(formData.anneeNaissance)}</div>
+                                        <div className="tooltip-step">{formData.salaireAnnuelMoyen}€ × 50% × {formData.trimestresValides}/{calculateTrimestresRequis(formData.anneeNaissance)} = {resultats.pensionEstimeeFinale * 12}€/an</div>
                                         <div className="tooltip-step">{resultats.pensionEstimeeFinale * 12}€ ÷ 12 = {resultats.pensionEstimeeFinale}€/mois</div>
                                         <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
                                       </>
                                     ) : (
-                                      <div className="tooltip-step">{formData.pensionEstimee}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      <>
+                                        <div className="tooltip-step">Mode simplifié : estimation basée sur salaire brut</div>
+                                        <div className="tooltip-step">Pension estimée : {resultats.pensionEstimeeFinale}€/mois</div>
+                                        <div className="tooltip-step">{resultats.pensionEstimeeFinale}€ × {100 - formData.tempsPartiel}% = {resultats.pensionProgressive}€</div>
+                                      </>
                                     )}
                                   </div>
                                 </div>
