@@ -433,7 +433,7 @@ const CalculateurAvance = () => {
                       />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group advanced-field">
                       <label className="form-label">
                         <Calendar size={18} />
                         Trimestres validés
@@ -487,7 +487,7 @@ const CalculateurAvance = () => {
                       />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group advanced-field">
                       <label className="form-label">
                         <Calendar size={18} />
                         Année de naissance
@@ -512,7 +512,7 @@ const CalculateurAvance = () => {
                       )}
                     </div>
 
-                    <div className="form-group optional">
+                    <div className="form-group advanced-field">
                       <label className="form-label">
                         <Euro size={18} />
                         Pension estimée (optionnel)
@@ -1148,7 +1148,7 @@ const CalculateurAvance = () => {
                         />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group advanced-field">
                         <label className="form-label">
                           <Calendar size={18} />
                           Trimestres validés
@@ -1202,7 +1202,7 @@ const CalculateurAvance = () => {
                         />
                       </div>
 
-                      <div className="form-group">
+                      <div className="form-group advanced-field">
                         <label className="form-label">
                           <Calendar size={18} />
                           Année de naissance
@@ -1227,7 +1227,7 @@ const CalculateurAvance = () => {
                         )}
                       </div>
 
-                      <div className="form-group optional">
+                      <div className="form-group advanced-field">
                         <label className="form-label">
                           <Euro size={18} />
                           Pension estimée (optionnel)
