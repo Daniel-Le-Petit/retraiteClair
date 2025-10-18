@@ -469,8 +469,8 @@ const CalculateurAvance = () => {
                       max="20"
                     />
                   </div>
+                  </div>
                 </div>
-              </div>
 
               {/* Bouton de calcul */}
               <div className="calculate-button-section">
