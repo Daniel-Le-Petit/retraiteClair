@@ -121,6 +121,34 @@
   margin-bottom: 1rem;
 }
 
+/* Styles pour les champs du mode avancé */
+.form-group.advanced-field {
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #93c5fd;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  position: relative;
+}
+
+.form-group.advanced-field::before {
+  content: '🎯 MODE AVANCÉ';
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  background: #3b82f6;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
 .info-badge {
   background: #6b7280;
   color: white;

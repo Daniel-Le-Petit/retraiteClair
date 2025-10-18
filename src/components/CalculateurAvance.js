@@ -410,7 +410,7 @@ const CalculateurAvance = () => {
                   </div>
                   
                   <div className="form-grid">
-                    <div className="form-group">
+                    <div className="form-group advanced-field">
                         <label className="form-label">
                           <Euro size={18} />
                           Salaire annuel moyen des 25 meilleures années (€ brut)
@@ -1175,7 +1175,7 @@ const CalculateurAvance = () => {
                     </div>
                     
                     <div className="form-grid">
-                      <div className="form-group">
+                      <div className="form-group advanced-field">
                         <label className="form-label">
                           <Euro size={18} />
                           Salaire annuel moyen des 25 meilleures années (€ brut)
