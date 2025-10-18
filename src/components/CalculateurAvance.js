@@ -566,11 +566,6 @@ const CalculateurAvance = () => {
                     <h3>Évolution de vos revenus</h3>
                     <div className="estimation-notice">
                       <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
-                      {resultats.calculAvecTrimestres && (
-                        <div className="trimestres-notice">
-                          <p>✅ <strong>Calcul automatique</strong> : Pension calculée avec la formule officielle basée sur vos trimestres validés (aucune pension manuelle saisie)</p>
-                        </div>
-                      )}
                       
                     </div>
                     
