@@ -408,7 +408,7 @@ const CalculateurAvance = () => {
                 {/* Bouton pour mode avancé */}
                 <div className="advanced-toggle-section">
                   <button 
-                    className="btn-advanced-toggle"
+                    className={`btn-advanced-toggle ${showAdvancedMode ? 'revert-mode' : ''}`}
                     onClick={() => setShowAdvancedMode(!showAdvancedMode)}
                   >
                     {showAdvancedMode ? '🔄 Revenir au mode simplifié' : '🎯 Affiner avec des données précises'}
@@ -1165,7 +1165,7 @@ const CalculateurAvance = () => {
                   {/* Bouton pour mode avancé */}
                   <div className="advanced-toggle-section">
                     <button 
-                      className="btn-advanced-toggle"
+                      className={`btn-advanced-toggle ${showAdvancedMode ? 'revert-mode' : ''}`}
                       onClick={() => setShowAdvancedMode(!showAdvancedMode)}
                     >
                       {showAdvancedMode ? '🔄 Revenir au mode simplifié' : '🎯 Affiner avec des données précises'}
