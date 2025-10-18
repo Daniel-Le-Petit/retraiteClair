@@ -822,8 +822,8 @@ const CalculateurAvance = () => {
                             };
                           });
                           
-                          // Calculer l'échelle dynamique basée sur le salaire brut
-                          const maxValue = Math.max(salaireBrut, salaireNet * 1.1); // 10% de marge au-dessus du salaire net
+                          // Calculer l'échelle fixe partant de 0 jusqu'au salaire brut
+                          const maxValue = salaireBrut; // Échelle fixe jusqu'au salaire brut
                           const maxHeight = 240;
                           const scale = maxHeight / maxValue;
                           const baseY = 380; // Position de base (axe X)
