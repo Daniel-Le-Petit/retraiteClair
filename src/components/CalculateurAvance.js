@@ -1043,7 +1043,7 @@ const CalculateurAvance = () => {
             <div className="progress-bar">
               <div 
                 className="progress-fill" 
-                style={{width: `${isFormComplete() ? 100 : (formData.salaireBrut && formData.pensionEstimee ? 33 : 0)}%`}}
+                style={{width: `${isFormComplete() ? 100 : (formData.salaireBrut && formData.debutRetraite ? 33 : 0)}%`}}
               ></div>
             </div>
           </div>
@@ -1064,57 +1064,35 @@ const CalculateurAvance = () => {
             </div>
             <div className="accordion-content">
               <div className="accordion-body">
-                {/* Contenu identique à l'onglet Saisie */}
+                {/* Version mobile du nouveau formulaire */}
                 <div className="form-section">
-                  <h3>Informations personnelles</h3>
+                  <div className="section-header">
+                    <h3>⚡ Simulation simplifiée</h3>
+                    <p>Obtenez une estimation rapide avec les informations de base</p>
+                  </div>
+                  
                   <div className="form-grid">
-                    <div className="form-group">
+                    <div className="form-group required">
                       <label className="form-label">
                         <Euro size={18} />
-                        Salaire brut mensuel (€)
+                        Salaire brut mensuel (€) <span className="required-star">*</span>
                       </label>
+                      <p className="field-explanation">Votre salaire brut actuel</p>
                       <input
                         type="number"
                         value={formData.salaireBrut}
                         onChange={(e) => handleInputChange('salaireBrut', e.target.value)}
-                        placeholder=""
+                        placeholder="Ex: 3200"
                         className="form-input"
                       />
                     </div>
 
-                    <div className="form-group">
-                      <label className="form-label">
-                        <Euro size={18} />
-                        Pension mensuelle nette estimée au taux plein (€)
-                      </label>
-                      <input
-                        type="number"
-                        value={formData.pensionEstimee}
-                        onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
-                        placeholder=""
-                        className="form-input"
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label className="form-label">
-                        <User size={18} />
-                        Année de naissance
-                      </label>
-                      <input
-                        type="number"
-                        value={formData.anneeNaissance}
-                        onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
-                        placeholder=""
-                        className="form-input"
-                      />
-                    </div>
-
-                    <div className="form-group">
+                    <div className="form-group required">
                       <label className="form-label">
                         <Calendar size={18} />
-                        Début souhaité de la retraite progressive
+                        Date de début souhaitée <span className="required-star">*</span>
                       </label>
+                      <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
                       <div className="date-input-container">
                         <input
                           type="text"
@@ -1132,7 +1110,7 @@ const CalculateurAvance = () => {
                               handleInputChange('debutRetraite', '');
                             }
                           }}
-                          placeholder=""
+                          placeholder="DD/MM/YYYY"
                           className="date-input-manual"
                         />
                         <button
@@ -1146,24 +1124,169 @@ const CalculateurAvance = () => {
                       </div>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group required full-width">
                       <label className="form-label">
                         <Clock size={18} />
-                        Durée de la retraite progressive (années)
+                        Temps partiel souhaité (%) <span className="required-star">*</span>
                       </label>
-                      <input
-                        type="number"
-                        value={formData.dureeRetraite}
-                        onChange={(e) => handleInputChange('dureeRetraite', e.target.value)}
-                        placeholder=""
-                        min="2"
-                        max="10"
-                        className="form-input"
-                      />
+                      <p className="field-explanation">Détermine la part de salaire et la fraction de retraite</p>
+                      <div className="slider-container-modern">
+                        <div className="slider-wrapper">
+                          <div className="slider-track-modern">
+                            <div 
+                              className="slider-fill" 
+                              style={{ width: `${((formData.tempsPartiel - 40) / 40) * 100}%` }}
+                            ></div>
+                            <input
+                              type="range"
+                              min="40"
+                              max="80"
+                              step="10"
+                              value={formData.tempsPartiel}
+                              onChange={(e) => handleInputChange('tempsPartiel', e.target.value)}
+                              className="slider-input-modern"
+                            />
+                          </div>
+                          <div className="slider-labels">
+                            <span className="slider-label">40%</span>
+                            <span className="slider-label">50%</span>
+                            <span className="slider-label">60%</span>
+                            <span className="slider-label">70%</span>
+                            <span className="slider-label">80%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="slider-value-display">
+                        <span className="slider-value-text">{formData.tempsPartiel}%</span>
+                      </div>
                     </div>
+                  </div>
 
+                  {/* Bouton pour mode avancé */}
+                  <div className="advanced-toggle-section">
+                    <button 
+                      className="btn-advanced-toggle"
+                      onClick={() => setShowAdvancedMode(!showAdvancedMode)}
+                    >
+                      {showAdvancedMode ? '🔄 Revenir au mode simplifié' : '🎯 Affiner avec des données précises'}
+                    </button>
+                    <p className="advanced-explanation">
+                      {showAdvancedMode ? 
+                        'Mode simplifié : estimation basée sur votre salaire brut' : 
+                        'Mode avancé : calcul précis avec votre salaire annuel moyen et vos trimestres'
+                      }
+                    </p>
                   </div>
                 </div>
+
+                {/* Section Mode Avancé Mobile */}
+                {showAdvancedMode && (
+                  <div className="form-section advanced-section">
+                    <div className="section-header">
+                      <h3>🎯 Mode avancé - Calcul précis</h3>
+                      <p>Affinez votre estimation avec des données détaillées</p>
+                    </div>
+                    
+                    <div className="form-grid">
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Euro size={18} />
+                          Salaire annuel moyen des 25 meilleures années (€)
+                        </label>
+                        <p className="field-explanation">Base de calcul officielle pour votre pension</p>
+                        <div className="data-source-info">
+                          <span className="source-label">📄 Où trouver cette info :</span>
+                          <ul className="source-list">
+                            <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                            <li>📋 <strong>Relevé de carrière</strong> téléchargeable sur votre compte</li>
+                            <li>💼 <strong>Fiches de paie</strong> de vos 25 meilleures années</li>
+                          </ul>
+                        </div>
+                        <input
+                          type="number"
+                          value={formData.salaireAnnuelMoyen || ''}
+                          onChange={(e) => handleInputChange('salaireAnnuelMoyen', e.target.value)}
+                          placeholder="Ex: 45000"
+                          className="form-input"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Calendar size={18} />
+                          Trimestres validés
+                        </label>
+                        <p className="field-explanation">Nombre de trimestres réellement acquis</p>
+                        <div className="data-source-info">
+                          <span className="source-label">📄 Où trouver cette info :</span>
+                          <ul className="source-list">
+                            <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                            <li>📋 <strong>Relevé de carrière</strong> téléchargeable sur votre compte</li>
+                            <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
+                          </ul>
+                        </div>
+                        <input
+                          type="number"
+                          value={formData.trimestresValides || ''}
+                          onChange={(e) => handleInputChange('trimestresValides', e.target.value)}
+                          placeholder="Ex: 165"
+                          className="form-input"
+                          min="0"
+                          max="200"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label">
+                          <Calendar size={18} />
+                          Année de naissance
+                        </label>
+                        <p className="field-explanation">Pour calculer automatiquement les trimestres requis selon votre génération</p>
+                        <input
+                          type="number"
+                          value={formData.anneeNaissance}
+                          onChange={(e) => handleInputChange('anneeNaissance', e.target.value)}
+                          placeholder="Ex: 1960"
+                          className="form-input"
+                          min="1900"
+                          max="2010"
+                        />
+                        {formData.anneeNaissance && (
+                          <div className="calculated-info">
+                            <span className="info-text">
+                              Trimestres requis : {calculateTrimestresRequis(formData.anneeNaissance)} 
+                              ({calculateTrimestresRequis(formData.anneeNaissance) / 4} ans)
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="form-group optional">
+                        <label className="form-label">
+                          <Euro size={18} />
+                          Pension estimée (optionnel)
+                          <span className="optional-badge">Pour comparaison</span>
+                        </label>
+                        <p className="field-explanation">Si vous connaissez déjà votre pension, pour comparer avec notre calcul</p>
+                        <div className="data-source-info">
+                          <span className="source-label">📄 Où trouver cette info :</span>
+                          <ul className="source-list">
+                            <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
+                            <li>📋 <strong>Relevé de carrière</strong> avec estimation de pension</li>
+                            <li>📱 <strong>Application mobile</strong> "Assurance Retraite"</li>
+                          </ul>
+                        </div>
+                        <input
+                          type="number"
+                          value={formData.pensionEstimee || ''}
+                          onChange={(e) => handleInputChange('pensionEstimee', e.target.value)}
+                          placeholder="Ex: 1800"
+                          className="form-input optional-input"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
