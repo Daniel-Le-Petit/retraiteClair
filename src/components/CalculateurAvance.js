@@ -25,6 +25,7 @@ const CalculateurAvance = () => {
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
   const [validationError, setValidationError] = useState('');
   const [showAdvancedMode, setShowAdvancedMode] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1); // 1: Saisie, 2: Résultats, 3: Scénarios
 
   // Fonction pour calculer les trimestres requis en fonction de l'année de naissance
   const calculateTrimestresRequis = (anneeNaissance) => {
@@ -168,6 +169,13 @@ const CalculateurAvance = () => {
     }
   }, [formData]);
 
+  // Mettre à jour l'étape active selon l'onglet actif
+  useEffect(() => {
+    if (activeTab === 'saisie') setCurrentStep(1);
+    else if (activeTab === 'resultats') setCurrentStep(2);
+    else if (activeTab === 'scenarios') setCurrentStep(3);
+  }, [activeTab]);
+
   // Vérifier si tous les champs requis sont remplis
   const isFormComplete = () => {
     return formData.salaireBrut && 
@@ -270,6 +278,28 @@ const CalculateurAvance = () => {
           </div>
         </div>
 
+        {/* Barre de progression */}
+        <div className="progress-bar-container">
+          <div className="progress-bar">
+            <div className="progress-steps">
+              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
+                <div className="step-number">1</div>
+                <div className="step-label">Saisie</div>
+              </div>
+              <div className="progress-line"></div>
+              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
+                <div className="step-number">2</div>
+                <div className="step-label">Résultats</div>
+              </div>
+              <div className="progress-line"></div>
+              <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}>
+                <div className="step-number">3</div>
+                <div className="step-label">Scénarios</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Navigation par onglets */}
         <div className="tabs-navigation">
           {tabs.map((tab) => {
@@ -315,10 +345,10 @@ const CalculateurAvance = () => {
                 </div>
                 
                 <div className="form-grid">
-                  <div className="form-group required">
+                  <div className="form-group">
                     <label className="form-label">
                       <Euro size={18} />
-                      Salaire brut mensuel (€) <span className="required-star">*</span>
+                      Salaire brut mensuel (€)
                     </label>
                     <p className="field-explanation">Votre salaire brut actuel</p>
                     <input
@@ -330,10 +360,10 @@ const CalculateurAvance = () => {
                     />
                   </div>
 
-                  <div className="form-group required">
+                  <div className="form-group">
                     <label className="form-label">
                       <Calendar size={18} />
-                      Date de début souhaitée <span className="required-star">*</span>
+                      Date de début souhaitée
                     </label>
                     <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
                     <div className="date-input-container">
@@ -346,10 +376,10 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  <div className="form-group required full-width">
+                  <div className="form-group full-width">
                     <label className="form-label">
                       <Clock size={18} />
-                      Temps partiel souhaité (%) <span className="required-star">*</span>
+                      Temps partiel souhaité (%)
                     </label>
                     <p className="field-explanation">Détermine la part de salaire et la fraction de retraite</p>
                     <div className="slider-container-modern">
@@ -1030,10 +1060,10 @@ const CalculateurAvance = () => {
                   </div>
                   
                   <div className="form-grid">
-                    <div className="form-group required">
+                    <div className="form-group">
                       <label className="form-label">
                         <Euro size={18} />
-                        Salaire brut mensuel (€) <span className="required-star">*</span>
+                        Salaire brut mensuel (€)
                       </label>
                       <p className="field-explanation">Votre salaire brut actuel</p>
                       <input
@@ -1045,10 +1075,10 @@ const CalculateurAvance = () => {
                       />
                     </div>
 
-                    <div className="form-group required">
+                    <div className="form-group">
                       <label className="form-label">
                         <Calendar size={18} />
-                        Date de début souhaitée <span className="required-star">*</span>
+                        Date de début souhaitée
                       </label>
                       <p className="field-explanation">Quand souhaitez-vous commencer votre retraite progressive ?</p>
                       <div className="date-input-container">
@@ -1061,10 +1091,10 @@ const CalculateurAvance = () => {
                       </div>
                     </div>
 
-                    <div className="form-group required full-width">
+                    <div className="form-group full-width">
                       <label className="form-label">
                         <Clock size={18} />
-                        Temps partiel souhaité (%) <span className="required-star">*</span>
+                        Temps partiel souhaité (%)
                       </label>
                       <p className="field-explanation">Détermine la part de salaire et la fraction de retraite</p>
                       <div className="slider-container-modern">

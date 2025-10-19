@@ -223,6 +223,102 @@
   font-size: 1rem;
 }
 
+/* Barre de progression */
+.progress-bar-container {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.progress-bar {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: #e2e8f0;
+  color: #64748b;
+  transition: all 0.3s ease;
+  border: 3px solid #e2e8f0;
+}
+
+.step-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .step-number {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.progress-step.active .step-label {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.progress-step.completed .step-number {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.progress-step.completed .step-label {
+  color: #10b981;
+  font-weight: 700;
+}
+
+.progress-line {
+  flex: 1;
+  height: 3px;
+  background: #e2e8f0;
+  margin: 0 1rem;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-step.completed + .progress-line {
+  background: linear-gradient(90deg, #10b981 0%, #e2e8f0 100%);
+}
+
+.progress-step.active + .progress-line {
+  background: linear-gradient(90deg, #3b82f6 0%, #e2e8f0 100%);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .section-header-with-icon {
@@ -233,6 +329,30 @@
   .section-title-blue,
   .section-title-gray {
     font-size: 1.2rem;
+  }
+
+  /* Barre de progression mobile */
+  .progress-bar-container {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .progress-steps {
+    gap: 0.5rem;
+  }
+
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .step-label {
+    font-size: 0.8rem;
+  }
+
+  .progress-line {
+    margin: 0 0.5rem;
   }
   
   .form-group.required,

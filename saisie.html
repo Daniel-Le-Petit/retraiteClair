@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup - Refonte Simulateur Retraite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --secondary: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4bb543;
+            --warning: #ffcc00;
+            --danger: #dc3545;
+            --border-radius: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .mockup-selector {
+            display: flex;
+            gap: 10px;
+            margin: 2rem 0;
+        }
+
+        .mockup-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius);
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mockup-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .mockup-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .mockup-screen {
+            flex: 1;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .mockup-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .mockup-content {
+            padding: 2rem;
+            height: 600px;
+            overflow-y: auto;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            z-index: 1;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .step-circle.active {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 8px;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: rgba(75, 181, 67, 0.2);
+            color: var(--success);
+        }
+
+        .badge-info {
+            background-color: rgba(67, 97, 238, 0.2);
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        .percentage-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .percentage-option {
+            flex: 1;
+            min-width: 70px;
+            text-align: center;
+            padding: 8px;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .percentage-option:hover {
+            background-color: #e9ecef;
+        }
+
+        .percentage-option.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .toggle-container {
+            display: flex;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            padding: 4px;
+            margin-bottom: 1.2rem;
+        }
+
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .toggle-option.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .info-box {
+            background-color: rgba(67, 97, 238, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            margin: 1.2rem 0;
+        }
+
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .info-title i {
+            margin-right: 6px;
+            color: var(--primary);
+        }
+
+        .info-content {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .info-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .info-link {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .info-link i {
+            margin-right: 4px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .result-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 8px 0;
+            color: var(--primary-dark);
+        }
+
+        .result-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .scenario-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .scenario-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .scenario-card.selected {
+            border-color: var(--primary);
+        }
+
+        .scenario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .scenario-percentage {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .scenario-details {
+            margin-top: 0.8rem;
+        }
+
+        .scenario-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.8rem;
+        }
+
+        .scenario-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .mobile-preview {
+            display: none;
+            width: 320px;
+            margin: 0 auto;
+            border: 10px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .mobile-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .mobile-content {
+            padding: 1.5rem;
+            height: 500px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1100px) {
+            .mockup-container {
+                flex-direction: column;
+            }
+            
+            .desktop-preview {
+                display: none;
+            }
+            
+            .mobile-preview {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-palette"></i>
+                    Mockup - Refonte Simulateur Retraite
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="mockup-selector">
+            <div class="mockup-btn active" data-screen="saisie">Écran de Saisie</div>
+            <div class="mockup-btn" data-screen="resultats">Écran de Résultats</div>
+            <div class="mockup-btn" data-screen="scenarios">Écran de Scénarios</div>
+            <div class="mockup-btn" data-screen="mobile">Version Mobile</div>
+        </div>
+
+        <!-- Version Desktop -->
+        <div class="mockup-container desktop-preview">
+            <!-- Écran de Saisie -->
+            <div class="mockup-screen" id="saisie-screen">
+                <div class="mockup-header">
+                    <h3>Simulateur de Retraite Progressive</h3>
+                    <div class="progress-bar">
+                        <div class="progress-step">
+                            <div class="step-circle active">1</div>
+                            <div class="step-label">Saisie</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Résultats</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Scénarios</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-pencil-alt"></i> Saisie des données</h2>
+                            <span class="badge badge-success"><i class="fas fa-check"></i> Formulaire complété</span>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-option active">⚡ Simulation simplifiée</div>
+                            <div class="toggle-option">🎯 Mode avancé</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Salaire brut mensuel (€) *</label>
+                            <input type="number" class="form-control" placeholder="Votre salaire brut actuel" value="8585">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Date de début souhaitée *</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Temps partiel souhaité (%) *</label>
+                            <div class="percentage-selector">
+                                <div class="percentage-option">40%</div>
+                                <div class="percentage-option">50%</div>
+                                <div class="percentage-option selected">60%</div>
+                                <div class="percentage-option">70%</div>
+                                <div class="percentage-option">80%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-title"><i class="fas fa-info-circle"></i> Où trouver ces informations ?</div>
+                            <div class="info-content">
+                                Consultez votre relevé de carrière ou utilisez le simulateur officiel M@rel sur le site de l'Assurance Retraite.
+                            </div>
+                            <div class="info-links">
+                                <a href="#" class="info-link"><i class="fas fa-external-link-alt"></i> Simulateur M@rel</a>
+                                <a href="#" class="info-link"><i class="fas fa-file-alt"></i> Relevé de carrière</a>
+                                <a href="#" class="info-link"><i class="fas fa-mobile-alt"></i> Application mobile</a>
+                            </div>
+                        </div>
+                        
+                        <button class="btn">Calculer ma retraite progressive</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Écran de Résultats -->
+            <div class="mockup-screen" id="resultats-screen" style="display: none;">
+                <div class="mockup-header">
+                    <h3>Simulateur de Retraite Progressive</h3>
+                    <div class="progress-bar">
+                        <div class="progress-step">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Saisie</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle active">2</div>
+                            <div class="step-label">Résultats</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Scénarios</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-chart-bar"></i> Résultats de simulation</h2>
+                            <span class="badge badge-info"><i class="fas fa-lightbulb"></i> Estimation indicative</span>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-option">NON</div>
+                            <div class="toggle-option active">OUI</div>
+                        </div>
+                        <div class="info-content" style="text-align: center; margin-bottom: 1rem;">
+                            Maintien des cotisations à 100%
+                        </div>
+                        
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <div class="result-label">Salaire mensuel actuel à temps plein</div>
+                                <div class="result-value">8 585 €</div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-label">Revenu en retraite progressive</div>
+                                <div class="result-value">5 610 €</div>
+                                <div class="result-details">
+                                    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.8rem;">
+                                        <span>Temps partiel:</span>
+                                        <span>4 018 €</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                        <span>Pension:</span>
+                                        <span>1 593 €</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-label">Pension complète à la retraite définitive</div>
+                                <div class="result-value">3 981 €</div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box">
+                            <div class="info-content">
+                                Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Écran de Scénarios -->
+            <div class="mockup-screen" id="scenarios-screen" style="display: none;">
+                <div class="mockup-header">
+                    <h3>Simulateur de Retraite Progressive</h3>
+                    <div class="progress-bar">
+                        <div class="progress-step">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Saisie</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Résultats</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle active">3</div>
+                            <div class="step-label">Scénarios</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title"><i class="fas fa-chart-pie"></i> Comparaison de scénarios</h2>
+                        </div>
+                        
+                        <div class="toggle-container">
+                            <div class="toggle-option">NON</div>
+                            <div class="toggle-option active">OUI</div>
+                        </div>
+                        <div class="info-content" style="text-align: center; margin-bottom: 1rem;">
+                            Maintien des cotisations à 100%
+                        </div>
+                        
+                        <div class="scenario-container">
+                            <div class="scenario-card">
+                                <div class="scenario-header">
+                                    <div class="scenario-title">Minimum légal</div>
+                                    <div class="scenario-percentage">40%</div>
+                                </div>
+                                <div class="scenario-details">
+                                    <div class="scenario-detail">
+                                        <span>Salaire partiel:</span>
+                                        <span>2 679 €</span>
+                                    </div>
+                                    <div class="scenario-detail">
+                                        <span>Pension progressive:</span>
+                                        <span>2 729 €</span>
+                                    </div>
+                                </div>
+                                <div class="scenario-total">
+                                    <span>Revenu total:</span>
+                                    <span>5 408 €</span>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-header">
+                                    <div class="scenario-title">Conservateur</div>
+                                    <div class="scenario-percentage">50%</div>
+                                </div>
+                                <div class="scenario-details">
+                                    <div class="scenario-detail">
+                                        <span>Salaire partiel:</span>
+                                        <span>3 348 €</span>
+                                    </div>
+                                    <div class="scenario-detail">
+                                        <span>Pension progressive:</span>
+                                        <span>2 275 €</span>
+                                    </div>
+                                </div>
+                                <div class="scenario-total">
+                                    <span>Revenu total:</span>
+                                    <span>5 623 €</span>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card selected">
+                                <div class="scenario-header">
+                                    <div class="scenario-title">Équilibré</div>
+                                    <div class="scenario-percentage">60%</div>
+                                </div>
+                                <div class="scenario-details">
+                                    <div class="scenario-detail">
+                                        <span>Salaire partiel:</span>
+                                        <span>4 018 €</span>
+                                    </div>
+                                    <div class="scenario-detail">
+                                        <span>Pension progressive:</span>
+                                        <span>1 820 €</span>
+                                    </div>
+                                </div>
+                                <div class="scenario-total">
+                                    <span>Revenu total:</span>
+                                    <span>5 837 €</span>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-header">
+                                    <div class="scenario-title">Progressif</div>
+                                    <div class="scenario-percentage">70%</div>
+                                </div>
+                                <div class="scenario-details">
+                                    <div class="scenario-detail">
+                                        <span>Salaire partiel:</span>
+                                        <span>4 687 €</span>
+                                    </div>
+                                    <div class="scenario-detail">
+                                        <span>Pension progressive:</span>
+                                        <span>1 365 €</span>
+                                    </div>
+                                </div>
+                                <div class="scenario-total">
+                                    <span>Revenu total:</span>
+                                    <span>6 052 €</span>
+                                </div>
+                            </div>
+                            
+                            <div class="scenario-card">
+                                <div class="scenario-header">
+                                    <div class="scenario-title">Maximum légal</div>
+                                    <div class="scenario-percentage">80%</div>
+                                </div>
+                                <div class="scenario-details">
+                                    <div class="scenario-detail">
+                                        <span>Salaire partiel:</span>
+                                        <span>5 357 €</span>
+                                    </div>
+                                    <div class="scenario-detail">
+                                        <span>Pension progressive:</span>
+                                        <span>910 €</span>
+                                    </div>
+                                </div>
+                                <div class="scenario-total">
+                                    <span>Revenu total:</span>
+                                    <span>6 267 €</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-note">
+                        <p><strong>Important :</strong> Cette simulation fournit une estimation indicative. Pour une projection complète et officielle, consultez le simulateur M@rel sur le site de l'Assurance Retraite.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version Mobile -->
+        <div class="mobile-preview" id="mobile-screen" style="display: none;">
+            <div class="mobile-header">
+                <h4>Retraite Progressive</h4>
+                <div class="progress-bar">
+                    <div class="progress-step">
+                        <div class="step-circle active">1</div>
+                        <div class="step-label">Saisie</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-circle">2</div>
+                        <div class="step-label">Résultats</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-circle">3</div>
+                        <div class="step-label">Scénarios</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title"><i class="fas fa-pencil-alt"></i> Saisie</h2>
+                        <span class="badge badge-success"><i class="fas fa-check"></i></span>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <div class="toggle-option active">⚡ Simplifiée</div>
+                        <div class="toggle-option">🎯 Avancé</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Salaire brut (€) *</label>
+                        <input type="number" class="form-control" value="8585">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Date de début *</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Temps partiel (%) *</label>
+                        <div class="percentage-selector">
+                            <div class="percentage-option">40%</div>
+                            <div class="percentage-option">50%</div>
+                            <div class="percentage-option selected">60%</div>
+                            <div class="percentage-option">70%</div>
+                            <div class="percentage-option">80%</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" style="width: 100%;">Calculer</button>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title"><i class="fas fa-info-circle"></i> Information</div>
+                    <div class="info-content">
+                        Estimation indicative. Consultez le simulateur officiel M@rel pour une projection complète.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion des boutons de sélection d'écran
+        document.querySelectorAll('.mockup-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const screen = this.getAttribute('data-screen');
+                
+                // Mettre à jour les boutons actifs
+                document.querySelectorAll('.mockup-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Afficher l'écran sélectionné
+                if (screen === 'mobile') {
+                    document.querySelector('.desktop-preview').style.display = 'none';
+                    document.getElementById('mobile-screen').style.display = 'block';
+                } else {
+                    document.querySelector('.desktop-preview').style.display = 'flex';
+                    document.getElementById('mobile-screen').style.display = 'none';
+                    
+                    // Masquer tous les écrans desktop
+                    document.querySelectorAll('.mockup-screen').forEach(s => {
+                        s.style.display = 'none';
+                    });
+                    
+                    // Afficher l'écran sélectionné
+                    document.getElementById(screen + '-screen').style.display = 'block';
+                }
+            });
+        });
+        
+        // Gestion des sélecteurs de pourcentage
+        document.querySelectorAll('.percentage-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const container = this.closest('.percentage-selector');
+                container.querySelectorAll('.percentage-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+        
+        // Gestion des options de toggle
+        document.querySelectorAll('.toggle-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const container = this.parentElement;
+                container.querySelectorAll('.toggle-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Gestion des scénarios
+        document.querySelectorAll('.scenario-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const container = this.closest('.scenario-container');
+                container.querySelectorAll('.scenario-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
