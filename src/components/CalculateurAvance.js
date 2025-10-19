@@ -294,7 +294,11 @@ const CalculateurAvance = () => {
               <div className="progress-line"></div>
               <button 
                 className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
-                onClick={() => setActiveTab('resultats')}
+                onClick={() => {
+                  if (validateForResults()) {
+                    setActiveTab('resultats');
+                  }
+                }}
               >
                 <div className="step-button">
                   <BarChart3 size={18} />
@@ -315,30 +319,6 @@ const CalculateurAvance = () => {
           </div>
         </div>
 
-        {/* Navigation par onglets */}
-        <div className="tabs-navigation">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
-                onClick={() => {
-                  if (tab.id === 'resultats') {
-                    if (validateForResults()) {
-                      setActiveTab(tab.id);
-                    }
-                  } else {
-                    setActiveTab(tab.id);
-                  }
-                }}
-              >
-                <Icon size={20} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
 
         {/* Message d'erreur de validation */}
         {validationError && (
