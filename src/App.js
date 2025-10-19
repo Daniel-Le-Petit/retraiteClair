@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import PageAccueil from './components/PageAccueil';
+import HomePage from './components/HomePage';
 import CalculateurAvance from './components/CalculateurAvance';
 import ConseilsPageSimple from './components/ConseilsPageSimple';
 import ContactForm from './components/ContactForm';
@@ -17,6 +17,7 @@ import './personal-info-styles.css';
 import './calculateur-avance-styles.css';
 import './calculateur-mobile-styles.css';
 import './conseils-styles.css';
+import './homepage-styles.css';
 
 function AppContent() {
   const location = useLocation();
@@ -41,7 +42,7 @@ function AppContent() {
       <Sidebar currentPage={currentPage} onPageChange={handlePageChange} />
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<PageAccueil onPageChange={handlePageChange} />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/calculateur" element={<CalculateurAvance />} />
           <Route path="/conseils" element={<ConseilsPageSimple onPageChange={handlePageChange} />} />
           <Route path="/contact" element={<ContactForm />} />
