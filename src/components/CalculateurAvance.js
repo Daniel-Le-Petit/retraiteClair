@@ -290,8 +290,8 @@ const CalculateurAvance = () => {
                   <User size={18} />
                   Saisie
                 </div>
+                <div className="step-indicator"></div>
               </button>
-              <div className="progress-line"></div>
               <button 
                 className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
                 onClick={() => {
@@ -304,8 +304,8 @@ const CalculateurAvance = () => {
                   <BarChart3 size={18} />
                   Résultats
                 </div>
+                <div className="step-indicator"></div>
               </button>
-              <div className="progress-line"></div>
               <button 
                 className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}
                 onClick={() => setActiveTab('scenarios')}
@@ -314,6 +314,7 @@ const CalculateurAvance = () => {
                   <TrendingUp size={18} />
                   Scénarios
                 </div>
+                <div className="step-indicator"></div>
               </button>
             </div>
           </div>
