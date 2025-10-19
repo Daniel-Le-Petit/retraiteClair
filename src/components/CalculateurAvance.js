@@ -286,21 +286,30 @@ const CalculateurAvance = () => {
                 className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
                 onClick={() => setActiveTab('saisie')}
               >
-                <div className="step-button">Saisie</div>
+                <div className="step-button">
+                  <User size={18} />
+                  Saisie
+                </div>
               </button>
               <div className="progress-line"></div>
               <button 
                 className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
                 onClick={() => setActiveTab('resultats')}
               >
-                <div className="step-button">Résultats</div>
+                <div className="step-button">
+                  <BarChart3 size={18} />
+                  Résultats
+                </div>
               </button>
               <div className="progress-line"></div>
               <button 
                 className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}
                 onClick={() => setActiveTab('scenarios')}
               >
-                <div className="step-button">Scénarios</div>
+                <div className="step-button">
+                  <TrendingUp size={18} />
+                  Scénarios
+                </div>
               </button>
             </div>
           </div>

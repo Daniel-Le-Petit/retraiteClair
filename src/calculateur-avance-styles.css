@@ -266,6 +266,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   font-weight: 600;
   font-size: 0.9rem;
   background: #e2e8f0;
@@ -274,6 +275,10 @@
   border: 2px solid #e2e8f0;
   min-width: 120px;
   white-space: nowrap;
+}
+
+.step-button svg {
+  flex-shrink: 0;
 }
 
 .progress-step.active .step-button {
@@ -343,6 +348,12 @@
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
     min-width: 90px;
+    gap: 0.25rem;
+  }
+
+  .step-button svg {
+    width: 16px;
+    height: 16px;
   }
 
   .progress-line {
