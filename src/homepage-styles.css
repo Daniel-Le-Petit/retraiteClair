@@ -801,6 +801,107 @@
   font-size: 1rem;
 }
 
+/* Test d'éligibilité Popup */
+.eligibility-test-popup {
+  max-width: 600px;
+}
+
+.eligibility-test-content {
+  position: relative;
+  z-index: 1;
+}
+
+.eligibility-intro {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.eligibility-criteria-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.eligibility-criteria-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid #10b981;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.criteria-icon {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.eligibility-next-steps {
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.next-steps-title {
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.next-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.next-steps-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.step-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.eligibility-test-cta {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.eligibility-test-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.eligibility-test-button:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
 /* Footer */
 .site-footer {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);

@@ -28,6 +28,7 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState('accueil');
   const [openFaq, setOpenFaq] = useState(null);
   const [openPopup, setOpenPopup] = useState(null);
+  const [openEligibilityTest, setOpenEligibilityTest] = useState(false);
 
   // Navigation sticky
   const navItems = [
@@ -329,7 +330,7 @@ const HomePage = () => {
           <div className="eligibility-cta">
             <button 
               className="eligibility-button"
-              onClick={() => navigate('/calculateur')}
+              onClick={() => setOpenEligibilityTest(true)}
               aria-label="Tester mon éligibilité"
             >
               🟩 Tester mon éligibilité
@@ -492,6 +493,73 @@ const HomePage = () => {
             </button>
             <h3 className="popup-title">{openPopup.title}</h3>
             <p className="popup-text">{openPopup.popupContent}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Test d'éligibilité Popup */}
+      {openEligibilityTest && (
+        <div className="popup-overlay" onClick={() => setOpenEligibilityTest(false)}>
+          <div className="popup-content eligibility-test-popup" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="popup-close"
+              onClick={() => setOpenEligibilityTest(false)}
+              aria-label="Fermer"
+            >
+              <X size={24} />
+            </button>
+            <h3 className="popup-title">Test d'éligibilité</h3>
+            <div className="eligibility-test-content">
+              <p className="eligibility-intro">
+                Pour être éligible à la retraite progressive, vous devez :
+              </p>
+              <ul className="eligibility-criteria-list">
+                <li className="eligibility-criteria-item">
+                  <CheckCircle size={20} className="criteria-icon" />
+                  Avoir au moins 60 ans (ou 55 ans dans certains cas)
+                </li>
+                <li className="eligibility-criteria-item">
+                  <CheckCircle size={20} className="criteria-icon" />
+                  Avoir cotisé au moins 150 trimestres
+                </li>
+                <li className="eligibility-criteria-item">
+                  <CheckCircle size={20} className="criteria-icon" />
+                  Avoir l'accord de votre employeur pour un temps partiel
+                </li>
+                <li className="eligibility-criteria-item">
+                  <CheckCircle size={20} className="criteria-icon" />
+                  Travailler entre 40% et 80% du temps plein
+                </li>
+              </ul>
+              <div className="eligibility-next-steps">
+                <h4 className="next-steps-title">Prochaines étapes :</h4>
+                <ul className="next-steps-list">
+                  <li className="next-steps-item">
+                    <ArrowRight size={16} className="step-icon" />
+                    Contactez votre employeur
+                  </li>
+                  <li className="next-steps-item">
+                    <ArrowRight size={16} className="step-icon" />
+                    Renseignez-vous auprès de votre caisse de retraite
+                  </li>
+                  <li className="next-steps-item">
+                    <ArrowRight size={16} className="step-icon" />
+                    Utilisez notre simulateur pour calculer vos revenus
+                  </li>
+                </ul>
+              </div>
+              <div className="eligibility-test-cta">
+                <button 
+                  className="eligibility-test-button"
+                  onClick={() => {
+                    setOpenEligibilityTest(false);
+                    navigate('/calculateur');
+                  }}
+                >
+                  🟩 Lancer la simulation
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
