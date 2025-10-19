@@ -241,8 +241,9 @@
 .progress-steps {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
+  gap: 2rem;
 }
 
 .progress-step {
@@ -271,7 +272,8 @@
   color: #64748b;
   transition: all 0.3s ease;
   border: 2px solid #e2e8f0;
-  min-width: 100px;
+  min-width: 120px;
+  white-space: nowrap;
 }
 
 .progress-step.active .step-button {
@@ -296,13 +298,13 @@
 }
 
 .progress-line {
-  flex: 1;
+  width: 60px;
   height: 3px;
   background: #e2e8f0;
-  margin: 0 1rem;
   border-radius: 2px;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .progress-step.completed + .progress-line {
@@ -332,17 +334,19 @@
   }
 
   .progress-steps {
-    gap: 0.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .step-button {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
-    min-width: 80px;
+    min-width: 90px;
   }
 
   .progress-line {
-    margin: 0 0.5rem;
+    width: 40px;
   }
   
   .form-group.required,
