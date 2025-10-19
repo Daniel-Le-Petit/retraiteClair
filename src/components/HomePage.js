@@ -9,13 +9,25 @@ import {
   FileText, 
   ArrowRight,
   Menu,
-  X
+  X,
+  Briefcase,
+  Euro,
+  Calendar,
+  Users,
+  Mail,
+  Linkedin,
+  Facebook,
+  Shield,
+  Lock,
+  MapPin
 } from 'lucide-react';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
+  const [openFaq, setOpenFaq] = useState(null);
+  const [openPopup, setOpenPopup] = useState(null);
 
   // Navigation sticky
   const navItems = [
@@ -24,6 +36,84 @@ const HomePage = () => {
     { id: 'eligibilite', label: 'Éligibilité' },
     { id: 'etapes', label: 'Étapes' },
     { id: 'faq', label: 'FAQ' }
+  ];
+
+  // Definition data with popups
+  const definitionData = [
+    {
+      icon: Briefcase,
+      title: "Travailler à temps partiel",
+      description: "Réduisez votre temps de travail (entre 40% et 80%) tout en conservant votre emploi.",
+      popupContent: "La retraite progressive vous permet de réduire votre temps de travail tout en gardant votre emploi. Vous pouvez choisir de travailler entre 40% et 80% de votre temps plein, ce qui vous laisse plus de temps libre tout en conservant une partie de vos revenus."
+    },
+    {
+      icon: Euro,
+      title: "Toucher une partie de sa retraite",
+      description: "Percevez 30% à 50% de votre pension estimée au taux plein, selon votre situation.",
+      popupContent: "En plus de votre salaire partiel, vous percevez une partie de votre pension de retraite. Le montant dépend de votre situation : entre 30% et 50% de votre pension au taux plein. Cette pension partielle est calculée selon vos trimestres validés."
+    },
+    {
+      icon: Calendar,
+      title: "Transition en douceur",
+      description: "Préparez sereinement votre retraite complète tout en gardant un revenu stable.",
+      popupContent: "La retraite progressive est une transition douce vers la retraite complète. Elle vous permet de vous habituer progressivement à un nouveau rythme de vie tout en conservant des revenus stables et en préparant votre avenir."
+    },
+    {
+      icon: Users,
+      title: "Flexibilité temporelle",
+      description: "Choisissez quand commencer et ajustez votre rythme selon vos besoins personnels.",
+      popupContent: "Vous avez la flexibilité de choisir quand commencer votre retraite progressive et d'ajuster votre rythme selon vos besoins. Vous pouvez modifier votre temps partiel ou revenir au temps plein si nécessaire."
+    }
+  ];
+
+  // Eligibility data with popups
+  const eligibilityData = [
+    {
+      icon: Calendar,
+      title: "Âge minimum",
+      description: "60 ans (ou 55 ans dans certains cas particuliers)",
+      popupContent: "Pour bénéficier de la retraite progressive, vous devez avoir au moins 60 ans. Cependant, certaines exceptions existent : 55 ans pour les régimes spéciaux, les situations de pénibilité, ou les carrières longues."
+    },
+    {
+      icon: CheckCircle,
+      title: "Trimestres cotisés",
+      description: "Au moins 150 trimestres validés",
+      popupContent: "Vous devez justifier d'au moins 150 trimestres validés (soit environ 37,5 ans de cotisation). Ces trimestres sont validés par l'Assurance Retraite sur la base de vos cotisations et de votre activité professionnelle."
+    },
+    {
+      icon: Users,
+      title: "Accord employeur",
+      description: "Temps partiel entre 40% et 80%",
+      popupContent: "Si vous êtes salarié, l'accord de votre employeur est obligatoire pour passer à temps partiel. Votre durée de travail doit être comprise entre 40% et 80% du temps plein. Cette négociation se fait en amont de votre demande."
+    }
+  ];
+
+  // Steps data with popups
+  const stepsData = [
+    {
+      number: "1",
+      title: "Éligibilité",
+      description: "Vérifiez vos conditions d'âge et de cotisations",
+      popupContent: "Commencez par vérifier que vous remplissez tous les critères d'éligibilité : âge minimum, nombre de trimestres validés, et possibilité d'obtenir l'accord de votre employeur pour un temps partiel."
+    },
+    {
+      number: "2",
+      title: "Revenus",
+      description: "Estimez vos revenus avec notre calculateur",
+      popupContent: "Utilisez notre simulateur pour estimer précisément vos revenus en retraite progressive. Cela vous aidera à planifier votre budget et à prendre une décision éclairée."
+    },
+    {
+      number: "3",
+      title: "Employeur",
+      description: "Négociez votre passage à temps partiel",
+      popupContent: "Discutez avec votre employeur de votre souhait de passer à temps partiel. Préparez votre argumentaire en vous appuyant sur les résultats de votre simulation."
+    },
+    {
+      number: "4",
+      title: "Démarches",
+      description: "Rassemblez vos documents et faites votre demande",
+      popupContent: "Rassemblez tous les documents nécessaires (relevé de carrière, accord employeur) et faites votre demande à l'Assurance Retraite au moins 4 mois avant la date souhaitée."
+    }
   ];
 
   // FAQ data
@@ -189,13 +279,25 @@ const HomePage = () => {
       <section id="definition" className="content-section">
         <div className="section-container">
           <h2 className="section-title">Qu'est-ce que la retraite progressive ?</h2>
-          <div className="section-content">
-            <p className="section-text">
-              Un dispositif flexible qui vous permet de préparer votre retraite tout en maintenant une activité professionnelle.
-            </p>
-            <p className="section-text">
-              Travailler à temps partiel (40 à 80 %), percevoir une partie de votre pension (30 à 50 %), et organiser une transition en douceur selon vos besoins.
-            </p>
+          <div className="definition-grid">
+            {definitionData.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={index} className="definition-card">
+                  <div className="definition-icon">
+                    <IconComponent size={32} />
+                  </div>
+                  <h3 className="definition-title">{item.title}</h3>
+                  <p className="definition-description">{item.description}</p>
+                  <button 
+                    className="definition-link"
+                    onClick={() => setOpenPopup(item)}
+                  >
+                    En savoir plus →
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -204,37 +306,33 @@ const HomePage = () => {
       <section id="eligibilite" className="content-section eligibility-section">
         <div className="section-container">
           <h2 className="section-title">Suis-je éligible ?</h2>
-          <div className="eligibility-criteria">
-            <div className="criteria-item">
-              <CheckCircle className="criteria-icon" />
-              <div className="criteria-content">
-                <h3>Âge minimum</h3>
-                <p>60 ans (ou 55 ans dans certains cas particuliers)</p>
-              </div>
-            </div>
-            <div className="criteria-item">
-              <CheckCircle className="criteria-icon" />
-              <div className="criteria-content">
-                <h3>Trimestres cotisés</h3>
-                <p>Au moins 150 validés</p>
-              </div>
-            </div>
-            <div className="criteria-item">
-              <CheckCircle className="criteria-icon" />
-              <div className="criteria-content">
-                <h3>Accord employeur</h3>
-                <p>Temps partiel entre 40 % et 80 %</p>
-              </div>
-            </div>
+          <div className="eligibility-grid">
+            {eligibilityData.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={index} className="eligibility-card">
+                  <div className="eligibility-icon">
+                    <IconComponent size={32} />
+                  </div>
+                  <h3 className="eligibility-title">{item.title}</h3>
+                  <p className="eligibility-description">{item.description}</p>
+                  <button 
+                    className="eligibility-link"
+                    onClick={() => setOpenPopup(item)}
+                  >
+                    En savoir plus →
+                  </button>
+                </div>
+              );
+            })}
           </div>
           <div className="eligibility-cta">
-            <p>Vous remplissez les conditions ? Découvrez tout de suite vos revenus potentiels.</p>
             <button 
-              className="cta-button"
+              className="eligibility-button"
               onClick={() => navigate('/calculateur')}
-              aria-label="Lancer la simulation"
+              aria-label="Tester mon éligibilité"
             >
-              🟩 Lancer la simulation
+              🟩 Tester mon éligibilité
             </button>
           </div>
         </div>
@@ -244,35 +342,20 @@ const HomePage = () => {
       <section id="etapes" className="content-section">
         <div className="section-container">
           <h2 className="section-title">Comment commencer sa retraite progressive</h2>
-          <div className="steps-container">
-            <div className="step-item">
-              <div className="step-number">1</div>
-              <div className="step-content">
-                <h3>Vérifiez vos conditions</h3>
-                <p>d'âge et de cotisations</p>
+          <div className="steps-grid">
+            {stepsData.map((step, index) => (
+              <div key={index} className="step-card">
+                <div className="step-number">{step.number}</div>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-description">{step.description}</p>
+                <button 
+                  className="step-link"
+                  onClick={() => setOpenPopup(step)}
+                >
+                  En savoir plus →
+                </button>
               </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">2</div>
-              <div className="step-content">
-                <h3>Estimez vos revenus</h3>
-                <p>avec le simulateur</p>
-              </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">3</div>
-              <div className="step-content">
-                <h3>Négociez votre passage</h3>
-                <p>à temps partiel</p>
-              </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">4</div>
-              <div className="step-content">
-                <h3>Rassemblez vos documents</h3>
-                <p>et faites votre demande 4 mois à l'avance</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -308,6 +391,110 @@ const HomePage = () => {
           </button>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="site-footer">
+        <div className="footer-container">
+          <div className="footer-grid">
+            {/* Bloc 1 — Logo et baseline */}
+            <div className="footer-section footer-brand">
+              <div className="footer-logo">
+                <h3>RetraiteClair</h3>
+                <p className="footer-baseline">Simplifiez votre départ à la retraite</p>
+              </div>
+              <p className="footer-description">
+                RetraiteClair vous aide à comprendre vos droits, simuler votre retraite progressive et optimiser vos choix grâce à des outils clairs et accessibles.
+              </p>
+            </div>
+
+            {/* Bloc 2 — Navigation */}
+            <div className="footer-section footer-nav">
+              <h4 className="footer-title">Navigation</h4>
+              <ul className="footer-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#definition">Qu'est-ce que c'est ?</a></li>
+                <li><a href="#eligibilite">Éligibilité</a></li>
+                <li><a href="#etapes">Étapes</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="/calculateur">Simulateur</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+
+            {/* Bloc 3 — Informations légales */}
+            <div className="footer-section footer-legal">
+              <h4 className="footer-title">Informations légales</h4>
+              <ul className="footer-links">
+                <li><a href="/mentions-legales">Mentions légales</a></li>
+                <li><a href="/politique-confidentialite">Politique de confidentialité</a></li>
+                <li><a href="/conditions-utilisation">Conditions d'utilisation</a></li>
+                <li><button className="footer-cookie-btn">Gestion des cookies</button></li>
+              </ul>
+            </div>
+
+            {/* Bloc 4 — Contact & réseaux */}
+            <div className="footer-section footer-contact">
+              <h4 className="footer-title">Contact</h4>
+              <div className="contact-info">
+                <div className="contact-item">
+                  <Mail size={16} />
+                  <a href="mailto:contact@retraiteclair.fr">contact@retraiteclair.fr</a>
+                </div>
+                <p className="contact-response">Une question ? Notre équipe vous répond sous 24 h.</p>
+              </div>
+              <div className="social-links">
+                <a href="#" className="social-link" aria-label="LinkedIn">
+                  <Linkedin size={20} />
+                </a>
+                <a href="#" className="social-link" aria-label="Facebook">
+                  <Facebook size={20} />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bloc 5 — Crédit et droits */}
+          <div className="footer-bottom">
+            <div className="footer-credits">
+              <p>© 2025 RetraiteClair – Tous droits réservés</p>
+              <p className="footer-creator">Site conçu par l'équipe RetraiteClair avec l'aide de l'IA.</p>
+            </div>
+            
+            {/* Bloc 6 — Rassurance */}
+            <div className="footer-reassurance">
+              <div className="reassurance-item">
+                <Shield size={16} />
+                <span>Données 100% confidentielles</span>
+              </div>
+              <div className="reassurance-item">
+                <Lock size={16} />
+                <span>Aucune information transmise sans accord</span>
+              </div>
+              <div className="reassurance-item">
+                <MapPin size={16} />
+                <span>Service conçu en France</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Popup Modal */}
+      {openPopup && (
+        <div className="popup-overlay" onClick={() => setOpenPopup(null)}>
+          <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="popup-close"
+              onClick={() => setOpenPopup(null)}
+              aria-label="Fermer"
+            >
+              <X size={24} />
+            </button>
+            <h3 className="popup-title">{openPopup.title}</h3>
+            <p className="popup-text">{openPopup.popupContent}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
