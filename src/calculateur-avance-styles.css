@@ -231,6 +231,9 @@
   margin: 2rem 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .progress-bar {
@@ -250,6 +253,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   position: relative;
   z-index: 2;
@@ -258,6 +262,7 @@
   cursor: pointer;
   padding: 0;
   transition: all 0.3s ease;
+  height: 60px;
 }
 
 .step-button {
@@ -336,6 +341,11 @@
   .progress-bar-container {
     padding: 1.5rem;
     margin: 1rem 0;
+    min-height: 80px;
+  }
+
+  .progress-step {
+    height: 50px;
   }
 
   .progress-steps {
