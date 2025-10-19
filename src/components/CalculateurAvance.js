@@ -282,20 +282,26 @@ const CalculateurAvance = () => {
         <div className="progress-bar-container">
           <div className="progress-bar">
             <div className="progress-steps">
-              <div className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
-                <div className="step-number">1</div>
-                <div className="step-label">Saisie</div>
-              </div>
+              <button 
+                className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
+                onClick={() => setActiveTab('saisie')}
+              >
+                <div className="step-button">Saisie</div>
+              </button>
               <div className="progress-line"></div>
-              <div className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
-                <div className="step-number">2</div>
-                <div className="step-label">Résultats</div>
-              </div>
+              <button 
+                className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
+                onClick={() => setActiveTab('resultats')}
+              >
+                <div className="step-button">Résultats</div>
+              </button>
               <div className="progress-line"></div>
-              <div className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}>
-                <div className="step-number">3</div>
-                <div className="step-label">Scénarios</div>
-              </div>
+              <button 
+                className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}
+                onClick={() => setActiveTab('scenarios')}
+              >
+                <div className="step-button">Scénarios</div>
+              </button>
             </div>
           </div>
         </div>
