@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import SEOHead from './SEOHead';
+import PageHeader from './PageHeader';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -164,6 +165,10 @@ const ContactForm = () => {
         description="Contactez RetraiteClair pour vos questions sur la retraite progressive. Support expert, conseils personnalisés et aide pour optimiser votre transition vers la retraite."
         keywords="contact retraite progressive, support retraite, conseil retraite, aide retraite progressive, questions retraite"
         canonical="/#/contact"
+      />
+      <PageHeader 
+        title="Contact & Assistance"
+        subtitle="Notre équipe d'experts vous accompagne dans votre projet de retraite progressive"
       />
       <div className="contact-container">
         <div className="contact-card">
