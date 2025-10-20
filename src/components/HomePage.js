@@ -227,12 +227,6 @@ const HomePage = () => {
       <section id="accueil" className="hero-section">
         <div className="hero-container">
           <div className="hero-content">
-            <h1 className="hero-title">
-              Simulez votre <span className="hero-highlight">retraite progressive</span>
-            </h1>
-            <p className="hero-subtitle">
-              Estimez vos revenus entre emploi à temps partiel et pension, gratuitement et sans inscription.
-            </p>
             <button 
               className="hero-cta"
               onClick={() => navigate('/calculateur')}
