@@ -223,20 +223,7 @@ const HomePage = () => {
         subtitle="Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive"
       />
 
-      {/* Hero Section */}
-      <section id="accueil" className="hero-section">
-        <div className="hero-container">
-          <div className="hero-content">
-            <button 
-              className="hero-cta"
-              onClick={() => navigate('/calculateur')}
-              aria-label="Lancer la simulation"
-            >
-              🟩 Lancer la simulation
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section removed as requested */}
 
       {/* Simulation Cards */}
       <section className="simulation-cards">
