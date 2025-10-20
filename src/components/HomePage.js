@@ -21,6 +21,7 @@ import {
   Lock,
   MapPin
 } from 'lucide-react';
+import PageHeader from './PageHeader';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -215,6 +216,12 @@ const HomePage = () => {
           </button>
         </div>
       </nav>
+
+      {/* Page Header */}
+      <PageHeader 
+        title="RetraiteClair"
+        subtitle="Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive"
+      />
 
       {/* Hero Section */}
       <section id="accueil" className="hero-section">

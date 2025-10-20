@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import PageHeader from './PageHeader';
 
 const CalculateurAvance = () => {
   const [activeTab, setActiveTab] = useState('saisie');
@@ -267,6 +268,10 @@ const CalculateurAvance = () => {
 
   return (
     <div className="page-content">
+      <PageHeader 
+        title="Simulateur Retraite Progressive"
+        subtitle="Calculez vos revenus en retraite progressive avec précision"
+      />
       <div className="calculateur-avance-container">
         <div className="section-header">
           <h1 className="section-title">Estimation de votre retraite progressive</h1>
