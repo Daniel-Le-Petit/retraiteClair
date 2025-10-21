@@ -240,37 +240,77 @@
 @media (max-width: 768px) {
   .horizontal-navigation {
     top: 0;
-    height: auto;
+    height: 50px;
   }
   
   .nav-container {
-    flex-direction: column;
-    height: auto;
+    flex-direction: row;
+    height: 50px;
+    max-width: 100%;
+    padding: 0 10px;
   }
   
   .nav-item {
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    height: 45px;
-    padding: 0 0.75rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none;
+    height: 50px;
+    padding: 0 0.5rem;
+    flex: 1;
   }
   
   .nav-item:last-child {
-    border-bottom: none;
+    border-right: none;
   }
   
   .nav-item-content {
-    justify-content: flex-start;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.3rem;
   }
   
   .nav-item-text {
-    text-align: left;
+    text-align: center;
+  }
+  
+  .nav-item-label {
+    font-size: 0.8rem;
+  }
+  
+  .nav-item-description {
+    font-size: 0.7rem;
   }
   
   .nav-item-label {
     font-size: 0.85rem;
     margin-bottom: 0.05rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .horizontal-navigation {
+    height: 45px;
+  }
+  
+  .nav-container {
+    height: 45px;
+    padding: 0 5px;
+  }
+  
+  .nav-item {
+    height: 45px;
+    padding: 0 0.3rem;
+  }
+  
+  .nav-item-label {
+    font-size: 0.75rem;
+  }
+  
+  .nav-item-description {
+    font-size: 0.65rem;
+  }
+  
+  .nav-item-icon {
+    width: 20px;
+    height: 20px;
   }
   
   .nav-item-description {

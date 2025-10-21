@@ -95,10 +95,35 @@
   padding-top: 0 !important;
 }
 
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .swipe-page .page-content,
+  .swipe-page .conseils-container,
+  .swipe-page .contact-container,
+  .swipe-page .blog-list-container,
+  .swipe-page .calculateur-avance-container {
+    width: 95% !important;
+    max-width: 95% !important;
+    padding: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .swipe-page .page-content,
+  .swipe-page .conseils-container,
+  .swipe-page .contact-container,
+  .swipe-page .blog-list-container,
+  .swipe-page .calculateur-avance-container {
+    width: 98% !important;
+    max-width: 98% !important;
+    padding: 10px !important;
+  }
+}
+
 /* Corriger la largeur de la page contact */
 .swipe-page .contact-container {
-  width: 50vw !important;
-  max-width: 50vw !important;
+  width: 60% !important;
+  max-width: 60% !important;
   padding: 20px !important;
   margin: 0 auto !important;
 }
@@ -283,12 +308,12 @@
 /* Responsive pour la navigation horizontale */
 @media (max-width: 768px) {
   .swipe-page {
-    padding-top: 250px; /* Réduit pour la navigation verticale sur mobile */
+    padding-top: 70px; /* Hauteur de la navigation + header */
   }
 }
 
 @media (max-width: 480px) {
   .swipe-page {
-    padding-top: 200px; /* Encore plus réduit pour les petits écrans */
+    padding-top: 65px; /* Hauteur réduite pour les petits écrans */
   }
 }
