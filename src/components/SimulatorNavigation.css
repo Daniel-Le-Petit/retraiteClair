@@ -157,9 +157,6 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     border-radius: 0 !important;
-    background-color: orange !important; /* Debug: fond orange pour voir la barre */
-    border: 3px solid purple !important; /* Debug: bordure violette */
-    min-height: 50px !important; /* Debug: hauteur minimale */
   }
   
   .simulator-nav-container {
