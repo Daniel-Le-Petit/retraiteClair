@@ -152,12 +152,15 @@
 
 @media (max-width: 768px) {
   .simulator-navigation {
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   
   .simulator-nav-container {
-    max-width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
     height: 45px;
   }
   
@@ -185,7 +188,16 @@
 }
 
 @media (max-width: 480px) {
+  .simulator-navigation {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
   .simulator-nav-container {
+    max-width: 100% !important;
+    width: 100% !important;
     height: 40px;
   }
   

@@ -102,8 +102,10 @@
   .swipe-page .contact-container,
   .swipe-page .blog-list-container,
   .swipe-page .calculateur-avance-container {
-    width: 95% !important;
-    max-width: 95% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding: 15px !important;
   }
 }
@@ -114,8 +116,10 @@
   .swipe-page .contact-container,
   .swipe-page .blog-list-container,
   .swipe-page .calculateur-avance-container {
-    width: 98% !important;
-    max-width: 98% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding: 10px !important;
   }
 }

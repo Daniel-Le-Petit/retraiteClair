@@ -410,9 +410,21 @@
 
 @media (max-width: 768px) {
   .calculateur-avance-container {
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding: 20px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculateur-avance-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 15px 10px;
   }
 }
   
@@ -1577,8 +1589,20 @@
 
 @media (max-width: 768px) {
   .results-container {
-    max-width: 100%;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .results-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 15px 10px;
   }
 }
 
