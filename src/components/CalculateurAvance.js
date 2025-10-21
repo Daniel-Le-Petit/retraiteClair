@@ -429,31 +429,20 @@ const CalculateurAvance = () => {
                 </div>
 
                 {/* Bouton pour mode avancé */}
-                {/* Boutons d'action pour mode simplifié */}
-                <div className="simulation-buttons">
-                  <div className="button-pair">
-                    <button 
-                      className="btn-results"
-                      onClick={() => {
-                        if (validateForResults()) {
-                          setActiveTab('resultats');
-                        }
-                      }}
-                    >
-                      Résultats
-                      <span className="button-text">Voir les Résultats</span>
-                    </button>
-                    <button 
-                      className="btn-advanced"
-                      onClick={() => {
-                        setSimulationMode('advanced');
-                        setShowAdvancedMode(true);
-                      }}
-                    >
-                      Simulation avancée
-                      <span className="button-text">Afficher avec des données plus précises</span>
-                    </button>
-                  </div>
+                {/* Bouton pour passer au mode avancé */}
+                <div className="advanced-toggle-section">
+                  <button 
+                    className="btn-advanced-toggle"
+                    onClick={() => {
+                      setSimulationMode('advanced');
+                      setShowAdvancedMode(true);
+                    }}
+                  >
+                    Simulation avancée - Affiner avec des données précises
+                  </button>
+                  <p className="advanced-explanation">
+                    Mode avancé : calcul précis avec votre salaire annuel moyen et vos trimestres
+                  </p>
                 </div>
               </div>
               )}
@@ -632,7 +621,6 @@ const CalculateurAvance = () => {
               {resultats ? (
                 <div className="results-container">
                   <div className="results-summary">
-                    <h3>Évolution de vos revenus</h3>
                     <div className="estimation-notice">
                       <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
                       
@@ -654,18 +642,6 @@ const CalculateurAvance = () => {
                       </div>
                     </div>
 
-                    {/* Mode de calcul */}
-                    <div className="calculation-mode-indicator">
-                      <div className={`mode-badge ${resultats.modeCalcul}`}>
-                        {resultats.modeCalcul === 'avance' ? '🎯 Calcul précis' : '⚡ Estimation rapide'}
-                      </div>
-                      <p className="mode-explanation">
-                        {resultats.modeCalcul === 'avance' ? 
-                          'Calcul basé sur votre salaire annuel moyen et vos trimestres' : 
-                          'Estimation basée sur votre salaire brut (taux de remplacement moyen 45%)'
-                        }
-                      </p>
-                    </div>
 
                     {/* Graphique 3D */}
                     <div className="chart-container">
@@ -1345,7 +1321,6 @@ const CalculateurAvance = () => {
                 {resultats ? (
                   <div className="resultats-tab">
                     <div className="results-header">
-                      <h3>Évolution de vos revenus</h3>
                       <div className="estimation-notice">
                         <p>Cet outil vous donne une estimation indicative de vos droits à la retraite progressive, distincte du simulateur officiel M@rel de l'Assurance Retraite</p>
                       </div>
