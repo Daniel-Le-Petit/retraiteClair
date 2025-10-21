@@ -5,8 +5,8 @@ const HeroSection = () => {
     <section className="hero-section-modern">
       <div className="hero-background-image">
         <img 
-          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80" 
-          alt="Personnes travaillant ensemble"
+          src="/retraite-progressive-hero.png" 
+          alt="Femme faisant du yoga pour la retraite progressive"
           loading="lazy"
         />
       </div>

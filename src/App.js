@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import SwipeNavigation from './components/SwipeNavigation';
+import BackgroundImage from './components/BackgroundImage';
 import './index.css';
 import './definition-styles.css';
 import './hero-styles.css';
@@ -19,6 +20,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
+      <BackgroundImage />
       <AppContent />
     </Router>
   );

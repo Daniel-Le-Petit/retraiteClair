@@ -5,6 +5,9 @@ import CalculateurAvance from './CalculateurAvance';
 import BlogListStable from './Blog/BlogListStable';
 import ConseilsPageSimple from './ConseilsPageSimple';
 import ContactForm from './ContactForm';
+import HorizontalNavigation from './HorizontalNavigation';
+import TestNavigation from './TestNavigation';
+import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
 
 const SwipeNavigation = () => {
@@ -109,20 +112,9 @@ const SwipeNavigation = () => {
     });
   };
 
-  // Rendu des dots indicateurs
+  // Rendu des dots indicateurs (remplacé par le NavigationWidget)
   const renderDots = () => {
-    return (
-      <div className="dots-indicator">
-        {pages.map((page, index) => (
-          <button
-            key={page.id}
-            className={`dot ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => goToPage(index)}
-            aria-label={`Aller à ${page.title}`}
-          />
-        ))}
-      </div>
-    );
+    return null; // Désactivé car remplacé par NavigationWidget
   };
 
   return (
@@ -130,7 +122,20 @@ const SwipeNavigation = () => {
       <div className="swipe-container">
         {renderPages()}
       </div>
-      {renderDots()}
+      
+      {/* Test Navigation */}
+      <TestNavigation />
+      
+      {/* Horizontal Navigation Bar */}
+      <HorizontalNavigation 
+        currentPage={pages[currentIndex].id}
+        onPageChange={(pageId) => {
+          const pageIndex = pages.findIndex(page => page.id === pageId);
+          if (pageIndex !== -1) {
+            goToPage(pageIndex);
+          }
+        }}
+      />
     </div>
   );
 };

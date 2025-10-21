@@ -8,8 +8,6 @@ import {
   Clock, 
   FileText, 
   ArrowRight,
-  Menu,
-  X,
   Briefcase,
   Euro,
   Calendar,
@@ -19,13 +17,13 @@ import {
   Facebook,
   Shield,
   Lock,
-  MapPin
+  MapPin,
+  X
 } from 'lucide-react';
 import PageHeader from './PageHeader';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('accueil');
   const [openFaq, setOpenFaq] = useState(null);
   const [openPopup, setOpenPopup] = useState(null);
@@ -153,7 +151,6 @@ const HomePage = () => {
       element.scrollIntoView({ behavior: 'smooth' });
       setActiveSection(sectionId);
     }
-    setIsMenuOpen(false);
   };
 
   // Handle scroll to update active section
@@ -180,42 +177,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Navigation Sticky */}
-      <nav className="sticky-nav">
-        <div className="nav-container">
-          <div className="nav-logo">
-            <Calculator className="nav-icon" />
-            <span>RetraiteClair</span>
-          </div>
-          
-          <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
-            {navItems.map(item => (
-              <button
-                key={item.id}
-                className={`nav-item ${activeSection === item.id ? 'nav-item-active' : ''}`}
-                onClick={() => scrollToSection(item.id)}
-              >
-                {item.label}
-              </button>
-            ))}
-            <button 
-              className="nav-cta"
-              onClick={() => navigate('/calculateur')}
-              aria-label="Lancer la simulation"
-            >
-              🟩 Simulateur
-            </button>
-          </div>
-
-          <button 
-            className="nav-toggle"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </nav>
+      {/* Navigation Sticky - Supprimée */}
 
       {/* Page Header */}
       <PageHeader 

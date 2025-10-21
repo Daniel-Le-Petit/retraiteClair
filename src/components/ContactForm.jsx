@@ -187,7 +187,7 @@ const ContactForm = () => {
               <li>📊 <strong>Questions sur le simulateur</strong> : Vous avez des difficultés avec le calculateur de retraite progressive ?</li>
               <li>💡 <strong>Suggestions d'amélioration</strong> : Vous souhaitez voir de nouvelles fonctionnalités ?</li>
               <li>🐛 <strong>Signalement de bugs</strong> : Vous avez rencontré un problème technique ?</li>
-              <li>📚 <strong>Conseils personnalisés</strong> : Vous avez besoin d'aide pour optimiser votre retraite progressive ?</li>
+              <li>📚 <strong>Conseils personnalisés</strong> : Vous avez besoin d'aide personnalisée ?</li>
               <li>🤝 <strong>Partenariat</strong> : Vous souhaitez collaborer avec RetraiteClair ?</li>
             </ul>
             

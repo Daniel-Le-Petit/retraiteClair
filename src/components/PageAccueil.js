@@ -188,7 +188,7 @@ const PageAccueil = ({ onPageChange }) => {
     },
     {
       question: "Puis-je ajuster mon temps partiel ?",
-      answer: "Absolument ! Vous pouvez modifier votre pourcentage entre 40% et 80% selon vos besoins. L'important c'est de bien négocier avec votre employeur et de prévoir les démarches administratives. Consultez nos conseils pour optimiser votre retraite progressive."
+      answer: "Absolument ! Vous pouvez modifier votre pourcentage entre 40% et 80% selon vos besoins. L'important c'est de bien négocier avec votre employeur et de prévoir les démarches administratives. Consultez nos conseils pour bien préparer votre transition."
     }
   ];
 

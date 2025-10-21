@@ -42,7 +42,7 @@ const BlogListStable = () => {
         <div className="container">
           <h1>Blog RetraiteClair</h1>
           <p className="blog-subtitle">
-            Conseils d'experts, guides pratiques et actualités pour optimiser votre retraite progressive
+            Conseils d'experts, guides pratiques et actualités
           </p>
         </div>
       </div>

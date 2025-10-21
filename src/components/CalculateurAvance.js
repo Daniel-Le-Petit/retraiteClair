@@ -586,14 +586,14 @@ const CalculateurAvance = () => {
                     <span className="button-text">Voir les Résultats</span>
                   </button>
                   <button 
-                    className="btn-simplified"
+                    className="btn-advanced"
                     onClick={() => {
-                      setSimulationMode('simplified');
-                      setShowAdvancedMode(false);
+                      setSimulationMode('advanced');
+                      setShowAdvancedMode(true);
                     }}
                   >
-                    Simulation simplifiée
-                    <span className="button-text">Entrer un minimum de données</span>
+                    Simulation avancée
+                    <span className="button-text">Affinez avec des données précises</span>
                   </button>
                 </div>
               </div>

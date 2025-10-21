@@ -18,13 +18,25 @@
 
 /* Masquer tous les éléments de navigation */
 .nav-menu,
-.nav-item,
 .burger-menu,
 .menu-toggle,
 .hamburger,
 .nav-toggle {
   display: none !important;
   visibility: hidden !important;
+}
+
+/* Exception pour la navigation horizontale */
+.horizontal-navigation {
+  display: block !important;
+  visibility: visible !important;
+  position: fixed !important;
+  z-index: 1001 !important;
+}
+
+.horizontal-navigation .nav-item {
+  display: flex !important;
+  visibility: visible !important;
 }
 
 /* Masquer les éléments de header */
@@ -77,9 +89,9 @@
 .swipe-page .blog-list-container,
 .swipe-page .calculateur-avance-container {
   padding: 10px !important;
-  margin: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
+  margin: 0 auto !important;
+  width: 60% !important;
+  max-width: 60% !important;
 }
 
 /* Corriger la largeur de la page contact */
@@ -140,18 +152,7 @@
 
 /* Dots Indicator */
 .dots-indicator {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 12px;
-  z-index: 1001;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 16px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: none; /* Désactivé car remplacé par NavigationWidget */
 }
 
 .dot {
@@ -237,6 +238,16 @@
   -ms-user-select: none;
 }
 
+/* Horizontal Navigation - Ajustement du contenu */
+.swipe-page {
+  padding-top: 60px; /* Espace pour la barre de navigation */
+}
+
+/* Supprimer l'espace pour la navigation sticky supprimée */
+.homepage {
+  padding-top: 0 !important;
+}
+
 /* Touch optimizations */
 @media (hover: none) and (pointer: coarse) {
   .swipe-navigation {
@@ -245,5 +256,33 @@
   
   .swipe-page {
     touch-action: pan-y;
+  }
+}
+
+/* Responsive pour le calculateur */
+@media (max-width: 1024px) {
+  .swipe-page .calculateur-avance-container {
+    width: 70% !important;
+    max-width: 70% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .swipe-page .calculateur-avance-container {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
+}
+
+/* Responsive pour la navigation horizontale */
+@media (max-width: 768px) {
+  .swipe-page {
+    padding-top: 310px; /* Plus d'espace pour la navigation verticale sur mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .swipe-page {
+    padding-top: 285px; /* Ajustement pour les petits écrans */
   }
 }
