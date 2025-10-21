@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import PageHeader from './PageHeader';
-import SimulatorNavigation from './SimulatorNavigation';
-import './SimulatorNavigation.css';
 
 const CalculateurAvance = () => {
   const [activeTab, setActiveTab] = useState('saisie');
@@ -105,7 +103,7 @@ const CalculateurAvance = () => {
         pensionProgressive = pensionEstimeeFinale * (1 - formData.tempsPartiel / 100);
         modeCalcul = 'simplifie';
       }
-
+      
       setResultats({
         salaireActuel: salaireBrut,
         salaireNet: salaireBrut * 0.78,
@@ -168,7 +166,7 @@ const CalculateurAvance = () => {
     
     const pensionProgressive = formData.pensionEstimee * (1 - tempsPartiel / 100);
     const revenuTotal = salairePartiel + pensionProgressive;
-
+    
     return {
       salairePartiel: Math.round(salairePartiel),
       pensionProgressive: Math.round(pensionProgressive),
@@ -187,12 +185,6 @@ const CalculateurAvance = () => {
         subtitle="Calculez vos revenus en retraite progressive avec précision"
       />
       
-      {/* Navigation du simulateur */}
-      <SimulatorNavigation 
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-      
       <div className="calculateur-avance-container">
 
         {/* Message d'erreur de validation */}
@@ -204,8 +196,8 @@ const CalculateurAvance = () => {
 
         {/* Contenu des onglets */}
         <div className="tab-content">
-          {/* Onglet Saisie */}
-          {activeTab === 'saisie' && (
+          {/* Section Saisie */}
+          {(
             <div className="saisie-tab">
               {/* Section Mode Simplifié - Masquée en mode avancé */}
               {simulationMode === 'simplified' && (
@@ -214,49 +206,49 @@ const CalculateurAvance = () => {
                     <h3>📝 Vos informations personnelles</h3>
                     <p>Renseignez vos données pour obtenir une estimation de votre retraite progressive</p>
                   </div>
-                
-                <div className="form-grid">
-                  <div className="form-group">
-                    <label className="form-label">
-                      <Euro size={18} />
-                      Salaire brut mensuel (€)
-                    </label>
-                    <input
-                      type="number"
-                      value={formData.salaireBrut}
+
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Euro size={18} />
+                        Salaire brut mensuel (€)
+                      </label>
+                      <input
+                        type="number"
+                        value={formData.salaireBrut}
                         onChange={(e) => setFormData({...formData, salaireBrut: e.target.value})}
                         placeholder="Ex: 3000"
-                      className="form-input"
-                    />
-                  </div>
+                        className="form-input"
+                      />
+                    </div>
 
-                  <div className="form-group">
-                    <label className="form-label">
-                      <Calendar size={18} />
+                    <div className="form-group">
+                      <label className="form-label">
+                        <Calendar size={18} />
                         Date de début de retraite progressive
-                    </label>
+                      </label>
                       <input
                         type="date"
                         value={formData.debutRetraite}
                         onChange={(e) => setFormData({...formData, debutRetraite: e.target.value})}
                         className="form-input"
                       />
-                  </div>
+                    </div>
 
                     <div className="form-group">
-                    <label className="form-label">
-                      <Clock size={18} />
+                      <label className="form-label">
+                        <Clock size={18} />
                         Temps de travail souhaité
-                    </label>
+                      </label>
                       <div className="slider-container">
-                          <input
-                            type="range"
+                        <input
+                          type="range"
                           min="20"
-                            max="80"
-                            value={formData.tempsPartiel}
+                          max="80"
+                          value={formData.tempsPartiel}
                           onChange={(e) => setFormData({...formData, tempsPartiel: parseInt(e.target.value)})}
                           className="slider"
-                          />
+                        />
                         <div className="slider-labels">
                           <span>20%</span>
                           <span className="slider-value-text">{formData.tempsPartiel}%</span>
@@ -264,7 +256,7 @@ const CalculateurAvance = () => {
                         </div>
                       </div>
                     </div>
-                    </div>
+                  </div>
 
                   {/* Boutons d'action pour mode simplifié */}
                   <div className="simulation-buttons">
@@ -290,9 +282,9 @@ const CalculateurAvance = () => {
                         Simulation Simplifiée
                         <span className="button-text">Entrer le minimum de données</span>
                       </button>
+                    </div>
                   </div>
                 </div>
-              </div>
               )}
 
               {/* Section Mode Avancé */}
@@ -377,79 +369,32 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-              {/* Boutons d'action pour mode avancé */}
-              <div className="simulation-buttons">
-                <div className="button-pair">
-                  <button 
-                    className="btn-results"
-                    onClick={() => {
-                      if (validateForResults()) {
-                        setActiveTab('resultats');
-                      }
-                    }}
-                  >
-                    Résultats
-                    <span className="button-text">Voir les Résultats</span>
-                  </button>
-                  <button 
+                  {/* Boutons d'action pour mode avancé */}
+                  <div className="simulation-buttons">
+                    <div className="button-pair">
+                      <button 
+                        className="btn-results"
+                        onClick={() => {
+                          if (validateForResults()) {
+                            setActiveTab('resultats');
+                          }
+                        }}
+                      >
+                        Résultats
+                        <span className="button-text">Voir les Résultats</span>
+                      </button>
+                      <button 
                         className="btn-advanced"
-                    onClick={() => {
+                        onClick={() => {
                           setSimulationMode('advanced');
                           setShowAdvancedMode(true);
-                    }}
-                  >
+                        }}
+                      >
                         Simulation Simplifiée
                         <span className="button-text">Entrer le minimum de données</span>
-                  </button>
-                </div>
-              </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Onglet Résultats */}
-          {activeTab === 'resultats' && (
-            <div className="resultats-tab">
-              {resultats ? (
-                <div className="results-container">
-                  <div className="results-summary">
-                    <h3>Vos résultats de retraite progressive</h3>
-                    <div className="results-grid">
-                      <div className="result-card">
-                        <h4>Salaire partiel</h4>
-                        <p className="result-value">{resultats.salairePartiel} €</p>
+                      </button>
                     </div>
-                      <div className="result-card">
-                        <h4>Pension progressive</h4>
-                        <p className="result-value">{resultats.pensionProgressive} €</p>
-                        </div>
-                      <div className="result-card total">
-                        <h4>Revenu total</h4>
-                        <p className="result-value">{resultats.revenuTotal} €</p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              ) : (
-                <div className="no-data">
-                  <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Onglet Scénarios */}
-          {activeTab === 'scenarios' && (
-            <div className="scenarios-tab">
-              {formData.salaireBrut && formData.pensionEstimee ? (
-                <div className="scenarios-container">
-                  <h3>Comparaison des scénarios</h3>
-                  <p>Comparez différents pourcentages de temps partiel</p>
-                </div>
-              ) : (
-                <div className="no-data">
-                  <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
+                  </div>
                 </div>
               )}
             </div>

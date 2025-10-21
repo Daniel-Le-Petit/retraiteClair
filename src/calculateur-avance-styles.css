@@ -1,6 +1,7 @@
 /* Calculateur Avancé Styles */
 .calculateur-avance-container {
   max-width: 60%;
+  width: 60%;
   margin: 0 auto;
   padding: 40px 20px;
   margin-top: 0;
@@ -403,6 +404,7 @@
 @media (max-width: 1024px) {
   .calculateur-avance-container {
     max-width: 70%;
+    width: 70%;
   }
 }
 
