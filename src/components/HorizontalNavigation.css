@@ -241,8 +241,6 @@
   .horizontal-navigation {
     top: 0;
     height: 50px;
-    background-color: red !important; /* Debug: fond rouge pour voir la navigation */
-    border: 3px solid yellow !important; /* Debug: bordure jaune */
   }
   
   .nav-container {
