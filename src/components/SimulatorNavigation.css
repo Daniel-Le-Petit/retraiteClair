@@ -1,0 +1,238 @@
+/* Simulator Navigation - Barre sous le cadre simulateur */
+
+.simulator-navigation {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  border-top: none;
+  border-bottom: none;
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.2);
+  margin-top: 0;
+  margin-bottom: 0;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0 0 16px 16px;
+}
+
+.simulator-nav-container {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+}
+
+.simulator-nav-item {
+  flex: 1;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  border-right: none;
+  height: 50px;
+}
+
+.simulator-nav-item:last-child {
+  border-right: none;
+}
+
+.simulator-nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.simulator-nav-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+}
+
+.simulator-nav-item.active::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.simulator-nav-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.simulator-nav-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.simulator-nav-item.active .simulator-nav-icon {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.simulator-nav-text {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.simulator-nav-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.1rem;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.simulator-nav-description {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.2;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Effet de brillance pour l'item actif */
+.simulator-nav-item.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .simulator-nav-container {
+    max-width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .simulator-nav-container {
+    max-width: 95%;
+    height: 45px;
+  }
+  
+  .simulator-nav-item {
+    height: 45px;
+    padding: 0 0.75rem;
+  }
+  
+  .simulator-nav-content {
+    gap: 0.4rem;
+  }
+  
+  .simulator-nav-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .simulator-nav-label {
+    font-size: 0.85rem;
+  }
+  
+  .simulator-nav-description {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .simulator-nav-container {
+    height: 40px;
+  }
+  
+  .simulator-nav-item {
+    height: 40px;
+    padding: 0 0.5rem;
+  }
+  
+  .simulator-nav-content {
+    gap: 0.3rem;
+  }
+  
+  .simulator-nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .simulator-nav-label {
+    font-size: 0.8rem;
+  }
+  
+  .simulator-nav-description {
+    font-size: 0.6rem;
+  }
+}
+
+/* Animation d'entrée */
+.simulator-navigation {
+  animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.simulator-nav-item {
+  animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.simulator-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.simulator-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.simulator-nav-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

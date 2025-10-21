@@ -49,8 +49,6 @@ const ConseilsPageSimple = ({ onPageChange }) => {
           Conseils Retraite Progressive : Optimisez Votre Transition 2024
         </h1>
         
-        <h2>Conseils & Optimisation de votre retraite progressive</h2>
-        <p className="conseils-intro">La retraite progressive est un sas : vous gardez un pied dans la vie pro tout en activant déjà une partie de vos droits.</p>
         
         {/* Section Optimisation financière */}
         <div className="conseils-section">

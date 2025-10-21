@@ -3,6 +3,7 @@
   max-width: 60%;
   margin: 0 auto;
   padding: 40px 20px;
+  margin-top: 0;
 }
 
 /* Styles pour les nouvelles sections de champs */
@@ -1551,6 +1552,17 @@
 }
 
 /* Onglet Résultats */
+.results-container {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
 .results-container h3 {
   font-size: 1.5rem;
   font-weight: 700;
@@ -2863,7 +2875,11 @@
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
   border: 2px solid #0ea5e9;
   border-radius: 16px;
-  margin-top: 20px;
+  margin-top: 0;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
 }
 
 .advanced-section .section-header h3 {

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import PageHeader from './PageHeader';
+import SimulatorNavigation from './SimulatorNavigation';
+import './SimulatorNavigation.css';
 
 const CalculateurAvance = () => {
   const [activeTab, setActiveTab] = useState('saisie');
@@ -292,6 +294,13 @@ const CalculateurAvance = () => {
         title="Simulateur Retraite Progressive"
         subtitle="Calculez vos revenus en retraite progressive avec précision"
       />
+      
+      {/* Navigation du simulateur */}
+      <SimulatorNavigation 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
+      
       <div className="calculateur-avance-container">
 
         {/* Barre de progression dans un cadre */}
@@ -439,6 +448,12 @@ const CalculateurAvance = () => {
                     <h3>🎯 Mode avancé - Calcul précis</h3>
                     <p>Affinez votre estimation avec des données détaillées pour un résultat plus proche de la réalité</p>
                   </div>
+                  
+                  {/* Navigation du simulateur pour le mode avancé */}
+                  <SimulatorNavigation 
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                  />
                   
                   <div className="form-grid">
                     <div className="form-group advanced-field">
@@ -592,8 +607,8 @@ const CalculateurAvance = () => {
                       setShowAdvancedMode(true);
                     }}
                   >
-                    Simulation avancée
-                    <span className="button-text">Affinez avec des données précises</span>
+                    Simulation Simplifiée
+                    <span className="button-text">Entrer le minimum de données</span>
                   </button>
                 </div>
               </div>

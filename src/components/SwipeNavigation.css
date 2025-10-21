@@ -92,6 +92,7 @@
   margin: 0 auto !important;
   width: 60% !important;
   max-width: 60% !important;
+  padding-top: 0 !important;
 }
 
 /* Corriger la largeur de la page contact */
