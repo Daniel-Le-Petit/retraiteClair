@@ -27,6 +27,7 @@ const CalculateurAvance = () => {
   const [validationError, setValidationError] = useState('');
   const [showAdvancedMode, setShowAdvancedMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(1); // 1: Saisie, 2: Résultats, 3: Scénarios
+  const [simulationMode, setSimulationMode] = useState('simplified'); // 'simplified' ou 'advanced'
 
   // Fonction pour calculer les trimestres requis en fonction de l'année de naissance
   const calculateTrimestresRequis = (anneeNaissance) => {
@@ -176,6 +177,25 @@ const CalculateurAvance = () => {
     else if (activeTab === 'resultats') setCurrentStep(2);
     else if (activeTab === 'scenarios') setCurrentStep(3);
   }, [activeTab]);
+
+  // Écouter les événements de mode de simulation
+  useEffect(() => {
+    const handleSimulationMode = (event) => {
+      const mode = event.detail;
+      if (mode === 'simplified') {
+        setSimulationMode('simplified');
+        setShowAdvancedMode(false);
+        setActiveTab('saisie');
+      } else if (mode === 'advanced') {
+        setSimulationMode('advanced');
+        setShowAdvancedMode(true);
+        setActiveTab('saisie');
+      }
+    };
+
+    window.addEventListener('setSimulationMode', handleSimulationMode);
+    return () => window.removeEventListener('setSimulationMode', handleSimulationMode);
+  }, []);
 
   // Vérifier si tous les champs requis sont remplis
   const isFormComplete = () => {
@@ -330,12 +350,13 @@ const CalculateurAvance = () => {
           {/* Onglet Saisie */}
           {activeTab === 'saisie' && (
             <div className="saisie-tab">
-              {/* Section Mode Simplifié */}
-              <div className="form-section">
-                <div className="section-header">
-                  <h3>⚡ Simulation simplifiée</h3>
-                  <p>Obtenez une estimation rapide avec les informations de base</p>
-                </div>
+              {/* Section Mode Simplifié - Masquée en mode avancé */}
+              {simulationMode === 'simplified' && (
+                <div className="form-section">
+                  <div className="section-header">
+                    <h3>⚡ Simulation simplifiée</h3>
+                    <p>Obtenez une estimation rapide avec les informations de base</p>
+                  </div>
                 
                 <div className="form-grid">
                   <div className="form-group">
@@ -408,21 +429,34 @@ const CalculateurAvance = () => {
                 </div>
 
                 {/* Bouton pour mode avancé */}
-                <div className="advanced-toggle-section">
-                  <button 
-                    className={`btn-advanced-toggle ${showAdvancedMode ? 'revert-mode' : ''}`}
-                    onClick={() => setShowAdvancedMode(!showAdvancedMode)}
-                  >
-                    {showAdvancedMode ? '🔄 Revenir au mode simplifié' : 'Simulation avancée - Affiner avec des données précises'}
-                  </button>
-                  <p className="advanced-explanation">
-                    {showAdvancedMode ? 
-                      'Mode simplifié : estimation basée sur votre salaire brut' : 
-                      'Mode avancé : calcul précis avec votre salaire annuel moyen et vos trimestres'
-                    }
-                  </p>
+                {/* Boutons d'action pour mode simplifié */}
+                <div className="simulation-buttons">
+                  <div className="button-pair">
+                    <button 
+                      className="btn-results"
+                      onClick={() => {
+                        if (validateForResults()) {
+                          setActiveTab('resultats');
+                        }
+                      }}
+                    >
+                      Résultats
+                      <span className="button-text">Voir les Résultats</span>
+                    </button>
+                    <button 
+                      className="btn-advanced"
+                      onClick={() => {
+                        setSimulationMode('advanced');
+                        setShowAdvancedMode(true);
+                      }}
+                    >
+                      Simulation avancée
+                      <span className="button-text">Afficher avec des données plus précises</span>
+                    </button>
+                  </div>
                 </div>
               </div>
+              )}
 
               {/* Section Mode Avancé */}
               {showAdvancedMode && (
@@ -563,19 +597,31 @@ const CalculateurAvance = () => {
               )}
 
 
-              {/* Bouton de calcul */}
-              <div className="calculate-button-section">
-                <button 
-                  className="btn-calculate"
-                  onClick={() => {
-                    if (validateForResults()) {
-                      setActiveTab('resultats');
-                    }
-                  }}
-                >
-                  <Calculator size={20} />
-                  Calculer mes revenus
-                </button>
+              {/* Boutons d'action pour mode avancé */}
+              <div className="simulation-buttons">
+                <div className="button-pair">
+                  <button 
+                    className="btn-results"
+                    onClick={() => {
+                      if (validateForResults()) {
+                        setActiveTab('resultats');
+                      }
+                    }}
+                  >
+                    Résultats
+                    <span className="button-text">Voir les Résultats</span>
+                  </button>
+                  <button 
+                    className="btn-simplified"
+                    onClick={() => {
+                      setSimulationMode('simplified');
+                      setShowAdvancedMode(false);
+                    }}
+                  >
+                    Simulation simplifiée
+                    <span className="button-text">Entrer un minimum de données</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}

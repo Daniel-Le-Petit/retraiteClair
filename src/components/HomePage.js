@@ -238,7 +238,14 @@ const HomePage = () => {
             </p>
             <button 
               className="card-button card-button-primary"
-              onClick={() => navigate('/calculateur')}
+              onClick={() => {
+                // Naviguer vers le calculateur en mode simplifié
+                navigate('/calculateur');
+                // Déclencher le mode simplifié via un événement personnalisé
+                setTimeout(() => {
+                  window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: 'simplified' }));
+                }, 100);
+              }}
               aria-label="Essayer la version simplifiée"
             >
               Essayer la version simplifiée
@@ -255,7 +262,14 @@ const HomePage = () => {
             </p>
             <button 
               className="card-button card-button-secondary"
-              onClick={() => navigate('/calculateur')}
+              onClick={() => {
+                // Naviguer vers le calculateur en mode avancé
+                navigate('/calculateur');
+                // Déclencher le mode avancé via un événement personnalisé
+                setTimeout(() => {
+                  window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: 'advanced' }));
+                }, 100);
+              }}
               aria-label="Explorer la version avancée"
             >
               Explorer la version avancée
