@@ -305,20 +305,22 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Eligibility Section */}
-      <section id="eligibilite" className="content-section eligibility-section">
+      {/* Eligibility Section - Sans cadre */}
+      <section id="eligibilite" className="content-section">
         <div className="section-container">
           <h2 className="section-title">Suis-je éligible ?</h2>
-          <div className="eligibility-grid">
+          <div className="eligibility-content">
             {eligibilityData.map((item, index) => {
               const IconComponent = item.icon;
               return (
-                <div key={index} className="eligibility-card">
+                <div key={index} className="eligibility-item">
                   <div className="eligibility-icon">
-                    <IconComponent size={32} />
+                    <IconComponent size={24} />
                   </div>
-                  <h3 className="eligibility-title">{item.title}</h3>
-                  <p className="eligibility-description">{item.description}</p>
+                  <div className="eligibility-text">
+                    <h3 className="eligibility-title">{item.title}</h3>
+                    <p className="eligibility-description">{item.description}</p>
+                  </div>
                   <button 
                     className="eligibility-link"
                     onClick={() => setOpenPopup(item)}
@@ -363,11 +365,11 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="content-section faq-section">
+      {/* FAQ Section - Sans cadre */}
+      <section id="faq" className="content-section">
         <div className="section-container">
           <h2 className="section-title">Questions fréquentes</h2>
-          <div className="faq-container">
+          <div className="faq-content">
             {faqData.map((faq, index) => (
               <div key={index} className="faq-item">
                 <h3 className="faq-question">{faq.question}</h3>

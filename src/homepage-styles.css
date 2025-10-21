@@ -452,22 +452,23 @@
   background: #f8fafc;
 }
 
-.faq-container {
+.faq-content {
   max-width: 800px;
   margin: 0 auto;
 }
 
 .faq-item {
-  background: #ffffff;
-  border-radius: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #e2e8f0;
+  border-left: 4px solid #10b981;
   transition: all 0.2s ease;
 }
 
 .faq-item:hover {
-  transform: translateY(-1px);
+  background: #f1f5f9;
+  transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -587,28 +588,63 @@
   text-decoration: underline;
 }
 
-/* Eligibility Grid */
-.eligibility-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+/* Eligibility Content - Sans cadres */
+.eligibility-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
-.eligibility-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+.eligibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid #3b82f6;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
 }
 
-.eligibility-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border-color: #10b981;
+.eligibility-item:hover {
+  background: #f1f5f9;
+  transform: translateX(4px);
+}
+
+.eligibility-text {
+  flex: 1;
+}
+
+.eligibility-item .eligibility-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.eligibility-item .eligibility-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.eligibility-item .eligibility-description {
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.eligibility-item .eligibility-link {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.eligibility-item .eligibility-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
 }
 
 .eligibility-icon {
@@ -1125,14 +1161,15 @@
     padding: 1.5rem;
   }
 
-  /* Eligibility Grid Mobile */
-  .eligibility-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* Eligibility Content Mobile */
+  .eligibility-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
   }
 
-  .eligibility-card {
-    padding: 1.5rem;
+  .eligibility-item .eligibility-icon {
+    align-self: center;
   }
 
   /* Steps Grid Mobile */
