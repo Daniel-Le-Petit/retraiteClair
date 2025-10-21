@@ -1,0 +1,59 @@
+/* Swipe Navigation Styles */
+
+.App {
+  touch-action: pan-y; /* Permet le swipe vertical mais optimise le swipe horizontal */
+  user-select: none; /* Empêche la sélection de texte pendant le swipe */
+}
+
+/* Indicateur visuel pour le swipe (optionnel) */
+.swipe-indicator {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.swipe-indicator.left {
+  right: 20px;
+}
+
+.swipe-indicator.right {
+  left: 20px;
+}
+
+.swipe-indicator.show {
+  opacity: 1;
+}
+
+/* Animation de transition entre les pages */
+.main-content {
+  transition: transform 0.3s ease;
+}
+
+/* Amélioration de l'expérience tactile */
+@media (hover: none) and (pointer: coarse) {
+  .App {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Empêche le zoom sur double-tap */
+  * {
+    touch-action: manipulation;
+  }
+}
+
+/* Styles pour les appareils tactiles */
+@media (max-width: 768px) {
+  .App {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
