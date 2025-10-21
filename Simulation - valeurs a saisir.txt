@@ -1,0 +1,26 @@
+D'après l'image M@rel, les montants affichés sont "nets" :
+- 4058 € nets de revenu d'activité
+- 1370 € nets de retraite progressive
+- 4549 € nets de retraite complète
+
+💡 Hypothèse probable :
+M@rel utilise des montants nets dans ses calculs, pas des montants bruts.
+Recalcul avec des montants nets :
+- Si on part des 4058 € nets de revenu d'activité pour 60% de temps partiel :
+- Salaire net à temps plein : 4058 ÷ 0.6 = 6763 € nets/mois
+- Salaire brut correspondant: 6763 ÷ 0.78 = 8670 € bruts/mois (avec 22% de cotisations)
+
+Pour la retraite :
+Retraite complète : 4549 € nets
+Retraite progressive : 1370 € nets (30% de 4549 €)
+
+🎯 Nouvelles valeurs à saisir :
+Simulation avancée :
+Salaire brut : 8670 €
+Temps partiel : 60%
+Salaire annuel moyen : 104,000 € (8670 × 12)
+Trimestres validés : 155
+Année de naissance : 1964
+
+Revenu d'activité : 8670 × 60% = 5202 € bruts → 4058 € nets ✅
+Retraite complète : (104,000 × 50% × 90.6%) ÷ 12 = 3930 € (proche de 4549 €)

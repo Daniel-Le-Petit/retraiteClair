@@ -19,7 +19,8 @@ const CalculateurAvance = () => {
     salaireAnnuelMoyen: '',
     trimestresValides: '',
     anneeNaissance: '', // Pour calculer automatiquement les trimestres requis
-    pensionEstimee: '' // Optionnel pour comparaison
+    pensionEstimee: '', // Optionnel pour comparaison
+    surcoteDecote: 0 // Surcote/décote en % (positif = surcote, négatif = décote)
   });
   const [resultats, setResultats] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -41,6 +42,33 @@ const CalculateurAvance = () => {
       return 166; // 41,5 ans
     } else {
       return 166; // 41,5 ans (nés après 1961)
+    }
+  };
+
+  // Fonction pour calculer automatiquement la décote/surcote
+  const calculateDecoteSurcote = (trimestresValides, anneeNaissance) => {
+    if (!trimestresValides || !anneeNaissance) return { decote: 0, explanation: '' };
+    
+    const trimestresRequis = getTrimestresRequis(parseInt(anneeNaissance));
+    const trimestresManquants = trimestresRequis - parseInt(trimestresValides);
+    
+    if (trimestresManquants > 0) {
+      const decote = trimestresManquants * 0.625;
+      return {
+        decote: -decote,
+        explanation: `Trimestres manquants : ${trimestresManquants} × 0.625% par trimestre manquant = ${decote.toFixed(3)}% de décote`
+      };
+    } else if (trimestresManquants < 0) {
+      const surcote = Math.abs(trimestresManquants) * 0.625;
+      return {
+        decote: surcote,
+        explanation: `Trimestres supplémentaires : ${Math.abs(trimestresManquants)} × 0.625% par trimestre supplémentaire = ${surcote.toFixed(3)}% de surcote`
+      };
+    } else {
+      return {
+        decote: 0,
+        explanation: 'Nombre de trimestres exactement requis - ni décote ni surcote'
+      };
     }
   };
 
@@ -84,25 +112,36 @@ const CalculateurAvance = () => {
         salairePartiel = salairePartiel - cotisationsSupplementaires;
       }
       
-      // Calcul de la pension selon le mode
+      // Calcul de la pension selon le mode (basé sur M@rel)
       let pensionProgressive = 0;
+      let pensionComplete = 0;
       let modeCalcul = '';
       
       if (showAdvancedMode && formData.salaireAnnuelMoyen && formData.trimestresValides) {
-        // Mode avancé : calcul précis
+        // Mode avancé : calcul précis selon M@rel
         const salaireAnnuelMoyen = parseFloat(formData.salaireAnnuelMoyen);
         const trimestresValides = parseInt(formData.trimestresValides);
         const trimestresRequis = getTrimestresRequis(parseInt(formData.anneeNaissance));
         
         const tauxPension = Math.min(trimestresValides / trimestresRequis, 1);
-        const pensionBrute = (salaireAnnuelMoyen * 0.5) * tauxPension;
-        pensionProgressive = pensionBrute * (1 - tempsPartiel / 100) / 12;
+        const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
+        pensionComplete = (salaireAnnuelMoyen * 0.5) * tauxPension / 12; // Pension complète mensuelle
+        pensionComplete = pensionComplete * (1 + surcoteDecote / 100); // Application de la surcote/décote
+        // Retraite progressive : 40% de la pension complète AVEC décote
+        const pensionCompleteSansDecote = (salaireAnnuelMoyen * 0.5) * tauxPension / 12;
+        const pensionProgressiveSansDecote = pensionCompleteSansDecote * 0.40; // 40% sans décote
+        pensionProgressive = pensionProgressiveSansDecote * (1 + surcoteDecote / 100); // Application de la décote/surcote
         modeCalcul = 'avance';
       } else {
-        // Mode simplifié : estimation
+        // Mode simplifié : estimation selon M@rel
         const salaireNet = salaireBrut * 0.78; // 22% de cotisations
-        const pensionEstimeeFinale = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45;
-        pensionProgressive = pensionEstimeeFinale * (1 - formData.tempsPartiel / 100);
+        const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
+        pensionComplete = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45; // Pension complète
+        pensionComplete = pensionComplete * (1 + surcoteDecote / 100); // Application de la surcote/décote
+        // Retraite progressive : 40% de la pension complète AVEC décote
+        const pensionCompleteSansDecote = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45;
+        const pensionProgressiveSansDecote = pensionCompleteSansDecote * 0.40; // 40% sans décote
+        pensionProgressive = pensionProgressiveSansDecote * (1 + surcoteDecote / 100); // Application de la décote/surcote
         modeCalcul = 'simplifie';
       }
 
@@ -111,7 +150,9 @@ const CalculateurAvance = () => {
         salaireNet: salaireBrut * 0.78,
         salairePartiel: salairePartiel,
         pensionProgressive: pensionProgressive,
+        pensionComplete: pensionComplete,
         revenuTotal: salairePartiel + pensionProgressive,
+        revenuApresRetraite: pensionComplete,
         tempsPartiel: tempsPartiel,
         modeCalcul: modeCalcul,
         pensionFournie: formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : null
@@ -125,6 +166,17 @@ const CalculateurAvance = () => {
       localStorage.setItem('retraiteClair_personalInfo', JSON.stringify(formData));
     }
   }, [formData]);
+
+  // Calculer automatiquement la décote/surcote
+  useEffect(() => {
+    if (formData.trimestresValides && formData.anneeNaissance) {
+      const { decote, explanation } = calculateDecoteSurcote(formData.trimestresValides, formData.anneeNaissance);
+      setFormData(prev => ({
+        ...prev,
+        surcoteDecote: decote
+      }));
+    }
+  }, [formData.trimestresValides, formData.anneeNaissance]);
 
   // Écouter les événements de mode de simulation
   useEffect(() => {
@@ -267,31 +319,36 @@ const CalculateurAvance = () => {
                     </div>
 
                   {/* Boutons d'action pour mode simplifié */}
-                  <div className="simulation-buttons">
-                    <div className="button-pair">
-                      <button 
-                        className="btn-results"
-                        onClick={() => {
-                          if (validateForResults()) {
-                            setActiveTab('resultats');
-                          }
-                        }}
-                      >
-                        Résultats
-                        <span className="button-text">Voir les Résultats</span>
-                      </button>
-                      <button 
-                        className="btn-advanced"
-                        onClick={() => {
-                          setSimulationMode('advanced');
-                          setShowAdvancedMode(true);
-                        }}
-                      >
-                        Simulation Simplifiée
-                        <span className="button-text">Entrer le minimum de données</span>
-                      </button>
+                  <div className="simulation-actions">
+                    <button 
+                      className="btn-primary btn-results"
+                      onClick={() => {
+                        if (validateForResults()) {
+                          setActiveTab('resultats');
+                        }
+                      }}
+                    >
+                      <div className="btn-icon">📊</div>
+                      <div className="btn-content">
+                        <div className="btn-title">Voir les Résultats</div>
+                        <div className="btn-subtitle">Calculs et projections</div>
                   </div>
-                </div>
+                    </button>
+                    
+                    <button 
+                      className="btn-secondary btn-advanced"
+                      onClick={() => {
+                        setSimulationMode('advanced');
+                        setShowAdvancedMode(true);
+                      }}
+                    >
+                      <div className="btn-icon">⚙️</div>
+                      <div className="btn-content">
+                        <div className="btn-title">Mode Avancé</div>
+                        <div className="btn-subtitle">Données précises et détaillées</div>
+                      </div>
+                    </button>
+                  </div>
               </div>
               )}
 
@@ -377,33 +434,59 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
+                  <div className="form-group">
+                    <label className="form-label">
+                      <TrendingUp size={18} />
+                      Surcote/Décote (%)
+                    </label>
+                    <p className="field-explanation">
+                      {formData.trimestresValides && formData.anneeNaissance 
+                        ? calculateDecoteSurcote(formData.trimestresValides, formData.anneeNaissance).explanation
+                        : 'Calcul automatique basé sur les trimestres validés et l\'année de naissance'
+                      }
+                    </p>
+                    <input
+                      type="number"
+                      value={formData.surcoteDecote}
+                      readOnly
+                      className="form-input"
+                      style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
+                      step="0.1"
+                    />
+                </div>
+
               {/* Boutons d'action pour mode avancé */}
-              <div className="simulation-buttons">
-                <div className="button-pair">
+              <div className="simulation-actions">
                   <button 
-                    className="btn-results"
+                  className="btn-primary btn-results"
                     onClick={() => {
                       if (validateForResults()) {
                         setActiveTab('resultats');
                       }
                     }}
                   >
-                    Résultats
-                    <span className="button-text">Voir les Résultats</span>
+                  <div className="btn-icon">📊</div>
+                  <div className="btn-content">
+                    <div className="btn-title">Voir les Résultats</div>
+                    <div className="btn-subtitle">Calculs et projections</div>
+                  </div>
                   </button>
+                
                   <button 
-                        className="btn-advanced"
+                  className="btn-secondary btn-advanced"
                     onClick={() => {
-                          setSimulationMode('advanced');
-                          setShowAdvancedMode(true);
-                    }}
-                  >
-                        Simulation Simplifiée
-                        <span className="button-text">Entrer le minimum de données</span>
+                    setSimulationMode('advanced');
+                    setShowAdvancedMode(true);
+                  }}
+                >
+                  <div className="btn-icon">⚙️</div>
+                  <div className="btn-content">
+                    <div className="btn-title">Mode Avancé</div>
+                    <div className="btn-subtitle">Données précises et détaillées</div>
+                  </div>
                   </button>
                 </div>
               </div>
-                </div>
               )}
             </div>
           )}
@@ -415,28 +498,135 @@ const CalculateurAvance = () => {
                 <div className="results-container">
                   <div className="results-summary">
                     <h3>Vos résultats de retraite progressive</h3>
-                    <div className="results-grid">
-                      <div className="result-card">
-                        <h4>Salaire partiel</h4>
-                        <p className="result-value">{resultats.salairePartiel} €</p>
+                    
+                    {/* Section Pendant la retraite progressive */}
+                    <div className="results-section">
+                      <h4 className="section-title">Pendant votre retraite progressive, vous percevez :</h4>
+                      <div className="results-grid">
+                        <div className="result-card">
+                          <h4>Revenu Net Partiel</h4>
+                          <p className="result-value">{(resultats.salairePartiel * 0.78).toFixed(2)} € nets</p>
+                          <p className="result-explanation">
+                            Ce montant correspond à votre activité à temps partiel ({formData.tempsPartiel}%) après déduction des cotisations
+                          </p>
                     </div>
-                      <div className="result-card">
-                        <h4>Pension progressive</h4>
-                        <p className="result-value">{resultats.pensionProgressive} €</p>
+                        <div className="result-card">
+                          <h4>Retraite progressive</h4>
+                          <p className="result-value">{resultats.pensionProgressive.toFixed(2)} €</p>
+                          <p className="result-explanation">
+                            Ce montant correspond à 40% de votre retraite complète avec application de la décote/surcote. Cette part est versée par les régimes participant à la retraite progressive.
+                          </p>
                         </div>
-                      <div className="result-card total">
-                        <h4>Revenu total</h4>
-                        <p className="result-value">{resultats.revenuTotal} €</p>
+                        <div className="result-card total">
+                          <h4>Montant total</h4>
+                          <p className="result-value">{((resultats.salairePartiel * 0.78) + resultats.pensionProgressive).toFixed(2)} € nets/mois</p>
+                          <p className="result-explanation">
+                            Revenu total pendant votre retraite progressive
+                      </p>
                         </div>
                       </div>
                     </div>
+
+                    {/* Section Après la retraite progressive */}
+                    <div className="results-section">
+                      <h4 className="section-title">Après votre retraite progressive, vous percevrez :</h4>
+                      <div className="results-grid">
+                        <div className="result-card total">
+                          <h4>Retraite complète</h4>
+                          <p className="result-value">{resultats.pensionComplete.toFixed(2)} € nets/mois</p>
+                          <p className="result-explanation">
+                            Ce montant correspond à la totalité de votre retraite et prend en compte les droits enregistrés pendant votre retraite progressive.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <div className="no-data">
+                </div>
+
+                    {/* Section des calculs détaillés */}
+                    <div className="calculations-details">
+                      <h4>🔍 Détail des calculs</h4>
+                      <div className="calculation-steps">
+                        <div className="calculation-step">
+                          <div className="step-title">1. Salaire brut mensuel</div>
+                          <div className="step-value">{formData.salaireBrut} €</div>
+                  </div>
+
+                        <div className="calculation-step">
+                          <div className="step-title">2. Temps partiel</div>
+                          <div className="step-value">{formData.tempsPartiel}%</div>
+                    </div>
+                    
+                        <div className="calculation-step">
+                          <div className="step-title">3. Revenu Net Partiel (temps partiel)</div>
+                          <div className="step-value">({formData.salaireBrut} × {formData.tempsPartiel}%) × 78% = {(resultats.salairePartiel * 0.78).toFixed(2)} € nets</div>
+                    </div>
+                    
+                        {resultats.modeCalcul === 'avance' ? (
+                          <>
+                            <div className="calculation-step">
+                              <div className="step-title">4. Salaire annuel moyen</div>
+                              <div className="step-value">{formData.salaireAnnuelMoyen} €</div>
+        </div>
+
+                            <div className="calculation-step">
+                              <div className="step-title">5. Trimestres validés</div>
+                              <div className="step-value">{formData.trimestresValides} / {getTrimestresRequis(formData.anneeNaissance)}</div>
+          </div>
+
+                            <div className="calculation-step">
+                              <div className="step-title">6. Taux de pension</div>
+                              <div className="step-value">{(formData.trimestresValides / getTrimestresRequis(formData.anneeNaissance) * 100).toFixed(1)}%</div>
+                  </div>
+                  
+                            <div className="calculation-step">
+                              <div className="step-title">7. Pension complète (avant surcote/décote)</div>
+                              <div className="step-value">({formData.salaireAnnuelMoyen} × 50% × {(formData.trimestresValides / getTrimestresRequis(formData.anneeNaissance) * 100).toFixed(1)}%) / 12 = {((formData.salaireAnnuelMoyen * 0.5 * (formData.trimestresValides / getTrimestresRequis(formData.anneeNaissance))) / 12).toFixed(2)} €</div>
+                    </div>
+
+                            {formData.surcoteDecote && parseFloat(formData.surcoteDecote) !== 0 && (
+                              <div className="calculation-step">
+                                <div className="step-title">8. Application surcote/décote</div>
+                                <div className="step-value">{((formData.salaireAnnuelMoyen * 0.5 * (formData.trimestresValides / getTrimestresRequis(formData.anneeNaissance))) / 12) * (1 + parseFloat(formData.surcoteDecote) / 100)} € × (1 {parseFloat(formData.surcoteDecote) >= 0 ? '+' : ''}{formData.surcoteDecote}%) = {resultats.pensionComplete.toFixed(2)} €</div>
+                      </div>
+                            )}
+
+                            <div className="calculation-step">
+                              <div className="step-title">{formData.surcoteDecote && parseFloat(formData.surcoteDecote) !== 0 ? '9' : '8'}. Part de pension progressive</div>
+                              <div className="step-value">Pension complète (sans décote) × 40% × (1 {parseFloat(formData.surcoteDecote) >= 0 ? '+' : ''}{formData.surcoteDecote}%) = {resultats.pensionProgressive.toFixed(2)} €</div>
+                          </div>
+                                      </>
+                                    ) : (
+                                      <>
+                            <div className="calculation-step">
+                              <div className="step-title">4. Pension complète estimée</div>
+                              <div className="step-value">{formData.pensionEstimee || (formData.salaireBrut * 0.78 * 0.45).toFixed(0)} €</div>
+                        </div>
+
+                            <div className="calculation-step">
+                              <div className="step-title">5. Part de pension progressive</div>
+                              <div className="step-value">Pension complète (sans décote) × 40% × (1 {parseFloat(formData.surcoteDecote) >= 0 ? '+' : ''}{formData.surcoteDecote}%) = {resultats.pensionProgressive.toFixed(2)} €</div>
+                        </div>
+                          </>
+                        )}
+                        
+                        <div className="calculation-step total">
+                          <div className="step-title">💰 Revenu pendant la retraite progressive</div>
+                          <div className="step-value">{(resultats.salairePartiel * 0.78).toFixed(2)} € nets + {resultats.pensionProgressive.toFixed(2)} € = {((resultats.salairePartiel * 0.78) + resultats.pensionProgressive).toFixed(2)} € nets</div>
+                    </div>
+
+                        <div className="calculation-step total">
+                          <div className="step-title">🏖️ Revenu après la retraite progressive</div>
+                          <div className="step-value">{resultats.pensionComplete.toFixed(2)} € (retraite complète)</div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="no-data">
                   <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
-                </div>
-              )}
-            </div>
+                  </div>
+                )}
+              </div>
           )}
 
           {/* Onglet Scénarios */}
@@ -446,14 +636,14 @@ const CalculateurAvance = () => {
                 <div className="scenarios-container">
                   <h3>Comparaison des scénarios</h3>
                   <p>Comparez différents pourcentages de temps partiel</p>
-                </div>
-              ) : (
+                  </div>
+                ) : (
                 <div className="no-data">
                   <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
-                </div>
-              )}
-            </div>
-          )}
+                  </div>
+                )}
+          </div>
+        )}
         </div>
       </div>
     </div>
