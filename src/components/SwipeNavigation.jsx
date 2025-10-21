@@ -67,6 +67,25 @@ const SwipeNavigation = () => {
     }
   };
 
+  // Écouter les événements de navigation
+  useEffect(() => {
+    const handleNavigation = (event) => {
+      const { page, mode } = event.detail;
+      if (page === 'calculateur') {
+        goToPage(1); // Index du calculateur
+        // Déclencher le mode de simulation après un délai
+        if (mode) {
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: mode }));
+          }, 400);
+        }
+      }
+    };
+
+    window.addEventListener('navigateToPage', handleNavigation);
+    return () => window.removeEventListener('navigateToPage', handleNavigation);
+  }, []);
+
   // Rendu des pages avec transition
   const renderPages = () => {
     return pages.map((page, index) => {

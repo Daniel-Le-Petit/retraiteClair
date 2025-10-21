@@ -429,21 +429,6 @@ const CalculateurAvance = () => {
                 </div>
 
                 {/* Bouton pour mode avancé */}
-                {/* Bouton pour passer au mode avancé */}
-                <div className="advanced-toggle-section">
-                  <button 
-                    className="btn-advanced-toggle"
-                    onClick={() => {
-                      setSimulationMode('advanced');
-                      setShowAdvancedMode(true);
-                    }}
-                  >
-                    Simulation avancée - Affiner avec des données précises
-                  </button>
-                  <p className="advanced-explanation">
-                    Mode avancé : calcul précis avec votre salaire annuel moyen et vos trimestres
-                  </p>
-                </div>
               </div>
               )}
 

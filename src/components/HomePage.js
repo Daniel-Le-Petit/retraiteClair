@@ -239,12 +239,8 @@ const HomePage = () => {
             <button 
               className="card-button card-button-primary"
               onClick={() => {
-                // Naviguer vers le calculateur en mode simplifié
-                navigate('/calculateur');
-                // Déclencher le mode simplifié via un événement personnalisé
-                setTimeout(() => {
-                  window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: 'simplified' }));
-                }, 100);
+                // Déclencher la navigation vers le calculateur en mode simplifié
+                window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'simplified' } }));
               }}
               aria-label="Essayer la version simplifiée"
             >
@@ -263,12 +259,8 @@ const HomePage = () => {
             <button 
               className="card-button card-button-secondary"
               onClick={() => {
-                // Naviguer vers le calculateur en mode avancé
-                navigate('/calculateur');
-                // Déclencher le mode avancé via un événement personnalisé
-                setTimeout(() => {
-                  window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: 'advanced' }));
-                }, 100);
+                // Déclencher la navigation vers le calculateur en mode avancé
+                window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'advanced' } }));
               }}
               aria-label="Explorer la version avancée"
             >
@@ -389,7 +381,10 @@ const HomePage = () => {
           </p>
           <button 
             className="final-cta-button"
-            onClick={() => navigate('/calculateur')}
+            onClick={() => {
+              // Déclencher la navigation vers le calculateur
+              window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur' } }));
+            }}
             aria-label="Lancer la simulation"
           >
             🟩 Lancer la simulation
