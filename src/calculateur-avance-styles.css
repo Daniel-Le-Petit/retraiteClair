@@ -1568,8 +1568,8 @@
 
 /* Onglet Résultats */
 .results-container {
-  max-width: 60%;
-  width: 60%;
+  max-width: 80%;
+  width: 80%;
   margin: 0 auto;
   padding: 20px;
   background: white;
@@ -1582,8 +1582,8 @@
 /* Responsive pour les résultats */
 @media (max-width: 1024px) {
   .results-container {
-    max-width: 70%;
-    width: 70%;
+    max-width: 85%;
+    width: 85%;
   }
 }
 
@@ -2919,7 +2919,8 @@
   border: 2px solid #0ea5e9;
   border-radius: 16px;
   margin-top: 0;
-  max-width: 60%;
+  max-width: 80%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 40px;
