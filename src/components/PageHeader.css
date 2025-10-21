@@ -13,7 +13,11 @@
 
 .page-header h1,
 .page-header .page-subtitle {
-  color: white;
+  color: white !important;
+}
+
+.page-header h1 {
+  color: white !important;
 }
 
 .page-header h1 {

@@ -5,6 +5,7 @@ import {
   Euro, Users, Calendar, TrendingUp, AlertCircle, Target, 
   Shield, Phone, Mail, BookOpen, Calculator
 } from 'lucide-react';
+import PageHeader from './PageHeader';
 
 const ConseilsPageSimple = ({ onPageChange }) => {
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ const ConseilsPageSimple = ({ onPageChange }) => {
 
   return (
     <div className="page-content">
+      <PageHeader 
+        title="Conseils Retraite Progressive"
+        subtitle="Guide complet pour optimiser votre transition vers la retraite progressive"
+      />
       <div className="conseils-container">
         {/* H1 principal pour le SEO */}
         <h1 style={{position: 'absolute', left: '-9999px', top: '-9999px'}}>
