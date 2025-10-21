@@ -1,0 +1,152 @@
+/* Swipe Navigation Styles */
+
+.swipe-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+  z-index: 1000;
+}
+
+.swipe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+}
+
+.swipe-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.swipe-page.active {
+  opacity: 1;
+  z-index: 10;
+}
+
+.swipe-page:not(.active) {
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Dots Indicator */
+.dots-indicator {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 1001;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.dot:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: scale(1.2);
+}
+
+.dot.active {
+  background: #10b981;
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.dot.active::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dots-indicator {
+    bottom: 15px;
+    gap: 10px;
+    padding: 6px 12px;
+  }
+  
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Hide scrollbars but keep functionality */
+.swipe-page::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.swipe-page {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Smooth transitions for all elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection during swipe */
+.swipe-navigation {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .swipe-navigation {
+    touch-action: pan-y;
+  }
+  
+  .swipe-page {
+    touch-action: pan-y;
+  }
+}
