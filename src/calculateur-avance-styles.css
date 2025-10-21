@@ -411,8 +411,10 @@
 @media (max-width: 768px) {
   .calculateur-avance-container {
     max-width: 95%;
+    width: 95%;
     padding: 20px 15px;
   }
+}
   
   .button-pair {
     flex-direction: column;
@@ -1556,6 +1558,7 @@
 /* Onglet Résultats */
 .results-container {
   max-width: 60%;
+  width: 60%;
   margin: 0 auto;
   padding: 20px;
   background: white;
