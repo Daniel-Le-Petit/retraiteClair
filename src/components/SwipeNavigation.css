@@ -243,6 +243,11 @@
   padding-top: 60px; /* Espace pour la barre de navigation */
 }
 
+/* Réduction de l'espace pour le header réduit */
+.page-header {
+  margin-top: 0 !important;
+}
+
 /* Supprimer l'espace pour la navigation sticky supprimée */
 .homepage {
   padding-top: 0 !important;
@@ -277,12 +282,12 @@
 /* Responsive pour la navigation horizontale */
 @media (max-width: 768px) {
   .swipe-page {
-    padding-top: 310px; /* Plus d'espace pour la navigation verticale sur mobile */
+    padding-top: 250px; /* Réduit pour la navigation verticale sur mobile */
   }
 }
 
 @media (max-width: 480px) {
   .swipe-page {
-    padding-top: 285px; /* Ajustement pour les petits écrans */
+    padding-top: 200px; /* Encore plus réduit pour les petits écrans */
   }
 }

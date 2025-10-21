@@ -6,7 +6,6 @@ import BlogListStable from './Blog/BlogListStable';
 import ConseilsPageSimple from './ConseilsPageSimple';
 import ContactForm from './ContactForm';
 import HorizontalNavigation from './HorizontalNavigation';
-import TestNavigation from './TestNavigation';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
 
@@ -122,9 +121,6 @@ const SwipeNavigation = () => {
       <div className="swipe-container">
         {renderPages()}
       </div>
-      
-      {/* Test Navigation */}
-      <TestNavigation />
       
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigation 

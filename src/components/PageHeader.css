@@ -7,7 +7,7 @@
   background-size: cover;
   background-position: center;
   color: white;
-  padding: 60px 0 40px;
+  padding: 30px 0 20px;
   text-align: center;
 }
 
@@ -21,18 +21,21 @@
 }
 
 .page-header h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .page-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   opacity: 0.9;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container {
@@ -44,15 +47,43 @@
 /* Responsive */
 @media (max-width: 768px) {
   .page-header {
-    padding: 40px 0 30px;
+    padding: 15px 0 10px;
   }
   
   .page-header h1 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
   }
   
   .page-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    max-width: 90%;
+  }
+}
+
+/* Version téléphone très petite */
+@media (max-width: 480px) {
+  .page-header {
+    padding: 10px 0 8px;
+  }
+  
+  .page-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.85rem;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+    max-width: 95%;
   }
 }
