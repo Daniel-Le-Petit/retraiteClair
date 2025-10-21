@@ -107,9 +107,6 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 15px !important;
-    background-color: lightblue !important; /* Debug: fond bleu pour voir le conteneur */
-    border: 2px solid red !important; /* Debug: bordure rouge */
-    min-height: 200px !important; /* Debug: hauteur minimale */
   }
 }
 
@@ -317,12 +314,12 @@
 /* Responsive pour la navigation horizontale */
 @media (max-width: 768px) {
   .swipe-page {
-    padding-top: 70px; /* Hauteur de la navigation + header */
+    padding-top: 120px; /* Hauteur de la navigation + header + marge */
   }
 }
 
 @media (max-width: 480px) {
   .swipe-page {
-    padding-top: 65px; /* Hauteur réduite pour les petits écrans */
+    padding-top: 110px; /* Hauteur de la navigation + header + marge */
   }
 }
