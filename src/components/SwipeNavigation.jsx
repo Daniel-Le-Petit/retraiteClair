@@ -62,8 +62,9 @@ const SwipeNavigation = () => {
           className={`swipe-page ${isActive ? 'active' : ''}`}
           style={{
             transform: `translateX(${(index - currentIndex) * 100}%)`,
-            opacity: isActive ? 1 : 0.3,
-            zIndex: isActive ? 10 : 1
+            opacity: isActive ? 1 : 0,
+            zIndex: isActive ? 10 : 1,
+            display: isActive ? 'block' : 'none'
           }}
         >
           <PageComponent />
