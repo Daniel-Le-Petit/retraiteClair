@@ -3,11 +3,37 @@
 /* Masquer la sidebar complètement */
 .sidebar {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
 .main-content {
   margin-left: 0 !important;
   width: 100vw !important;
+  padding-left: 0 !important;
+}
+
+/* Masquer tous les éléments de navigation */
+.nav-menu,
+.nav-item,
+.burger-menu,
+.menu-toggle,
+.hamburger,
+.nav-toggle {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Masquer les éléments de header */
+.header,
+.navbar,
+.navigation,
+.top-nav {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 .swipe-navigation {
@@ -51,6 +77,21 @@
 .swipe-page .blog-list-container,
 .swipe-page .calculateur-avance-container {
   padding: 10px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Corriger la largeur de la page contact */
+.swipe-page .contact-container {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  padding: 20px !important;
+}
+
+.swipe-page .contact-card {
+  width: 100% !important;
+  max-width: 100% !important;
   margin: 0 !important;
 }
 
