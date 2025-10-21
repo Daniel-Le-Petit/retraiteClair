@@ -107,6 +107,9 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 15px !important;
+    background-color: lightblue !important; /* Debug: fond bleu pour voir le conteneur */
+    border: 2px solid red !important; /* Debug: bordure rouge */
+    min-height: 200px !important; /* Debug: hauteur minimale */
   }
 }
 
@@ -304,8 +307,10 @@
 
 @media (max-width: 768px) {
   .swipe-page .calculateur-avance-container {
-    width: 95% !important;
-    max-width: 95% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
