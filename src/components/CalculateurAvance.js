@@ -273,53 +273,46 @@ const CalculateurAvance = () => {
         subtitle="Calculez vos revenus en retraite progressive avec précision"
       />
       <div className="calculateur-avance-container">
-        <div className="section-header">
-          <h1 className="section-title">Estimation de votre retraite progressive</h1>
-          <p className="section-description">
-            Saisissez vos données, consultez vos résultats et comparez différents scénarios
-          </p>
-          <div className="disclaimer-notice">
-            <p>Cet outil fournit une estimation indicative. Pour une projection complète, consultez le simulateur officiel M@rel.</p>
-          </div>
-        </div>
 
-        {/* Barre de progression */}
-        <div className="progress-bar-container">
-          <div className="progress-bar">
-            <div className="progress-steps">
-              <button 
-                className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
-                onClick={() => setActiveTab('saisie')}
-              >
-                <div className="step-button">
-                  <User size={18} />
-                  Saisie
-                </div>
-              </button>
-              <div className="progress-line"></div>
-              <button 
-                className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
-                onClick={() => {
-                  if (validateForResults()) {
-                    setActiveTab('resultats');
-                  }
-                }}
-              >
-                <div className="step-button">
-                  <BarChart3 size={18} />
-                  Résultats
-                </div>
-              </button>
-              <div className="progress-line"></div>
-              <button 
-                className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}
-                onClick={() => setActiveTab('scenarios')}
-              >
-                <div className="step-button">
-                  <TrendingUp size={18} />
-                  Scénarios
-                </div>
-              </button>
+        {/* Barre de progression dans un cadre */}
+        <div className="progress-frame">
+          <div className="progress-bar-container">
+            <div className="progress-bar">
+              <div className="progress-steps">
+                <button 
+                  className={`progress-step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
+                  onClick={() => setActiveTab('saisie')}
+                >
+                  <div className="step-button">
+                    <User size={18} />
+                    Saisie
+                  </div>
+                </button>
+                <div className="progress-line"></div>
+                <button 
+                  className={`progress-step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
+                  onClick={() => {
+                    if (validateForResults()) {
+                      setActiveTab('resultats');
+                    }
+                  }}
+                >
+                  <div className="step-button">
+                    <BarChart3 size={18} />
+                    Résultats
+                  </div>
+                </button>
+                <div className="progress-line"></div>
+                <button 
+                  className={`progress-step ${currentStep >= 3 ? 'active' : ''}`}
+                  onClick={() => setActiveTab('scenarios')}
+                >
+                  <div className="step-button">
+                    <TrendingUp size={18} />
+                    Scénarios
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>

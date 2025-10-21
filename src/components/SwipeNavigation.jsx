@@ -20,20 +20,34 @@ const SwipeNavigation = () => {
     { id: 'contact', component: ContactForm, title: 'Contact' }
   ];
 
+  // Fonction pour scroll vers le haut
+  const scrollToTop = () => {
+    const activePage = document.querySelector('.swipe-page.active');
+    if (activePage) {
+      activePage.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   // Gestion du swipe
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
       if (!isTransitioning) {
         setIsTransitioning(true);
         setCurrentIndex((prev) => (prev + 1) % pages.length);
-        setTimeout(() => setIsTransitioning(false), 300);
+        setTimeout(() => {
+          setIsTransitioning(false);
+          scrollToTop();
+        }, 300);
       }
     },
     onSwipedRight: () => {
       if (!isTransitioning) {
         setIsTransitioning(true);
         setCurrentIndex((prev) => (prev - 1 + pages.length) % pages.length);
-        setTimeout(() => setIsTransitioning(false), 300);
+        setTimeout(() => {
+          setIsTransitioning(false);
+          scrollToTop();
+        }, 300);
       }
     },
     preventDefaultTouchmoveEvent: false,
@@ -46,7 +60,10 @@ const SwipeNavigation = () => {
     if (!isTransitioning && index !== currentIndex) {
       setIsTransitioning(true);
       setCurrentIndex(index);
-      setTimeout(() => setIsTransitioning(false), 300);
+      setTimeout(() => {
+        setIsTransitioning(false);
+        scrollToTop();
+      }, 300);
     }
   };
 
