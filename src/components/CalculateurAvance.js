@@ -262,15 +262,13 @@ const CalculateurAvance = () => {
               {/* Section Mode Simplifié - Masquée en mode avancé */}
               {simulationMode === 'simplified' && (
                 <div className="form-section">
-                  <div className="section-header">
-                    <h3>📝 Vos informations personnelles</h3>
-                    <p>Renseignez vos données pour obtenir une estimation de votre retraite progressive</p>
+                  <div className="marel-reference">
+                    <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
                 
                 <div className="form-grid">
-                  <div className="form-group">
+                  <div className="form-group simplified-field">
                     <label className="form-label">
-                      <Euro size={18} />
                       Salaire brut mensuel (€)
                     </label>
                     <input
@@ -282,9 +280,8 @@ const CalculateurAvance = () => {
                     />
                   </div>
 
-                  <div className="form-group">
+                  <div className="form-group simplified-field">
                     <label className="form-label">
-                      <Calendar size={18} />
                         Date de début de retraite progressive
                     </label>
                       <input
@@ -295,22 +292,22 @@ const CalculateurAvance = () => {
                       />
                   </div>
 
-                    <div className="form-group">
+                    <div className="form-group simplified-field">
                     <label className="form-label">
-                      <Clock size={18} />
                         Temps de travail souhaité
                     </label>
                       <div className="slider-container">
                           <input
                             type="range"
-                          min="20"
+                          min="40"
                             max="80"
+                            step="20"
                             value={formData.tempsPartiel}
                           onChange={(e) => setFormData({...formData, tempsPartiel: parseInt(e.target.value)})}
                           className="slider"
                           />
                         <div className="slider-labels">
-                          <span>20%</span>
+                          <span>40%</span>
                           <span className="slider-value-text">{formData.tempsPartiel}%</span>
                           <span>80%</span>
                         </div>
@@ -328,7 +325,6 @@ const CalculateurAvance = () => {
                         }
                       }}
                     >
-                      <div className="btn-icon">📊</div>
                       <div className="btn-content">
                         <div className="btn-title">Voir les Résultats</div>
                         <div className="btn-subtitle">Calculs et projections</div>
@@ -342,7 +338,6 @@ const CalculateurAvance = () => {
                         setShowAdvancedMode(true);
                       }}
                     >
-                      <div className="btn-icon">⚙️</div>
                       <div className="btn-content">
                         <div className="btn-title">Mode Avancé</div>
                         <div className="btn-subtitle">Données précises et détaillées</div>
@@ -354,39 +349,29 @@ const CalculateurAvance = () => {
 
               {/* Section Mode Avancé */}
               {showAdvancedMode && (
-                <div className="form-section advanced-section">
-                  <div className="section-header">
-                    <h3>🎯 Mode avancé - Calcul précis</h3>
-                    <p>Affinez votre estimation avec des données détaillées pour un résultat plus proche de la réalité</p>
+                <div className="form-section">
+                  <div className="marel-reference">
+                    <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
                   
                   <div className="form-grid">
                     <div className="form-group advanced-field">
                         <label className="form-label">
-                          <Euro size={18} />
                           Salaire annuel moyen des 25 meilleures années (€ brut)
                         </label>
                         <p className="field-explanation">Base de calcul officielle pour votre pension - <strong>en salaire brut</strong></p>
-                      <div className="data-source-info">
-                        <span className="source-label">📄 Où trouver cette info :</span>
-                        <ul className="source-list">
-                          <li>📊 <strong>Simulateur M@rel</strong> sur <a href="https://www.assuranceretraite.fr" target="_blank" rel="noopener noreferrer">assuranceretraite.fr</a></li>
-                          <li>📋 <strong>Relevé de carrière</strong> téléchargeable sur votre compte</li>
-                          <li>💼 <strong>Fiches de paie</strong> de vos 25 meilleures années</li>
-                        </ul>
-                      </div>
                       <input
                         type="number"
                         value={formData.salaireAnnuelMoyen}
                         onChange={(e) => setFormData({...formData, salaireAnnuelMoyen: e.target.value})}
                         placeholder="Ex: 45000"
                         className="form-input"
+                        style={{backgroundColor: 'white', color: '#1e293b'}}
                       />
                     </div>
 
                     <div className="form-group advanced-field">
                       <label className="form-label">
-                        <User size={18} />
                         Année de naissance
                       </label>
                       <p className="field-explanation">Pour calculer automatiquement le nombre de trimestres requis</p>
@@ -403,7 +388,6 @@ const CalculateurAvance = () => {
 
                     <div className="form-group advanced-field">
                       <label className="form-label">
-                        <Calendar size={18} />
                         Nombre de trimestres validés
                       </label>
                       <p className="field-explanation">Vérifiez sur votre relevé de carrière</p>
@@ -420,7 +404,6 @@ const CalculateurAvance = () => {
 
                     <div className="form-group advanced-field">
                       <label className="form-label">
-                        <Euro size={18} />
                         Pension estimée (optionnel)
                       </label>
                       <p className="field-explanation">Si vous connaissez déjà votre pension, entrez-la ici pour comparaison</p>
@@ -434,29 +417,28 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">
-                      <TrendingUp size={18} />
-                      Surcote/Décote (%)
-                    </label>
-                    <p className="field-explanation">
-                      {formData.trimestresValides && formData.anneeNaissance 
-                        ? calculateDecoteSurcote(formData.trimestresValides, formData.anneeNaissance).explanation
-                        : 'Calcul automatique basé sur les trimestres validés et l\'année de naissance'
-                      }
-                    </p>
-                    <input
-                      type="number"
-                      value={formData.surcoteDecote}
-                      readOnly
-                      className="form-input"
-                      style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
-                      step="0.1"
-                    />
-                </div>
+                    <div className="form-group advanced-field">
+                      <label className="form-label">
+                        Surcote/Décote (%)
+                      </label>
+                      <p className="field-explanation">
+                        {formData.trimestresValides && formData.anneeNaissance 
+                          ? calculateDecoteSurcote(formData.trimestresValides, formData.anneeNaissance).explanation
+                          : 'Calcul automatique basé sur les trimestres validés et l\'année de naissance'
+                        }
+                      </p>
+                      <input
+                        type="number"
+                        value={formData.surcoteDecote}
+                        readOnly
+                        className="form-input"
+                        style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
+                        step="0.1"
+                      />
+                    </div>
 
-              {/* Boutons d'action pour mode avancé */}
-              <div className="simulation-actions">
+                  {/* Boutons d'action pour mode avancé */}
+                  <div className="simulation-actions">
                   <button 
                   className="btn-primary btn-results"
                     onClick={() => {
@@ -465,7 +447,6 @@ const CalculateurAvance = () => {
                       }
                     }}
                   >
-                  <div className="btn-icon">📊</div>
                   <div className="btn-content">
                     <div className="btn-title">Voir les Résultats</div>
                     <div className="btn-subtitle">Calculs et projections</div>
@@ -475,14 +456,13 @@ const CalculateurAvance = () => {
                   <button 
                   className="btn-secondary btn-advanced"
                     onClick={() => {
-                    setSimulationMode('advanced');
-                    setShowAdvancedMode(true);
+                    setSimulationMode('simplified');
+                    setShowAdvancedMode(false);
                   }}
                 >
-                  <div className="btn-icon">⚙️</div>
                   <div className="btn-content">
-                    <div className="btn-title">Mode Avancé</div>
-                    <div className="btn-subtitle">Données précises et détaillées</div>
+                    <div className="btn-title">Mode Simplifié</div>
+                    <div className="btn-subtitle">Calcul rapide et simple</div>
                   </div>
                   </button>
                 </div>
