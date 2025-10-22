@@ -45,6 +45,49 @@ const CalculateurAvance = () => {
     }
   };
 
+  // Fonctions pour gérer le slider mobile
+  const handleSliderMouseDown = (e) => {
+    e.preventDefault();
+    const sliderRail = e.target.closest('.slider-rail');
+    const rect = sliderRail.getBoundingClientRect();
+    const handleMouseMove = (e) => {
+      const x = e.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      const value = Math.round(40 + (percentage / 100) * 40);
+      const snapValue = [40, 50, 60, 70, 80].reduce((prev, curr) => 
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+      );
+      setFormData({...formData, tempsPartiel: snapValue});
+    };
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleSliderTouchStart = (e) => {
+    e.preventDefault();
+    const sliderRail = e.target.closest('.slider-rail');
+    const rect = sliderRail.getBoundingClientRect();
+    const handleTouchMove = (e) => {
+      const x = e.touches[0].clientX - rect.left;
+      const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      const value = Math.round(40 + (percentage / 100) * 40);
+      const snapValue = [40, 50, 60, 70, 80].reduce((prev, curr) => 
+        Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+      );
+      setFormData({...formData, tempsPartiel: snapValue});
+    };
+    const handleTouchEnd = () => {
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+  };
+
   // Fonction pour calculer automatiquement la décote/surcote
   const calculateDecoteSurcote = (trimestresValides, anneeNaissance) => {
     if (!trimestresValides || !anneeNaissance) return { decote: 0, explanation: '' };
@@ -311,7 +354,33 @@ const CalculateurAvance = () => {
                           Temps de travail souhaité
                       </label>
                       <div className="slider-container">
-                        <div className="slider-options">
+                        {/* Jauge slider pour mobile */}
+                        <div className="mobile-slider">
+                          <div className="slider-track">
+                            <div className="slider-labels">
+                              <span className="slider-label">40%</span>
+                              <span className="slider-label">50%</span>
+                              <span className="slider-label">60%</span>
+                              <span className="slider-label">70%</span>
+                              <span className="slider-label">80%</span>
+                            </div>
+                            <div className="slider-rail">
+                              <div 
+                                className="slider-thumb"
+                                style={{
+                                  left: `${((formData.tempsPartiel - 40) / 40) * 100}%`
+                                }}
+                                onMouseDown={(e) => handleSliderMouseDown(e)}
+                                onTouchStart={(e) => handleSliderTouchStart(e)}
+                              >
+                                <div className="slider-thumb-value">{formData.tempsPartiel}%</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Boutons pour desktop */}
+                        <div className="desktop-slider-options">
                           {[40, 50, 60, 70, 80].map((percentage) => (
                             <button
                               key={percentage}
