@@ -439,14 +439,17 @@ const CalculateurAvance = () => {
                           : 'Calcul automatique basé sur les trimestres validés et l\'année de naissance'
                         }
                       </p>
-                      <input
-                        type="number"
-                        value={formData.surcoteDecote}
-                        readOnly
-                        className="form-input"
-                        style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
-                        step="0.1"
-                      />
+                      <div className="input-with-suffix">
+                        <input
+                          type="number"
+                          value={formData.surcoteDecote}
+                          readOnly
+                          className="form-input"
+                          style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
+                          step="0.1"
+                        />
+                        <span className="input-suffix">%</span>
+                      </div>
                     </div>
 
                   {/* Boutons d'action pour mode avancé */}

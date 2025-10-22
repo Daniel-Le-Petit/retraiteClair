@@ -180,6 +180,63 @@
   text-align: left !important;
 }
 
+/* Style ultra-spécifique pour forcer l'application */
+div.form-group.advanced-field label.form-label {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  color: #1e40af !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+  border: 1px solid #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1) !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+/* Style maximum pour forcer l'application - override toutes les autres règles */
+.form-group.advanced-field .form-label,
+.advanced-field .form-label,
+div.form-group.advanced-field label,
+div.advanced-field label {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  color: #1e40af !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+  border: 1px solid #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1) !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  align-items: unset !important;
+  gap: unset !important;
+}
+
+/* Styles pour l'input avec suffixe */
+.input-with-suffix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-suffix .form-input {
+  padding-right: 2rem;
+}
+
+.input-suffix {
+  position: absolute;
+  right: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  pointer-events: none;
+}
+
 /* Styles pour les champs du mode simplifié */
 .form-group.simplified-field {
   border-left: 4px solid #10b981;
@@ -219,6 +276,23 @@
   display: block;
   width: 100%;
   margin-bottom: 1.5rem;
+}
+
+/* Responsive pour mobile - un cadre par ligne */
+@media (max-width: 768px) {
+  .form-row {
+    display: block;
+    gap: 0;
+  }
+  
+  .form-row .form-group {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  .form-row .form-group:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .form-group.salaire-field {
