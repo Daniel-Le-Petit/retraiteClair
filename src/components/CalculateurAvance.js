@@ -277,7 +277,7 @@ const CalculateurAvance = () => {
                     <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
                 
-                <div className="form-grid">
+                <div className="form-grid-simplified">
                   <div className="form-row">
                     <div className="form-group simplified-field salaire-field">
                       <label className="form-label">
@@ -305,21 +305,23 @@ const CalculateurAvance = () => {
                     </div>
                   </div>
 
-                  <div className="form-group simplified-field temps-field">
-                    <label className="form-label">
-                        Temps de travail souhaité
-                    </label>
-                    <div className="slider-container">
-                      <div className="slider-options">
-                        {[40, 50, 60, 70, 80].map((percentage) => (
-                          <button
-                            key={percentage}
-                            className={`slider-option ${formData.tempsPartiel === percentage ? 'active' : ''}`}
-                            onClick={() => setFormData({...formData, tempsPartiel: percentage})}
-                          >
-                            {percentage}%
-                          </button>
-                        ))}
+                  <div className="form-row-full">
+                    <div className="form-group simplified-field temps-field">
+                      <label className="form-label">
+                          Temps de travail souhaité
+                      </label>
+                      <div className="slider-container">
+                        <div className="slider-options">
+                          {[40, 50, 60, 70, 80].map((percentage) => (
+                            <button
+                              key={percentage}
+                              className={`slider-option ${formData.tempsPartiel === percentage ? 'active' : ''}`}
+                              onClick={() => setFormData({...formData, tempsPartiel: percentage})}
+                            >
+                              {percentage}%
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -126,13 +126,58 @@
 /* Styles pour les champs du mode avancé */
 .form-group.advanced-field {
   border-left: 4px solid #3b82f6;
-  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 2px solid #60a5fa;
+  border: 2px solid #3b82f6;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
   position: relative;
+}
+
+/* Titres des champs avancés sur fond bleu clair */
+.form-group.advanced-field .form-label {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  color: #1e40af !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+  border: 1px solid #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1) !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+/* Forcer le style des titres avancés */
+.advanced-field label.form-label {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  color: #1e40af !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+  border: 1px solid #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1) !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
+/* Style encore plus spécifique pour les labels avancés */
+.form-group.advanced-field label {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  color: #1e40af !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+  border: 1px solid #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1) !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
 }
 
 /* Styles pour les champs du mode simplifié */
@@ -147,33 +192,67 @@
   position: relative;
 }
 
+/* Titres des champs simplifiés */
+.form-group.simplified-field .form-label {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  color: #047857;
+}
+
 /* Disposition spécifique pour le mode simplifié */
+.form-grid-simplified {
+  display: block;
+  width: 100%;
+}
+
 .form-row {
   display: flex;
   gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.form-row-full {
+  display: block;
+  width: 100%;
   margin-bottom: 1.5rem;
 }
 
 .form-group.salaire-field {
   flex: 1;
-  width: 50%;
+  width: calc(50% - 0.5rem);
+  margin-bottom: 0;
 }
 
 .form-group.date-field {
   flex: 1;
-  width: 50%;
+  width: calc(50% - 0.5rem);
+  margin-bottom: 0;
 }
 
 .form-group.temps-field {
   width: 100%;
+  margin-bottom: 0;
 }
 
-/* Conteneur pour les champs côte à côte */
-.form-row {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+/* Forcer la disposition en ligne pour les champs salaire et date */
+.form-row .form-group.salaire-field,
+.form-row .form-group.date-field {
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
 }
+
+/* S'assurer que le champ temps de travail est en dessous */
+.form-group.temps-field {
+  clear: both;
+  display: block;
+  width: 100%;
+}
+
 
 /* Largeurs spécifiques pour les champs du mode simplifié */
 .form-group.simplified-field.salaire-field {
@@ -305,6 +384,33 @@
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   font-weight: 700;
+  border: 2px solid #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Styles spécifiques pour différencier les modes */
+/* Mode simplifié : bouton résultats vert, bouton avancé bleu */
+.form-section:has(.simplified-field) .simulation-actions .btn-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 2px solid #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.form-section:has(.simplified-field) .simulation-actions .btn-advanced {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: 2px solid #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Mode avancé : bouton résultats bleu, bouton simplifié vert */
+.form-section:has(.advanced-field) .simulation-actions .btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: 2px solid #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.form-section:has(.advanced-field) .simulation-actions .btn-secondary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   border: 2px solid #10b981;
   box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
