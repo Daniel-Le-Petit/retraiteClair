@@ -2207,6 +2207,186 @@ div.advanced-field label {
   margin-bottom: 2rem;
 }
 
+/* Responsive pour les scénarios - version mobile */
+@media (max-width: 768px) {
+  /* Transformer la grille en colonne unique */
+  .scenarios-container .chart-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    grid-template-columns: none !important;
+  }
+  
+  /* Transformer chaque colonne en carte */
+  .scenarios-container .scenario-column {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .scenarios-container .scenario-column:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    border-color: #cbd5e1 !important;
+  }
+  
+  /* En-tête de la carte */
+  .scenarios-container .column-header {
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+  }
+  
+  .scenarios-container .column-header h4 {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    margin: 0 !important;
+  }
+  
+  /* Transformer le stack en éléments verticaux */
+  .scenarios-container .chart-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    height: auto !important;
+  }
+  
+  /* Transformer chaque barre en élément horizontal */
+  .scenarios-container .chart-bar {
+    position: relative !important;
+    height: auto !important;
+    min-height: 60px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    transition: all 0.2s ease !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .scenarios-container .chart-bar:hover {
+    transform: translateX(4px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Règle de débogage pour forcer l'application */
+  .scenarios-container {
+    background: rgba(255, 0, 0, 0.1) !important;
+  }
+  
+  /* Contenu des barres */
+  .bar-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    flex-direction: row !important;
+  }
+  
+  .bar-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    font-size: 0.95rem !important;
+  }
+  
+  .bar-value {
+    font-weight: 700 !important;
+    color: #1e293b !important;
+    font-size: 1rem !important;
+  }
+  
+  /* Ajouter des pastilles colorées */
+  .perte-revenu .bar-label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fca5a5, #ef4444);
+    flex-shrink: 0;
+  }
+  
+  .revenu-partiel .bar-label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #93c5fd, #3b82f6);
+    flex-shrink: 0;
+  }
+  
+  .retraite-progressive .bar-label::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #86efac, #10b981);
+    flex-shrink: 0;
+  }
+  
+  /* Footer total */
+  .column-footer {
+    margin-top: 1rem !important;
+  }
+  
+  .total-revenu {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1rem 1.25rem !important;
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2) !important;
+  }
+  
+  .total-label {
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+  }
+  
+  .total-value {
+    font-weight: 700 !important;
+    font-size: 1.25rem !important;
+  }
+  
+  /* Masquer la légende sur mobile */
+  .chart-legend {
+    display: none !important;
+  }
+  
+  /* Règle ultra-spécifique pour forcer l'application */
+  .scenarios-tab .scenarios-container .scenarios-chart-container .chart-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    grid-template-columns: none !important;
+  }
+  
+  .scenarios-tab .scenarios-container .scenarios-chart-container .chart-grid .scenario-column {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+    border: 2px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
 .scenario-column {
   display: flex;
   flex-direction: column;
