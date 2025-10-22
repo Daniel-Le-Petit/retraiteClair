@@ -125,34 +125,155 @@
 
 /* Styles pour les champs du mode avancé */
 .form-group.advanced-field {
-  border-left: 4px solid #10b981;
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 2px solid #93c5fd;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  border: 2px solid #60a5fa;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
   position: relative;
 }
 
 /* Styles pour les champs du mode simplifié */
 .form-group.simplified-field {
   border-left: 4px solid #10b981;
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 2px solid #93c5fd;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  border: 2px solid #6ee7b7;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
   position: relative;
 }
 
-.form-group.advanced-field::before {
-  content: '🎯 MODE AVANCÉ';
+/* Disposition spécifique pour le mode simplifié */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group.salaire-field {
+  flex: 1;
+  width: 50%;
+}
+
+.form-group.date-field {
+  flex: 1;
+  width: 50%;
+}
+
+.form-group.temps-field {
+  width: 100%;
+}
+
+/* Conteneur pour les champs côte à côte */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Largeurs spécifiques pour les champs du mode simplifié */
+.form-group.simplified-field.salaire-field {
+  flex: 1;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.form-group.simplified-field.date-field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.form-group.simplified-field.temps-field {
+  width: 100%;
+  display: block;
+  margin-bottom: 1.5rem;
+  clear: both;
+  margin-top: 0;
+}
+
+/* Labels sur une seule ligne */
+.form-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Bouton Mode Avancé dans le mode simplifié */
+.simulation-actions .btn-advanced {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-weight: 700;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* Nouvelle jauge avec boutons */
+.slider-container {
+  margin-top: 1rem;
+}
+
+.slider-options {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.slider-option {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+  text-align: center;
+}
+
+.slider-option:hover {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slider-option.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+}
+
+.slider-info {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-radius: 8px;
+  border: 1px solid #a7f3d0;
+}
+
+.slider-selected {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #047857;
+}
+
+.form-group.simplified-field::before {
+  content: '⚡ MODE SIMPLIFIÉ';
   position: absolute;
   top: -8px;
   right: 16px;
-  background: #10b981;
+  background: linear-gradient(135deg, #064e3b, #022c22);
   color: white;
   font-size: 0.7rem;
   font-weight: 700;
@@ -160,7 +281,50 @@
   border-radius: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(2, 44, 34, 0.5);
+}
+
+.form-group.advanced-field::before {
+  content: '🎯 MODE AVANCÉ';
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  background: linear-gradient(135deg, #1e3a8a, #1e293b);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.5);
+}
+
+/* Bouton Mode Simplifié dans le mode avancé */
+.simulation-actions .btn-secondary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-weight: 700;
+  border: 2px solid #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Bouton Voir les Résultats en mode simplifié */
+.simulation-actions .btn-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-weight: 700;
+  border: 2px solid #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Bouton Voir les Résultats en mode avancé */
+.simulation-actions .btn-primary.advanced {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-weight: 700;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .info-badge {
@@ -1689,6 +1853,209 @@
   margin: 0;
   color: #475569;
   font-size: 0.9rem;
+}
+
+/* Styles pour les scénarios */
+.scenarios-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.scenarios-container h3 {
+  color: #1e293b;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.scenarios-container p {
+  color: #64748b;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.scenarios-chart-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.scenario-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.column-header {
+  margin-bottom: 1rem;
+}
+
+.column-header h4 {
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.chart-stack {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 100%;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 30px;
+  width: 100% !important;
+  transition: all 0.3s ease;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.chart-bar:hover {
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+.bar-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.5rem;
+  width: 100% !important;
+  height: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.bar-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  line-height: 1.1;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.bar-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Couleurs des barres */
+.perte-revenu {
+  background: linear-gradient(135deg, #fecaca, #f87171);
+  color: #991b1b;
+  width: 100% !important;
+  display: flex !important;
+}
+
+.revenu-partiel {
+  background: linear-gradient(135deg, #dbeafe, #60a5fa);
+  color: #1e40af;
+  width: 100% !important;
+  display: flex !important;
+}
+
+.retraite-progressive {
+  background: linear-gradient(135deg, #d1fae5, #34d399);
+  color: #047857;
+  width: 100% !important;
+  display: flex !important;
+}
+
+.column-footer {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.total-revenu {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.total-label {
+  color: #475569;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.total-value {
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e2e8f0;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.legend-item span {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #e2e8f0;
+}
+
+.legend-color.perte-revenu {
+  background: linear-gradient(135deg, #fecaca, #f87171);
+}
+
+.legend-color.revenu-partiel {
+  background: linear-gradient(135deg, #dbeafe, #60a5fa);
+}
+
+.legend-color.retraite-progressive {
+  background: linear-gradient(135deg, #d1fae5, #34d399);
 }
 
 /* Titre du graphique */

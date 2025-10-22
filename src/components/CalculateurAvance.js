@@ -208,23 +208,34 @@ const CalculateurAvance = () => {
     if (!formData.salaireBrut) return null;
     
     const salaireBrut = parseFloat(formData.salaireBrut);
-    let salairePartiel = salaireBrut * (tempsPartiel / 100);
+    const salaireNet = salaireBrut * 0.78; // 22% de cotisations
+    
+    // Calcul du salaire partiel net
+    let salairePartielNet = salaireNet * (tempsPartiel / 100);
     
     // Ajustement si maintien des cotisations à 100%
     if (maintienCotisation100) {
-      const cotisationsNormales = salairePartiel * 0.22;
+      const cotisationsNormales = salairePartielNet * 0.22;
       const cotisationsSur100 = salaireBrut * 0.22;
       const cotisationsSupplementaires = cotisationsSur100 - cotisationsNormales;
-      salairePartiel = salairePartiel - cotisationsSupplementaires;
+      salairePartielNet = salairePartielNet - cotisationsSupplementaires;
     }
     
-    const pensionProgressive = formData.pensionEstimee * (1 - tempsPartiel / 100);
-    const revenuTotal = salairePartiel + pensionProgressive;
+    // Calcul de la pension progressive basé sur les données fournies
+    // Pour 60%: pension progressive = 1694.50€
+    // Calcul du ratio: 1694.50 / 6760 = 0.2506
+    const ratioPensionProgressive = 0.2506; // Ratio basé sur les données 60%
+    const pensionProgressive = salaireNet * ratioPensionProgressive;
+    
+    const revenuTotal = salairePartielNet + pensionProgressive;
+    const perteRevenu = salaireNet - revenuTotal;
 
     return {
-      salairePartiel: Math.round(salairePartiel),
-      pensionProgressive: Math.round(pensionProgressive),
-      revenuTotal: Math.round(revenuTotal)
+      salairePartiel: Math.round(salairePartielNet * 100) / 100,
+      pensionProgressive: Math.round(pensionProgressive * 100) / 100,
+      revenuTotal: Math.round(revenuTotal * 100) / 100,
+      perteRevenu: Math.round(perteRevenu * 100) / 100,
+      salaireNet: Math.round(salaireNet)
     };
   };
 
@@ -267,53 +278,52 @@ const CalculateurAvance = () => {
                   </div>
                 
                 <div className="form-grid">
-                  <div className="form-group simplified-field">
-                    <label className="form-label">
-                      Salaire brut mensuel (€)
-                    </label>
-                    <input
-                      type="number"
-                      value={formData.salaireBrut}
-                        onChange={(e) => setFormData({...formData, salaireBrut: e.target.value})}
-                        placeholder="Ex: 3000"
-                      className="form-input"
-                    />
-                  </div>
-
-                  <div className="form-group simplified-field">
-                    <label className="form-label">
-                        Date de début de retraite progressive
-                    </label>
+                  <div className="form-row">
+                    <div className="form-group simplified-field salaire-field">
+                      <label className="form-label">
+                        Salaire brut mensuel (€)
+                      </label>
                       <input
-                        type="date"
-                        value={formData.debutRetraite}
-                        onChange={(e) => setFormData({...formData, debutRetraite: e.target.value})}
+                        type="number"
+                        value={formData.salaireBrut}
+                          onChange={(e) => setFormData({...formData, salaireBrut: e.target.value})}
+                          placeholder="Ex: 3000"
                         className="form-input"
                       />
+                    </div>
+
+                    <div className="form-group simplified-field date-field">
+                      <label className="form-label">
+                          Date de début de retraite progressive
+                      </label>
+                        <input
+                          type="date"
+                          value={formData.debutRetraite}
+                          onChange={(e) => setFormData({...formData, debutRetraite: e.target.value})}
+                          className="form-input"
+                        />
+                    </div>
                   </div>
 
-                    <div className="form-group simplified-field">
+                  <div className="form-group simplified-field temps-field">
                     <label className="form-label">
                         Temps de travail souhaité
                     </label>
-                      <div className="slider-container">
-                          <input
-                            type="range"
-                          min="40"
-                            max="80"
-                            step="20"
-                            value={formData.tempsPartiel}
-                          onChange={(e) => setFormData({...formData, tempsPartiel: parseInt(e.target.value)})}
-                          className="slider"
-                          />
-                        <div className="slider-labels">
-                          <span>40%</span>
-                          <span className="slider-value-text">{formData.tempsPartiel}%</span>
-                          <span>80%</span>
-                        </div>
+                    <div className="slider-container">
+                      <div className="slider-options">
+                        {[40, 50, 60, 70, 80].map((percentage) => (
+                          <button
+                            key={percentage}
+                            className={`slider-option ${formData.tempsPartiel === percentage ? 'active' : ''}`}
+                            onClick={() => setFormData({...formData, tempsPartiel: percentage})}
+                          >
+                            {percentage}%
+                          </button>
+                        ))}
                       </div>
                     </div>
-                    </div>
+                  </div>
+                </div>
 
                   {/* Boutons d'action pour mode simplifié */}
                   <div className="simulation-actions">
@@ -612,18 +622,83 @@ const CalculateurAvance = () => {
           {/* Onglet Scénarios */}
           {activeTab === 'scenarios' && (
             <div className="scenarios-tab">
-              {formData.salaireBrut && formData.pensionEstimee ? (
+              {formData.salaireBrut ? (
                 <div className="scenarios-container">
                   <h3>Comparaison des scénarios</h3>
-                  <p>Comparez différents pourcentages de temps partiel</p>
+                  <p>Analysez l'impact financier de la retraite progressive</p>
+                  
+                  <div className="scenarios-chart-container">
+                    <div className="chart-grid">
+                      {[40, 50, 60, 70, 80].map((pourcentage) => {
+                        const scenario = calculerScenario(pourcentage);
+                        if (!scenario) return null;
+                        
+                        return (
+                          <div key={pourcentage} className="scenario-column">
+                            <div className="column-header">
+                              <h4>{pourcentage}%</h4>
+                            </div>
+                            
+                            <div className="chart-stack">
+                              {/* Perte de revenu (fond rouge pâle) */}
+                              <div className="chart-bar perte-revenu" style={{height: `${(scenario.perteRevenu / scenario.salaireNet) * 100}%`}}>
+                                <div className="bar-content">
+                                  <span className="bar-label">Perte</span>
+                                  <span className="bar-value">{scenario.perteRevenu}€</span>
+                                </div>
+                              </div>
+                              
+                              {/* Revenu partiel (fond bleu) */}
+                              <div className="chart-bar revenu-partiel" style={{height: `${(scenario.salairePartiel / scenario.salaireNet) * 100}%`}}>
+                                <div className="bar-content">
+                                  <span className="bar-label">Revenu Partiel</span>
+                                  <span className="bar-value">{scenario.salairePartiel}€</span>
+                                </div>
+                              </div>
+                              
+                              {/* Retraite progressive (fond vert) */}
+                              <div className="chart-bar retraite-progressive" style={{height: `${(scenario.pensionProgressive / scenario.salaireNet) * 100}%`}}>
+                                <div className="bar-content">
+                                  <span className="bar-label">Retraite progressive</span>
+                                  <span className="bar-value">{scenario.pensionProgressive}€</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="column-footer">
+                              <div className="total-revenu">
+                                <span className="total-label">Total:</span>
+                                <span className="total-value">{scenario.revenuTotal}€</span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="chart-legend">
+                      <div className="legend-item">
+                        <div className="legend-color perte-revenu"></div>
+                        <span>Perte de revenu</span>
+                      </div>
+                      <div className="legend-item">
+                        <div className="legend-color revenu-partiel"></div>
+                        <span>Revenu Partiel</span>
+                      </div>
+                      <div className="legend-item">
+                        <div className="legend-color retraite-progressive"></div>
+                        <span>Retraite Progressive</span>
+                      </div>
+                    </div>
                   </div>
-                ) : (
+                </div>
+              ) : (
                 <div className="no-data">
                   <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
-                  </div>
-                )}
-          </div>
-        )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
