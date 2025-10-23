@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SEOHead from '../SEOHead';
 import { blogArticles } from '../../data/blogArticles';
 import './Blog.css';
@@ -101,7 +100,17 @@ const BlogListStable = () => {
                   </div>
                   
                   <h2 className="article-title" style={{ opacity: 1, transform: 'translateY(0)' }}>
-                    <Link to={`/blog/${article.slug}`}>{article.title}</Link>
+                    <button 
+                      className="article-link"
+                      onClick={() => {
+                        // Navigation vers l'article
+                        window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                          detail: { article } 
+                        }));
+                      }}
+                    >
+                      {article.title}
+                    </button>
                   </h2>
                   
                   <p className="article-excerpt">{article.excerpt}</p>
@@ -112,9 +121,17 @@ const BlogListStable = () => {
                         <span key={tag} className="article-tag">#{tag}</span>
                       ))}
                     </div>
-                    <Link to={`/blog/${article.slug}`} className="read-more">
+                    <button 
+                      className="read-more"
+                      onClick={() => {
+                        // Navigation vers l'article
+                        window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                          detail: { article } 
+                        }));
+                      }}
+                    >
                       Lire la suite →
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </article>

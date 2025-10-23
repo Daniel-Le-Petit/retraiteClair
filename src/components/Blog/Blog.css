@@ -285,11 +285,182 @@
   align-items: center;
   gap: 5px;
   transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
 }
 
 .read-more-btn:hover {
   color: #764ba2;
   transform: translateX(3px);
+}
+
+/* Style pour les liens d'articles */
+.article-link {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.article-link:hover {
+  color: #0f766e;
+  text-decoration: underline;
+}
+
+/* Style pour les boutons "Lire la suite" dans BlogListStable */
+.read-more {
+  background: none;
+  border: none;
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+.read-more:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Style pour les breadcrumbs */
+.breadcrumb-link {
+  background: none;
+  border: none;
+  color: #667eea;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+.breadcrumb-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Style pour les boutons de navigation */
+.btn-primary {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+}
+
+/* Bouton secondaire */
+.btn-secondary {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Navigation d'article */
+.back-to-blog {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.article-title-breadcrumb {
+  color: #64748b;
+  font-weight: 500;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Style pour les boîtes de contenu */
+.formula-box {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: #1e293b;
+}
+
+.example-box {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.example-box h4 {
+  color: #92400e;
+  margin-bottom: 0.5rem;
+}
+
+.example-box p {
+  color: #92400e;
+  margin-bottom: 1rem;
+}
+
+.example-box ul {
+  color: #92400e;
+  margin-left: 1rem;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 2px solid #3b82f6;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.cta-box h3 {
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
+
+.cta-box p {
+  color: #1e40af;
+  margin-bottom: 1.5rem;
 }
 
 /* Aucun article trouvé */

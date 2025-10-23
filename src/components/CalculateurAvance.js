@@ -251,7 +251,7 @@ const CalculateurAvance = () => {
     if (!formData.salaireBrut) return null;
     
     const salaireBrut = parseFloat(formData.salaireBrut);
-        const salaireNet = salaireBrut * 0.77; // 23% de cotisations (selon M@rel)
+    const salaireNet = salaireBrut * 0.77; // 23% de cotisations (selon M@rel)
     
     // Calcul du salaire partiel net
     let salairePartielNet = salaireNet * (tempsPartiel / 100);
@@ -264,11 +264,27 @@ const CalculateurAvance = () => {
       salairePartielNet = salairePartielNet - cotisationsSupplementaires;
     }
     
-    // Calcul de la pension progressive basé sur les données fournies
-    // Pour 60%: pension progressive = 1694.50€
-    // Calcul du ratio: 1694.50 / 6760 = 0.2506
-    const ratioPensionProgressive = 0.2506; // Ratio basé sur les données 60%
-    const pensionProgressive = salaireNet * ratioPensionProgressive;
+    // Calcul de la pension progressive selon la MÊME logique que la simulation principale
+    let pensionProgressive = 0;
+    
+    if (showAdvancedMode && formData.salaireAnnuelMoyen && formData.trimestresValides) {
+      // Mode avancé : même logique que la simulation principale
+      const salaireAnnuelMoyen = parseFloat(formData.salaireAnnuelMoyen);
+      const trimestresValides = parseInt(formData.trimestresValides);
+      const trimestresRequis = getTrimestresRequis(parseInt(formData.anneeNaissance));
+      const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
+      
+      const tauxPension = Math.min(trimestresValides / trimestresRequis, 1);
+      const pensionCompleteSansDecote = (salaireAnnuelMoyen * 0.5) * tauxPension / 12;
+      const pensionProgressiveSansDecote = pensionCompleteSansDecote * 0.40; // 40% sans décote
+      pensionProgressive = pensionProgressiveSansDecote * (1 + surcoteDecote / 100); // Application de la décote/surcote
+    } else {
+      // Mode simplifié : même logique que la simulation principale
+      const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
+      const pensionCompleteSansDecote = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45;
+      const pensionProgressiveSansDecote = pensionCompleteSansDecote * 0.40; // 40% sans décote
+      pensionProgressive = pensionProgressiveSansDecote * (1 + surcoteDecote / 100); // Application de la décote/surcote
+    }
     
     const revenuTotal = salairePartielNet + pensionProgressive;
     const perteRevenu = salaireNet - revenuTotal;
@@ -741,7 +757,7 @@ const CalculateurAvance = () => {
                             
                             <div className="column-footer">
                               <div className="total-revenu">
-                                <span className="total-label">Total:</span>
+                                <span className="total-label">Total des revenus :</span>
                                 <span className="total-value">{scenario.revenuTotal}€</span>
                               </div>
                             </div>

@@ -3,6 +3,7 @@ import { useSwipeable } from 'react-swipeable';
 import HomePage from './HomePage';
 import CalculateurAvance from './CalculateurAvance';
 import BlogListStable from './Blog/BlogListStable';
+import BlogPostViewer from './Blog/BlogPostViewer';
 import ConseilsPageSimple from './ConseilsPageSimple';
 import ContactForm from './ContactForm';
 import HorizontalNavigation from './HorizontalNavigation';
@@ -12,6 +13,9 @@ import './SwipeNavigation.css';
 const SwipeNavigation = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentArticle, setCurrentArticle] = useState(null);
+  const [isTextSelection, setIsTextSelection] = useState(false);
+  const [readingMode, setReadingMode] = useState(false);
 
   // Configuration des pages
   const pages = [
@@ -30,32 +34,33 @@ const SwipeNavigation = () => {
     }
   };
 
-  // Gestion du swipe
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (!isTransitioning) {
-        setIsTransitioning(true);
-        setCurrentIndex((prev) => (prev + 1) % pages.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-          scrollToTop();
-        }, 300);
+  // Désactiver complètement tous les événements qui interfèrent avec la sélection de texte
+  useEffect(() => {
+    // Supprimer tous les événements de swipe et de navigation qui interfèrent
+    const preventSwipeEvents = (e) => {
+      // Empêcher tous les événements de swipe
+      if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend') {
+        e.stopPropagation();
       }
-    },
-    onSwipedRight: () => {
-      if (!isTransitioning) {
-        setIsTransitioning(true);
-        setCurrentIndex((prev) => (prev - 1 + pages.length) % pages.length);
-        setTimeout(() => {
-          setIsTransitioning(false);
-          scrollToTop();
-        }, 300);
-      }
-    },
-    preventDefaultTouchmoveEvent: false,
-    trackMouse: true,
-    delta: 50
-  });
+    };
+
+    // Désactiver les événements de swipe sur tout le document
+    document.addEventListener('touchstart', preventSwipeEvents, { passive: false });
+    document.addEventListener('touchmove', preventSwipeEvents, { passive: false });
+    document.addEventListener('touchend', preventSwipeEvents, { passive: false });
+
+    return () => {
+      document.removeEventListener('touchstart', preventSwipeEvents);
+      document.removeEventListener('touchmove', preventSwipeEvents);
+      document.removeEventListener('touchend', preventSwipeEvents);
+    };
+  }, []);
+
+  // Désactiver complètement le swipe pour permettre la sélection de texte
+  const swipeHandlers = {}; // Swipe complètement désactivé
+  
+  // Détecter si on est sur une page de contenu (blog, conseils, contact)
+  const isContentPage = currentIndex >= 2 || currentArticle; // Blog, conseils, contact ou article
 
   // Navigation par clic sur les dots
   const goToPage = (index) => {
@@ -84,12 +89,46 @@ const SwipeNavigation = () => {
       }
     };
 
+    const handleArticleNavigation = (event) => {
+      const { article } = event.detail;
+      setCurrentArticle(article);
+    };
+
+    const handleBackToBlog = () => {
+      setCurrentArticle(null);
+      goToPage(2); // Index du blog
+    };
+
     window.addEventListener('navigateToPage', handleNavigation);
-    return () => window.removeEventListener('navigateToPage', handleNavigation);
+    window.addEventListener('navigateToArticle', handleArticleNavigation);
+    window.addEventListener('backToBlog', handleBackToBlog);
+    return () => {
+      window.removeEventListener('navigateToPage', handleNavigation);
+      window.removeEventListener('navigateToArticle', handleArticleNavigation);
+      window.removeEventListener('backToBlog', handleBackToBlog);
+    };
   }, []);
 
   // Rendu des pages avec transition
   const renderPages = () => {
+    // Si on affiche un article, on l'affiche en priorité
+    if (currentArticle) {
+      return (
+        <div
+          key="article"
+          className="swipe-page active"
+          style={{
+            transform: 'translateX(0%)',
+            opacity: 1,
+            zIndex: 10,
+            display: 'block'
+          }}
+        >
+          <BlogPostViewer articleSlug={currentArticle.slug} />
+        </div>
+      );
+    }
+
     return pages.map((page, index) => {
       const PageComponent = page.component;
       const isActive = index === currentIndex;
@@ -117,18 +156,38 @@ const SwipeNavigation = () => {
   };
 
   return (
-    <div className="swipe-navigation" {...swipeHandlers}>
+    <div 
+      className={`swipe-navigation ${currentArticle ? 'article-mode' : ''} ${readingMode ? 'reading-mode' : ''}`}
+    >
+      {/* Bouton de mode lecture */}
+      {isContentPage && (
+        <div className="reading-mode-toggle">
+          <button 
+            className={`reading-btn ${readingMode ? 'active' : ''}`}
+            onClick={() => setReadingMode(!readingMode)}
+            title={readingMode ? 'Désactiver le mode lecture' : 'Activer le mode lecture'}
+          >
+            {readingMode ? '📖 Mode lecture' : '👁️ Mode lecture'}
+          </button>
+        </div>
+      )}
+      
       <div className="swipe-container">
         {renderPages()}
       </div>
       
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigation 
-        currentPage={pages[currentIndex].id}
+        currentPage={currentArticle ? 'article' : pages[currentIndex].id}
         onPageChange={(pageId) => {
-          const pageIndex = pages.findIndex(page => page.id === pageId);
-          if (pageIndex !== -1) {
-            goToPage(pageIndex);
+          if (pageId === 'blog' && currentArticle) {
+            setCurrentArticle(null);
+            goToPage(2); // Index du blog
+          } else {
+            const pageIndex = pages.findIndex(page => page.id === pageId);
+            if (pageIndex !== -1) {
+              goToPage(pageIndex);
+            }
           }
         }}
       />

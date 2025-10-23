@@ -39,6 +39,87 @@
   visibility: visible !important;
 }
 
+/* Mode article - désactiver le swipe */
+.swipe-navigation.article-mode {
+  /* Indicateur visuel que le swipe est désactivé */
+  position: relative;
+}
+
+.swipe-navigation.article-mode::before {
+  content: '📖 Mode lecture - Swipe désactivé';
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  background: rgba(15, 118, 110, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  z-index: 1000;
+  animation: fadeInOut 3s ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Bouton de mode lecture */
+.reading-mode-toggle {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1002;
+}
+
+.reading-btn {
+  background: rgba(15, 118, 110, 0.9);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.reading-btn:hover {
+  background: rgba(15, 118, 110, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+}
+
+.reading-btn.active {
+  background: rgba(16, 185, 129, 0.9);
+  animation: pulse 2s infinite;
+}
+
+.reading-btn.active:hover {
+  background: rgba(16, 185, 129, 1);
+}
+
+/* Mode lecture actif */
+.swipe-navigation.reading-mode::before {
+  content: '📖 Mode lecture activé - Swipe désactivé';
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  background: rgba(16, 185, 129, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  z-index: 1000;
+  animation: fadeInOut 3s ease-in-out;
+  pointer-events: none;
+}
+
 /* Masquer les éléments de header */
 .header,
 .navbar,

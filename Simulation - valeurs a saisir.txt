@@ -1,3 +1,17 @@
+-------------------------------------------------------------------
+Valeurs attendues M@rel :
+-------------------------------------------------------------------
+salaire Brut : 		8785 
+Salaire Net : 		6763
+Temps partiel : 	60 %
+Sallaire annuel : 	103000 
+Revenu Net Partiel : 	4058
+Pension Progressive : 	1370
+Revenu Total : 		5428
+Pension Complète : 	4549
+-------------------------------------------------------------------
+
+
 D'après l'image M@rel, les montants affichés sont "nets" :
 - 4058 € nets de revenu d'activité
 - 1370 € nets de retraite progressive

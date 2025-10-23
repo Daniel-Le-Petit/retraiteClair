@@ -46,9 +46,17 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
 
   // Trouver l'index de la page actuelle
   useEffect(() => {
-    const currentIndex = navigationItems.findIndex(item => item.id === currentPage);
-    if (currentIndex !== -1) {
-      setActiveIndex(currentIndex);
+    if (currentPage === 'article') {
+      // Si on est sur un article, on active le blog
+      const blogIndex = navigationItems.findIndex(item => item.id === 'blog');
+      if (blogIndex !== -1) {
+        setActiveIndex(blogIndex);
+      }
+    } else {
+      const currentIndex = navigationItems.findIndex(item => item.id === currentPage);
+      if (currentIndex !== -1) {
+        setActiveIndex(currentIndex);
+      }
     }
   }, [currentPage]);
 
@@ -56,6 +64,9 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
     setActiveIndex(index);
     onPageChange(item.id);
   };
+
+  // Indicateur spécial pour les articles
+  const isOnArticle = currentPage === 'article';
 
   return (
     <div className="horizontal-navigation">
@@ -76,8 +87,15 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
                 </div>
                 
                 <div className="nav-item-text">
-                  <div className="nav-item-label">{item.label}</div>
-                  <div className="nav-item-description">{item.description}</div>
+                  <div className="nav-item-label">
+                    {item.label}
+                    {isOnArticle && item.id === 'blog' && (
+                      <span className="article-indicator"> 📖</span>
+                    )}
+                  </div>
+                  <div className="nav-item-description">
+                    {isOnArticle && item.id === 'blog' ? 'Article en cours' : item.description}
+                  </div>
                 </div>
               </div>
             </button>

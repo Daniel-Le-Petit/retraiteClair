@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import SEOHead from '../SEOHead';
 import { blogArticles } from '../../data/blogArticles';
 import './Blog.css';
@@ -141,9 +140,17 @@ const BlogList = () => {
                     </div>
                     
                     <h2 className="article-title">
-                      <Link to={`/blog/${article.slug}`}>
+                      <button 
+                        className="article-link"
+                        onClick={() => {
+                          // Navigation vers l'article
+                          window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                            detail: { article } 
+                          }));
+                        }}
+                      >
                         {article.title}
-                      </Link>
+                      </button>
                     </h2>
                     
                     <p className="article-excerpt">{article.excerpt}</p>
@@ -154,9 +161,17 @@ const BlogList = () => {
                       ))}
                     </div>
                     
-                    <Link to={`/blog/${article.slug}`} className="read-more-btn">
+                    <button 
+                      className="read-more-btn"
+                      onClick={() => {
+                        // Navigation vers l'article
+                        window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                          detail: { article } 
+                        }));
+                      }}
+                    >
                       Lire l'article →
-                    </Link>
+                    </button>
                   </div>
                 </article>
               ))}

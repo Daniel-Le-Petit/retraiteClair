@@ -53,6 +53,19 @@
   font-weight: 600;
 }
 
+/* Indicateur d'article */
+.article-indicator {
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
 .nav-item.active::before {
   content: '';
   position: absolute;
