@@ -281,8 +281,10 @@ const CalculateurAvance = () => {
     } else {
       // Mode simplifié : EXACTEMENT la même logique que la simulation principale
       const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
-      // Utiliser la même formule que dans la simulation principale
-      pensionProgressive = salaireNet * 0.2506 * (1 + surcoteDecote / 100);
+      // Utiliser la MÊME logique que la simulation principale
+      const pensionCompleteSansDecote = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45;
+      const pensionProgressiveSansDecote = pensionCompleteSansDecote * 0.40; // 40% sans décote
+      pensionProgressive = pensionProgressiveSansDecote * (1 + surcoteDecote / 100); // Application de la décote/surcote
     }
     
     const revenuTotal = salairePartielNet + pensionProgressive;
@@ -574,10 +576,7 @@ const CalculateurAvance = () => {
           {activeTab === 'resultats' && (
             <div className="resultats-tab">
               {resultats ? (
-                <div className="results-container">
-                  <div className="results-summary">
-                    <h3>Vos résultats de retraite progressive</h3>
-                    
+                <>
                     {/* Section Pendant la retraite progressive */}
                     <div className="results-section">
                       <h4 className="section-title">Pendant votre retraite progressive, vous percevez :</h4>
@@ -588,7 +587,7 @@ const CalculateurAvance = () => {
                           <p className="result-explanation">
                             Ce montant correspond à votre activité à temps partiel ({formData.tempsPartiel}%) après déduction des cotisations
                           </p>
-                    </div>
+                        </div>
                         <div className="result-card">
                           <h4>Retraite progressive</h4>
                           <p className="result-value">{resultats.pensionProgressive.toFixed(2)} €</p>
@@ -601,8 +600,23 @@ const CalculateurAvance = () => {
                           <p className="result-value">{((resultats.salairePartiel * 0.78) + resultats.pensionProgressive).toFixed(2)} € nets/mois</p>
                           <p className="result-explanation">
                             Revenu total pendant votre retraite progressive
-                      </p>
+                          </p>
                         </div>
+                      </div>
+                      
+                      {/* Bouton pour accéder aux scénarios */}
+                      <div className="scenarios-button-container">
+                        <button 
+                          className="btn-scenarios"
+                          onClick={() => setActiveTab('scenarios')}
+                        >
+                          <div className="btn-content">
+                            <div className="btn-text">
+                              <div className="btn-title">Voir les scénarios</div>
+                              <div className="btn-subtitle">Comparez différents pourcentages de temps partiel</div>
+                            </div>
+                          </div>
+                        </button>
                       </div>
                     </div>
 
@@ -615,11 +629,10 @@ const CalculateurAvance = () => {
                           <p className="result-value">{resultats.pensionComplete.toFixed(2)} € nets/mois</p>
                           <p className="result-explanation">
                             Ce montant correspond à la totalité de votre retraite et prend en compte les droits enregistrés pendant votre retraite progressive.
-                      </p>
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                </div>
 
                     {/* Section des calculs détaillés */}
                     <div className="calculations-details">
@@ -699,7 +712,7 @@ const CalculateurAvance = () => {
                         </div>
                         </div>
                     </div>
-                  </div>
+                </>
                 ) : (
                   <div className="no-data">
                   <p>Veuillez d'abord saisir vos données dans l'onglet "Saisie"</p>
@@ -777,6 +790,10 @@ const CalculateurAvance = () => {
                       <div className="legend-item">
                         <div className="legend-color retraite-progressive"></div>
                         <span>Retraite Progressive</span>
+                      </div>
+                      <div className="legend-item total-legend">
+                        <div className="legend-color total-revenu"></div>
+                        <span>Total des revenus pendant la retraite progressive</span>
                       </div>
                     </div>
                   </div>
