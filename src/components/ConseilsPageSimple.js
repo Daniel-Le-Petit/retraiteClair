@@ -785,7 +785,11 @@ const ConseilsPageSimple = ({ onPageChange }) => {
               <p>Calculez vos revenus en retraite progressive en quelques minutes. Simulation personnalisée basée sur votre situation.</p>
               <button 
                 className="cta-button primary"
-                onClick={() => navigate('/calculateur')}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { 
+                    detail: { page: 'calculateur' } 
+                  }));
+                }}
               >
                 🧮 Lancer la simulation
               </button>
@@ -799,7 +803,11 @@ const ConseilsPageSimple = ({ onPageChange }) => {
               <p>Nos experts vous accompagnent dans vos démarches et répondent à toutes vos questions sur la retraite progressive.</p>
               <button 
                 className="cta-button secondary"
-                onClick={() => navigate('/contact')}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { 
+                    detail: { page: 'contact' } 
+                  }));
+                }}
               >
                 📞 Nous contacter
               </button>
