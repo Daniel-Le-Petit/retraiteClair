@@ -39,33 +39,12 @@
   visibility: visible !important;
 }
 
-/* Mode article - désactiver le swipe */
+/* Mode article - swipe désactivé silencieusement */
 .swipe-navigation.article-mode {
-  /* Indicateur visuel que le swipe est désactivé */
   position: relative;
 }
 
-.swipe-navigation.article-mode::before {
-  content: '📖 Mode lecture - Swipe désactivé';
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  background: rgba(15, 118, 110, 0.9);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  z-index: 1000;
-  animation: fadeInOut 3s ease-in-out;
-  pointer-events: none;
-}
-
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-10px); }
-  20% { opacity: 1; transform: translateY(0); }
-  80% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-10px); }
-}
+/* Animation supprimée - plus d'indicateurs visuels */
 
 /* Bouton de mode lecture */
 .reading-mode-toggle {
@@ -104,33 +83,7 @@
   background: rgba(16, 185, 129, 1);
 }
 
-/* Mode lecture actif - indicateur mobile */
-.swipe-navigation.reading-mode::before {
-  content: '📖 Sélection de texte - Swipe désactivé';
-  position: fixed;
-  top: 70px;
-  left: 20px;
-  background: rgba(16, 185, 129, 0.9);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  z-index: 1000;
-  animation: fadeInOut 3s ease-in-out;
-  pointer-events: none;
-}
-
-/* Indicateur pour mobile uniquement */
-@media (max-width: 768px) {
-  .swipe-navigation.reading-mode::before {
-    content: '📖 Mode lecture - Swipe désactivé';
-    top: 60px;
-    left: 10px;
-    right: 10px;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-}
+/* Mode lecture - indicateur supprimé pour éviter les distractions */
 
 /* Masquer les éléments de header */
 .header,
