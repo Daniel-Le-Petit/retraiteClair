@@ -34,30 +34,111 @@ const SwipeNavigation = () => {
     }
   };
 
-  // Désactiver complètement tous les événements qui interfèrent avec la sélection de texte
+  // Détection intelligente de sélection de texte pour mobile
   useEffect(() => {
-    // Supprimer tous les événements de swipe et de navigation qui interfèrent
-    const preventSwipeEvents = (e) => {
-      // Empêcher tous les événements de swipe
-      if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend') {
-        e.stopPropagation();
+    let isSelecting = false;
+    let selectionTimeout = null;
+
+    const handleSelectionStart = (e) => {
+      // Détecter si on commence une sélection de texte
+      const target = e.target;
+      
+      // Vérifier si closest est disponible et si c'est un élément de texte
+      if (target && typeof target.closest === 'function') {
+        const isTextElement = target.closest('p, h1, h2, h3, h4, h5, h6, span, div, article, section, .post-content, .article-content, .conseils-content');
+        
+        if (isTextElement) {
+          isSelecting = true;
+          setIsTextSelection(true);
+          setReadingMode(true);
+        }
+      } else {
+        // Fallback : vérifier le tagName directement
+        const textTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SPAN', 'DIV', 'ARTICLE', 'SECTION'];
+        if (target && textTags.includes(target.tagName)) {
+          isSelecting = true;
+          setIsTextSelection(true);
+          setReadingMode(true);
+        }
       }
     };
 
-    // Désactiver les événements de swipe sur tout le document
-    document.addEventListener('touchstart', preventSwipeEvents, { passive: false });
-    document.addEventListener('touchmove', preventSwipeEvents, { passive: false });
-    document.addEventListener('touchend', preventSwipeEvents, { passive: false });
+    const handleSelectionChange = () => {
+      // Vérifier si getSelection est disponible
+      if (typeof window.getSelection === 'function') {
+        const selection = window.getSelection();
+        const hasSelection = selection && selection.toString().length > 0;
+        
+        if (hasSelection) {
+          isSelecting = true;
+          setIsTextSelection(true);
+          setReadingMode(true);
+        } else {
+          // Délai avant de réactiver le swipe
+          selectionTimeout = setTimeout(() => {
+            isSelecting = false;
+            setIsTextSelection(false);
+            setReadingMode(false);
+          }, 300);
+        }
+      }
+    };
+
+    const handleTouchStart = (e) => {
+      handleSelectionStart(e);
+    };
+
+    const handleTouchEnd = () => {
+      // Vérifier après un délai si on a encore une sélection
+      setTimeout(() => {
+        if (typeof window.getSelection === 'function') {
+          const selection = window.getSelection();
+          if (selection && selection.toString().length === 0) {
+            isSelecting = false;
+            setIsTextSelection(false);
+            setReadingMode(false);
+          }
+        }
+      }, 200);
+    };
+
+    // Événements pour la détection de sélection
+    document.addEventListener('selectstart', handleSelectionStart);
+    document.addEventListener('selectionchange', handleSelectionChange);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchend', handleTouchEnd);
 
     return () => {
-      document.removeEventListener('touchstart', preventSwipeEvents);
-      document.removeEventListener('touchmove', preventSwipeEvents);
-      document.removeEventListener('touchend', preventSwipeEvents);
+      document.removeEventListener('selectstart', handleSelectionStart);
+      document.removeEventListener('selectionchange', handleSelectionChange);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+      if (selectionTimeout) {
+        clearTimeout(selectionTimeout);
+      }
     };
   }, []);
 
-  // Désactiver complètement le swipe pour permettre la sélection de texte
-  const swipeHandlers = {}; // Swipe complètement désactivé
+  // Réactiver le swipe avec détection intelligente de sélection de texte
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (!isTextSelection && !readingMode && !currentArticle) {
+        if (currentIndex < pages.length - 1) {
+          goToPage(currentIndex + 1);
+        }
+      }
+    },
+    onSwipedRight: () => {
+      if (!isTextSelection && !readingMode && !currentArticle) {
+        if (currentIndex > 0) {
+          goToPage(currentIndex - 1);
+        }
+      }
+    },
+    delta: 50, // Sensibilité du swipe
+    trackMouse: false, // Pas de swipe avec la souris
+    preventDefaultTouchmoveEvent: false, // Permettre le scroll
+  });
   
   // Détecter si on est sur une page de contenu (blog, conseils, contact)
   const isContentPage = currentIndex >= 2 || currentArticle; // Blog, conseils, contact ou article
@@ -158,8 +239,9 @@ const SwipeNavigation = () => {
   return (
     <div 
       className={`swipe-navigation ${currentArticle ? 'article-mode' : ''} ${readingMode ? 'reading-mode' : ''}`}
+      {...swipeHandlers}
     >
-      {/* Mode lecture toujours activé pour permettre la sélection de texte */}
+      {/* Mode lecture intelligent - swipe désactivé pendant la sélection */}
       
       <div className="swipe-container">
         {renderPages()}

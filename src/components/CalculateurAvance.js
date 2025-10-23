@@ -757,7 +757,7 @@ const CalculateurAvance = () => {
                             <div className="column-footer">
                         <div className="total-revenu">
                           <span className="total-label">Total des revenus</span>
-                          <span className="total-value">{scenario.revenuTotal}€</span>
+                          <span className="total-value">{scenario.revenuTotal.toFixed(2)}€</span>
                         </div>
                             </div>
                           </div>

@@ -62,7 +62,11 @@ const ConseilsPageSimple = ({ onPageChange }) => {
               <p>Entre 60% et 70% de temps partiel offre souvent le meilleur équilibre entre revenus et qualité de vie. Utilisez notre calculateur pour trouver votre optimal.</p>
               <button 
                 className="conseil-link-btn"
-                onClick={() => navigate('/calculateur')}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { 
+                    detail: { page: 'calculateur' } 
+                  }));
+                }}
               >
                 🧮 Tester avec le simulateur
               </button>

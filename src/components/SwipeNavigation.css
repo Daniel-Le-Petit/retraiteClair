@@ -104,9 +104,9 @@
   background: rgba(16, 185, 129, 1);
 }
 
-/* Mode lecture actif */
+/* Mode lecture actif - indicateur mobile */
 .swipe-navigation.reading-mode::before {
-  content: '📖 Mode lecture activé - Swipe désactivé';
+  content: '📖 Sélection de texte - Swipe désactivé';
   position: fixed;
   top: 70px;
   left: 20px;
@@ -118,6 +118,18 @@
   z-index: 1000;
   animation: fadeInOut 3s ease-in-out;
   pointer-events: none;
+}
+
+/* Indicateur pour mobile uniquement */
+@media (max-width: 768px) {
+  .swipe-navigation.reading-mode::before {
+    content: '📖 Mode lecture - Swipe désactivé';
+    top: 60px;
+    left: 10px;
+    right: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
 }
 
 /* Masquer les éléments de header */
