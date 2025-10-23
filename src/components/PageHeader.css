@@ -7,7 +7,7 @@
   background-size: cover;
   background-position: center;
   color: white;
-  padding: 20px 0 15px;
+  padding: 12px 0 8px;
   text-align: center;
   margin-top: 0;
 }
@@ -48,7 +48,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .page-header {
-    padding: 12px 0 8px;
+    padding: 8px 0 6px;
   }
   
   .page-header h1 {
@@ -70,7 +70,7 @@
 /* Version téléphone très petite */
 @media (max-width: 480px) {
   .page-header {
-    padding: 8px 0 6px;
+    padding: 6px 0 4px;
   }
   
   .page-header h1 {
