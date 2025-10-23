@@ -177,7 +177,7 @@ const CalculateurAvance = () => {
         modeCalcul = 'avance';
       } else {
         // Mode simplifié : estimation selon M@rel
-        const salaireNet = salaireBrut * 0.78; // 22% de cotisations
+        const salaireNet = salaireBrut * 0.77; // 23% de cotisations (selon M@rel)
         const surcoteDecote = parseFloat(formData.surcoteDecote) || 0;
         pensionComplete = formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : salaireNet * 0.45; // Pension complète
         pensionComplete = pensionComplete * (1 + surcoteDecote / 100); // Application de la surcote/décote
@@ -190,7 +190,7 @@ const CalculateurAvance = () => {
 
       setResultats({
         salaireActuel: salaireBrut,
-        salaireNet: salaireBrut * 0.78,
+        salaireNet: salaireBrut * 0.77,
         salairePartiel: salairePartiel,
         pensionProgressive: pensionProgressive,
         pensionComplete: pensionComplete,
@@ -251,7 +251,7 @@ const CalculateurAvance = () => {
     if (!formData.salaireBrut) return null;
     
     const salaireBrut = parseFloat(formData.salaireBrut);
-    const salaireNet = salaireBrut * 0.78; // 22% de cotisations
+        const salaireNet = salaireBrut * 0.77; // 23% de cotisations (selon M@rel)
     
     // Calcul du salaire partiel net
     let salairePartielNet = salaireNet * (tempsPartiel / 100);

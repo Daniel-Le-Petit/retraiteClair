@@ -2271,16 +2271,15 @@ div.advanced-field label {
   .scenarios-container .chart-bar {
     position: relative !important;
     height: auto !important;
-    min-height: 40px !important;
+    min-height: 50px !important;
     width: 100% !important;
     display: flex !important;
     align-items: center !important;
-    padding: 0.5rem 0.75rem !important;
+    padding: 0.75rem 1rem !important;
     border-radius: 8px !important;
-    background: white !important;
-    border: 1px solid #e2e8f0 !important;
+    border: 2px solid transparent !important;
     transition: all 0.2s ease !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 0.5rem !important;
   }
   
   .scenarios-container .chart-bar:hover {
@@ -2298,47 +2297,70 @@ div.advanced-field label {
     flex-direction: row !important;
   }
   
-  .bar-label {
+  .scenarios-container .bar-label {
     display: flex !important;
     align-items: center !important;
-    gap: 0.75rem !important;
+    gap: 0.5rem !important;
     font-weight: 600 !important;
-    color: #374151 !important;
-    font-size: 0.95rem !important;
+    font-size: 0.9rem !important;
+    flex: 1 !important;
   }
   
-  .bar-value {
+  .scenarios-container .bar-value {
     font-weight: 700 !important;
-    color: #1e293b !important;
     font-size: 1rem !important;
+    text-align: right !important;
+    min-width: 80px !important;
+  }
+  
+  /* Styles spécifiques pour chaque type de barre */
+  .scenarios-container .perte-revenu {
+    background: linear-gradient(135deg, #fecaca, #f87171) !important;
+    color: #991b1b !important;
+    border-color: #ef4444 !important;
+  }
+  
+  .scenarios-container .revenu-partiel {
+    background: linear-gradient(135deg, #dbeafe, #60a5fa) !important;
+    color: #1e40af !important;
+    border-color: #3b82f6 !important;
+  }
+  
+  .scenarios-container .retraite-progressive {
+    background: linear-gradient(135deg, #d1fae5, #34d399) !important;
+    color: #047857 !important;
+    border-color: #10b981 !important;
   }
   
   /* Ajouter des pastilles colorées */
-  .perte-revenu .bar-label::before {
+  .scenarios-container .perte-revenu .bar-label::before {
     content: '';
     width: 16px;
     height: 16px;
     border-radius: 50%;
     background: linear-gradient(135deg, #fca5a5, #ef4444);
     flex-shrink: 0;
+    margin-right: 0.5rem;
   }
   
-  .revenu-partiel .bar-label::before {
+  .scenarios-container .revenu-partiel .bar-label::before {
     content: '';
     width: 16px;
     height: 16px;
     border-radius: 50%;
     background: linear-gradient(135deg, #93c5fd, #3b82f6);
     flex-shrink: 0;
+    margin-right: 0.5rem;
   }
   
-  .retraite-progressive .bar-label::before {
+  .scenarios-container .retraite-progressive .bar-label::before {
     content: '';
     width: 16px;
     height: 16px;
     border-radius: 50%;
     background: linear-gradient(135deg, #86efac, #10b981);
     flex-shrink: 0;
+    margin-right: 0.5rem;
   }
   
   /* Footer total */
@@ -2346,7 +2368,7 @@ div.advanced-field label {
     margin-top: 1rem !important;
   }
   
-  .total-revenu {
+  .scenarios-container .total-revenu {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -2355,16 +2377,19 @@ div.advanced-field label {
     color: white !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2) !important;
+    margin-top: 1rem !important;
   }
   
-  .total-label {
+  .scenarios-container .total-label {
     font-weight: 600 !important;
     font-size: 1rem !important;
+    color: white !important;
   }
   
-  .total-value {
+  .scenarios-container .total-value {
     font-weight: 700 !important;
     font-size: 1.25rem !important;
+    color: white !important;
   }
   
   /* Masquer la légende sur mobile */

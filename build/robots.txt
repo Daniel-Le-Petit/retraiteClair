@@ -7,6 +7,7 @@ Sitemap: https://retraiteclair.onrender.com/sitemap.xml
 # Pages principales
 Allow: /
 Allow: /calculateur
+Allow: /blog
 Allow: /conseils
 Allow: /contact
 
@@ -14,3 +15,7 @@ Allow: /contact
 Allow: /static/
 Allow: /favicon.ico
 Allow: /manifest.json
+
+# Blocage des répertoires techniques
+Disallow: /admin/
+Disallow: /api/

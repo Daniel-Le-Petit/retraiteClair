@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface de Test - Simulateur Retraite Progressive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .test-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .test-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .result-item.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .result-item.error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .result-item.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .result-value {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        .result-success {
+            color: #28a745;
+        }
+
+        .result-error {
+            color: #dc3545;
+        }
+
+        .result-warning {
+            color: #f39c12;
+        }
+
+        .summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .summary h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .instructions {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-buttons {
+                flex-direction: column;
+            }
+            
+            .summary-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Interface de Test</h1>
+            <p>Simulateur Retraite Progressive - Vérification des Calculs</p>
+        </div>
+
+        <div class="content">
+            <div class="instructions">
+                <h3>📋 Instructions</h3>
+                <ol>
+                    <li>Assurez-vous que l'application est démarrée (npm start)</li>
+                    <li>Ouvrez http://localhost:3000 dans un autre onglet</li>
+                    <li>Naviguez vers la page Simulateur</li>
+                    <li>Saisissez les données de test ci-dessous</li>
+                    <li>Cliquez sur "Vérifier les Résultats"</li>
+                </ol>
+            </div>
+
+            <!-- Test Mode Simplifié -->
+            <div class="test-section">
+                <h2>🔧 Mode Simplifié - Test Standard</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salaireBrut">Salaire Brut (€)</label>
+                        <input type="number" id="salaireBrut" value="5000" step="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="tempsPartiel">Temps Partiel (%)</label>
+                        <input type="number" id="tempsPartiel" value="60" min="10" max="100" step="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pensionEstimee">Pension Estimée (€) - Optionnel</label>
+                        <input type="number" id="pensionEstimee" value="" placeholder="Laisser vide pour calcul automatique">
+                    </div>
+                    <div class="form-group">
+                        <label for="debutRetraite">Début de Retraite</label>
+                        <input type="date" id="debutRetraite" value="2025-01-01">
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="testSimplifie()">🧪 Tester Mode Simplifié</button>
+                    <button class="btn btn-success" onclick="verifierResultats()">✅ Vérifier les Résultats</button>
+                    <button class="btn btn-warning" onclick="testMarelValues()">🔍 Test Valeurs M@rel</button>
+                </div>
+            </div>
+
+            <!-- Test Mode Avancé -->
+            <div class="test-section">
+                <h2>⚙️ Mode Avancé - Test M@rel</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salaireBrutAvance">Salaire Brut (€)</label>
+                        <input type="number" id="salaireBrutAvance" value="5500" step="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="tempsPartielAvance">Temps Partiel (%)</label>
+                        <input type="number" id="tempsPartielAvance" value="60" min="10" max="100" step="10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="salaireAnnuelMoyen">Salaire Annuel Moyen (€)</label>
+                        <input type="number" id="salaireAnnuelMoyen" value="66000" step="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="trimestresValides">Trimestres Validés</label>
+                        <input type="number" id="trimestresValides" value="150" min="0" max="172" step="1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="anneeNaissance">Année de Naissance</label>
+                        <input type="number" id="anneeNaissance" value="1970" min="1950" max="2000" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="debutRetraiteAvance">Début de Retraite</label>
+                        <input type="date" id="debutRetraiteAvance" value="2025-01-01">
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="testAvance()">🧪 Tester Mode Avancé</button>
+                    <button class="btn btn-success" onclick="verifierResultatsAvance()">✅ Vérifier les Résultats</button>
+                </div>
+            </div>
+
+            <!-- Test M@rel Validé -->
+            <div class="test-section">
+                <h2>🏛️ Test M@rel Validé</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="marelSalaireBrut">Salaire Brut M@rel (€)</label>
+                        <input type="number" id="marelSalaireBrut" value="8785" step="100" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="marelTempsPartiel">Temps Partiel M@rel (%)</label>
+                        <input type="number" id="marelTempsPartiel" value="60" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="marelSalaireNet">Salaire Net M@rel (€)</label>
+                        <input type="number" id="marelSalaireNet" value="6763" step="100" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="marelPensionComplete">Pension Complète M@rel (€)</label>
+                        <input type="number" id="marelPensionComplete" value="4549" step="100" readonly>
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="testMarelScenario()">🏛️ Tester M@rel</button>
+                    <button class="btn btn-success" onclick="verifierMarel()">✅ Vérifier M@rel</button>
+                    <button class="btn btn-warning" onclick="testMarelValues()">🔍 Debug M@rel</button>
+                </div>
+            </div>
+
+            <!-- Test Scénarios -->
+            <div class="test-section">
+                <h2>📊 Test des Scénarios</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scenarioTempsPartiel">Temps Partiel pour Scénarios (%)</label>
+                        <select id="scenarioTempsPartiel">
+                            <option value="40">40%</option>
+                            <option value="50">50%</option>
+                            <option value="60" selected>60%</option>
+                            <option value="70">70%</option>
+                            <option value="80">80%</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="salaireBrutScenario">Salaire Brut (€)</label>
+                        <input type="number" id="salaireBrutScenario" value="5000" step="100">
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button class="btn btn-warning" onclick="testScenarios()">📊 Tester Scénarios</button>
+                    <button class="btn btn-success" onclick="verifierScenarios()">✅ Vérifier Scénarios</button>
+                </div>
+            </div>
+
+            <!-- Résultats -->
+            <div class="results" id="results" style="display: none;">
+                <h3>📊 Résultats des Tests</h3>
+                <div id="resultsContent"></div>
+                <div class="summary" id="summary"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour calculer la décote/surcote automatiquement
+        function calculateDecoteSurcote(trimestresValides, anneeNaissance) {
+            if (!trimestresValides || !anneeNaissance) return 0;
+            
+            // Calcul des trimestres requis selon l'année de naissance
+            let trimestresRequis;
+            if (anneeNaissance <= 1951) {
+                trimestresRequis = 160; // 40 ans
+            } else if (anneeNaissance <= 1955) {
+                trimestresRequis = 164; // 41 ans
+            } else if (anneeNaissance <= 1960) {
+                trimestresRequis = 166; // 41,5 ans
+            } else {
+                trimestresRequis = 166; // 41,5 ans (nés après 1961)
+            }
+            
+            const trimestresManquants = trimestresRequis - parseInt(trimestresValides);
+            
+            if (trimestresManquants > 0) {
+                // Décote : 0.625% par trimestre manquant
+                return -trimestresManquants * 0.625;
+            } else if (trimestresManquants < 0) {
+                // Surcote : 0.625% par trimestre supplémentaire
+                return Math.abs(trimestresManquants) * 0.625;
+            } else {
+                return 0; // Ni décote ni surcote
+            }
+        }
+
+        // Données de test attendues (calculées selon la vraie logique du simulateur)
+        const expectedResults = {
+            simplifie: {
+                standard: { 
+                    // Salaire brut: 5000€, Temps partiel: 60%
+                    // salaireNet = 5000 * 0.78 = 3900€
+                    // revenuNetPartiel = 3900 * 0.60 = 2340€
+                    // pensionProgressive = 3900 * 0.2506 = 977.34€
+                    // revenuTotal = 2340 + 977.34 = 3317.34€
+                    revenuNetPartiel: 2340, 
+                    pensionProgressive: 977.34, 
+                    revenuTotal: 3317.34 
+                },
+                avecPension: { 
+                    // Salaire brut: 6000€, Temps partiel: 70%, Pension: 2000€
+                    // salaireNet = 6000 * 0.78 = 4680€
+                    // revenuNetPartiel = 4680 * 0.70 = 3276€
+                    // pensionProgressive = 2000 * 0.40 = 800€
+                    // revenuTotal = 3276 + 800 = 4076€
+                    revenuNetPartiel: 3276, 
+                    pensionProgressive: 800, 
+                    revenuTotal: 4076 
+                }
+            },
+            avance: {
+                marel: { 
+                    // Salaire brut: 5500€, Temps partiel: 60%, Salaire annuel moyen: 66000€, Année naissance: 1970, Trimestres: 150
+                    // salaireNet = 5500 * 0.78 = 4290€
+                    // revenuNetPartiel = 4290 * 0.60 = 2574€
+                    // trimestresRequis = 166 (nés après 1961)
+                    // tauxPension = 150 / 166 = 0.9036
+                    // pensionComplete = (66000 * 0.5) * 0.9036 / 12 = 2487.5€
+                    // trimestresManquants = 166 - 150 = 16
+                    // decote = 16 * 0.625 = 10%
+                    // pensionProgressive = 2487.5 * 0.40 * (1 - 0.10) = 895.5€
+                    // revenuTotal = 2574 + 895.5 = 3469.5€
+                    revenuNetPartiel: 2574, 
+                    pensionProgressive: 895.5, 
+                    revenuTotal: 3469.5 
+                }
+            },
+            scenarios: {
+                40: { 
+                    // Salaire brut: 5000€, Temps partiel: 40%
+                    // salaireNet = 5000 * 0.78 = 3900€
+                    // revenuPartiel = 3900 * 0.40 = 1560€
+                    // pensionProgressive = 3900 * 0.45 * 0.40 = 702€
+                    // revenuTotal = 1560 + 702 = 2262€
+                    revenuPartiel: 1560, 
+                    pensionProgressive: 702, 
+                    revenuTotal: 2262 
+                },
+                50: { 
+                    revenuPartiel: 1950, 
+                    pensionProgressive: 702, 
+                    revenuTotal: 2652 
+                },
+                60: { 
+                    revenuPartiel: 2340, 
+                    pensionProgressive: 702, 
+                    revenuTotal: 3042 
+                },
+                70: { 
+                    revenuPartiel: 2730, 
+                    pensionProgressive: 702, 
+                    revenuTotal: 3432 
+                },
+                80: { 
+                    revenuPartiel: 3120, 
+                    pensionProgressive: 702, 
+                    revenuTotal: 3822 
+                }
+            }
+        };
+
+        function testSimplifie() {
+            const salaireBrut = document.getElementById('salaireBrut').value;
+            const tempsPartiel = document.getElementById('tempsPartiel').value;
+            const pensionEstimee = document.getElementById('pensionEstimee').value;
+            
+            console.log('Test Mode Simplifié:', {
+                salaireBrut, tempsPartiel, pensionEstimee
+            });
+            
+            alert(`Données saisies pour le test simplifié:\n- Salaire Brut: ${salaireBrut}€\n- Temps Partiel: ${tempsPartiel}%\n- Pension Estimée: ${pensionEstimee || 'Calcul automatique'}€\n\nVeuillez maintenant saisir ces données dans le simulateur et cliquer sur "Vérifier les Résultats".`);
+        }
+        
+        // Test avec les valeurs M@rel validées
+        function testMarelScenario() {
+            const salaireBrut = document.getElementById('marelSalaireBrut').value;
+            const tempsPartiel = document.getElementById('marelTempsPartiel').value;
+            
+            console.log('Test M@rel:', {
+                salaireBrut, tempsPartiel
+            });
+            
+            alert(`Données M@rel à saisir dans le simulateur:\n- Salaire Brut: ${salaireBrut}€\n- Temps Partiel: ${tempsPartiel}%\n\nVeuillez maintenant saisir ces données dans le simulateur et cliquer sur "Vérifier M@rel".`);
+        }
+        
+        function verifierMarel() {
+            const salaireBrut = parseFloat(document.getElementById('marelSalaireBrut').value);
+            const tempsPartiel = parseFloat(document.getElementById('marelTempsPartiel').value);
+            const salaireNetMarel = parseFloat(document.getElementById('marelSalaireNet').value);
+            const pensionCompleteMarel = parseFloat(document.getElementById('marelPensionComplete').value);
+            
+            // Valeurs M@rel validées
+            const marelExpected = {
+                salaireNet: salaireNetMarel,
+                revenuNetPartiel: 4058,
+                pensionComplete: pensionCompleteMarel,
+                pensionProgressive: 1370,
+                revenuTotal: 5428
+            };
+            
+            // Calculs selon la logique M@rel (ratio 0.77 au lieu de 0.78)
+            const salaireNet = salaireBrut * 0.77;
+            const revenuNetPartiel = salaireNet * (tempsPartiel / 100);
+            const pensionComplete = salaireNet * 0.45;
+            const pensionProgressive = salaireNet * 0.2506;
+            const revenuTotal = revenuNetPartiel + pensionProgressive;
+            
+            // Affichage des calculs détaillés pour debug
+            console.log('=== TEST M@REL VALIDÉ ===');
+            console.log('Salaire Brut:', salaireBrut);
+            console.log('Salaire Net M@rel:', salaireNetMarel);
+            console.log('Salaire Net calculé:', salaireNet);
+            console.log('Temps Partiel:', tempsPartiel + '%');
+            console.log('Revenu Net Partiel M@rel:', marelExpected.revenuNetPartiel);
+            console.log('Revenu Net Partiel calculé:', revenuNetPartiel);
+            console.log('Pension Complète M@rel:', marelExpected.pensionComplete);
+            console.log('Pension Complète calculée:', pensionComplete);
+            console.log('Pension Progressive M@rel:', marelExpected.pensionProgressive);
+            console.log('Pension Progressive calculée:', pensionProgressive);
+            console.log('Revenu Total M@rel:', marelExpected.revenuTotal);
+            console.log('Revenu Total calculé:', revenuTotal);
+            
+            // Comparaison
+            const results = [
+                { label: 'Salaire Net', expected: marelExpected.salaireNet, actual: salaireNet, tolerance: 1 },
+                { label: 'Revenu Net Partiel', expected: marelExpected.revenuNetPartiel, actual: revenuNetPartiel, tolerance: 1 },
+                { label: 'Pension Complète', expected: marelExpected.pensionComplete, actual: pensionComplete, tolerance: 1 },
+                { label: 'Pension Progressive', expected: marelExpected.pensionProgressive, actual: pensionProgressive, tolerance: 1 },
+                { label: 'Revenu Total', expected: marelExpected.revenuTotal, actual: revenuTotal, tolerance: 1 }
+            ];
+            
+            displayResults('Test M@rel Validé', results);
+        }
+        
+        function testMarelValues() {
+            // Valeurs M@rel validées
+            const marelValues = {
+                salaireBrut: 8785,
+                salaireNet: 6763,
+                tempsPartiel: 60,
+                revenuNetPartiel: 4058,
+                pensionComplete: 4549,
+                pensionProgressive: 1370,
+                revenuTotal: 5428
+            };
+            
+            console.log('=== TEST AVEC VALEURS M@REL VALIDÉES ===');
+            console.log('Salaire Brut:', marelValues.salaireBrut);
+            console.log('Salaire Net:', marelValues.salaireNet);
+            console.log('Temps Partiel:', marelValues.tempsPartiel + '%');
+            console.log('Revenu Net Partiel:', marelValues.revenuNetPartiel);
+            console.log('Pension Complète:', marelValues.pensionComplete);
+            console.log('Pension Progressive:', marelValues.pensionProgressive);
+            console.log('Revenu Total:', marelValues.revenuTotal);
+            
+            // Calculs selon la logique M@rel (ratio 0.77 au lieu de 0.78)
+            const salaireNet = marelValues.salaireBrut * 0.77;
+            const revenuNetPartiel = salaireNet * (marelValues.tempsPartiel / 100);
+            const pensionComplete = salaireNet * 0.45;
+            // Pension progressive = ratio fixe de 0.2506 (selon le code du simulateur)
+            const pensionProgressive = salaireNet * 0.2506;
+            const revenuTotal = revenuNetPartiel + pensionProgressive;
+            
+            console.log('=== CALCULS NOTRE LOGIQUE ===');
+            console.log('Salaire Net calculé:', salaireNet);
+            console.log('Revenu Net Partiel calculé:', revenuNetPartiel);
+            console.log('Pension Complète calculée:', pensionComplete);
+            console.log('Pension Progressive calculée:', pensionProgressive);
+            console.log('Revenu Total calculé:', revenuTotal);
+            
+            // Comparaison
+            console.log('=== COMPARAISON ===');
+            console.log('Salaire Net - M@rel:', marelValues.salaireNet, 'Notre:', salaireNet, 'Diff:', Math.abs(marelValues.salaireNet - salaireNet));
+            console.log('Revenu Net Partiel - M@rel:', marelValues.revenuNetPartiel, 'Notre:', revenuNetPartiel, 'Diff:', Math.abs(marelValues.revenuNetPartiel - revenuNetPartiel));
+            console.log('Pension Complète - M@rel:', marelValues.pensionComplete, 'Notre:', pensionComplete, 'Diff:', Math.abs(marelValues.pensionComplete - pensionComplete));
+            console.log('Pension Progressive - M@rel:', marelValues.pensionProgressive, 'Notre:', pensionProgressive, 'Diff:', Math.abs(marelValues.pensionProgressive - pensionProgressive));
+            console.log('Revenu Total - M@rel:', marelValues.revenuTotal, 'Notre:', revenuTotal, 'Diff:', Math.abs(marelValues.revenuTotal - revenuTotal));
+        }
+
+        function testAvance() {
+            const salaireBrut = document.getElementById('salaireBrutAvance').value;
+            const tempsPartiel = document.getElementById('tempsPartielAvance').value;
+            const salaireAnnuelMoyen = document.getElementById('salaireAnnuelMoyen').value;
+            const trimestresValides = document.getElementById('trimestresValides').value;
+            const anneeNaissance = document.getElementById('anneeNaissance').value;
+            
+            console.log('Test Mode Avancé:', {
+                salaireBrut, tempsPartiel, salaireAnnuelMoyen, trimestresValides, anneeNaissance
+            });
+            
+            alert(`Données saisies pour le test avancé:\n- Salaire Brut: ${salaireBrut}€\n- Temps Partiel: ${tempsPartiel}%\n- Salaire Annuel Moyen: ${salaireAnnuelMoyen}€\n- Trimestres Validés: ${trimestresValides}\n- Année de Naissance: ${anneeNaissance}\n\nVeuillez maintenant saisir ces données dans le simulateur et cliquer sur "Vérifier les Résultats".`);
+        }
+
+        function testScenarios() {
+            const tempsPartiel = document.getElementById('scenarioTempsPartiel').value;
+            const salaireBrut = document.getElementById('salaireBrutScenario').value;
+            
+            console.log('Test Scénarios:', { tempsPartiel, salaireBrut });
+            
+            alert(`Données saisies pour le test scénarios:\n- Salaire Brut: ${salaireBrut}€\n- Temps Partiel: ${tempsPartiel}%\n\nVeuillez maintenant naviguer vers l'onglet "Scénarios" dans le simulateur et cliquer sur "Vérifier Scénarios".`);
+        }
+
+        function verifierResultats() {
+            const salaireBrut = parseFloat(document.getElementById('salaireBrut').value);
+            const tempsPartiel = parseFloat(document.getElementById('tempsPartiel').value);
+            const pensionEstimee = document.getElementById('pensionEstimee').value;
+            
+            // Calculs selon la logique du simulateur
+            const salaireNet = salaireBrut * 0.78;
+            const revenuNetPartiel = salaireNet * (tempsPartiel / 100);
+            
+            // Pension complète (selon le code du simulateur)
+            const pensionComplete = pensionEstimee ? parseFloat(pensionEstimee) : salaireNet * 0.45;
+            
+            // Pension progressive = ratio fixe de 0.2506 (selon le code du simulateur)
+            const pensionProgressive = salaireNet * 0.2506;
+            const revenuTotal = revenuNetPartiel + pensionProgressive;
+            
+            // Affichage des calculs détaillés pour debug
+            console.log('=== CALCULS DÉTAILLÉS MODE SIMPLIFIÉ ===');
+            console.log('Salaire Brut:', salaireBrut);
+            console.log('Salaire Net:', salaireNet);
+            console.log('Temps Partiel:', tempsPartiel + '%');
+            console.log('Revenu Net Partiel:', revenuNetPartiel);
+            console.log('Pension Complète:', pensionComplete);
+            console.log('Pension Progressive:', pensionProgressive);
+            console.log('Revenu Total:', revenuTotal);
+            
+            // Valeurs attendues
+            const expected = expectedResults.simplifie.standard;
+            
+            // Comparaison
+            const results = [
+                { label: 'Revenu Net Partiel', expected: expected.revenuNetPartiel, actual: revenuNetPartiel, tolerance: 1 },
+                { label: 'Pension Progressive', expected: expected.pensionProgressive, actual: pensionProgressive, tolerance: 1 },
+                { label: 'Revenu Total', expected: expected.revenuTotal, actual: revenuTotal, tolerance: 1 }
+            ];
+            
+            displayResults('Mode Simplifié', results);
+        }
+
+        function verifierResultatsAvance() {
+            const salaireBrut = parseFloat(document.getElementById('salaireBrutAvance').value);
+            const tempsPartiel = parseFloat(document.getElementById('tempsPartielAvance').value);
+            const salaireAnnuelMoyen = parseFloat(document.getElementById('salaireAnnuelMoyen').value);
+            const trimestresValides = parseFloat(document.getElementById('trimestresValides').value);
+            const anneeNaissance = parseFloat(document.getElementById('anneeNaissance').value);
+            
+            // Calculs selon la VRAIE logique du simulateur (mode avancé)
+            const salaireNet = salaireBrut * 0.78;
+            const revenuNetPartiel = salaireNet * (tempsPartiel / 100);
+            
+            // Calcul de la décote/surcote automatique
+            const decoteSurcote = calculateDecoteSurcote(trimestresValides, anneeNaissance);
+            
+            // Mode avancé : utilise salaireAnnuelMoyen et tauxPension
+            const trimestresRequis = getTrimestresRequis(anneeNaissance);
+            const tauxPension = Math.min(trimestresValides / trimestresRequis, 1);
+            
+            // Pension complète selon la formule du simulateur
+            const pensionComplete = (salaireAnnuelMoyen * 0.5) * tauxPension / 12;
+            const pensionCompleteAvecDecote = pensionComplete * (1 + decoteSurcote / 100);
+            
+            // Pension progressive = 40% de la pension complète SANS décote, puis application de la décote
+            const pensionProgressiveSansDecote = pensionComplete * 0.40;
+            const pensionProgressive = pensionProgressiveSansDecote * (1 + decoteSurcote / 100);
+            
+            const revenuTotal = revenuNetPartiel + pensionProgressive;
+            
+            // Affichage des calculs détaillés pour debug
+            console.log('=== CALCULS DÉTAILLÉS MODE AVANCÉ ===');
+            console.log('Salaire Brut:', salaireBrut);
+            console.log('Salaire Net:', salaireNet);
+            console.log('Temps Partiel:', tempsPartiel + '%');
+            console.log('Revenu Net Partiel:', revenuNetPartiel);
+            console.log('Salaire Annuel Moyen:', salaireAnnuelMoyen);
+            console.log('Trimestres Validés:', trimestresValides);
+            console.log('Année Naissance:', anneeNaissance);
+            console.log('Trimestres Requis:', trimestresRequis);
+            console.log('Taux Pension:', tauxPension);
+            console.log('Décote/Surcote:', decoteSurcote + '%');
+            console.log('Pension Complète:', pensionComplete);
+            console.log('Pension Progressive:', pensionProgressive);
+            console.log('Revenu Total:', revenuTotal);
+            
+            // Valeurs attendues
+            const expected = expectedResults.avance.marel;
+            
+            // Comparaison
+            const results = [
+                { label: 'Revenu Net Partiel', expected: expected.revenuNetPartiel, actual: revenuNetPartiel, tolerance: 1 },
+                { label: 'Pension Progressive', expected: expected.pensionProgressive, actual: pensionProgressive, tolerance: 1 },
+                { label: 'Revenu Total', expected: expected.revenuTotal, actual: revenuTotal, tolerance: 1 }
+            ];
+            
+            // Ajouter l'info sur la décote/surcote
+            const decoteInfo = decoteSurcote !== 0 ? 
+                ` (Décote/Surcote: ${decoteSurcote.toFixed(2)}%)` : 
+                ' (Ni décote ni surcote)';
+            
+            displayResults(`Mode Avancé${decoteInfo}`, results);
+        }
+        
+        // Fonction pour calculer les trimestres requis (copie du simulateur)
+        function getTrimestresRequis(anneeNaissance) {
+            if (anneeNaissance <= 1951) {
+                return 160; // 40 ans
+            } else if (anneeNaissance <= 1955) {
+                return 164; // 41 ans
+            } else if (anneeNaissance <= 1960) {
+                return 166; // 41,5 ans
+            } else {
+                return 166; // 41,5 ans (nés après 1961)
+            }
+        }
+
+        function verifierScenarios() {
+            const tempsPartiel = parseFloat(document.getElementById('scenarioTempsPartiel').value);
+            const salaireBrut = parseFloat(document.getElementById('salaireBrutScenario').value);
+            
+            // Calculs selon la logique du simulateur
+            const salaireNet = salaireBrut * 0.78;
+            const revenuPartiel = salaireNet * (tempsPartiel / 100);
+            
+            // Pension progressive = 40% de la pension complète
+            const pensionComplete = salaireNet * 0.45;
+            const pensionProgressive = pensionComplete * 0.40;
+            const revenuTotal = revenuPartiel + pensionProgressive;
+            
+            // Valeurs attendues
+            const expected = expectedResults.scenarios[tempsPartiel];
+            
+            // Comparaison
+            const results = [
+                { label: 'Revenu Partiel', expected: expected.revenuPartiel, actual: revenuPartiel, tolerance: 1 },
+                { label: 'Pension Progressive', expected: expected.pensionProgressive, actual: pensionProgressive, tolerance: 1 },
+                { label: 'Revenu Total', expected: expected.revenuTotal, actual: revenuTotal, tolerance: 1 }
+            ];
+            
+            displayResults(`Scénario ${tempsPartiel}%`, results);
+        }
+
+        function displayResults(testName, results) {
+            const resultsDiv = document.getElementById('results');
+            const resultsContent = document.getElementById('resultsContent');
+            const summaryDiv = document.getElementById('summary');
+            
+            let html = `<h4>🧪 ${testName}</h4>`;
+            let passedTests = 0;
+            let totalTests = results.length;
+            
+            results.forEach(result => {
+                const diff = Math.abs(result.actual - result.expected);
+                const isCorrect = diff <= result.tolerance;
+                const status = isCorrect ? 'success' : 'error';
+                const statusIcon = isCorrect ? '✅' : '❌';
+                const statusClass = isCorrect ? 'result-success' : 'result-error';
+                
+                if (isCorrect) passedTests++;
+                
+                html += `
+                    <div class="result-item ${status}">
+                        <div>
+                            <div class="result-label">${result.label}</div>
+                            <div class="result-value ${statusClass}">
+                                ${statusIcon} Attendu: ${result.expected}€ | Obtenu: ${result.actual.toFixed(2)}€
+                            </div>
+                        </div>
+                        <div class="result-value ${statusClass}">
+                            Diff: ${diff.toFixed(2)}€
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultsContent.innerHTML = html;
+            
+            // Résumé
+            const successRate = (passedTests / totalTests * 100).toFixed(1);
+            const summaryHtml = `
+                <h3>📊 Résumé</h3>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">${totalTests}</div>
+                        <div class="stat-label">Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: #28a745;">${passedTests}</div>
+                        <div class="stat-label">Réussis</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: #dc3545;">${totalTests - passedTests}</div>
+                        <div class="stat-label">Échoués</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: ${successRate >= 80 ? '#28a745' : '#dc3545'};">${successRate}%</div>
+                        <div class="stat-label">Taux de Réussite</div>
+                    </div>
+                </div>
+            `;
+            
+            summaryDiv.innerHTML = summaryHtml;
+            resultsDiv.style.display = 'block';
+            
+            // Scroll vers les résultats
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

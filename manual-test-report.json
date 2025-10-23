@@ -1,0 +1,160 @@
+{
+  "summary": {
+    "totalTests": 11,
+    "passedTests": 5,
+    "failedTests": 6,
+    "successRate": "45.5%",
+    "timestamp": "2025-10-23T12:37:17.958Z"
+  },
+  "results": [
+    {
+      "name": "Mode Simplifié - Cas Standard",
+      "expected": {
+        "revenuNetPartiel": 2340,
+        "pensionProgressive": 1694.5,
+        "revenuTotal": 4034
+      },
+      "actual": {
+        "revenuNetPartiel": 2340,
+        "pensionProgressive": 702,
+        "revenuTotal": 3042
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:27:44.841Z"
+    },
+    {
+      "name": "Mode Simplifié - Temps Partiel 50%",
+      "expected": {
+        "revenuNetPartiel": 1560,
+        "pensionProgressive": 1356.4,
+        "revenuTotal": 2916.4
+      },
+      "actual": {
+        "revenuNetPartiel": 1560,
+        "pensionProgressive": 561.6,
+        "revenuTotal": 2121.6
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:28:06.098Z"
+    },
+    {
+      "name": "Mode Simplifié - Avec Pension Fournie",
+      "expected": {
+        "revenuNetPartiel": 3276,
+        "pensionProgressive": 800,
+        "revenuTotal": 4076
+      },
+      "actual": {
+        "revenuNetPartiel": 3276,
+        "pensionProgressive": 800,
+        "revenuTotal": 4076
+      },
+      "passed": true,
+      "timestamp": "2025-10-23T12:28:46.722Z"
+    },
+    {
+      "name": "Mode Avancé - Calcul M@rel",
+      "expected": {
+        "revenuNetPartiel": 2574,
+        "pensionProgressive": 993.96,
+        "revenuTotal": 3567.96
+      },
+      "actual": {
+        "revenuNetPartiel": 2574,
+        "pensionProgressive": 894.58,
+        "revenuTotal": 3468.58
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:30:02.777Z"
+    },
+    {
+      "name": "Scénario 40%",
+      "expected": {
+        "revenuPartiel": 1560,
+        "pensionProgressive": 977.34,
+        "revenuTotal": 2537.34
+      },
+      "actual": {
+        "revenuPartiel": 1716,
+        "pensionProgressive": 1075,
+        "revenuTotal": 2791
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:32:28.455Z"
+    },
+    {
+      "name": "Scénario 60%",
+      "expected": {
+        "revenuPartiel": 2340,
+        "pensionProgressive": 977.34,
+        "revenuTotal": 3317.34
+      },
+      "actual": {
+        "revenuPartiel": 2574,
+        "pensionProgressive": 1075,
+        "revenuTotal": 3649
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:33:46.586Z"
+    },
+    {
+      "name": "Scénario 80%",
+      "expected": {
+        "revenuPartiel": 2496,
+        "pensionProgressive": 781.87,
+        "revenuTotal": 3277.87
+      },
+      "actual": {
+        "revenuPartiel": 3432,
+        "pensionProgressive": 1075,
+        "revenuTotal": 4507
+      },
+      "passed": false,
+      "timestamp": "2025-10-23T12:34:22.626Z"
+    },
+    {
+      "name": "Navigation entre onglets",
+      "expected": {
+        "passed": true
+      },
+      "actual": {
+        "passed": true
+      },
+      "passed": true,
+      "timestamp": "2025-10-23T12:35:23.032Z"
+    },
+    {
+      "name": "Affichage responsive",
+      "expected": {
+        "passed": true
+      },
+      "actual": {
+        "passed": true
+      },
+      "passed": true,
+      "timestamp": "2025-10-23T12:37:06.080Z"
+    },
+    {
+      "name": "Couleurs des barres",
+      "expected": {
+        "passed": true
+      },
+      "actual": {
+        "passed": true
+      },
+      "passed": true,
+      "timestamp": "2025-10-23T12:37:11.992Z"
+    },
+    {
+      "name": "Sauvegarde des données",
+      "expected": {
+        "passed": true
+      },
+      "actual": {
+        "passed": true
+      },
+      "passed": true,
+      "timestamp": "2025-10-23T12:37:17.952Z"
+    }
+  ]
+}

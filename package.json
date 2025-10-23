@@ -22,7 +22,14 @@
     "eject": "react-scripts eject",
     "seo-monitor": "node monitoring-seo.js",
     "seo-check": "powershell -ExecutionPolicy Bypass -File monitoring-seo.ps1",
-    "seo-report": "node monitoring-seo.js && echo Rapport genere: seo-report.json"
+    "seo-report": "node monitoring-seo.js && echo Rapport genere: seo-report.json",
+    "test:automated": "node test-automation.js",
+    "test:manual": "node test-manual.js",
+    "test:all": "npm run test:automated && npm run test:manual",
+    "test:results": "node view-test-results.js",
+    "test:failed": "node view-test-results.js --failed",
+    "test:passed": "node view-test-results.js --passed",
+    "test:interface": "start test-interface.html"
   },
   "eslintConfig": {
     "extends": [
@@ -51,5 +58,8 @@
   ],
   "author": "RetraiteClair",
   "license": "MIT",
-  "homepage": "https://retraiteclair.com"
+  "homepage": "https://retraiteclair.com",
+  "devDependencies": {
+    "puppeteer": "^24.26.1"
+  }
 }

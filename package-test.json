@@ -1,0 +1,20 @@
+{
+  "name": "retraiteclair-tests",
+  "version": "1.0.0",
+  "description": "Tests automatisés pour le simulateur de retraite progressive",
+  "scripts": {
+    "test:automated": "node test-automation.js",
+    "test:manual": "node test-manual.js",
+    "test:all": "npm run test:automated && npm run test:manual",
+    "install-deps": "npm install puppeteer"
+  },
+  "devDependencies": {
+    "puppeteer": "^21.0.0"
+  },
+  "keywords": [
+    "testing",
+    "automation",
+    "puppeteer",
+    "retraite"
+  ]
+}
