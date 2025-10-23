@@ -51,11 +51,11 @@
   text-align: left;
   -webkit-tap-highlight-color: rgba(16, 185, 129, 0.3);
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
   touch-action: manipulation;
   min-height: 60px;
 }
@@ -974,8 +974,8 @@
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(16, 185, 129, 0.4);
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
+    -webkit-user-select: text;
+    user-select: text;
   }
   
   .conseils-accordion .accordion-header:active {
@@ -989,7 +989,7 @@
   .conseils-accordion .accordion-header {
     -webkit-tap-highlight-color: rgba(16, 185, 129, 0.5);
     -webkit-touch-callout: none;
-    -webkit-user-select: none;
+    -webkit-user-select: text;
     touch-action: manipulation;
     -webkit-appearance: none;
     appearance: none;

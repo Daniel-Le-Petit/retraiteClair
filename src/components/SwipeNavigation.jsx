@@ -159,18 +159,7 @@ const SwipeNavigation = () => {
     <div 
       className={`swipe-navigation ${currentArticle ? 'article-mode' : ''} ${readingMode ? 'reading-mode' : ''}`}
     >
-      {/* Bouton de mode lecture */}
-      {isContentPage && (
-        <div className="reading-mode-toggle">
-          <button 
-            className={`reading-btn ${readingMode ? 'active' : ''}`}
-            onClick={() => setReadingMode(!readingMode)}
-            title={readingMode ? 'Désactiver le mode lecture' : 'Activer le mode lecture'}
-          >
-            {readingMode ? '📖 Mode lecture' : '👁️ Mode lecture'}
-          </button>
-        </div>
-      )}
+      {/* Mode lecture toujours activé pour permettre la sélection de texte */}
       
       <div className="swipe-container">
         {renderPages()}

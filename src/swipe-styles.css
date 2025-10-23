@@ -2,7 +2,7 @@
 
 .App {
   touch-action: pan-y; /* Permet le swipe vertical mais optimise le swipe horizontal */
-  user-select: none; /* Empêche la sélection de texte pendant le swipe */
+  user-select: text; /* Permettre la sélection de texte */
 }
 
 /* Indicateur visuel pour le swipe (optionnel) */
