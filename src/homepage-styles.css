@@ -183,27 +183,31 @@
 }
 
 .card-button-primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  background: white;
+  color: #0f766e;
+  border: 2px solid #0f766e;
+  box-shadow: 0 2px 4px rgba(15, 118, 110, 0.2);
 }
 
 .card-button-primary:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: #0f766e;
+  color: white;
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 8px rgba(15, 118, 110, 0.3);
 }
 
 .card-button-secondary {
-  background: #ffffff;
-  color: #10b981;
-  border: 2px solid #10b981;
+  background: white;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
 .card-button-secondary:hover {
-  background: #10b981;
+  background: #2563eb;
   color: white;
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
 }
 
 /* Content Sections */
@@ -1291,6 +1295,13 @@
   text-align: center;
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+/* Overlay spécifique pour la carte avancée (bleu) */
+.simulation-card-advanced .card-overlay {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(29, 78, 216, 0.6));
+  border: 3px solid #2563eb;
+  border-radius: 16px;
 }
 
 .card-overlay .card-title {

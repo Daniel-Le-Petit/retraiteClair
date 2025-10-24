@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../conseils-styles.css';
 import { 
   Calculator, 
   Zap, 
@@ -193,8 +194,8 @@ const HomePage = () => {
           <div className="simulation-card">
             <div className="card-image-container">
               <img 
-                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Femme sur la plage - Simulation simplifiée"
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Femme détendue faisant du yoga sur une plage ensoleillée - Simulation simplifiée"
                 className="card-image"
               />
               <div className="card-overlay">
@@ -216,11 +217,11 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="simulation-card">
+          <div className="simulation-card simulation-card-advanced">
             <div className="card-image-container">
               <img 
                 src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Femme à la neige - Simulation avancée"
+                alt="Femme détendue et souriante faisant du ski sur une montagne ensoleillée - Simulation avancée"
                 className="card-image"
               />
               <div className="card-overlay">
@@ -264,12 +265,47 @@ const HomePage = () => {
                   </div>
                   <h3 className="definition-title">{item.title}</h3>
                   <p className="definition-description">{item.description}</p>
-                  <button 
-                    className="definition-link"
-                    onClick={() => setOpenPopup(item)}
-                  >
-                    En savoir plus →
-                  </button>
+                  
+                  <details className="per-details">
+                    <summary className="per-summary">En savoir plus →</summary>
+                    <div className="per-content">
+                      {item.detailedContent && (
+                        <>
+                          {item.detailedContent.intro && (
+                            <p className="modal-intro">{item.detailedContent.intro}</p>
+                          )}
+
+                          {item.detailedContent.rules && (
+                            <ul className="modal-rules">
+                              {item.detailedContent.rules.map((rule, idx) => (
+                                <li key={idx}>{rule}</li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {item.detailedContent.example && (
+                            <div className="modal-example">
+                              <h4>{item.detailedContent.example.title}</h4>
+                              <p>{item.detailedContent.example.text}</p>
+                            </div>
+                          )}
+
+                          <div className="modal-footer">
+                            {item.detailedContent.advantages && (
+                              <div className="modal-advantages">
+                                <strong>✅ Avantages :</strong> {item.detailedContent.advantages}
+                              </div>
+                            )}
+                            {item.detailedContent.warning && (
+                              <div className="modal-warning">
+                                <strong>⚠️ Point de vigilance :</strong> {item.detailedContent.warning}
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </details>
                 </div>
               );
             })}
@@ -293,12 +329,50 @@ const HomePage = () => {
                     <h3 className="eligibility-title">{item.title}</h3>
                     <p className="eligibility-description">{item.description}</p>
                   </div>
-                  <button 
-                    className="eligibility-link"
-                    onClick={() => setOpenPopup(item)}
-                  >
-                    En savoir plus →
-                  </button>
+                  <details className="per-details">
+                    <summary className="per-summary">En savoir plus →</summary>
+                    <div className="per-content">
+                      {item.detailedContent && (
+                        <>
+                          {item.detailedContent.intro && (
+                            <p className="modal-intro">{item.detailedContent.intro}</p>
+                          )}
+
+                          {item.detailedContent.rules && (
+                            <ul className="modal-rules">
+                              {item.detailedContent.rules.map((rule, idx) => (
+                                <li key={idx}>{rule}</li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {item.detailedContent.included && (
+                            <div className="modal-section">
+                              <h4>{item.detailedContent.included.title}</h4>
+                              <ul className="modal-sub-list">
+                                {item.detailedContent.included.items.map((item, idx) => (
+                                  <li key={idx}>{item}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          {item.detailedContent.example && (
+                            <div className="modal-example">
+                              <h4>{item.detailedContent.example.title}</h4>
+                              <p>{item.detailedContent.example.text}</p>
+                            </div>
+                          )}
+
+                          {item.detailedContent.goodToKnow && (
+                            <div className="modal-good-to-know">
+                              <strong>💡 Bon à savoir :</strong> {item.detailedContent.goodToKnow}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </details>
                 </div>
               );
             })}
@@ -325,12 +399,84 @@ const HomePage = () => {
                 <div className="step-number">{step.number}</div>
                 <h3 className="step-title">{step.title}</h3>
                 <p className="step-description">{step.description}</p>
-                <button 
-                  className="step-link"
-                  onClick={() => setOpenPopup(step)}
-                >
-                  En savoir plus →
-                </button>
+                <details className="per-details">
+                  <summary className="per-summary">En savoir plus →</summary>
+                  <div className="per-content">
+                    {step.detailedContent && (
+                      <>
+                        {step.detailedContent.intro && (
+                          <p className="modal-intro">{step.detailedContent.intro}</p>
+                        )}
+
+                        {step.detailedContent.steps && (
+                          <ol className="modal-steps">
+                            {step.detailedContent.steps.map((stepItem, idx) => (
+                              <li key={idx}>
+                                <strong>{stepItem.title}</strong>
+                                <p>{stepItem.description}</p>
+                                {stepItem.details && (
+                                  <ul className="modal-sub-list">
+                                    {stepItem.details.map((detail, detailIdx) => (
+                                      <li key={detailIdx}>{detail}</li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </li>
+                            ))}
+                          </ol>
+                        )}
+
+                        {step.detailedContent.documents && (
+                          <div className="modal-section">
+                            <h4>{step.detailedContent.documents.title}</h4>
+                            <ul className="modal-list">
+                              {step.detailedContent.documents.items.map((item, idx) => (
+                                <li key={idx}>
+                                  {typeof item === 'string' ? (
+                                    item
+                                  ) : (
+                                    <>
+                                      {item.text}{' '}
+                                      <a 
+                                        href={item.link} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="document-link"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        (télécharger le modèle)
+                                      </a>
+                                    </>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {step.detailedContent.timeline && (
+                          <div className="modal-timeline">
+                            <h4>{step.detailedContent.timeline.title}</h4>
+                            <p>{step.detailedContent.timeline.text}</p>
+                          </div>
+                        )}
+
+                        {step.detailedContent.example && (
+                          <div className="modal-example">
+                            <h4>{step.detailedContent.example.title}</h4>
+                            <p style={{whiteSpace: 'pre-line'}}>{step.detailedContent.example.text}</p>
+                          </div>
+                        )}
+
+                        {step.detailedContent.tip && (
+                          <div className="modal-tip">
+                            <strong>💡 Conseil :</strong> {step.detailedContent.tip}
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </details>
               </div>
             ))}
           </div>

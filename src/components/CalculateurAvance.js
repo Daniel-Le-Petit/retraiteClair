@@ -31,6 +31,19 @@ const CalculateurAvance = () => {
   const [showAdvancedMode, setShowAdvancedMode] = useState(false);
   const [currentStep, setCurrentStep] = useState(1); // 1: Saisie, 2: Résultats, 3: Scénarios
   const [simulationMode, setSimulationMode] = useState('simplified'); // 'simplified' ou 'advanced'
+  const [hasVisitedResults, setHasVisitedResults] = useState(false); // Track si l'utilisateur a visité les résultats
+
+  // Synchroniser showAdvancedMode avec simulationMode
+  useEffect(() => {
+    setShowAdvancedMode(simulationMode === 'advanced');
+  }, [simulationMode]);
+
+  // Tracker quand l'utilisateur visite les résultats
+  useEffect(() => {
+    if (activeTab === 'resultats') {
+      setHasVisitedResults(true);
+    }
+  }, [activeTab]);
 
   // Fonction pour calculer les trimestres requis en fonction de l'année de naissance
   const getTrimestresRequis = (anneeNaissance) => {
@@ -116,18 +129,44 @@ const CalculateurAvance = () => {
   };
 
   const validateForResults = () => {
-    if (!formData.salaireBrut) {
-      setValidationError('Vous devez entrer le "Salaire brut mensuel"');
-      return false;
-    }
-    
-    if (!formData.debutRetraite) {
-      setValidationError('Vous devez sélectionner une date de début de retraite progressive');
-      return false;
+    if (simulationMode === 'simplified') {
+      if (!formData.salaireBrut) {
+        setValidationError('Vous devez entrer le "Salaire brut mensuel"');
+        return false;
+      }
+      
+      if (!formData.debutRetraite) {
+        setValidationError('Vous devez sélectionner une date de début de retraite progressive');
+        return false;
+      }
+    } else {
+      if (!formData.salaireAnnuelMoyen) {
+        setValidationError('Vous devez entrer le "Salaire annuel moyen"');
+        return false;
+      }
+      
+      if (!formData.anneeNaissance) {
+        setValidationError('Vous devez entrer votre "Année de naissance"');
+        return false;
+      }
+      
+      if (!formData.trimestresValides) {
+        setValidationError('Vous devez entrer le "Nombre de trimestres validés"');
+        return false;
+      }
     }
     
     setValidationError('');
     return true;
+  };
+
+  // Fonction pour vérifier si l'étape Résultats est accessible
+  const isResultsStepAccessible = () => {
+    if (simulationMode === 'simplified') {
+      return formData.salaireBrut && formData.debutRetraite;
+    } else {
+      return formData.salaireAnnuelMoyen && formData.anneeNaissance && formData.trimestresValides;
+    }
   };
 
   // Sauvegarder les données dans localStorage
@@ -314,6 +353,8 @@ const CalculateurAvance = () => {
       <SimulatorNavigation 
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        isResultsAccessible={isResultsStepAccessible()}
+        hasVisitedResults={hasVisitedResults}
       />
       
       <div className="calculateur-avance-container">
@@ -336,12 +377,39 @@ const CalculateurAvance = () => {
                   <div className="marel-reference">
                     <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
+                  
+                  {/* Sélecteur de mode de simulation - Simple */}
+                  <div className="simple-mode-selector">
+                    <div className="radio-group-simple">
+                      <label className="radio-simple">
+                        <input
+                          type="radio"
+                          name="simulationMode"
+                          value="simplified"
+                          checked={simulationMode === 'simplified'}
+                          onChange={(e) => setSimulationMode(e.target.value)}
+                        />
+                        <span className="radio-label">Simulation Simplifiée</span>
+                      </label>
+                      
+                      <label className="radio-simple">
+                        <input
+                          type="radio"
+                          name="simulationMode"
+                          value="advanced"
+                          checked={simulationMode === 'advanced'}
+                          onChange={(e) => setSimulationMode(e.target.value)}
+                        />
+                        <span className="radio-label">Simulation Avancée</span>
+                      </label>
+                    </div>
+                  </div>
                 
                 <div className="form-grid-simplified">
                   <div className="form-row">
                     <div className="form-group simplified-field salaire-field">
                       <label className="form-label">
-                        Salaire brut mensuel (€)
+                        Salaire brut mensuel (€) <span className="required-asterisk">*</span>
                       </label>
                       <input
                         type="number"
@@ -354,7 +422,7 @@ const CalculateurAvance = () => {
 
                     <div className="form-group simplified-field date-field">
                       <label className="form-label">
-                          Date de début de retraite progressive
+                          Date de début de retraite progressive <span className="required-asterisk">*</span>
                       </label>
                         <input
                           type="date"
@@ -429,33 +497,48 @@ const CalculateurAvance = () => {
                   </div>
                     </button>
                     
-                    <button 
-                      className="btn-secondary btn-advanced"
-                      onClick={() => {
-                        setSimulationMode('advanced');
-                        setShowAdvancedMode(true);
-                      }}
-                    >
-                      <div className="btn-content">
-                        <div className="btn-title">Mode Avancé</div>
-                        <div className="btn-subtitle">Données précises et détaillées</div>
-                      </div>
-                    </button>
                   </div>
               </div>
               )}
 
               {/* Section Mode Avancé */}
-              {showAdvancedMode && (
+              {simulationMode === 'advanced' && (
                 <div className="form-section">
                   <div className="marel-reference">
                     <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
                   
+                  {/* Sélecteur de mode de simulation - Simple */}
+                  <div className="simple-mode-selector">
+                    <div className="radio-group-simple">
+                      <label className="radio-simple">
+                        <input
+                          type="radio"
+                          name="simulationMode"
+                          value="simplified"
+                          checked={simulationMode === 'simplified'}
+                          onChange={(e) => setSimulationMode(e.target.value)}
+                        />
+                        <span className="radio-label">Simulation Simplifiée</span>
+                      </label>
+                      
+                      <label className="radio-simple">
+                        <input
+                          type="radio"
+                          name="simulationMode"
+                          value="advanced"
+                          checked={simulationMode === 'advanced'}
+                          onChange={(e) => setSimulationMode(e.target.value)}
+                        />
+                        <span className="radio-label">Simulation Avancée</span>
+                      </label>
+                    </div>
+                  </div>
+                  
                   <div className="form-grid">
                     <div className="form-group advanced-field">
                         <label className="form-label">
-                          Salaire annuel moyen des 25 meilleures années (€ brut)
+                          Salaire annuel moyen des 25 meilleures années (€ brut) <span className="required-asterisk">*</span>
                         </label>
                         <p className="field-explanation">Base de calcul officielle pour votre pension - <strong>en salaire brut</strong></p>
                       <input
@@ -470,7 +553,7 @@ const CalculateurAvance = () => {
 
                     <div className="form-group advanced-field">
                       <label className="form-label">
-                        Année de naissance
+                        Année de naissance <span className="required-asterisk">*</span>
                       </label>
                       <p className="field-explanation">Pour calculer automatiquement le nombre de trimestres requis</p>
                       <input
@@ -486,7 +569,7 @@ const CalculateurAvance = () => {
 
                     <div className="form-group advanced-field">
                       <label className="form-label">
-                        Nombre de trimestres validés
+                        Nombre de trimestres validés <span className="required-asterisk">*</span>
                       </label>
                       <p className="field-explanation">Vérifiez sur votre relevé de carrière</p>
                       <input
@@ -530,8 +613,8 @@ const CalculateurAvance = () => {
                           type="number"
                           value={formData.surcoteDecote}
                           readOnly
-                          className="form-input"
-                          style={{backgroundColor: '#f8f9fa', cursor: 'not-allowed'}}
+                          className="form-input disabled-field"
+                          style={{backgroundColor: '#e5e7eb', cursor: 'not-allowed', color: '#6b7280'}}
                           step="0.1"
                         />
                         <span className="input-suffix">%</span>
@@ -554,18 +637,6 @@ const CalculateurAvance = () => {
                   </div>
                   </button>
                 
-                  <button 
-                  className="btn-secondary btn-advanced"
-                    onClick={() => {
-                    setSimulationMode('simplified');
-                    setShowAdvancedMode(false);
-                  }}
-                >
-                  <div className="btn-content">
-                    <div className="btn-title">Mode Simplifié</div>
-                    <div className="btn-subtitle">Calcul rapide et simple</div>
-                  </div>
-                  </button>
                 </div>
               </div>
               )}
@@ -606,17 +677,6 @@ const CalculateurAvance = () => {
                       
                       {/* Bouton pour accéder aux scénarios */}
                       <div className="scenarios-button-container">
-                        <button 
-                          className="btn-scenarios"
-                          onClick={() => setActiveTab('scenarios')}
-                        >
-                          <div className="btn-content">
-                            <div className="btn-text">
-                              <div className="btn-title">Voir les scénarios</div>
-                              <div className="btn-subtitle">Comparez différents pourcentages de temps partiel</div>
-                            </div>
-                          </div>
-                        </button>
                       </div>
                     </div>
 
