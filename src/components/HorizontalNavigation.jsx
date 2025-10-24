@@ -4,6 +4,7 @@ import {
   Calculator, 
   BookOpen, 
   CheckCircle, 
+  User,
   MessageSquare,
   ChevronRight
 } from 'lucide-react';
@@ -35,6 +36,12 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
       label: 'Conseils',
       icon: CheckCircle,
       description: 'Guide pratique'
+    },
+    {
+      id: 'about',
+      label: 'Mon parcours',
+      icon: User,
+      description: 'Pourquoi RetraiteClair'
     },
     {
       id: 'contact',

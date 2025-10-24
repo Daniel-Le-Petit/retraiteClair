@@ -135,10 +135,24 @@
   background: linear-gradient(90deg, #10b981, #059669);
 }
 
+/* Barre colorée spécifique pour la carte avancée (bleu) */
+.simulation-card-advanced::before {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+}
+
 .simulation-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
   border-color: #10b981;
+}
+
+/* Styles spécifiques pour la carte avancée (bleu) */
+.simulation-card-advanced {
+  border-color: #2563eb;
+}
+
+.simulation-card-advanced:hover {
+  border-color: #1d4ed8;
 }
 
 .card-icon {

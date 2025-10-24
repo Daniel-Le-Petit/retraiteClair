@@ -13,6 +13,7 @@ import './calculateur-mobile-styles.css';
 import './conseils-styles.css';
 import './homepage-styles.css';
 import './legal-styles.css';
+import './about-styles.css';
 
 function AppContent() {
   return <SwipeNavigation />;

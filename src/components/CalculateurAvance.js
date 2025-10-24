@@ -482,22 +482,6 @@ const CalculateurAvance = () => {
                 </div>
 
                   {/* Boutons d'action pour mode simplifié */}
-                  <div className="simulation-actions">
-                    <button 
-                      className="btn-primary btn-results"
-                      onClick={() => {
-                        if (validateForResults()) {
-                          setActiveTab('resultats');
-                        }
-                      }}
-                    >
-                      <div className="btn-content">
-                        <div className="btn-title">Voir les Résultats</div>
-                        <div className="btn-subtitle">Calculs et projections</div>
-                  </div>
-                    </button>
-                    
-                  </div>
               </div>
               )}
 
@@ -623,19 +607,6 @@ const CalculateurAvance = () => {
 
                   {/* Boutons d'action pour mode avancé */}
                   <div className="simulation-actions">
-                  <button 
-                  className="btn-primary btn-results"
-                    onClick={() => {
-                      if (validateForResults()) {
-                        setActiveTab('resultats');
-                      }
-                    }}
-                  >
-                  <div className="btn-content">
-                    <div className="btn-title">Voir les Résultats</div>
-                    <div className="btn-subtitle">Calculs et projections</div>
-                  </div>
-                  </button>
                 
                 </div>
               </div>
@@ -649,8 +620,10 @@ const CalculateurAvance = () => {
               {resultats ? (
                 <>
                     {/* Section Pendant la retraite progressive */}
-                    <div className="results-section">
-                      <h4 className="section-title">Pendant votre retraite progressive, vous percevez :</h4>
+                    <div className="results-section during-retirement">
+                      <div className="section-header">
+                        <h4 className="section-title">Pendant votre retraite progressive, vous percevez :</h4>
+                      </div>
                       <div className="results-grid">
                         <div className="result-card">
                           <h4>Revenu Net Partiel</h4>
@@ -681,8 +654,10 @@ const CalculateurAvance = () => {
                     </div>
 
                     {/* Section Après la retraite progressive */}
-                    <div className="results-section">
-                      <h4 className="section-title">Après votre retraite progressive, vous percevrez :</h4>
+                    <div className="results-section after-retirement">
+                      <div className="section-header">
+                        <h4 className="section-title">Après votre retraite progressive, vous percevrez :</h4>
+                      </div>
                       <div className="results-grid">
                         <div className="result-card total">
                           <h4>Retraite complète</h4>
@@ -696,7 +671,7 @@ const CalculateurAvance = () => {
 
                     {/* Section des calculs détaillés */}
                     <div className="calculations-details">
-                      <h4>🔍 Détail des calculs</h4>
+                      <h4>Détail des calculs</h4>
                       <div className="calculation-steps">
                         <div className="calculation-step">
                           <div className="step-title">1. Salaire brut mensuel</div>

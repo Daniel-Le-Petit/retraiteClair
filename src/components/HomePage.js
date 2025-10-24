@@ -543,6 +543,7 @@ const HomePage = () => {
                 <li><a href="#etapes">Étapes</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="/calculateur">Simulateur</a></li>
+                <li><a href="/about">Mon parcours</a></li>
                 <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
@@ -556,6 +557,12 @@ const HomePage = () => {
                   onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'mentions-legales' } }))}
                 >
                   Mentions légales
+                </button></li>
+                <li><button 
+                  className="footer-legal-btn" 
+                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'about' } }))}
+                >
+                  Mon parcours / Pourquoi RetraiteClair
                 </button></li>
                 <li><button 
                   className="footer-legal-btn" 
