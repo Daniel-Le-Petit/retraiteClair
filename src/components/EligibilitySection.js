@@ -1,9 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle, Users, Clock, Shield, X } from 'lucide-react';
+import Modal from './Modal';
 
 const EligibilitySection = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+
+  // Gérer l'ouverture/fermeture des modales
+  useEffect(() => {
+    if (selectedItem !== null || showModal) {
+      document.body.classList.add('modal-open');
+      // Forcer le centrage avec JavaScript
+      setTimeout(() => {
+        const modals = document.querySelectorAll('.modal-overlay, .eligibility-detail-modal-overlay');
+        modals.forEach(modal => {
+          if (modal) {
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100vw';
+            modal.style.height = '100vh';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '999999';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+          }
+        });
+      }, 10);
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Nettoyer au démontage
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [selectedItem, showModal]);
 
   const eligibilityItems = [
     {
@@ -126,8 +159,48 @@ const EligibilitySection = () => {
 
       {/* Modal détaillé pour chaque critère */}
       {selectedItem !== null && (
-        <div className="eligibility-detail-modal-overlay" onClick={() => setSelectedItem(null)}>
-          <div className="eligibility-detail-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div 
+          className="eligibility-detail-modal-overlay" 
+          onClick={() => setSelectedItem(null)}
+          style={{
+            position: 'fixed',
+            top: '0px',
+            left: '0px',
+            right: '0px',
+            bottom: '0px',
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 999999,
+            padding: '20px',
+            boxSizing: 'border-box',
+            margin: 0,
+            overflow: 'hidden'
+          }}
+        >
+          <div 
+            className="eligibility-detail-modal-content" 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'white',
+              borderRadius: '24px',
+              maxWidth: '700px',
+              width: '90%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              position: 'relative',
+              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.3)',
+              zIndex: 1000000,
+              margin: '0 auto',
+              padding: 0,
+              transform: 'none',
+              top: 'auto',
+              left: 'auto'
+            }}
+          >
             <button className="modal-close-btn" onClick={() => setSelectedItem(null)}>
               <X size={24} />
             </button>
@@ -188,9 +261,11 @@ const EligibilitySection = () => {
       )}
 
       {/* Modal d'éligibilité */}
-      {showModal && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <Modal 
+        isOpen={showModal} 
+        onClose={() => setShowModal(false)}
+        className="modal-content"
+      >
             <div className="modal-header">
               <h3>Test d'éligibilité</h3>
               <button 
@@ -233,8 +308,7 @@ const EligibilitySection = () => {
               </div>
             </div>
           </div>
-        </div>
-      )}
+      </Modal>
     </section>
   );
 };

@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Euro, Shield, Clock, X } from 'lucide-react';
 
 const DefinitionSection = () => {
   const [selectedCard, setSelectedCard] = useState(null);
+
+  // Gérer l'ouverture/fermeture des modales
+  useEffect(() => {
+    if (selectedCard !== null) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Nettoyer au démontage
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [selectedCard]);
 
   const cards = [
     {

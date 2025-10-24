@@ -417,7 +417,13 @@ const HomePage = () => {
                   <Mail size={16} />
                   <button 
                     className="footer-legal-btn" 
-                    onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                      // Fallback si l'événement ne fonctionne pas
+                      setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                      }, 100);
+                    }}
                   >
                     retraiteclair@gmail.com
                   </button>
@@ -425,7 +431,7 @@ const HomePage = () => {
                 <p className="contact-response">Une question ? Notre équipe vous répond sous 24 h.</p>
               </div>
               <div className="social-links">
-                <a href="https://www.linkedin.com/company/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
                   <Linkedin size={20} />
                 </a>
                 <a href="https://www.facebook.com/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">

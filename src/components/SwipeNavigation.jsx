@@ -169,6 +169,8 @@ const SwipeNavigation = () => {
             window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: mode }));
           }, 400);
         }
+      } else if (page === 'contact') {
+        goToPage(4); // Index de la page contact
       }
     };
 

@@ -91,15 +91,15 @@ const ScenariosPage = () => {
                     <div className="scenario-results">
                       <div className="result-item">
                         <span>Salaire partiel:</span>
-                        <span>{resultats.salairePartiel} €</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2' }}>{resultats.salairePartiel} €</span>
                       </div>
                       <div className="result-item">
                         <span>Pension progressive:</span>
-                        <span>{resultats.pensionProgressive} €</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2' }}>{resultats.pensionProgressive} €</span>
                       </div>
                       <div className="result-item total">
                         <span>Revenu total:</span>
-                        <span>{resultats.revenuTotal} €</span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2' }}>{resultats.revenuTotal} €</span>
                       </div>
                     </div>
                   )}

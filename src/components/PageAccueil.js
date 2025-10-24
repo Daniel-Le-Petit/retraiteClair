@@ -1,14 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, CheckCircle, Calculator, Briefcase, FileText } from 'lucide-react';
 import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
 import EligibilitySection from './EligibilitySection';
+import Modal from './Modal';
 
 const PageAccueil = ({ onPageChange }) => {
   const navigate = useNavigate();
   const [showFaq, setShowFaq] = useState(null);
   const [selectedStep, setSelectedStep] = useState(null);
+
+  // Gérer l'ouverture/fermeture des modales
+  useEffect(() => {
+    if (selectedStep !== null) {
+      document.body.classList.add('modal-open');
+      // Forcer le centrage avec JavaScript
+      setTimeout(() => {
+        const modal = document.querySelector('.steps-modal-overlay');
+        if (modal) {
+          modal.style.position = 'fixed';
+          modal.style.top = '0';
+          modal.style.left = '0';
+          modal.style.width = '100vw';
+          modal.style.height = '100vh';
+          modal.style.display = 'flex';
+          modal.style.alignItems = 'center';
+          modal.style.justifyContent = 'center';
+          modal.style.zIndex = '999999';
+          modal.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        }
+      }, 10);
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Nettoyer au démontage
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [selectedStep]);
 
   const stepsDetails = [
     {
@@ -240,9 +271,11 @@ const PageAccueil = ({ onPageChange }) => {
       </div>
 
       {/* Modal détaillé pour les étapes */}
-      {selectedStep !== null && (
-        <div className="steps-modal-overlay" onClick={() => setSelectedStep(null)}>
-          <div className="steps-modal-content" onClick={(e) => e.stopPropagation()}>
+      <Modal 
+        isOpen={selectedStep !== null} 
+        onClose={() => setSelectedStep(null)}
+        className="steps-modal-content"
+      >
             <button className="modal-close-btn" onClick={() => setSelectedStep(null)}>
               <X size={24} />
             </button>
@@ -463,10 +496,9 @@ const PageAccueil = ({ onPageChange }) => {
                   )}
               </div>
               )}
-              </div>
             </div>
           </div>
-      )}
+      </Modal>
 
       {/* FAQ */}
       <div className="faq-section">

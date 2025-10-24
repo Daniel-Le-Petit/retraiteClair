@@ -113,7 +113,17 @@ const MentionsLegales = () => {
               <li><strong>Email :</strong> retraiteclair@gmail.com</li>
               <li><strong>Formulaire de contact :</strong> <button 
                 className="footer-legal-btn" 
-                onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
+                onClick={() => {
+                  // Essayer d'abord l'événement navigateToPage
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                  // Fallback : fermer la page légale et naviguer vers contact
+                  setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('backToHome'));
+                    setTimeout(() => {
+                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                    }, 100);
+                  }, 100);
+                }}
               >
                 Page de contact
               </button></li>

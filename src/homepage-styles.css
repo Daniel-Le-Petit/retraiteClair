@@ -868,7 +868,9 @@
 .footer-section {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: left !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .footer-brand {
@@ -905,11 +907,17 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: left;
+  text-align: left !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .footer-links li {
   margin-bottom: 0.5rem;
+  text-align: left !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .footer-links a {
@@ -932,8 +940,11 @@
   transition: color 0.3s ease;
   padding: 0;
   font-size: inherit;
-  text-align: left;
+  text-align: left !important;
   width: 100%;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .footer-cookie-btn:hover,
@@ -990,6 +1001,28 @@
   background: #10b981;
   color: white;
   transform: translateY(-2px);
+}
+
+/* Couleurs spécifiques pour les réseaux sociaux */
+.social-link[aria-label="LinkedIn"]:hover {
+  background: #0077b5 !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+}
+
+.social-link[aria-label="Facebook"]:hover {
+  background: #1877f2 !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Couleurs par défaut pour les icônes */
+.social-link[aria-label="LinkedIn"] {
+  color: #0077b5;
+}
+
+.social-link[aria-label="Facebook"] {
+  color: #1877f2;
 }
 
 .footer-bottom {
@@ -1049,6 +1082,52 @@
   .cards-container {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  /* Footer Mobile */
+  .footer-section {
+    text-align: left !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  
+  .footer-links {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+  
+  .footer-links li {
+    text-align: left !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+  
+  .footer-legal-btn,
+  .footer-cookie-btn {
+    text-align: left !important;
+    justify-content: flex-start !important;
+    display: flex !important;
+    align-items: flex-start !important;
+  }
+  
+  .footer-title {
+    text-align: left !important;
+    align-self: flex-start !important;
+  }
+  
+  .footer-description {
+    text-align: left !important;
+    align-self: flex-start !important;
+  }
+  
+  .footer-bottom {
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+  
+  .footer-bottom p {
+    text-align: left !important;
   }
 
   /* Definition Grid Mobile */

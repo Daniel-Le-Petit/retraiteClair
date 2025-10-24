@@ -127,7 +127,15 @@ const ConditionsUtilisation = () => {
               <li><strong>Email :</strong> retraiteclair@gmail.com</li>
               <li><strong>Formulaire :</strong> <button 
                 className="footer-legal-btn" 
-                onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                  setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('backToHome'));
+                    setTimeout(() => {
+                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
+                    }, 100);
+                  }, 100);
+                }}
               >
                 Page de contact
               </button></li>
