@@ -4,12 +4,7 @@
 .blog-list-container,
 .blog-post-container {
   min-height: 100vh;
-  background: 
-    linear-gradient(rgba(248, 249, 250, 0.7), rgba(248, 249, 250, 0.7)),
-    url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background: #ffffff;
 }
 
 /* Spinner de chargement */
@@ -55,11 +50,7 @@
 
 /* Header du blog */
 .blog-header {
-  background: 
-    linear-gradient(rgba(15, 118, 110, 0.85), rgba(19, 78, 74, 0.85)),
-    url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   padding: 20px 0 15px;
   text-align: center;

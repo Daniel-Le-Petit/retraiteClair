@@ -12,6 +12,7 @@ import './calculateur-avance-styles.css';
 import './calculateur-mobile-styles.css';
 import './conseils-styles.css';
 import './homepage-styles.css';
+import './legal-styles.css';
 
 function AppContent() {
   return <SwipeNavigation />;

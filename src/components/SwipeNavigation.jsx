@@ -6,6 +6,7 @@ import BlogListStable from './Blog/BlogListStable';
 import BlogPostViewer from './Blog/BlogPostViewer';
 import ConseilsPageSimple from './ConseilsPageSimple';
 import ContactForm from './ContactForm';
+import LegalPage from './LegalPage';
 import HorizontalNavigation from './HorizontalNavigation';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
@@ -16,6 +17,7 @@ const SwipeNavigation = () => {
   const [currentArticle, setCurrentArticle] = useState(null);
   const [isTextSelection, setIsTextSelection] = useState(false);
   const [readingMode, setReadingMode] = useState(false);
+  const [currentLegalPage, setCurrentLegalPage] = useState(null);
 
   // Configuration des pages
   const pages = [
@@ -140,8 +142,8 @@ const SwipeNavigation = () => {
     preventDefaultTouchmoveEvent: false, // Permettre le scroll
   });
   
-  // Détecter si on est sur une page de contenu (blog, conseils, contact)
-  const isContentPage = currentIndex >= 2 || currentArticle; // Blog, conseils, contact ou article
+  // Détecter si on est sur une page de contenu (blog, conseils, contact, legal)
+  const isContentPage = currentIndex >= 2 || currentArticle || currentLegalPage; // Blog, conseils, contact, legal ou article
 
   // Navigation par clic sur les dots
   const goToPage = (index) => {
@@ -180,18 +182,50 @@ const SwipeNavigation = () => {
       goToPage(2); // Index du blog
     };
 
+    const handleLegalNavigation = (event) => {
+      const { page } = event.detail;
+      setCurrentLegalPage(page);
+    };
+
+    const handleBackToHome = () => {
+      setCurrentLegalPage(null);
+      goToPage(0); // Index de l'accueil
+    };
+
     window.addEventListener('navigateToPage', handleNavigation);
     window.addEventListener('navigateToArticle', handleArticleNavigation);
     window.addEventListener('backToBlog', handleBackToBlog);
+    window.addEventListener('navigateToLegalPage', handleLegalNavigation);
+    window.addEventListener('backToHome', handleBackToHome);
     return () => {
       window.removeEventListener('navigateToPage', handleNavigation);
       window.removeEventListener('navigateToArticle', handleArticleNavigation);
       window.removeEventListener('backToBlog', handleBackToBlog);
+      window.removeEventListener('navigateToLegalPage', handleLegalNavigation);
+      window.removeEventListener('backToHome', handleBackToHome);
     };
   }, []);
 
   // Rendu des pages avec transition
   const renderPages = () => {
+    // Si on affiche une page légale, on l'affiche en priorité
+    if (currentLegalPage) {
+      return (
+        <div
+          key="legal"
+          className="swipe-page active"
+          style={{
+            transform: 'translateX(0%)',
+            opacity: 1,
+            zIndex: 10,
+            display: 'block'
+          }}
+        >
+          <LegalPage />
+        </div>
+      );
+    }
+
     // Si on affiche un article, on l'affiche en priorité
     if (currentArticle) {
       return (
@@ -249,11 +283,14 @@ const SwipeNavigation = () => {
       
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigation 
-        currentPage={currentArticle ? 'article' : pages[currentIndex].id}
+        currentPage={currentLegalPage ? 'legal' : currentArticle ? 'article' : pages[currentIndex].id}
         onPageChange={(pageId) => {
           if (pageId === 'blog' && currentArticle) {
             setCurrentArticle(null);
             goToPage(2); // Index du blog
+          } else if (pageId === 'accueil' && currentLegalPage) {
+            setCurrentLegalPage(null);
+            goToPage(0); // Index de l'accueil
           } else {
             const pageIndex = pages.findIndex(page => page.id === pageId);
             if (pageIndex !== -1) {

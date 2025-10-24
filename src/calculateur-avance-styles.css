@@ -3897,6 +3897,40 @@ div.advanced-field label {
     width: 10px;
     height: 10px;
   }
+
+  /* Amélioration des montants en mode mobile */
+  .scenarios-container .result-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem 0 !important;
+  }
+
+  .scenarios-container .result-item span:first-child {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .scenarios-container .result-item span:last-child {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: #10b981 !important;
+    background: #f0fdf4 !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 6px !important;
+    border: 1px solid #bbf7d0 !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .scenarios-container .result-item.total span:last-child {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    border: none !important;
+    font-size: 1.2rem !important;
+    font-weight: 800 !important;
+  }
 }
 
 @keyframes slideInUp {

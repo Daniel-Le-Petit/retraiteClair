@@ -260,6 +260,15 @@
   transform: translateX(5px);
 }
 
+/* Toujours visible sur mobile */
+@media (max-width: 768px) {
+  .card-more {
+    opacity: 1 !important;
+    background: #dcfce7;
+    transform: none !important;
+  }
+}
+
 /* Modal Overlay */
 .definition-modal-overlay {
   position: fixed;
@@ -272,7 +281,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 99999;
   padding: 20px;
   animation: fadeIn 0.3s ease-out;
 }
@@ -291,6 +300,7 @@
   background: white;
   border-radius: 24px;
   max-width: 700px;
+  z-index: 100000;
   width: 100%;
   max-height: 85vh;
   overflow-y: auto;

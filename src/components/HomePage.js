@@ -387,9 +387,24 @@ const HomePage = () => {
             <div className="footer-section footer-legal">
               <h4 className="footer-title">Informations légales</h4>
               <ul className="footer-links">
-                <li><a href="/mentions-legales">Mentions légales</a></li>
-                <li><a href="/politique-confidentialite">Politique de confidentialité</a></li>
-                <li><a href="/conditions-utilisation">Conditions d'utilisation</a></li>
+                <li><button 
+                  className="footer-legal-btn" 
+                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'mentions-legales' } }))}
+                >
+                  Mentions légales
+                </button></li>
+                <li><button 
+                  className="footer-legal-btn" 
+                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'politique-confidentialite' } }))}
+                >
+                  Politique de confidentialité
+                </button></li>
+                <li><button 
+                  className="footer-legal-btn" 
+                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'conditions-utilisation' } }))}
+                >
+                  Conditions d'utilisation
+                </button></li>
                 <li><button className="footer-cookie-btn">Gestion des cookies</button></li>
               </ul>
             </div>
@@ -400,15 +415,20 @@ const HomePage = () => {
               <div className="contact-info">
                 <div className="contact-item">
                   <Mail size={16} />
-                  <a href="mailto:contact@retraiteclair.fr">contact@retraiteclair.fr</a>
+                  <button 
+                    className="footer-legal-btn" 
+                    onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
+                  >
+                    retraiteclair@gmail.com
+                  </button>
                 </div>
                 <p className="contact-response">Une question ? Notre équipe vous répond sous 24 h.</p>
               </div>
               <div className="social-links">
-                <a href="#" className="social-link" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
                   <Linkedin size={20} />
                 </a>
-                <a href="#" className="social-link" aria-label="Facebook">
+                <a href="https://www.facebook.com/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
                   <Facebook size={20} />
                 </a>
               </div>
