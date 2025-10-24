@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Users, Clock, Shield, X } from 'lucide-react';
-import SimpleModal from './SimpleModal';
+import PureCSSModal from './PureCSSModal';
 
 const EligibilitySection = () => {
   const [showModal, setShowModal] = useState(false);
@@ -158,7 +158,7 @@ const EligibilitySection = () => {
       </div>
 
       {/* Modal détaillé pour chaque critère */}
-      <SimpleModal 
+      <PureCSSModal 
         isOpen={selectedItem !== null} 
         onClose={() => setSelectedItem(null)}
       >
@@ -217,10 +217,10 @@ const EligibilitySection = () => {
                 </div>
               )}
             </div>
-      </SimpleModal>
+      </PureCSSModal>
 
       {/* Modal d'éligibilité */}
-      <SimpleModal 
+      <PureCSSModal 
         isOpen={showModal} 
         onClose={() => setShowModal(false)}
       >
@@ -266,7 +266,7 @@ const EligibilitySection = () => {
               </div>
             </div>
           </div>
-      </SimpleModal>
+      </PureCSSModal>
     </section>
   );
 };

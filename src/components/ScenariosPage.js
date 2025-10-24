@@ -89,17 +89,17 @@ const ScenariosPage = () => {
                   
                   {resultats && (
                     <div className="scenario-results">
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Salaire partiel:</div>
-                        <div style={{ fontSize: '0.8rem', fontWeight: '600', color: '#10b981', background: '#f0fdf4', padding: '0.5rem', borderRadius: '6px', border: '1px solid #bbf7d0', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.salairePartiel} €</div>
+                      <div style={{ marginBottom: '15px' }}>
+                        <div style={{ fontSize: '14px', color: '#666', marginBottom: '5px' }}>Salaire partiel:</div>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#10b981', background: '#f0fdf4', padding: '8px', borderRadius: '4px', border: '1px solid #bbf7d0' }}>{resultats.salairePartiel} €</div>
                       </div>
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Pension progressive:</div>
-                        <div style={{ fontSize: '0.8rem', fontWeight: '600', color: '#10b981', background: '#f0fdf4', padding: '0.5rem', borderRadius: '6px', border: '1px solid #bbf7d0', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.pensionProgressive} €</div>
+                      <div style={{ marginBottom: '15px' }}>
+                        <div style={{ fontSize: '14px', color: '#666', marginBottom: '5px' }}>Pension progressive:</div>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#10b981', background: '#f0fdf4', padding: '8px', borderRadius: '4px', border: '1px solid #bbf7d0' }}>{resultats.pensionProgressive} €</div>
                       </div>
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Revenu total:</div>
-                        <div style={{ fontSize: '0.8rem', fontWeight: '600', background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', padding: '0.5rem', borderRadius: '6px', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.revenuTotal} €</div>
+                      <div style={{ marginBottom: '15px' }}>
+                        <div style={{ fontSize: '14px', color: '#666', marginBottom: '5px' }}>Revenu total:</div>
+                        <div style={{ fontSize: '16px', fontWeight: 'bold', background: '#10b981', color: 'white', padding: '8px', borderRadius: '4px' }}>{resultats.revenuTotal} €</div>
                       </div>
                     </div>
                   )}

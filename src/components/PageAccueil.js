@@ -4,7 +4,7 @@ import { X, CheckCircle, Calculator, Briefcase, FileText } from 'lucide-react';
 import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
 import EligibilitySection from './EligibilitySection';
-import SimpleModal from './SimpleModal';
+import PureCSSModal from './PureCSSModal';
 
 const PageAccueil = ({ onPageChange }) => {
   const navigate = useNavigate();
@@ -271,7 +271,7 @@ const PageAccueil = ({ onPageChange }) => {
       </div>
 
       {/* Modal détaillé pour les étapes */}
-      <SimpleModal 
+      <PureCSSModal 
         isOpen={selectedStep !== null} 
         onClose={() => setSelectedStep(null)}
       >
@@ -497,7 +497,7 @@ const PageAccueil = ({ onPageChange }) => {
               )}
             </div>
           </div>
-      </SimpleModal>
+      </PureCSSModal>
 
       {/* FAQ */}
       <div className="faq-section">

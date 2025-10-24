@@ -191,44 +191,62 @@ const HomePage = () => {
       <section className="simulation-cards">
         <div className="cards-container">
           <div className="simulation-card">
-            <div className="card-icon">
-              <Zap className="card-icon-svg" />
+            <div className="card-image-container">
+              <img 
+                src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Femme sur la plage - Simulation simplifiée"
+                className="card-image"
+              />
+              <div className="card-overlay">
+                <h3 className="card-title">Simulation Simplifiée</h3>
+                <p className="card-description">
+                  Découvrez votre retraite progressive en quelques clics. Calcul rapide et résultat immédiat.
+                </p>
+                <button 
+                  className="card-button card-button-primary"
+                  onClick={() => {
+                    // Déclencher la navigation vers le calculateur en mode simplifié
+                    window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'simplified' } }));
+                  }}
+                  aria-label="Essayer la version simplifiée"
+                >
+                  Essayer la version simplifiée
+                </button>
+              </div>
             </div>
-            <h3 className="card-title">Simulation Simplifiée</h3>
-            <p className="card-description">
-              Résultat rapide en 2 minutes avec quelques données de base (âge, salaire, taux d'activité).
-            </p>
-            <button 
-              className="card-button card-button-primary"
-              onClick={() => {
-                // Déclencher la navigation vers le calculateur en mode simplifié
-                window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'simplified' } }));
-              }}
-              aria-label="Essayer la version simplifiée"
-            >
-              Essayer la version simplifiée
-            </button>
           </div>
 
           <div className="simulation-card">
-            <div className="card-icon">
-              <Settings className="card-icon-svg" />
+            <div className="card-image-container">
+              <img 
+                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Femme à la neige - Simulation avancée"
+                className="card-image"
+              />
+              <div className="card-overlay">
+                <h3 className="card-title">Simulation Avancée</h3>
+                <p className="card-description">
+                  Analyse détaillée de votre retraite progressive avec tous les paramètres personnalisés.
+                </p>
+                <button 
+                  className="card-button card-button-secondary"
+                  onClick={() => {
+                    // Déclencher la navigation vers le calculateur en mode avancé
+                    window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'advanced' } }));
+                  }}
+                  aria-label="Explorer la version avancée"
+                >
+                  Explorer la version avancée
+                </button>
+              </div>
             </div>
-            <h3 className="card-title">Simulation Avancée</h3>
-            <p className="card-description">
-              Analyse complète incluant cotisations, trimestres validés, et différents scénarios de revenus.
-            </p>
-            <button 
-              className="card-button card-button-secondary"
-              onClick={() => {
-                // Déclencher la navigation vers le calculateur en mode avancé
-                window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'advanced' } }));
-              }}
-              aria-label="Explorer la version avancée"
-            >
-              Explorer la version avancée
-            </button>
           </div>
+        </div>
+        
+        {/* Indicateurs centrés entre les cartes */}
+        <div className="cards-indicators">
+          <div className="indicator-dot indicator-active"></div>
+          <div className="indicator-dot"></div>
         </div>
       </section>
 
