@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const Modal = ({ isOpen, onClose, children, className = "" }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div
       style={{
         position: 'fixed',
@@ -38,10 +57,7 @@ const Modal = ({ isOpen, onClose, children, className = "" }) => {
           boxShadow: '0 25px 50px rgba(0, 0, 0, 0.3)',
           zIndex: 1000000,
           margin: 0,
-          padding: 0,
-          transform: 'none',
-          top: 'auto',
-          left: 'auto'
+          padding: 0
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -49,6 +65,8 @@ const Modal = ({ isOpen, onClose, children, className = "" }) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default Modal;

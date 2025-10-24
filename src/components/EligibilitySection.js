@@ -158,49 +158,11 @@ const EligibilitySection = () => {
       </div>
 
       {/* Modal détaillé pour chaque critère */}
-      {selectedItem !== null && (
-        <div 
-          className="eligibility-detail-modal-overlay" 
-          onClick={() => setSelectedItem(null)}
-          style={{
-            position: 'fixed',
-            top: '0px',
-            left: '0px',
-            right: '0px',
-            bottom: '0px',
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 999999,
-            padding: '20px',
-            boxSizing: 'border-box',
-            margin: 0,
-            overflow: 'hidden'
-          }}
-        >
-          <div 
-            className="eligibility-detail-modal-content" 
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              background: 'white',
-              borderRadius: '24px',
-              maxWidth: '700px',
-              width: '90%',
-              maxHeight: '90vh',
-              overflowY: 'auto',
-              position: 'relative',
-              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.3)',
-              zIndex: 1000000,
-              margin: '0 auto',
-              padding: 0,
-              transform: 'none',
-              top: 'auto',
-              left: 'auto'
-            }}
-          >
+      <Modal 
+        isOpen={selectedItem !== null} 
+        onClose={() => setSelectedItem(null)}
+        className="eligibility-detail-modal-content"
+      >
             <button className="modal-close-btn" onClick={() => setSelectedItem(null)}>
               <X size={24} />
             </button>
@@ -256,9 +218,7 @@ const EligibilitySection = () => {
                 </div>
               )}
             </div>
-          </div>
-        </div>
-      )}
+      </Modal>
 
       {/* Modal d'éligibilité */}
       <Modal 
