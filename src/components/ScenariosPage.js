@@ -89,17 +89,17 @@ const ScenariosPage = () => {
                   
                   {resultats && (
                     <div className="scenario-results">
-                      <div className="result-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', padding: '0.75rem 0' }}>
-                        <span style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem', display: 'block', width: '100%' }}>Salaire partiel:</span>
-                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2', color: '#10b981', background: '#f0fdf4', padding: '0.25rem 0.4rem', borderRadius: '6px', border: '1px solid #bbf7d0', width: '100%', textAlign: 'center', display: 'block', marginTop: '0.25rem' }}>{resultats.salairePartiel} €</span>
+                      <div style={{ marginBottom: '1rem' }}>
+                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Salaire partiel:</div>
+                        <div style={{ fontSize: '0.8rem', fontWeight: '600', color: '#10b981', background: '#f0fdf4', padding: '0.5rem', borderRadius: '6px', border: '1px solid #bbf7d0', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.salairePartiel} €</div>
                       </div>
-                      <div className="result-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', padding: '0.75rem 0' }}>
-                        <span style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem', display: 'block', width: '100%' }}>Pension progressive:</span>
-                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2', color: '#10b981', background: '#f0fdf4', padding: '0.25rem 0.4rem', borderRadius: '6px', border: '1px solid #bbf7d0', width: '100%', textAlign: 'center', display: 'block', marginTop: '0.25rem' }}>{resultats.pensionProgressive} €</span>
+                      <div style={{ marginBottom: '1rem' }}>
+                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Pension progressive:</div>
+                        <div style={{ fontSize: '0.8rem', fontWeight: '600', color: '#10b981', background: '#f0fdf4', padding: '0.5rem', borderRadius: '6px', border: '1px solid #bbf7d0', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.pensionProgressive} €</div>
                       </div>
-                      <div className="result-item total" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', padding: '0.75rem 0' }}>
-                        <span style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '0.25rem', display: 'block', width: '100%' }}>Revenu total:</span>
-                        <span style={{ fontSize: '0.65rem', fontWeight: '600', lineHeight: '1.2', background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', border: 'none', padding: '0.25rem 0.4rem', borderRadius: '6px', width: '100%', textAlign: 'center', display: 'block', marginTop: '0.25rem' }}>{resultats.revenuTotal} €</span>
+                      <div style={{ marginBottom: '1rem' }}>
+                        <div style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Revenu total:</div>
+                        <div style={{ fontSize: '0.8rem', fontWeight: '600', background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', padding: '0.5rem', borderRadius: '6px', textAlign: 'center', wordBreak: 'break-all' }}>{resultats.revenuTotal} €</div>
                       </div>
                     </div>
                   )}

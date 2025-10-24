@@ -4,7 +4,7 @@ import { X, CheckCircle, Calculator, Briefcase, FileText } from 'lucide-react';
 import DefinitionSection from './DefinitionSection';
 import HeroSection from './HeroSection';
 import EligibilitySection from './EligibilitySection';
-import Modal from './Modal';
+import SimpleModal from './SimpleModal';
 
 const PageAccueil = ({ onPageChange }) => {
   const navigate = useNavigate();
@@ -271,10 +271,9 @@ const PageAccueil = ({ onPageChange }) => {
       </div>
 
       {/* Modal détaillé pour les étapes */}
-      <Modal 
+      <SimpleModal 
         isOpen={selectedStep !== null} 
         onClose={() => setSelectedStep(null)}
-        className="steps-modal-content"
       >
             <button className="modal-close-btn" onClick={() => setSelectedStep(null)}>
               <X size={24} />
@@ -498,7 +497,7 @@ const PageAccueil = ({ onPageChange }) => {
               )}
             </div>
           </div>
-      </Modal>
+      </SimpleModal>
 
       {/* FAQ */}
       <div className="faq-section">
