@@ -5,7 +5,6 @@ import CalculateurAvance from './CalculateurAvance';
 import BlogListStable from './Blog/BlogListStable';
 import BlogPostViewer from './Blog/BlogPostViewer';
 import ConseilsPageSimple from './ConseilsPageSimple';
-import AboutPage from './AboutPage';
 import ContactForm from './ContactForm';
 import LegalPage from './LegalPage';
 import HorizontalNavigation from './HorizontalNavigation';
@@ -26,7 +25,6 @@ const SwipeNavigation = () => {
     { id: 'calculateur', component: CalculateurAvance, title: 'Simulateur' },
     { id: 'blog', component: BlogListStable, title: 'Blog' },
     { id: 'conseils', component: ConseilsPageSimple, title: 'Conseils' },
-    { id: 'about', component: AboutPage, title: 'Mon parcours' },
     { id: 'contact', component: ContactForm, title: 'Contact' }
   ];
 
@@ -171,10 +169,8 @@ const SwipeNavigation = () => {
             window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: mode }));
           }, 400);
         }
-      } else if (page === 'about') {
-        goToPage(4); // Index de la page Mon parcours
       } else if (page === 'contact') {
-        goToPage(5); // Index de la page contact
+        goToPage(4); // Index de la page contact
       }
     };
 

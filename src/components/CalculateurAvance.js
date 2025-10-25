@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp, Eye, Settings, ArrowRight } from 'lucide-react';
 import PageHeader from './PageHeader';
 import SimulatorNavigation from './SimulatorNavigation';
 import './SimulatorNavigation.css';
@@ -482,6 +482,45 @@ const CalculateurAvance = () => {
                 </div>
 
                   {/* Boutons d'action pour mode simplifié */}
+                  <div className="action-buttons-container">
+                    <button
+                      className={`design-button orange-gradient ${!isResultsStepAccessible() ? 'disabled' : ''}`}
+                      disabled={!isResultsStepAccessible()}
+                      onClick={() => {
+                        if (validateForResults()) {
+                          setActiveTab('resultats');
+                        }
+                      }}
+                    >
+                      <Eye className="design-button-icon" />
+                      <div className="design-button-text">
+                        <h3 className="design-button-title">Voir le résultat de la simulation</h3>
+                        <p className="design-button-subtitle">
+                          {!isResultsStepAccessible() ? 
+                            'Veuillez remplir le salaire brut et la date de début' : 
+                            'Découvrez vos revenus en retraite progressive'
+                          }
+                        </p>
+                      </div>
+                    </button>
+                    
+                    <button
+                      className={`design-button blue-gradient ${!isResultsStepAccessible() ? 'disabled' : ''}`}
+                      disabled={!isResultsStepAccessible()}
+                      onClick={() => setSimulationMode('advanced')}
+                    >
+                      <Settings className="design-button-icon" />
+                      <div className="design-button-text">
+                        <h3 className="design-button-title">Affiner avec des données plus précises</h3>
+                        <p className="design-button-subtitle">
+                          {!isResultsStepAccessible() ? 
+                            'Complétez d\'abord les champs obligatoires' : 
+                            'Mode avancé avec calculs M@rel détaillés'
+                          }
+                        </p>
+                      </div>
+                    </button>
+                  </div>
               </div>
               )}
 
@@ -606,9 +645,39 @@ const CalculateurAvance = () => {
                     </div>
 
                   {/* Boutons d'action pour mode avancé */}
-                  <div className="simulation-actions">
-                
-                </div>
+                  <div className="action-buttons-container">
+                    <button
+                      className={`design-button orange-gradient ${!isResultsStepAccessible() ? 'disabled' : ''}`}
+                      disabled={!isResultsStepAccessible()}
+                      onClick={() => {
+                        if (validateForResults()) {
+                          setActiveTab('resultats');
+                        }
+                      }}
+                    >
+                      <Eye className="design-button-icon" />
+                      <div className="design-button-text">
+                        <h3 className="design-button-title">Voir le résultat de la simulation</h3>
+                        <p className="design-button-subtitle">
+                          {!isResultsStepAccessible() ? 
+                            'Veuillez remplir le salaire annuel, l\'année de naissance et les trimestres' : 
+                            'Découvrez vos revenus en retraite progressive'
+                          }
+                        </p>
+                      </div>
+                    </button>
+                    
+                    <button
+                      className="design-button green-gradient"
+                      onClick={() => setSimulationMode('simplified')}
+                    >
+                      <ArrowRight className="design-button-icon" />
+                      <div className="design-button-text">
+                        <h3 className="design-button-title">Entrer un minimum de données</h3>
+                        <p className="design-button-subtitle">Mode simplifié pour une estimation rapide</p>
+                      </div>
+                    </button>
+                  </div>
               </div>
               )}
             </div>
