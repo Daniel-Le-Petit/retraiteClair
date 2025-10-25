@@ -728,7 +728,7 @@ const CalculateurAvance = () => {
                         className="scenarios-cta-button"
                         onClick={() => setActiveTab('scenarios')}
                       >
-                        <span className="scenarios-button-text">Voir les scénarios pour les autres taux de temps partiels</span>
+                        <span className="scenarios-button-text">Voir les scénarios 40%, 50%, 60%, 70%, 80%</span>
                       </button>
                     </div>
 

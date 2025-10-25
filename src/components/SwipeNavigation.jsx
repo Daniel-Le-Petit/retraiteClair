@@ -5,6 +5,7 @@ import CalculateurAvance from './CalculateurAvance';
 import BlogListStable from './Blog/BlogListStable';
 import BlogPostViewer from './Blog/BlogPostViewer';
 import ConseilsPageSimple from './ConseilsPageSimple';
+import AboutPage from './AboutPage';
 import ContactForm from './ContactForm';
 import LegalPage from './LegalPage';
 import HorizontalNavigation from './HorizontalNavigation';
@@ -25,6 +26,7 @@ const SwipeNavigation = () => {
     { id: 'calculateur', component: CalculateurAvance, title: 'Simulateur' },
     { id: 'blog', component: BlogListStable, title: 'Blog' },
     { id: 'conseils', component: ConseilsPageSimple, title: 'Conseils' },
+    { id: 'about', component: AboutPage, title: 'Mon parcours' },
     { id: 'contact', component: ContactForm, title: 'Contact' }
   ];
 
