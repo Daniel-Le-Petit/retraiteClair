@@ -673,8 +673,8 @@ const CalculateurAvance = () => {
                     >
                       <ArrowRight className="design-button-icon" />
                       <div className="design-button-text">
-                        <h3 className="design-button-title">Entrer un minimum de données</h3>
-                        <p className="design-button-subtitle">Mode simplifié pour une estimation rapide</p>
+                        <h3 className="design-button-title">Mode simplifié pour une estimation rapide</h3>
+                        <p className="design-button-subtitle">Entrer un minimum de données</p>
                       </div>
                     </button>
                   </div>
@@ -720,6 +720,16 @@ const CalculateurAvance = () => {
                       {/* Bouton pour accéder aux scénarios */}
                       <div className="scenarios-button-container">
                       </div>
+                    </div>
+
+                    {/* Bouton Scénarios */}
+                    <div className="scenarios-cta-container">
+                      <button
+                        className="scenarios-cta-button"
+                        onClick={() => setActiveTab('scenarios')}
+                      >
+                        <span className="scenarios-button-text">Voir les scénarios pour les autres taux de temps partiels</span>
+                      </button>
                     </div>
 
                     {/* Section Après la retraite progressive */}
