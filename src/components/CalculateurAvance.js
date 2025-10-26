@@ -377,33 +377,6 @@ const CalculateurAvance = () => {
                   <div className="marel-reference">
                     <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
                   </div>
-                  
-                  {/* Sélecteur de mode de simulation - Simple */}
-                  <div className="simple-mode-selector">
-                    <div className="radio-group-simple">
-                      <label className="radio-simple">
-                        <input
-                          type="radio"
-                          name="simulationMode"
-                          value="simplified"
-                          checked={simulationMode === 'simplified'}
-                          onChange={(e) => setSimulationMode(e.target.value)}
-                        />
-                        <span className="radio-label">Simulation Simplifiée</span>
-                      </label>
-                      
-                      <label className="radio-simple">
-                        <input
-                          type="radio"
-                          name="simulationMode"
-                          value="advanced"
-                          checked={simulationMode === 'advanced'}
-                          onChange={(e) => setSimulationMode(e.target.value)}
-                        />
-                        <span className="radio-label">Simulation Avancée</span>
-                      </label>
-                    </div>
-                  </div>
                 
                 <div className="form-grid-simplified">
                   <div className="form-row">
@@ -529,33 +502,6 @@ const CalculateurAvance = () => {
                 <div className="form-section">
                   <div className="marel-reference">
                     <p><strong>Le simulateur M@rel est la référence officielle</strong> pour calculer votre retraite progressive avec précision.</p>
-                  </div>
-                  
-                  {/* Sélecteur de mode de simulation - Simple */}
-                  <div className="simple-mode-selector">
-                    <div className="radio-group-simple">
-                      <label className="radio-simple">
-                        <input
-                          type="radio"
-                          name="simulationMode"
-                          value="simplified"
-                          checked={simulationMode === 'simplified'}
-                          onChange={(e) => setSimulationMode(e.target.value)}
-                        />
-                        <span className="radio-label">Simulation Simplifiée</span>
-                      </label>
-                      
-                      <label className="radio-simple">
-                        <input
-                          type="radio"
-                          name="simulationMode"
-                          value="advanced"
-                          checked={simulationMode === 'advanced'}
-                          onChange={(e) => setSimulationMode(e.target.value)}
-                        />
-                        <span className="radio-label">Simulation Avancée</span>
-                      </label>
-                    </div>
                   </div>
                   
                   <div className="form-grid">

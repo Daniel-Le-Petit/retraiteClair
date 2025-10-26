@@ -7,7 +7,25 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-9WF389CM13');
+      
+      // Configuration GA4 avec consentement
+      gtag('config', 'G-9WF389CM13', {
+        'send_page_view': true,
+        'anonymize_ip': true,
+        'cookie_flags': 'SameSite=None;Secure'
+      });
+      
+      // Vérifier le consentement existant
+      const consent = localStorage.getItem('consent-given');
+      if (consent === 'true') {
+        gtag('consent', 'grant', {
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied'
+        });
+      }
     </script>
     <!-- End Google Analytics 4 -->
     
@@ -209,6 +227,17 @@
       localStorage.setItem('consent-date', new Date().toISOString());
       document.getElementById('consent-banner').style.display = 'none';
       
+      // Activer GA4
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'grant', {
+          'analytics_storage': 'granted'
+        });
+        gtag('event', 'page_view', {
+          'send_to': 'G-9WF389CM13'
+        });
+        console.log('GA4 consent granted and PageView tracked');
+      }
+      
       // Activer Meta Pixel et tracker PageView
       if (typeof fbq !== 'undefined') {
         fbq('consent', 'grant');
@@ -221,6 +250,14 @@
       localStorage.setItem('consent-given', 'false');
       localStorage.setItem('consent-date', new Date().toISOString());
       document.getElementById('consent-banner').style.display = 'none';
+      
+      // Désactiver GA4
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'revoke', {
+          'analytics_storage': 'denied'
+        });
+        console.log('GA4 consent revoked');
+      }
       
       // Désactiver Meta Pixel
       if (typeof fbq !== 'undefined') {
@@ -244,7 +281,12 @@
         if (new Date(consentDate) < oneYearAgo) {
           document.getElementById('consent-banner').style.display = 'block';
         } else if (consent === 'false') {
-          // Désactiver Meta Pixel si refusé
+          // Désactiver GA4 et Meta Pixel si refusé
+          if (typeof gtag !== 'undefined') {
+            gtag('consent', 'revoke', {
+              'analytics_storage': 'denied'
+            });
+          }
           if (typeof fbq !== 'undefined') {
             fbq('consent', 'revoke');
           }
