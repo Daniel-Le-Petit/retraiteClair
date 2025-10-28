@@ -445,8 +445,81 @@
   transform: translateY(-2px);
 }
 
+/* Styles pour la vue mobile */
+.mobileView {
+  display: none;
+}
+
+.mobileSection {
+  margin-bottom: 2rem;
+}
+
+.mobileSectionTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.mobileCards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobileScenarios {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.mobileScenarioCard {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.mobileScenarioCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.scenarioPercentage {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f766e;
+  margin-bottom: 0.5rem;
+}
+
+.scenarioAmount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.scenarioLabel {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+  /* Masquer la vue desktop et afficher la vue mobile */
+  .tabs,
+  .tabContent {
+    display: none;
+  }
+  
+  .mobileView {
+    display: block;
+  }
   .container {
     padding: 1.5rem;
   }

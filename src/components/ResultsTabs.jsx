@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ResultsTabs.module.css';
 import ScenarioChart from './ScenarioChart';
 
 const ResultsTabs = ({ data, mode }) => {
   const [activeTab, setActiveTab] = useState('bruts');
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {
@@ -26,6 +38,112 @@ const ResultsTabs = ({ data, mode }) => {
     return data.impactFiscal.economie;
   };
 
+  // Vue mobile : affichage sans onglets
+  if (isMobile) {
+    return (
+      <div className={styles.container}>
+        <h2 className={`${styles.title} ${mode === 'avance' ? styles.advanced : ''}`}>Résultats de votre simulation</h2>
+        
+        {/* Vue mobile : tous les résultats en une seule page */}
+        <div className={styles.mobileView}>
+          {/* Section principale - Revenus nets */}
+          <div className={styles.mobileSection}>
+            <h3 className={styles.mobileSectionTitle}>Vos revenus en Retraite Progressive</h3>
+            <div className={styles.mobileCards}>
+              <div className={`${styles.resultCard} ${styles.mainCard} ${styles.salaireTempsPartiel}`}>
+                <h3>Salaire temps partiel</h3>
+                <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPartiel)}</div>
+                <p>Net après cotisations</p>
+              </div>
+              <div className={`${styles.resultCard} ${styles.mainCard} ${styles.pensionRetraite}`}>
+                <h3>Pension retraite</h3>
+                <div className={styles.amount}>{formatCurrency(data.revenusNets.pension)}</div>
+                <p>Net après cotisations</p>
+              </div>
+              <div className={`${styles.resultCard} ${styles.mainCard} ${styles.totalRevenus}`}>
+                <h3>Total revenus nets en Retraite Progressive</h3>
+                <div className={styles.amount}>{formatCurrency(calculateTotalNets())}</div>
+                <p>Salaire partiel + Pension = Revenu total</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Section comparaison */}
+          <div className={styles.mobileSection}>
+            <h4 className={styles.mobileSectionTitle}>Comparaison</h4>
+            <div className={styles.mobileCards}>
+              <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                <h3>Salaire temps plein</h3>
+                <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPlein)}</div>
+                <p>Votre salaire actuel</p>
+              </div>
+              <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                <h3>Pension complète</h3>
+                <div className={styles.amount}>{formatCurrency(data.revenusNets.pensionComplete)}</div>
+                <p>Si vous preniez votre retraite complète</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Scénarios simplifiés */}
+          <div className={styles.mobileSection}>
+            <h4 className={styles.mobileSectionTitle}>Autres scénarios</h4>
+            <div className={styles.mobileScenarios}>
+              {[40, 50, 60, 70, 80].map((percentage) => {
+                const salaireBrut = data.revenusBruts.tempsPlein * (percentage / 100);
+                const salaireNetPartiel = salaireBrut * 0.7698;
+                
+                let pensionProgressiveBrut, pensionProgressiveNet;
+                if (data.revenusBruts.pensionComplete && data.revenusBruts.pensionComplete > 0) {
+                  pensionProgressiveBrut = data.revenusBruts.pensionComplete * 0.1733;
+                  pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+                } else {
+                  pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1733;
+                  pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+                }
+                
+                const totalNet = salaireNetPartiel + pensionProgressiveNet;
+                
+                return (
+                  <div key={percentage} className={styles.mobileScenarioCard}>
+                    <div className={styles.scenarioPercentage}>{percentage}%</div>
+                    <div className={styles.scenarioAmount}>{formatCurrency(totalNet)}</div>
+                    <div className={styles.scenarioLabel}>Total net</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Impact fiscal si mode avancé */}
+          {mode === 'avance' && calculateEconomieFiscale() > 0 && (
+            <div className={styles.mobileSection}>
+              <h4 className={styles.mobileSectionTitle}>Impact fiscal</h4>
+              <div className={styles.mobileCards}>
+                <div className={`${styles.resultCard} ${styles.highlight}`}>
+                  <h3>Économie d'impôt</h3>
+                  <div className={styles.amount}>{formatCurrency(calculateEconomieFiscale())}</div>
+                  <p>Par an grâce à la retraite progressive</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className={styles.actions}>
+          <button className={styles.actionButton}>
+            Sauvegarder les résultats
+          </button>
+          <button className={styles.actionButton}>
+            Nouvelle simulation
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Vue desktop : avec onglets
   return (
     <div className={styles.container}>
       <h2 className={`${styles.title} ${mode === 'avance' ? styles.advanced : ''}`}>Résultats de votre simulation</h2>
@@ -276,13 +394,13 @@ const ResultsTabs = ({ data, mode }) => {
       {/* Actions */}
       <div className={styles.actions}>
         <button className={styles.actionButton}>
-          📄 Sauvegarder les résultats
+          Sauvegarder les résultats
         </button>
         <button className={styles.actionButton}>
-          📧 Envoyer par email
+          Envoyer par email
         </button>
         <button className={styles.actionButton}>
-          🔄 Nouvelle simulation
+          Nouvelle simulation
         </button>
       </div>
     </div>
