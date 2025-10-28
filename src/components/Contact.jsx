@@ -41,15 +41,17 @@ const Contact = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Contact & Assistance</h1>
-          <p className={styles.subtitle}>
-            Une question ? Besoin d'aide ? Notre équipe vous répond sous 24h
-          </p>
+          <div className={styles.headerContent}>
+            <h1 className={styles.title}>Contact & Assistance</h1>
+            <p className={styles.subtitle}>
+              Une question ? Besoin d'aide ? Notre équipe vous répond sous 24h
+            </p>
+          </div>
         </header>
 
         {/* Section "Qui sommes-nous ?" */}
         <section className={styles.aboutSection}>
-          <h2 className={styles.sectionTitle}>👤 Qui sommes-nous ?</h2>
+          <h2 className={styles.sectionTitle}>Qui sommes-nous ?</h2>
           <div className={styles.aboutContent}>
             <div className={styles.aboutText}>
               <p>{aboutContent.content}</p>
@@ -67,7 +69,7 @@ const Contact = () => {
 
         {/* Formulaire de contact */}
         <section className={styles.contactFormSection}>
-          <h2 className={styles.sectionTitle}>📧 Contactez-nous</h2>
+          <h2 className={styles.sectionTitle}>Contactez-nous</h2>
           <div className={styles.formContainer}>
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formRow}>
@@ -151,7 +153,7 @@ const Contact = () => {
 
               {submitStatus === 'success' && (
                 <div className={styles.successMessage}>
-                  ✅ Message envoyé avec succès ! Nous vous répondrons sous 24h.
+                  Message envoyé avec succès ! Nous vous répondrons sous 24h.
                 </div>
               )}
             </form>
@@ -174,25 +176,25 @@ const Contact = () => {
 
         {/* Informations pratiques */}
         <section className={styles.infoSection}>
-          <h2 className={styles.sectionTitle}>ℹ️ Informations pratiques</h2>
+          <h2 className={styles.sectionTitle}>Informations pratiques</h2>
           <div className={styles.infoGrid}>
             <div className={styles.infoCard}>
-              <h3>⏰ Délai de réponse</h3>
+              <h3>Délai de réponse</h3>
               <p>Nous nous engageons à vous répondre sous 24h ouvrées.</p>
             </div>
             
             <div className={styles.infoCard}>
-              <h3>🔒 Confidentialité</h3>
+              <h3>Confidentialité</h3>
               <p>Vos données sont protégées et ne seront jamais partagées.</p>
             </div>
             
             <div className={styles.infoCard}>
-              <h3>📧 Email direct</h3>
+              <h3>Email direct</h3>
               <p>Vous pouvez aussi nous écrire directement à retraiteclair@gmail.com</p>
             </div>
             
             <div className={styles.infoCard}>
-              <h3>💡 Gratuit</h3>
+              <h3>Gratuit</h3>
               <p>Tous nos conseils et notre assistance sont entièrement gratuits.</p>
             </div>
           </div>

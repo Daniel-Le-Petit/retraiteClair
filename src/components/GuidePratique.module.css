@@ -2,34 +2,43 @@
 
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 2rem 0;
+  background: #f5f5f5;
+  padding: 0;
 }
 
 .content {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
 .header {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+  padding: 2rem 0;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+}
+
+.headerContent {
   text-align: center;
-  margin-bottom: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: #6c757d;
-  max-width: 600px;
-  margin: 0 auto;
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
   line-height: 1.5;
 }
 

@@ -163,10 +163,12 @@ const Simulateurs = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Simulateur Retraite Progressive</h1>
-          <p className={styles.subtitle}>
-            Calculez vos revenus avec précision (mode simplifié ou avancé)
-          </p>
+          <div className={styles.headerContent}>
+            <h1 className={styles.title}>Simulateur Retraite Progressive</h1>
+            <p className={styles.subtitle}>
+              Calculez vos revenus avec précision (mode simplifié ou avancé)
+            </p>
+          </div>
         </header>
 
         {/* Sélecteur de mode */}

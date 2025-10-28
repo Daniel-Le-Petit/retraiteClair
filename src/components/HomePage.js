@@ -16,7 +16,6 @@ import {
   MapPin,
   X
 } from 'lucide-react';
-import PageHeader from './PageHeader';
 import WhyChooseSection from './WhyChooseSection';
 import TestimonialsSection from './TestimonialsSection';
 import CTASection from './CTASection';
@@ -168,15 +167,18 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Navigation Sticky - Supprimée */}
+      <div className="homepage-content">
+        {/* Header intégré comme les autres pages */}
+        <header className="homepage-header">
+          <div className="homepage-header-content">
+            <h1 className="homepage-title">RetraiteClair</h1>
+            <p className="homepage-subtitle">
+              Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive
+            </p>
+          </div>
+        </header>
 
-      {/* Page Header */}
-      <PageHeader 
-        title="RetraiteClair"
-        subtitle="Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive"
-      />
-
-      {/* Hero Section removed as requested */}
+        {/* Hero Section removed as requested */}
 
       {/* Simulation Cards */}
       <section className="simulation-cards">
@@ -385,13 +387,13 @@ const HomePage = () => {
             <div className="footer-section footer-nav">
               <h4 className="footer-title">Navigation</h4>
               <ul className="footer-links">
-                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="/">Accueil</a></li>
                 <li><a href="#definition">Qu'est-ce que c'est ?</a></li>
                 <li><a href="#eligibilite">Éligibilité</a></li>
                 <li><a href="#etapes">Étapes</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="/calculateur">Simulateur</a></li>
-                <li><a href="/about">Mon parcours</a></li>
+                <li><a href="/contact">Mon parcours</a></li>
                 <li><a href="/contact">Contact</a></li>
               </ul>
             </div>
@@ -408,7 +410,7 @@ const HomePage = () => {
                 </button></li>
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'about' } }))}
+                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
                 >
                   Mon parcours / Pourquoi RetraiteClair
                 </button></li>
@@ -450,7 +452,7 @@ const HomePage = () => {
                 <p className="contact-response">Une question ? Notre équipe vous répond sous 24 h.</p>
               </div>
               <div className="social-links">
-                <a href="https://www.linkedin.com/in/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
+                <a href="https://linkedin.com/company/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
                   <Linkedin size={20} />
                 </a>
                 <a href="https://www.facebook.com/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
@@ -569,6 +571,7 @@ const HomePage = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

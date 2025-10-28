@@ -5,7 +5,7 @@ import styles from './FAQSection.module.css';
 
 const FAQSection = () => {
   return (
-    <section className={styles.container}>
+    <section id="faq" className={styles.container}>
       <div className={styles.content}>
         <h2 className={styles.title}>
           ❓ Questions fréquentes

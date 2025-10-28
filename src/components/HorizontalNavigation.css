@@ -6,7 +6,7 @@
   left: 0 !important;
   right: 0 !important;
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%) !important;
-  border-bottom: 2px solid #10b981 !important;
+  border-bottom: none !important;
   z-index: 1001 !important;
   box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3) !important;
   display: block !important;

@@ -122,49 +122,49 @@ export const blogCategories = [
     id: 'guides',
     name: 'Guides',
     description: 'Guides complets et tutoriels',
-    color: '#3498db'
+    color: '#0f766e'
   },
   {
     id: 'conseils',
     name: 'Conseils',
     description: 'Conseils pratiques et astuces',
-    color: '#2ecc71'
+    color: '#134e4a'
   },
   {
     id: 'cas-etudes',
     name: 'Cas d\'études',
     description: 'Exemples concrets et analyses',
-    color: '#e74c3c'
+    color: '#2563eb'
   },
   {
     id: 'actualites',
     name: 'Actualités',
     description: 'Nouvelles et évolutions réglementaires',
-    color: '#f39c12'
+    color: '#1d4ed8'
   },
   {
     id: 'fiscalite',
     name: 'Fiscalité',
     description: 'Optimisation fiscale et calculs d\'impôts',
-    color: '#9b59b6'
+    color: '#1e40af'
   },
   {
     id: 'demarches',
     name: 'Démarches',
     description: 'Procédures administratives et documents',
-    color: '#1abc9c'
+    color: '#059669'
   },
   {
     id: 'temoignages',
     name: 'Témoignages',
     description: 'Expériences et retours d\'utilisateurs',
-    color: '#e67e22'
+    color: '#10b981'
   },
   {
     id: 'reformes',
     name: 'Réformes',
     description: 'Évolutions réglementaires et actualités',
-    color: '#34495e'
+    color: '#374151'
   }
 ];
 
@@ -197,22 +197,22 @@ RetraiteClair, c'est l'expertise d'un professionnel qui a vécu les mêmes inter
 
 export const contactReasons = [
   {
-    icon: "📊",
+    icon: "",
     title: "Questions sur le simulateur",
     description: "Besoin d'aide pour utiliser nos outils de calcul"
   },
   {
-    icon: "💡",
+    icon: "",
     title: "Suggestions d'amélioration",
     description: "Proposer des fonctionnalités ou améliorations"
   },
   {
-    icon: "❓",
+    icon: "",
     title: "Questions générales",
     description: "Informations sur la retraite progressive"
   },
   {
-    icon: "🐛",
+    icon: "",
     title: "Signaler un problème",
     description: "Nous aider à améliorer le site"
   }

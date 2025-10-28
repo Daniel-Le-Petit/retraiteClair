@@ -8,6 +8,9 @@ import GuidePratique from './GuidePratique';
 import Contact from './Contact';
 import HorizontalNavigation from './HorizontalNavigation';
 import BlogPostViewer from './Blog/BlogPostViewer';
+import MentionsLegales from './MentionsLegales';
+import PolitiqueConfidentialite from './PolitiqueConfidentialite';
+import ConditionsUtilisation from './ConditionsUtilisation';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
@@ -153,7 +156,26 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       }
     };
 
+    const handleLegalNavigation = (event) => {
+      const { page } = event.detail || {};
+      
+      switch (page) {
+        case 'mentions-legales':
+          window.location.href = '/mentions-legales';
+          break;
+        case 'politique-confidentialite':
+          window.location.href = '/politique-confidentialite';
+          break;
+        case 'conditions-utilisation':
+          window.location.href = '/conditions-utilisation';
+          break;
+        default:
+          console.log('Page légale non reconnue:', page);
+      }
+    };
+
     window.addEventListener('navigateToPage', handleNavigation);
+    window.addEventListener('navigateToLegalPage', handleLegalNavigation);
     
     // Gestionnaire pour la navigation vers un article
     const handleArticleNavigation = (event) => {
@@ -172,6 +194,7 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
     
     return () => {
       window.removeEventListener('navigateToPage', handleNavigation);
+      window.removeEventListener('navigateToLegalPage', handleLegalNavigation);
       window.removeEventListener('navigateToArticle', handleArticleNavigation);
       window.removeEventListener('backToBlog', handleBackToBlog);
     };
@@ -245,6 +268,11 @@ const AppContent = () => {
       <Route path="/blog" element={<SwipeNavigation />} />
       <Route path="/guide-pratique" element={<SwipeNavigation />} />
       <Route path="/contact" element={<SwipeNavigation />} />
+      
+      {/* Routes légales */}
+      <Route path="/mentions-legales" element={<MentionsLegales />} />
+      <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+      <Route path="/conditions-utilisation" element={<ConditionsUtilisation />} />
       
       {/* Routes pour les articles de blog */}
       <Route path="/blog/:slug" element={<SwipeNavigationWrapper />} />

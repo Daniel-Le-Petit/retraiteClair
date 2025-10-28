@@ -25,10 +25,12 @@ const GuidePratique = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Guide Pratique Retraite Progressive</h1>
-          <p className={styles.subtitle}>
-            Tout ce qu'il faut savoir pour réussir votre transition vers la retraite progressive
-          </p>
+          <div className={styles.headerContent}>
+            <h1 className={styles.title}>Guide Pratique Retraite Progressive</h1>
+            <p className={styles.subtitle}>
+              Tout ce qu'il faut savoir pour réussir votre transition vers la retraite progressive
+            </p>
+          </div>
         </header>
 
         {/* Checklist */}
