@@ -383,6 +383,15 @@
     width: 100% !important;
     left: 0 !important;
     transform: none !important;
+    border-radius: 0 !important;
+  }
+  
+  .nav-item:first-child {
+    border-bottom-left-radius: 0;
+  }
+  
+  .nav-item:last-child {
+    border-bottom-right-radius: 0;
   }
 }
 

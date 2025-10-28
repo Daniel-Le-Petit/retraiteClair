@@ -22,6 +22,13 @@ body {
   padding-top: 60px;
 }
 
+/* Responsive padding pour mobile */
+@media (max-width: 768px) {
+  body {
+    padding-top: 0;
+  }
+}
+
 body::before {
   content: '';
   position: fixed;
