@@ -1,4 +1,5 @@
 // Données centralisées pour RetraiteClair
+import { blogArticles } from './blogArticles.js';
 
 // === FAQ CENTRALISÉES ===
 export const faqs = [
@@ -112,94 +113,58 @@ export const resources = [
 ];
 
 // === ARTICLES DE BLOG ===
-export const blogArticles = [
-  {
-    id: 1,
-    title: "Comment optimiser votre PER en retraite progressive ?",
-    category: "fiscalite",
-    excerpt: "Découvrez comment réduire votre impôt sur le revenu en versant sur un PER pendant votre retraite progressive.",
-    content: "Le Plan d'Épargne Retraite (PER) peut être un excellent moyen d'optimiser fiscalement votre retraite progressive...",
-    date: "2025-01-15",
-    readTime: "5 min",
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Les démarches administratives étape par étape",
-    category: "demarches",
-    excerpt: "Guide complet pour effectuer votre demande de retraite progressive sans stress.",
-    content: "Faire sa demande de retraite progressive peut sembler complexe. Voici un guide détaillé...",
-    date: "2025-01-10",
-    readTime: "8 min",
-    featured: false
-  },
-  {
-    id: 3,
-    title: "Témoignage : Marie, 58 ans, enseignante",
-    category: "temoignages",
-    excerpt: "Marie nous raconte son expérience de la retraite progressive et ses conseils.",
-    content: "Après 35 ans d'enseignement, Marie a choisi la retraite progressive. Elle nous partage son expérience...",
-    date: "2025-01-08",
-    readTime: "4 min",
-    featured: true
-  },
-  {
-    id: 4,
-    title: "Réforme 2025 : ce qui change pour la retraite progressive",
-    category: "reformes",
-    excerpt: "Découvrez les nouvelles règles applicables en 2025 pour la retraite progressive.",
-    content: "La réforme de 2025 apporte plusieurs modifications importantes pour la retraite progressive...",
-    date: "2025-01-05",
-    readTime: "6 min",
-    featured: false
-  },
-  {
-    id: 5,
-    title: "Calculer son impôt sur le revenu en retraite progressive",
-    category: "fiscalite",
-    excerpt: "Tout savoir sur l'impact fiscal de la retraite progressive sur vos revenus.",
-    content: "La retraite progressive modifie votre situation fiscale. Voici comment calculer l'impact...",
-    date: "2025-01-03",
-    readTime: "7 min",
-    featured: false
-  },
-  {
-    id: 6,
-    title: "Témoignage : Pierre, 61 ans, cadre",
-    category: "temoignages",
-    excerpt: "Pierre explique comment il a négocié son passage à temps partiel.",
-    content: "Cadre dans l'industrie, Pierre a réussi à négocier sa retraite progressive. Voici ses conseils...",
-    date: "2025-01-01",
-    readTime: "5 min",
-    featured: false
-  }
-];
+// Les articles sont importés en haut du fichier
+export { blogArticles };
 
 // === CATÉGORIES DE BLOG ===
 export const blogCategories = [
   {
+    id: 'guides',
+    name: 'Guides',
+    description: 'Guides complets et tutoriels',
+    color: '#3498db'
+  },
+  {
+    id: 'conseils',
+    name: 'Conseils',
+    description: 'Conseils pratiques et astuces',
+    color: '#2ecc71'
+  },
+  {
+    id: 'cas-etudes',
+    name: 'Cas d\'études',
+    description: 'Exemples concrets et analyses',
+    color: '#e74c3c'
+  },
+  {
+    id: 'actualites',
+    name: 'Actualités',
+    description: 'Nouvelles et évolutions réglementaires',
+    color: '#f39c12'
+  },
+  {
     id: 'fiscalite',
     name: 'Fiscalité',
     description: 'Optimisation fiscale et calculs d\'impôts',
-    color: '#3498db'
+    color: '#9b59b6'
   },
   {
     id: 'demarches',
     name: 'Démarches',
     description: 'Procédures administratives et documents',
-    color: '#2ecc71'
+    color: '#1abc9c'
   },
   {
     id: 'temoignages',
     name: 'Témoignages',
     description: 'Expériences et retours d\'utilisateurs',
-    color: '#e74c3c'
+    color: '#e67e22'
   },
   {
     id: 'reformes',
     name: 'Réformes',
     description: 'Évolutions réglementaires et actualités',
-    color: '#f39c12'
+    color: '#34495e'
   }
 ];
 

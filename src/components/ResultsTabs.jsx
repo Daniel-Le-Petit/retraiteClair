@@ -63,76 +63,102 @@ const ResultsTabs = ({ data, mode }) => {
       {/* Contenu des onglets */}
       <div className={styles.tabContent}>
         {activeTab === 'bruts' && (
-          <div className={styles.resultsGrid}>
-            <div className={`${styles.resultCard} ${styles.salaireTempsPlein}`}>
-              <h3>Salaire temps plein</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusBruts.tempsPlein)}</div>
-              <p>Votre salaire actuel</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.salaireTempsPartiel}`}>
-              <h3>Salaire temps partiel</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusBruts.tempsPartiel)}</div>
-              <p>Après réduction du temps de travail</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.pensionRetraite}`}>
-              <h3>Pension retraite</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusBruts.pension)}</div>
-              <p>Part de votre pension progressive</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.totalRevenus}`}>
-              <h3>Total revenus en Retraite Progressive</h3>
-              <div className={styles.amount}>{formatCurrency(calculateTotalRevenus())}</div>
-              <p>Revenus bruts totaux</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.pensionComplete}`}>
-              <h3>Pension complète (comparaison)</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusBruts.pensionComplete)}</div>
-              <p>Si vous preniez votre retraite complète</p>
-            </div>
-            {data.revenusBruts.revenusComplementaires > 0 && (
-              <div className={styles.resultCard}>
-                <h3>Revenus complémentaires</h3>
-                <div className={styles.amount}>{formatCurrency(data.revenusBruts.revenusComplementaires)}</div>
-                <p>Autres revenus</p>
+          <div className={styles.resultsContainer}>
+            {/* Section principale - Les 3 informations clés */}
+            <div className={styles.mainResultsSection}>
+              <h3 className={styles.mainSectionTitle}>Vos revenus en Retraite Progressive</h3>
+              <div className={styles.mainResultsGrid}>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.salaireTempsPartiel}`}>
+                  <h3>Salaire temps partiel</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusBruts.tempsPartiel)}</div>
+                  <p>Après réduction du temps de travail</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.pensionRetraite}`}>
+                  <h3>Pension retraite</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusBruts.pension)}</div>
+                  <p>Part de votre pension progressive</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.totalRevenus}`}>
+                  <h3>Total revenus en Retraite Progressive</h3>
+                  <div className={styles.amount}>{formatCurrency(calculateTotalRevenus())}</div>
+                  <p>Salaire partiel + Pension = Revenu total</p>
+                </div>
               </div>
-            )}
+            </div>
+
+            {/* Section secondaire - Informations de comparaison */}
+            <div className={styles.secondaryResultsSection}>
+              <h4 className={styles.secondarySectionTitle}>Informations de comparaison</h4>
+              <div className={styles.secondaryResultsGrid}>
+                <div className={`${styles.resultCard} ${styles.secondaryCard} ${styles.salaireTempsPlein}`}>
+                  <h3>Salaire temps plein</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusBruts.tempsPlein)}</div>
+                  <p>Votre salaire actuel</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                  <h3>Pension complète (comparaison)</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusBruts.pensionComplete)}</div>
+                  <p>Si vous preniez votre retraite complète</p>
+                </div>
+                {data.revenusBruts.revenusComplementaires > 0 && (
+                  <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                    <h3>Revenus complémentaires</h3>
+                    <div className={styles.amount}>{formatCurrency(data.revenusBruts.revenusComplementaires)}</div>
+                    <p>Autres revenus</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
         {activeTab === 'nets' && (
-          <div className={styles.resultsGrid}>
-            <div className={`${styles.resultCard} ${styles.salaireTempsPlein}`}>
-              <h3>Salaire temps plein</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPlein)}</div>
-              <p>Net après cotisations</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.salaireTempsPartiel}`}>
-              <h3>Salaire temps partiel</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPartiel)}</div>
-              <p>Net après cotisations</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.pensionRetraite}`}>
-              <h3>Pension retraite</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusNets.pension)}</div>
-              <p>Net après cotisations</p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.totalRevenus}`}>
-              <h3>Total revenus nets en Retraite Progressive</h3>
-              <div className={styles.amount}>{formatCurrency(calculateTotalNets())}</div>
-              <p></p>
-            </div>
-            <div className={`${styles.resultCard} ${styles.pensionComplete}`}>
-              <h3>Pension complète (comparaison)</h3>
-              <div className={styles.amount}>{formatCurrency(data.revenusNets.pensionComplete)}</div>
-              <p>Si vous preniez votre retraite complète</p>
-            </div>
-            {data.revenusNets.revenusComplementaires > 0 && (
-              <div className={styles.resultCard}>
-                <h3>Revenus complémentaires</h3>
-                <div className={styles.amount}>{formatCurrency(data.revenusNets.revenusComplementaires)}</div>
-                <p>Autres revenus</p>
+          <div className={styles.resultsContainer}>
+            {/* Section principale - Les 3 informations clés */}
+            <div className={styles.mainResultsSection}>
+              <h3 className={styles.mainSectionTitle}>Vos revenus en Retraite Progressive</h3>
+              <div className={styles.mainResultsGrid}>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.salaireTempsPartiel}`}>
+                  <h3>Salaire temps partiel</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPartiel)}</div>
+                  <p>Net après cotisations</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.pensionRetraite}`}>
+                  <h3>Pension retraite</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusNets.pension)}</div>
+                  <p>Net après cotisations</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.mainCard} ${styles.totalRevenus}`}>
+                  <h3>Total revenus nets en Retraite Progressive</h3>
+                  <div className={styles.amount}>{formatCurrency(calculateTotalNets())}</div>
+                  <p>Salaire partiel + Pension = Revenu total</p>
+                </div>
               </div>
-            )}
+            </div>
+
+            {/* Section secondaire - Informations de comparaison */}
+            <div className={styles.secondaryResultsSection}>
+              <h4 className={styles.secondarySectionTitle}>Informations de comparaison</h4>
+              <div className={styles.secondaryResultsGrid}>
+                <div className={`${styles.resultCard} ${styles.secondaryCard} ${styles.salaireTempsPlein}`}>
+                  <h3>Salaire temps plein</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusNets.tempsPlein)}</div>
+                  <p>Net après cotisations</p>
+                </div>
+                <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                  <h3>Pension complète (comparaison)</h3>
+                  <div className={styles.amount}>{formatCurrency(data.revenusNets.pensionComplete)}</div>
+                  <p>Si vous preniez votre retraite complète</p>
+                </div>
+                {data.revenusNets.revenusComplementaires > 0 && (
+                  <div className={`${styles.resultCard} ${styles.secondaryCard}`}>
+                    <h3>Revenus complémentaires</h3>
+                    <div className={styles.amount}>{formatCurrency(data.revenusNets.revenusComplementaires)}</div>
+                    <p>Autres revenus</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
 
@@ -155,8 +181,21 @@ const ResultsTabs = ({ data, mode }) => {
               {[40, 50, 60, 70, 80].map((percentage) => {
                 const salaireBrut = data.revenusBruts.tempsPlein * (percentage / 100);
                 const salaireNetPartiel = salaireBrut * 0.7883; // 78.83% du brut temps partiel
-                const pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1728;
-                const pensionProgressiveNet = pensionProgressiveBrut * 0.9; // 90% du brut
+                
+                // Utiliser la même logique que la simulation principale pour la pension progressive
+                let pensionProgressiveBrut, pensionProgressiveNet;
+                
+                // Si on a une pension complète dans les données (mode avancé)
+                if (data.revenusBruts.pensionComplete && data.revenusBruts.pensionComplete > 0) {
+                  // Mode avancé : utiliser la pension complète calculée
+                  pensionProgressiveBrut = data.revenusBruts.pensionComplete * 0.1728; // 17.28% de la pension complète
+                  pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+                } else {
+                  // Mode simplifié : calcul approximatif basé sur le salaire brut
+                  pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1728;
+                  pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+                }
+                
                 const totalNet = salaireNetPartiel + pensionProgressiveNet;
                 
                 return (

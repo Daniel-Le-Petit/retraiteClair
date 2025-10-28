@@ -25,7 +25,7 @@ const GuidePratique = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h1 className={styles.title}>📚 Guide Pratique Retraite Progressive</h1>
+          <h1 className={styles.title}>Guide Pratique Retraite Progressive</h1>
           <p className={styles.subtitle}>
             Tout ce qu'il faut savoir pour réussir votre transition vers la retraite progressive
           </p>
@@ -34,7 +34,7 @@ const GuidePratique = () => {
         {/* Checklist */}
         <section className={styles.checklistSection}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>✅ Checklist avant de vous lancer</h2>
+            <h2 className={styles.sectionTitle}>Checklist avant de vous lancer</h2>
             <div className={styles.progressContainer}>
               <div className={styles.progressBar}>
                 <div 
@@ -67,7 +67,7 @@ const GuidePratique = () => {
           
           {getCheckedCount() === checklist.length && (
             <div className={styles.completionMessage}>
-              <h3>🎉 Félicitations !</h3>
+              <h3>Félicitations !</h3>
               <p>Vous avez complété toutes les étapes. Vous êtes prêt à faire votre demande de retraite progressive.</p>
             </div>
           )}
@@ -75,13 +75,13 @@ const GuidePratique = () => {
 
         {/* FAQ */}
         <section className={styles.faqSection}>
-          <h2 className={styles.sectionTitle}>❓ Questions fréquentes</h2>
+          <h2 className={styles.sectionTitle}>Questions fréquentes</h2>
           <FaqAccordion items={faqs} />
         </section>
 
         {/* Ressources */}
         <section className={styles.resourcesSection}>
-          <h2 className={styles.sectionTitle}>📖 Ressources officielles</h2>
+          <h2 className={styles.sectionTitle}>Ressources officielles</h2>
           <div className={styles.resourcesGrid}>
             {resources.map((resource) => (
               <div key={resource.id} className={styles.resourceCard}>
@@ -102,7 +102,7 @@ const GuidePratique = () => {
 
         {/* Guide étape par étape */}
         <section className={styles.stepsSection}>
-          <h2 className={styles.sectionTitle}>🚀 Guide étape par étape</h2>
+          <h2 className={styles.sectionTitle}>Guide étape par étape</h2>
           <div className={styles.stepsContainer}>
             <div className={styles.step}>
               <div className={styles.stepNumber}>1</div>

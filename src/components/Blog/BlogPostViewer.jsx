@@ -179,7 +179,13 @@ const BlogPostViewer = ({ articleSlug }) => {
               src={article.image} 
               alt={article.title}
               onError={(e) => {
-                e.target.src = '/images/blog-default.jpg';
+                e.target.style.display = 'none';
+                e.target.parentElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                e.target.parentElement.innerHTML = `
+                  <div class="post-image-overlay">
+                    <h2 class="post-image-title">${article.title}</h2>
+                  </div>
+                `;
               }}
             />
           </div>
@@ -191,7 +197,7 @@ const BlogPostViewer = ({ articleSlug }) => {
           {/* CTA vers simulateur */}
           <div className="post-cta">
             <div className="cta-box">
-              <h3>🛠️ Calculez votre situation</h3>
+              <h3>Calculez votre situation</h3>
               <p>Utilisez notre simulateur gratuit pour calculer précisément vos revenus en retraite progressive selon votre situation.</p>
               <button 
                 className="btn-primary"

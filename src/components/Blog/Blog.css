@@ -747,9 +747,14 @@ h1[style], h2[style], h3[style], h4[style], h5[style], h6[style] {
 }
 
 .cta-box h3 {
-  color: white;
+  color: white !important;
   border: none;
   margin-top: 0;
+}
+
+.cta-box p {
+  color: white !important;
+  margin-bottom: 1.5rem;
 }
 
 .cta-box .btn-primary {

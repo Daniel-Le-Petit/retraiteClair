@@ -19,7 +19,7 @@ const LinkedInSection = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.title}>
-            📱 Articles LinkedIn
+            Articles LinkedIn
           </h2>
           <p className={styles.subtitle}>
             Suivez-nous sur LinkedIn pour plus de conseils et d'actualités
@@ -37,7 +37,7 @@ const LinkedInSection = () => {
         {/* Articles mis en avant */}
         {featuredArticles.length > 0 && (
           <div className={styles.featuredSection}>
-            <h3 className={styles.sectionTitle}>⭐ Articles à la une</h3>
+            <h3 className={styles.sectionTitle}>Articles à la une</h3>
             <div className={styles.featuredGrid}>
               {featuredArticles.map((article) => (
                 <div key={article.id} className={styles.featuredCard}>
@@ -50,7 +50,7 @@ const LinkedInSection = () => {
                       }}
                     />
                     <div className={styles.linkedinBadge}>
-                      📱 LinkedIn
+                      LinkedIn
                     </div>
                   </div>
                   <div className={styles.cardContent}>
@@ -91,7 +91,7 @@ const LinkedInSection = () => {
                   <div className={styles.cardMeta}>
                     <span className={styles.date}>{formatDate(article.date)}</span>
                     <span className={styles.readTime}>{article.readTime}</span>
-                    <span className={styles.linkedinBadgeSmall}>📱</span>
+                    <span className={styles.linkedinBadgeSmall}>LI</span>
                   </div>
                   <h4 className={styles.cardTitle}>{article.title}</h4>
                   <p className={styles.cardExcerpt}>{article.excerpt}</p>
@@ -112,7 +112,7 @@ const LinkedInSection = () => {
         {/* CTA pour suivre sur LinkedIn */}
         <div className={styles.ctaSection}>
           <div className={styles.ctaBox}>
-            <h3>🚀 Restez connecté</h3>
+            <h3>Restez connecté</h3>
             <p>Suivez RetraiteClair sur LinkedIn pour recevoir nos derniers conseils et actualités directement dans votre fil d'actualité.</p>
             <a 
               href="https://linkedin.com/company/retraiteclair" 

@@ -8,6 +8,7 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
     age: sharedData.age || '',
     trimestres: sharedData.trimestres || '',
     sam: sharedData.sam || '',
+    pensionComplete: sharedData.pensionComplete || '',
     revenusComplementaires: sharedData.revenusComplementaires || ''
   });
 
@@ -18,7 +19,7 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
     
     // Validation personnalisée pour éviter l'arrondi forcé
     let processedValue = value;
-    if (name === 'salaireBrut' || name === 'sam' || name === 'revenusComplementaires') {
+    if (name === 'salaireBrut' || name === 'sam' || name === 'pensionComplete' || name === 'revenusComplementaires') {
       // Permettre n'importe quel nombre sans arrondi
       processedValue = value.replace(/[^0-9.]/g, '');
     }
@@ -66,6 +67,8 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
       newErrors.sam = 'Veuillez saisir votre SAM (Salaire Annuel Moyen)';
     }
     
+    // Pension complète est optionnelle - si non saisie, calcul estimé sera utilisé
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -81,6 +84,7 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
         age: parseInt(formData.age),
         trimestres: parseInt(formData.trimestres),
         sam: parseFloat(formData.sam),
+        pensionComplete: parseFloat(formData.pensionComplete),
         revenusComplementaires: parseFloat(formData.revenusComplementaires) || 0
       });
     }
@@ -206,6 +210,29 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
             )}
             <small className={styles.helpText}>
               Moyenne des 25 meilleures années de salaire
+            </small>
+          </div>
+
+          <div className={styles.fieldGroup}>
+            <label htmlFor="pensionComplete" className={styles.label}>
+              Pension à taux plein mensuelle (€) - Optionnel
+            </label>
+            <input
+              type="text"
+              id="pensionComplete"
+              name="pensionComplete"
+              value={formData.pensionComplete}
+              onChange={handleChange}
+              className={`${styles.input} ${errors.pensionComplete ? styles.error : ''}`}
+              placeholder="Ex: 1200"
+              pattern="[0-9]*"
+              inputMode="numeric"
+            />
+            {errors.pensionComplete && (
+              <span className={styles.errorMessage}>{errors.pensionComplete}</span>
+            )}
+            <small className={styles.helpText}>
+              Montant NET de votre pension complète si vous ne prenez PAS la retraite progressive. Si non saisi, un calcul estimé sera utilisé.
             </small>
           </div>
         </div>

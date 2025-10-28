@@ -1,9 +1,9 @@
-/* Blog.module.css */
+/* Blog.module.css - Design moderne et clair */
 
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 2rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 0;
 }
 
 .content {
@@ -12,222 +12,368 @@
   padding: 0 1rem;
 }
 
+/* === HEADER PRINCIPAL === */
 .header {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 8px 32px rgba(15, 118, 110, 0.3);
+}
+
+.headerContent {
   text-align: center;
-  margin-bottom: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
   margin-bottom: 1rem;
-  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: #6c757d;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
-}
-
-.featuredSection {
-  margin-bottom: 3rem;
-}
-
-.sectionTitle {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #2c3e50;
+  font-size: 1.2rem;
+  opacity: 0.9;
   margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.headerStats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stat {
   text-align: center;
 }
 
-.featuredGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+.statNumber {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #a7f3d0;
 }
 
-.filtersSection {
+.statLabel {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === SECTION DE RECHERCHE === */
+.searchSection {
   background: white;
-  border-radius: 16px;
   padding: 2rem;
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .searchContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.searchBox {
+  display: flex;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .searchInput {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
 }
 
-.categoryFilters {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.categoryButton {
-  background: #f8f9fa;
-  border: 2px solid #e9ecef;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #6c757d;
+.searchButton {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #0f766e, #134e4a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
+.searchButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.3);
+}
+
+.categoryFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.categoryButton {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  background: white;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #64748b;
+}
+
 .categoryButton:hover {
-  background: var(--category-color, #3498db);
-  color: white;
-  border-color: var(--category-color, #3498db);
+  border-color: var(--category-color, #0f766e);
+  color: var(--category-color, #0f766e);
   transform: translateY(-2px);
 }
 
 .categoryButton.active {
-  background: var(--category-color, #3498db);
+  background: var(--category-color, #0f766e);
+  border-color: var(--category-color, #0f766e);
   color: white;
-  border-color: var(--category-color, #3498db);
 }
 
+/* === SECTIONS GÉNÉRALES === */
+.featuredSection,
 .articlesSection {
   margin-bottom: 3rem;
 }
 
-.resultsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.sectionHeader {
+  text-align: center;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.resultsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 .resultsCount {
-  color: #6c757d;
-  font-size: 1rem;
-  margin: 0;
+  font-weight: 600;
+  color: #0f766e;
+  font-size: 1.1rem;
+}
+
+.searchTerm {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* === GRILLES D'ARTICLES === */
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .articlesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
+/* === AUCUN RÉSULTAT === */
 .noResults {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem 2rem;
   background: white;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+.noResultsIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
 .noResults h3 {
   font-size: 1.5rem;
-  color: #2c3e50;
+  color: #1e293b;
   margin-bottom: 1rem;
 }
 
 .noResults p {
-  color: #6c757d;
-  font-size: 1.1rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.noResultsActions {
+  display: flex;
+  justify-content: center;
+}
+
+.resetButton {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #0f766e, #134e4a);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.3);
+}
+
+/* === NEWSLETTER === */
 .newsletterSection {
   margin-top: 3rem;
+  margin-bottom: 2rem;
 }
 
 .newsletterCard {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  padding: 3rem;
-  border-radius: 16px;
+  padding: 3rem 2rem;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(52, 152, 219, 0.3);
+  box-shadow: 0 8px 32px rgba(15, 118, 110, 0.3);
+}
+
+.newsletterIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
 .newsletterCard h3 {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
 .newsletterCard p {
   font-size: 1.1rem;
-  margin-bottom: 2rem;
   opacity: 0.9;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .newsletterForm {
   display: flex;
   gap: 1rem;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 auto 1rem;
 }
 
 .newsletterInput {
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .newsletterInput:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  background: white;
 }
 
 .newsletterButton {
-  background: white;
-  color: #3498db;
-  border: none;
   padding: 1rem 2rem;
-  border-radius: 8px;
-  font-size: 1rem;
+  background: white;
+  color: #0f766e;
+  border: none;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .newsletterButton:hover {
-  background: #f8f9fa;
   transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
 }
 
-/* Responsive */
+.newsletterDisclaimer {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 1rem;
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 768px) {
-  .container {
-    padding: 1rem 0;
+  .content {
+    padding: 0 0.5rem;
+  }
+  
+  .header {
+    padding: 2rem 0;
+    margin-bottom: 1rem;
   }
   
   .title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   
   .subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+  
+  .headerStats {
+    gap: 1rem;
+  }
+  
+  .statNumber {
+    font-size: 1.5rem;
+  }
+  
+  .searchSection {
+    padding: 1.5rem;
+  }
+  
+  .searchBox {
+    flex-direction: column;
+  }
+  
+  .categoryFilters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .categoryButton {
+    white-space: nowrap;
   }
   
   .featuredGrid {
@@ -235,62 +381,31 @@
     gap: 1.5rem;
   }
   
-  .filtersSection {
-    padding: 1.5rem;
-  }
-  
-  .categoryFilters {
-    justify-content: flex-start;
-  }
-  
-  .categoryButton {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-  }
-  
-  .resultsHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
   .articlesGrid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .newsletterCard {
-    padding: 2rem;
+    gap: 1rem;
   }
   
   .newsletterForm {
     flex-direction: column;
   }
+  
+  .newsletterCard {
+    padding: 2rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .content {
-    padding: 0 0.5rem;
-  }
-  
-  .title {
-    font-size: 2rem;
+  .headerStats {
+    flex-direction: column;
+    gap: 1rem;
   }
   
   .sectionTitle {
-    font-size: 1.75rem;
-  }
-  
-  .filtersSection {
-    padding: 1rem;
-  }
-  
-  .newsletterCard {
-    padding: 1.5rem;
+    font-size: 1.5rem;
   }
   
   .newsletterCard h3 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
-
-

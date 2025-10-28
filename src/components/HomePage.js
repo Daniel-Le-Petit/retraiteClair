@@ -184,8 +184,8 @@ const HomePage = () => {
           <div className="simulation-card">
             <div className="card-image-container">
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Personne utilisant un smartphone pour une simulation rapide - Mode simplifié"
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Femme détendue faisant du yoga sur une plage ensoleillée - Simulation simplifiée"
                 className="card-image"
               />
               <div className="card-overlay">
@@ -198,13 +198,8 @@ const HomePage = () => {
                 </div>
                 <p className="card-description">
                   <strong>Idéal pour débuter</strong><br/>
-                  Calcul rapide avec les informations essentielles. Parfait pour avoir un premier aperçu de vos revenus en retraite progressive.
+                  Calcul rapide avec les informations essentielles.
                 </p>
-                <div className="card-features">
-                  <div className="feature-item">✓ 3 questions seulement</div>
-                  <div className="feature-item">✓ Résultat immédiat</div>
-                  <div className="feature-item">✓ Guide pas à pas</div>
-                </div>
                 <button 
                   className="card-button card-button-primary"
                   onClick={() => {
@@ -213,7 +208,7 @@ const HomePage = () => {
                   }}
                   aria-label="Essayer la version simplifiée"
                 >
-                  🚀 Commencer rapidement
+                  Commencer rapidement
                 </button>
               </div>
             </div>
@@ -222,8 +217,8 @@ const HomePage = () => {
           <div className="simulation-card simulation-card-advanced">
             <div className="card-image-container">
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Personne analysant des graphiques et calculs financiers sur ordinateur - Mode avancé"
+                src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Femme détendue et souriante faisant du ski sur une montagne ensoleillée - Simulation avancée"
                 className="card-image"
               />
               <div className="card-overlay">
@@ -236,13 +231,8 @@ const HomePage = () => {
                 </div>
                 <p className="card-description">
                   <strong>Analyse complète et précise</strong><br/>
-                  Calcul détaillé avec tous les paramètres personnalisés. Inclut l'impact fiscal, les revenus complémentaires et les comparaisons détaillées.
+                  Calcul détaillé avec tous les paramètres.
                 </p>
-                <div className="card-features">
-                  <div className="feature-item">✓ Tous les paramètres</div>
-                  <div className="feature-item">✓ Impact fiscal détaillé</div>
-                  <div className="feature-item">✓ Comparaisons avancées</div>
-                </div>
                 <button 
                   className="card-button card-button-secondary"
                   onClick={() => {
@@ -251,7 +241,7 @@ const HomePage = () => {
                   }}
                   aria-label="Explorer la version avancée"
                 >
-                  🔍 Analyse complète
+                  Analyse complète
                 </button>
               </div>
             </div>
@@ -262,22 +252,6 @@ const HomePage = () => {
         <div className="cards-indicators">
           <div className="indicator-dot indicator-active"></div>
           <div className="indicator-dot"></div>
-        </div>
-        
-        {/* Témoignages spécifiques aux modes */}
-        <div className="mode-testimonials">
-          <div className="testimonial-simplified">
-            <div className="testimonial-content">
-              <div className="testimonial-quote">"En 2 minutes, j'ai eu mon premier aperçu ! Parfait pour commencer."</div>
-              <div className="testimonial-author">— Marie, 58 ans, enseignante</div>
-            </div>
-          </div>
-          <div className="testimonial-advanced">
-            <div className="testimonial-content">
-              <div className="testimonial-quote">"L'analyse détaillée m'a permis de prendre ma décision en toute confiance."</div>
-              <div className="testimonial-author">— Pierre, 61 ans, cadre</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -300,41 +274,7 @@ const HomePage = () => {
                   <p className="definition-description">{item.description}</p>
                   
                   <Accordion title="En savoir plus →">
-                    {item.detailedContent && (
-                      <>
-                        {item.detailedContent.intro && (
-                          <p className="modal-intro">{item.detailedContent.intro}</p>
-                        )}
-
-                        {item.detailedContent.rules && (
-                          <ul className="modal-rules">
-                            {item.detailedContent.rules.map((rule, idx) => (
-                              <li key={idx}>{rule}</li>
-                            ))}
-                          </ul>
-                        )}
-
-                        {item.detailedContent.example && (
-                          <div className="modal-example">
-                            <h4>{item.detailedContent.example.title}</h4>
-                            <p>{item.detailedContent.example.text}</p>
-                          </div>
-                        )}
-
-                        <div className="modal-footer">
-                          {item.detailedContent.advantages && (
-                            <div className="modal-advantages">
-                              <strong>✅ Avantages :</strong> {item.detailedContent.advantages}
-                            </div>
-                          )}
-                          {item.detailedContent.warning && (
-                            <div className="modal-warning">
-                              <strong>⚠️ Point de vigilance :</strong> {item.detailedContent.warning}
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
+                    <p className="modal-intro">{item.popupContent}</p>
                   </Accordion>
                 </div>
               );
@@ -360,45 +300,7 @@ const HomePage = () => {
                     <p className="eligibility-description">{item.description}</p>
                   </div>
                   <Accordion title="En savoir plus →">
-                    {item.detailedContent && (
-                      <>
-                        {item.detailedContent.intro && (
-                          <p className="modal-intro">{item.detailedContent.intro}</p>
-                        )}
-
-                        {item.detailedContent.rules && (
-                          <ul className="modal-rules">
-                            {item.detailedContent.rules.map((rule, idx) => (
-                              <li key={idx}>{rule}</li>
-                            ))}
-                          </ul>
-                        )}
-
-                        {item.detailedContent.included && (
-                          <div className="modal-section">
-                            <h4>{item.detailedContent.included.title}</h4>
-                            <ul className="modal-sub-list">
-                              {item.detailedContent.included.items.map((item, idx) => (
-                                <li key={idx}>{item}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        {item.detailedContent.example && (
-                          <div className="modal-example">
-                            <h4>{item.detailedContent.example.title}</h4>
-                            <p>{item.detailedContent.example.text}</p>
-                          </div>
-                        )}
-
-                        {item.detailedContent.goodToKnow && (
-                          <div className="modal-good-to-know">
-                            <strong>💡 Bon à savoir :</strong> {item.detailedContent.goodToKnow}
-                          </div>
-                        )}
-                      </>
-                    )}
+                    <p className="modal-intro">{item.popupContent}</p>
                   </Accordion>
                 </div>
               );
@@ -427,78 +329,7 @@ const HomePage = () => {
                 <h3 className="step-title">{step.title}</h3>
                 <p className="step-description">{step.description}</p>
                 <Accordion title="En savoir plus →">
-                  {step.detailedContent && (
-                    <>
-                      {step.detailedContent.intro && (
-                        <p className="modal-intro">{step.detailedContent.intro}</p>
-                      )}
-
-                      {step.detailedContent.steps && (
-                        <ol className="modal-steps">
-                          {step.detailedContent.steps.map((stepItem, idx) => (
-                            <li key={idx}>
-                              <strong>{stepItem.title}</strong>
-                              <p>{stepItem.description}</p>
-                              {stepItem.details && (
-                                <ul className="modal-sub-list">
-                                  {stepItem.details.map((detail, detailIdx) => (
-                                    <li key={detailIdx}>{detail}</li>
-                                  ))}
-                                </ul>
-                              )}
-                            </li>
-                          ))}
-                        </ol>
-                      )}
-
-                      {step.detailedContent.documents && (
-                        <div className="modal-section">
-                          <h4>{step.detailedContent.documents.title}</h4>
-                          <ul className="modal-list">
-                            {step.detailedContent.documents.items.map((item, idx) => (
-                              <li key={idx}>
-                                {typeof item === 'string' ? (
-                                  item
-                                ) : (
-                                  <>
-                                    {item.text}{' '}
-                                    <a 
-                                      href={item.link} 
-                                      target="_blank" 
-                                      rel="noopener noreferrer"
-                                      className="document-link"
-                                    >
-                                      (télécharger le modèle)
-                                    </a>
-                                  </>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {step.detailedContent.timeline && (
-                        <div className="modal-timeline">
-                          <h4>{step.detailedContent.timeline.title}</h4>
-                          <p>{step.detailedContent.timeline.text}</p>
-                        </div>
-                      )}
-
-                      {step.detailedContent.example && (
-                        <div className="modal-example">
-                          <h4>{step.detailedContent.example.title}</h4>
-                          <p style={{whiteSpace: 'pre-line'}}>{step.detailedContent.example.text}</p>
-                        </div>
-                      )}
-
-                      {step.detailedContent.tip && (
-                        <div className="modal-tip">
-                          <strong>💡 Conseil :</strong> {step.detailedContent.tip}
-                        </div>
-                      )}
-                    </>
-                  )}
+                  <p className="modal-intro">{step.popupContent}</p>
                 </Accordion>
               </div>
             ))}

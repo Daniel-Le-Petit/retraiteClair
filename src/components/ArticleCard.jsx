@@ -28,17 +28,31 @@ const ArticleCard = ({ article, featured = false }) => {
       
       <div className={styles.cardContent}>
         <h3 className={styles.title}>
-          <Link to={`/blog/${article.id}`} className={styles.titleLink}>
+          <button 
+            className={styles.titleLink}
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                detail: { article: article } 
+              }));
+            }}
+          >
             {article.title}
-          </Link>
+          </button>
         </h3>
         
         <p className={styles.excerpt}>{article.excerpt}</p>
         
         <div className={styles.cardFooter}>
-          <Link to={`/blog/${article.id}`} className={styles.readMoreLink}>
+          <button 
+            className={styles.readMoreLink}
+            onClick={() => {
+              window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                detail: { article: article } 
+              }));
+            }}
+          >
             Lire la suite →
-          </Link>
+          </button>
         </div>
       </div>
     </article>

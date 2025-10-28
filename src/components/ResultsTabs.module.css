@@ -65,46 +65,131 @@
   margin: 0 auto;
 }
 
-/* Placement spécial pour les cartes de salaire */
-.resultCard.salaireTempsPlein {
-  background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-  border: 2px solid #0288d1;
-  position: relative;
+/* Nouvelle structure avec sections principales et secondaires */
+.resultsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.resultCard.salaireTempsPlein::after {
-  content: '→';
-  position: absolute;
-  right: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: #0288d1;
-  font-weight: bold;
+.mainResultsSection {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+}
+
+.mainSectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #10b981;
+}
+
+.mainResultsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.secondaryResultsSection {
+  margin-top: 2rem;
+}
+
+.secondarySectionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.secondaryResultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Styles pour les cartes principales */
+.mainCard {
+  background: white;
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.mainCard.salaireTempsPartiel {
+  border-color: #e2e8f0;
+}
+
+.mainCard.pensionRetraite {
+  border-color: #e2e8f0;
+}
+
+.mainCard.totalRevenus {
+  border-color: #0f766e;
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+}
+
+.mainCard.totalRevenus h3,
+.mainCard.totalRevenus .amount,
+.mainCard.totalRevenus p {
+  color: white;
+}
+
+/* Montants en vert pour toutes les cartes principales sauf Total */
+.mainCard:not(.totalRevenus) .amount {
+  color: #0f766e;
+}
+
+/* Styles pour les cartes secondaires */
+.secondaryCard {
+  background: white;
+  border: 2px solid #e2e8f0;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.secondaryCard:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Montants en vert pour toutes les cartes secondaires */
+.secondaryCard .amount {
+  color: #0f766e;
+}
+
+/* Styles pour les cartes dans l'onglet bruts (ancien système) */
+.resultCard.salaireTempsPlein {
+  background: white;
+  border: 2px solid #e2e8f0;
 }
 
 .resultCard.salaireTempsPartiel {
-  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-  border: 2px solid #7b1fa2;
-  position: relative;
+  background: white;
+  border: 2px solid #e2e8f0;
 }
 
 .resultCard.pensionRetraite {
-  background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-  border: 2px solid #388e3c;
+  background: white;
+  border: 2px solid #e2e8f0;
 }
 
-/* Valeurs en couleurs cohérentes */
-.resultCard.salaireTempsPlein .amount {
-  color: #0288d1;
-}
-
-.resultCard.salaireTempsPartiel .amount {
-  color: #7b1fa2;
-}
-
-.resultCard.pensionRetraite .amount {
-  color: #388e3c;
+/* Montants en vert pour toutes les cartes sauf Total et Pension complète */
+.resultCard:not(.totalRevenus):not(.pensionComplete) .amount {
+  color: #0f766e;
 }
 
 .resultCard {
@@ -382,6 +467,19 @@
   
   .resultsGrid {
     grid-template-columns: 1fr;
+  }
+  
+  .mainResultsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mainResultsSection {
+    padding: 1.5rem;
+  }
+  
+  .mainCard {
+    transform: none;
   }
   
   /* Masquer la flèche sur mobile */

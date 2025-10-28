@@ -197,31 +197,41 @@
 }
 
 .card-button-primary {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   color: #0f766e;
-  border: 2px solid #0f766e;
-  box-shadow: 0 2px 4px rgba(15, 118, 110, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  letter-spacing: normal;
 }
 
 .card-button-primary:hover {
-  background: #0f766e;
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(15, 118, 110, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 .card-button-secondary {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   color: #2563eb;
-  border: 2px solid #2563eb;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  letter-spacing: normal;
 }
 
 .card-button-secondary:hover {
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Content Sections */
@@ -1307,30 +1317,16 @@
   color: white;
 }
 
-/* Features des cartes */
-.card-features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin: 1rem 0;
-  width: 100%;
-}
+/* Features des cartes - SUPPRIMÉS */
 
-.feature-item {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Amélioration des overlays */
+/* Amélioration des overlays - Version simplifiée */
 .card-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.8), rgba(19, 78, 74, 0.7));
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.75), rgba(19, 78, 74, 0.65));
   color: white;
   padding: 1.5rem;
   display: flex;
@@ -1344,57 +1340,10 @@
 
 /* Overlay spécifique pour la carte avancée (bleu) */
 .simulation-card-advanced .card-overlay {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.7));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.75), rgba(29, 78, 216, 0.65));
 }
 
-/* Styles pour les témoignages spécifiques aux modes */
-.mode-testimonials {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-top: 2rem;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.testimonial-simplified,
-.testimonial-advanced {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #0f766e;
-  transition: all 0.3s ease;
-}
-
-.testimonial-advanced {
-  border-left-color: #2563eb;
-}
-
-.testimonial-simplified:hover,
-.testimonial-advanced:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.testimonial-content {
-  text-align: left;
-}
-
-.testimonial-quote {
-  font-size: 1rem;
-  color: #1e293b;
-  font-style: italic;
-  margin-bottom: 0.75rem;
-  line-height: 1.5;
-}
-
-.testimonial-author {
-  font-size: 0.9rem;
-  color: #64748b;
-  font-weight: 500;
-}
+/* Styles pour les témoignages spécifiques aux modes - SUPPRIMÉS */
 
 /* Amélioration des boutons */
 .card-button {
@@ -1414,31 +1363,41 @@
 }
 
 .card-button-primary {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   color: #0f766e;
-  border: 2px solid #0f766e;
-  box-shadow: 0 2px 4px rgba(15, 118, 110, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  letter-spacing: normal;
 }
 
 .card-button-primary:hover {
-  background: #0f766e;
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(15, 118, 110, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 .card-button-secondary {
-  background: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   color: #2563eb;
-  border: 2px solid #2563eb;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  letter-spacing: normal;
 }
 
 .card-button-secondary:hover {
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  border-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Nouvelles cartes avec images */

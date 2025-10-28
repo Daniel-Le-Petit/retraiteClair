@@ -11,24 +11,39 @@ const ScenarioChart = ({ data }) => {
     }).format(amount);
   };
 
-  // Calcul des scénarios pour différents temps partiels (ordre croissant : 40% → 80%)
-  const scenarios = [40, 50, 60, 70, 80].map(percentage => {
-    const salaireBrut = data.revenusBruts.tempsPlein * (percentage / 100);
-    const salaireNetTempsPlein = data.revenusBruts.tempsPlein * 0.7883;
-    const salaireNetPartiel = salaireBrut * 0.7883; // 78.83% du brut temps partiel
-    const pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1728;
-    const pensionProgressiveNet = pensionProgressiveBrut * 0.9; // 90% du brut
-    const totalNet = salaireNetPartiel + pensionProgressiveNet;
+  // Utiliser la même logique que la simulation principale pour les scénarios
+  const calculateScenario = (percentage) => {
+    const salaireBrutTempsPartiel = data.revenusBruts.tempsPlein * (percentage / 100);
+    const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7883;
+    
+    // Utiliser la même logique que la simulation principale pour la pension progressive
+    let pensionProgressiveBrut, pensionProgressiveNet;
+    
+    // Si on a une pension complète dans les données (mode avancé)
+    if (data.revenusBruts.pensionComplete && data.revenusBruts.pensionComplete > 0) {
+      // Mode avancé : utiliser la pension complète calculée
+      pensionProgressiveBrut = data.revenusBruts.pensionComplete * 0.1728; // 17.28% de la pension complète
+      pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+    } else {
+      // Mode simplifié : calcul approximatif basé sur le salaire brut
+      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1728;
+      pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+    }
+    
+    const totalNet = salaireNetTempsPartiel + pensionProgressiveNet;
     
     return {
       percentage,
-      salaireBrut,
-      salaireNetPartiel,
+      salaireBrut: salaireBrutTempsPartiel,
+      salaireNetPartiel: salaireNetTempsPartiel,
       pensionProgressiveBrut,
       pensionProgressiveNet,
       totalNet
     };
-  });
+  };
+
+  // Calcul des scénarios pour différents temps partiels (ordre croissant : 40% → 80%)
+  const scenarios = [40, 50, 60, 70, 80].map(calculateScenario);
 
   // Trouver les valeurs min/max pour l'échelle
   const maxValue = Math.max(...scenarios.map(s => s.totalNet));
