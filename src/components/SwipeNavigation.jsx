@@ -9,10 +9,12 @@ import AboutPage from './AboutPage';
 import ContactForm from './ContactForm';
 import LegalPage from './LegalPage';
 import HorizontalNavigation from './HorizontalNavigation';
+import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
 
 const SwipeNavigation = () => {
+  const { trackPageView, trackEvent } = useGA4();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentArticle, setCurrentArticle] = useState(null);
@@ -20,14 +22,50 @@ const SwipeNavigation = () => {
   const [readingMode, setReadingMode] = useState(false);
   const [currentLegalPage, setCurrentLegalPage] = useState(null);
 
-  // Configuration des pages
+  // Configuration des pages avec métadonnées GA4
   const pages = [
-    { id: 'accueil', component: HomePage, title: 'Accueil' },
-    { id: 'calculateur', component: CalculateurAvance, title: 'Simulateur' },
-    { id: 'blog', component: BlogListStable, title: 'Blog' },
-    { id: 'conseils', component: ConseilsPageSimple, title: 'Conseils' },
-    { id: 'about', component: AboutPage, title: 'Mon parcours' },
-    { id: 'contact', component: ContactForm, title: 'Contact' }
+    { 
+      id: 'accueil', 
+      component: HomePage, 
+      title: 'Accueil',
+      gaTitle: 'Page d\'accueil - RetraiteClair',
+      gaPath: '/'
+    },
+    { 
+      id: 'calculateur', 
+      component: CalculateurAvance, 
+      title: 'Simulateur',
+      gaTitle: 'Simulateur Retraite Progressive',
+      gaPath: '/calculateur'
+    },
+    { 
+      id: 'blog', 
+      component: BlogListStable, 
+      title: 'Blog',
+      gaTitle: 'Blog Retraite Progressive',
+      gaPath: '/blog'
+    },
+    { 
+      id: 'conseils', 
+      component: ConseilsPageSimple, 
+      title: 'Conseils',
+      gaTitle: 'Conseils Retraite Progressive',
+      gaPath: '/conseils'
+    },
+    { 
+      id: 'about', 
+      component: AboutPage, 
+      title: 'Mon parcours',
+      gaTitle: 'À propos - Mon parcours',
+      gaPath: '/about'
+    },
+    { 
+      id: 'contact', 
+      component: ContactForm, 
+      title: 'Contact',
+      gaTitle: 'Contact RetraiteClair',
+      gaPath: '/contact'
+    }
   ];
 
   // Fonction pour scroll vers le haut
@@ -151,13 +189,32 @@ const SwipeNavigation = () => {
   const goToPage = (index) => {
     if (!isTransitioning && index !== currentIndex) {
       setIsTransitioning(true);
+      
+      // Track la page précédente
+      const currentPage = pages[currentIndex];
+      trackEvent('page_exit', {
+        event_category: 'navigation',
+        event_label: currentPage.gaTitle,
+        page_path: currentPage.gaPath
+      });
+      
       setCurrentIndex(index);
+      
+      // Track la nouvelle page après un délai
       setTimeout(() => {
+        const newPage = pages[index];
+        trackPageView(newPage.gaTitle, newPage.gaPath);
         setIsTransitioning(false);
         scrollToTop();
       }, 300);
     }
   };
+
+  // Track la page initiale au chargement
+  useEffect(() => {
+    const initialPage = pages[currentIndex];
+    trackPageView(initialPage.gaTitle, initialPage.gaPath);
+  }, []);
 
   // Écouter les événements de navigation
   useEffect(() => {

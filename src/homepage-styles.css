@@ -1274,6 +1274,173 @@
   }
 }
 
+/* Styles pour les nouvelles améliorations des cartes */
+
+/* Header des cartes avec indicateur de temps */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.card-time-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.time-icon {
+  font-size: 0.8rem;
+}
+
+.time-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Features des cartes */
+.card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.feature-item {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Amélioration des overlays */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.8), rgba(19, 78, 74, 0.7));
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Overlay spécifique pour la carte avancée (bleu) */
+.simulation-card-advanced .card-overlay {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.7));
+}
+
+/* Styles pour les témoignages spécifiques aux modes */
+.mode-testimonials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.testimonial-simplified,
+.testimonial-advanced {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #0f766e;
+  transition: all 0.3s ease;
+}
+
+.testimonial-advanced {
+  border-left-color: #2563eb;
+}
+
+.testimonial-simplified:hover,
+.testimonial-advanced:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-content {
+  text-align: left;
+}
+
+.testimonial-quote {
+  font-size: 1rem;
+  color: #1e293b;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.testimonial-author {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Amélioration des boutons */
+.card-button {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.card-button-primary {
+  background: white;
+  color: #0f766e;
+  border: 2px solid #0f766e;
+  box-shadow: 0 2px 4px rgba(15, 118, 110, 0.2);
+}
+
+.card-button-primary:hover {
+  background: #0f766e;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(15, 118, 110, 0.3);
+}
+
+.card-button-secondary {
+  background: white;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.card-button-secondary:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
 /* Nouvelles cartes avec images */
 .card-image-container {
   position: relative;
@@ -1293,31 +1460,6 @@
   transform: scale(1.05);
 }
 
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.7), rgba(19, 78, 74, 0.6));
-  color: white;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  text-align: center;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-/* Overlay spécifique pour la carte avancée (bleu) */
-.simulation-card-advanced .card-overlay {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.7), rgba(29, 78, 216, 0.6));
-  border: 3px solid #2563eb;
-  border-radius: 16px;
-}
-
 .card-overlay .card-title {
   font-size: 1.3rem;
   font-weight: 700;
@@ -1332,6 +1474,38 @@
   margin-bottom: 1rem;
   color: rgba(255, 255, 255, 0.95);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive pour les nouvelles fonctionnalités */
+@media (max-width: 768px) {
+  .mode-testimonials {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .testimonial-simplified,
+  .testimonial-advanced {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .card-time-indicator {
+    align-self: flex-end;
+  }
+  
+  .card-features {
+    margin: 0.75rem 0;
+  }
+  
+  .feature-item {
+    font-size: 0.8rem;
+  }
 }
 
 /* Indicateurs centrés entre les cartes - Masqués sur PC */

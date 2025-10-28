@@ -626,7 +626,7 @@ div.advanced-field label {
 }
 
 .form-group.simplified-field::before {
-  content: '⚡ MODE SIMPLIFIÉ';
+  content: 'MODE SIMPLIFIÉ';
   position: absolute;
   top: -8px;
   right: 16px;
@@ -642,7 +642,7 @@ div.advanced-field label {
 }
 
 .form-group.advanced-field::before {
-  content: '🎯 MODE AVANCÉ';
+  content: 'MODE AVANCÉ';
   position: absolute;
   top: -8px;
   right: 16px;

@@ -1,0 +1,245 @@
+.chartContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.chartTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.chart {
+  display: flex;
+  height: 300px;
+  margin-bottom: 1rem;
+}
+
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  margin-right: 1rem;
+}
+
+.yLabel {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  height: 20px;
+}
+
+.yScale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px 0;
+}
+
+.yTick {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-align: right;
+}
+
+.chartArea {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
+  padding-left: 1rem;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+
+.barContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.bar {
+  width: 60%;
+  min-height: 20px;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Couleurs uniques par pourcentage */
+.bar40 {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+}
+
+.bar40:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.bar50 {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+}
+
+.bar50:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.3);
+}
+
+.bar60 {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+}
+
+.bar60:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+}
+
+.bar70 {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+}
+
+.bar70:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 50%, #065f46 100%);
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.bar80 {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+}
+
+.bar80:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
+  transform: scaleY(1.05);
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+}
+
+.barValue {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.barLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #2c3e50;
+  margin-top: 0.5rem;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chartContainer {
+    padding: 1.5rem;
+  }
+  
+  .chart {
+    height: 250px;
+  }
+  
+  .yAxis {
+    width: 80px;
+  }
+  
+  .yLabel {
+    font-size: 0.75rem;
+  }
+  
+  .yTick {
+    font-size: 0.7rem;
+  }
+  
+  .barValue {
+    font-size: 0.7rem;
+    top: -20px;
+  }
+  
+  .barLabel {
+    font-size: 0.8rem;
+  }
+  
+  .legend {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartContainer {
+    padding: 1rem;
+  }
+  
+  .chart {
+    height: 200px;
+  }
+  
+  .yAxis {
+    width: 60px;
+  }
+  
+  .bars {
+    padding: 0 0.25rem;
+  }
+  
+  .bar {
+    width: 70%;
+  }
+  
+  .barValue {
+    font-size: 0.65rem;
+    top: -18px;
+  }
+}
+

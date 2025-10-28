@@ -124,7 +124,8 @@
 }
 
 /* Réduire les espaces dans les pages */
-.swipe-page * {
+.swipe-page *,
+.page-container * {
   box-sizing: border-box;
 }
 
@@ -133,7 +134,12 @@
 .swipe-page .conseils-container,
 .swipe-page .contact-container,
 .swipe-page .blog-list-container,
-.swipe-page .calculateur-avance-container {
+.swipe-page .calculateur-avance-container,
+.page-container .container,
+.page-container .simulateurs-container,
+.page-container .blog-container,
+.page-container .guide-container,
+.page-container .contact-container {
   padding: 10px !important;
   margin: 0 auto !important;
   width: 80% !important;
@@ -147,7 +153,12 @@
   .swipe-page .conseils-container,
   .swipe-page .contact-container,
   .swipe-page .blog-list-container,
-  .swipe-page .calculateur-avance-container {
+  .swipe-page .calculateur-avance-container,
+  .page-container .container,
+  .page-container .simulateurs-container,
+  .page-container .blog-container,
+  .page-container .guide-container,
+  .page-container .contact-container {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
@@ -161,7 +172,12 @@
   .swipe-page .conseils-container,
   .swipe-page .contact-container,
   .swipe-page .blog-list-container,
-  .swipe-page .calculateur-avance-container {
+  .swipe-page .calculateur-avance-container,
+  .page-container .container,
+  .page-container .simulateurs-container,
+  .page-container .blog-container,
+  .page-container .guide-container,
+  .page-container .contact-container {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
@@ -322,19 +338,52 @@
   -ms-user-select: text !important;
 }
 
+/* Permettre la sélection de texte dans tous les contenus */
+* {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 /* Empêcher la sélection uniquement sur les éléments de navigation */
 .swipe-navigation .horizontal-navigation,
 .swipe-navigation .nav-item,
 .swipe-navigation .nav-dot {
-  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  user-select: none;
+}
+
+/* Désactiver le swipe sur les éléments de texte */
+.resultCard,
+.resultCard *,
+.scenariosContainer,
+.scenariosContainer *,
+.detailsContainer,
+.detailsContainer *,
+.formContainer,
+.formContainer *,
+.howItWorks,
+.howItWorks * {
+  touch-action: manipulation;
+  -webkit-touch-callout: default;
+}
+
+/* Empêcher le swipe sur les cartes de résultats */
+.resultsGrid,
+.resultsGrid * {
+  touch-action: pan-y pinch-zoom;
 }
 
 /* Horizontal Navigation - Ajustement du contenu */
-.swipe-page {
+.swipe-page,
+.page-container {
   padding-top: 60px; /* Espace pour la barre de navigation */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
 }
 
 /* Réduction de l'espace pour le header réduit */
@@ -377,13 +426,15 @@
 
 /* Responsive pour la navigation horizontale */
 @media (max-width: 768px) {
-  .swipe-page {
+  .swipe-page,
+  .page-container {
     padding-top: 120px; /* Hauteur de la navigation + header + marge */
   }
 }
 
 @media (max-width: 480px) {
-  .swipe-page {
+  .swipe-page,
+  .page-container {
     padding-top: 110px; /* Hauteur de la navigation + header + marge */
   }
 }

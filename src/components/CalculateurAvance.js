@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, BarChart3, TrendingUp, Euro, User, Calendar, Clock, ChevronDown, ChevronUp, Eye, Settings, ArrowRight } from 'lucide-react';
+import { Eye, Settings, ArrowRight } from 'lucide-react';
 import PageHeader from './PageHeader';
 import SimulatorNavigation from './SimulatorNavigation';
+import { useGA4 } from '../hooks/useGA4';
 import './SimulatorNavigation.css';
 
 const CalculateurAvance = () => {
+  const { trackEvent } = useGA4();
   const [activeTab, setActiveTab] = useState('saisie');
-  const [expandedSections, setExpandedSections] = useState({
-    saisie: true,
-    resultats: false,
-    scenarios: false
-  });
   const [formData, setFormData] = useState({
     salaireBrut: '',
     debutRetraite: '',
@@ -23,13 +20,9 @@ const CalculateurAvance = () => {
     surcoteDecote: 0 // Surcote/décote en % (positif = surcote, négatif = décote)
   });
   const [resultats, setResultats] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedYear, setSelectedYear] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState('');
   const [maintienCotisation100, setMaintienCotisation100] = useState(false);
   const [validationError, setValidationError] = useState('');
   const [showAdvancedMode, setShowAdvancedMode] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1); // 1: Saisie, 2: Résultats, 3: Scénarios
   const [simulationMode, setSimulationMode] = useState('simplified'); // 'simplified' ou 'advanced'
   const [hasVisitedResults, setHasVisitedResults] = useState(false); // Track si l'utilisateur a visité les résultats
 
@@ -280,9 +273,7 @@ const CalculateurAvance = () => {
 
   // Mise à jour du step actuel
   useEffect(() => {
-    if (activeTab === 'saisie') setCurrentStep(1);
-    else if (activeTab === 'resultats') setCurrentStep(2);
-    else if (activeTab === 'scenarios') setCurrentStep(3);
+    // Step tracking removed - not needed for functionality
   }, [activeTab]);
 
   // Fonction pour calculer un scénario
@@ -329,6 +320,15 @@ const CalculateurAvance = () => {
     const revenuTotal = salairePartielNet + pensionProgressive;
     const perteRevenu = salaireNet - revenuTotal;
 
+    // Track le calcul effectué
+    trackEvent('calculation_performed', {
+      event_category: 'calculator',
+      event_label: `temps_partiel_${tempsPartiel}`,
+      value: tempsPartiel,
+      custom_parameter_1: salaireBrut,
+      custom_parameter_2: Math.round(revenuTotal)
+    });
+
     return {
       salairePartiel: Math.round(salairePartielNet * 100) / 100,
       pensionProgressive: Math.round(pensionProgressive * 100) / 100,
@@ -336,10 +336,6 @@ const CalculateurAvance = () => {
       perteRevenu: Math.round(perteRevenu * 100) / 100,
       salaireNet: Math.round(salaireNet)
     };
-  };
-
-  const isFormComplete = () => {
-    return formData.salaireBrut && formData.debutRetraite;
   };
 
   return (

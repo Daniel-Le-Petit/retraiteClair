@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router } from 'react-router-dom';
-import SwipeNavigation from './components/SwipeNavigation';
+import SwipeNavigationNew, { AppContent } from './components/SwipeNavigationNew';
 import BackgroundImage from './components/BackgroundImage';
 import './index.css';
 import './definition-styles.css';
@@ -14,10 +14,6 @@ import './conseils-styles.css';
 import './homepage-styles.css';
 import './legal-styles.css';
 import './about-styles.css';
-
-function AppContent() {
-  return <SwipeNavigation />;
-}
 
 function App() {
   return (

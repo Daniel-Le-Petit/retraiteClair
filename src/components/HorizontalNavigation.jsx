@@ -20,8 +20,8 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
       description: 'Découvrez la retraite progressive'
     },
     {
-      id: 'calculateur',
-      label: 'Simulations',
+      id: 'simulateurs',
+      label: 'Simulateurs',
       icon: Calculator,
       description: 'Calculez vos revenus'
     },
@@ -32,16 +32,10 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
       description: 'Conseils et actualités'
     },
     {
-      id: 'conseils',
-      label: 'Conseils',
+      id: 'guide-pratique',
+      label: 'Guide pratique',
       icon: CheckCircle,
-      description: 'Guide pratique'
-    },
-    {
-      id: 'about',
-      label: 'Mon parcours',
-      icon: User,
-      description: 'Pourquoi RetraiteClair'
+      description: 'FAQ et ressources'
     },
     {
       id: 'contact',

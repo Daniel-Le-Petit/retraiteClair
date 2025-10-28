@@ -228,21 +228,7 @@
   transform: translateY(-50%);
 }
 
-/* Style pour l'étoile rouge dans le label intégré */
-.form-group:has(input[id="salaireBrut"]) .input-container::after {
-  content: " *";
-  position: absolute;
-  top: 0.5rem;
-  left: calc(1rem + 7.8rem); /* Position après le texte */
-  font-size: 0.75rem;
-  color: #ef4444;
-  font-weight: 700;
-  background: #ffffff;
-  padding: 0 0.25rem;
-  z-index: 10;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
+/* Style pour l'étoile rouge dans le label intégré - SUPPRIMÉ */
 
 .form-input::placeholder {
   color: #9ca3af;

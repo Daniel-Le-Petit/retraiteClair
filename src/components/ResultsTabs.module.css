@@ -1,0 +1,437 @@
+/* ResultsTabs.module.css */
+
+.container {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Style pour le mode avancé */
+.title.advanced {
+  color: #2563eb;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6c757d;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.tab:hover {
+  color: #3498db;
+  background: #f8f9ff;
+}
+
+.tab.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+  background: #f8f9ff;
+}
+
+.tabContent {
+  min-height: 400px;
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Placement spécial pour les cartes de salaire */
+.resultCard.salaireTempsPlein {
+  background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
+  border: 2px solid #0288d1;
+  position: relative;
+}
+
+.resultCard.salaireTempsPlein::after {
+  content: '→';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #0288d1;
+  font-weight: bold;
+}
+
+.resultCard.salaireTempsPartiel {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  border: 2px solid #7b1fa2;
+  position: relative;
+}
+
+.resultCard.pensionRetraite {
+  background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+  border: 2px solid #388e3c;
+}
+
+/* Valeurs en couleurs cohérentes */
+.resultCard.salaireTempsPlein .amount {
+  color: #0288d1;
+}
+
+.resultCard.salaireTempsPartiel .amount {
+  color: #7b1fa2;
+}
+
+.resultCard.pensionRetraite .amount {
+  color: #388e3c;
+}
+
+.resultCard {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  pointer-events: none;
+}
+
+.resultCard * {
+  pointer-events: none;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.resultCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.resultCard.highlight {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border-color: #2980b9;
+}
+
+/* Carte Total revenus - fond vert avec texte blanc */
+.resultCard.totalRevenus {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+  border-color: #134e4a;
+}
+
+.resultCard.totalRevenus h3,
+.resultCard.totalRevenus .amount,
+.resultCard.totalRevenus p {
+  color: white;
+}
+
+/* Carte Pension complète - fond jaune foncé avec texte blanc */
+.resultCard.pensionComplete {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: white;
+  border-color: #b45309;
+}
+
+.resultCard.pensionComplete h3,
+.resultCard.pensionComplete .amount,
+.resultCard.pensionComplete p {
+  color: white;
+}
+
+/* Valeurs en vert pour les cartes normales */
+.resultCard:not(.totalRevenus):not(.pensionComplete) .amount {
+  color: #0f766e;
+}
+
+.resultCard h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.resultCard.highlight h3 {
+  color: white;
+}
+
+.amount {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: inherit;
+}
+
+.resultCard p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+  color: inherit;
+}
+
+.scenariosContainer {
+  padding: 1rem 0;
+}
+
+.scenariosContainer h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.scenariosTable {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+  direction: ltr;
+}
+
+.tableHeader {
+  display: contents;
+}
+
+.tableHeader > div {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.tableRow {
+  display: contents;
+}
+
+.tableRow > div {
+  background: white;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.tableRow:nth-child(even) > div {
+  background: #f8f9fa;
+}
+
+.detailsContainer {
+  padding: 1rem 0;
+}
+
+.detailsContainer h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.detailCard {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.detailCard h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #3498db;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailItem.highlight {
+  background: #e8f4fd;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.detailItem span:first-child {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.detailItem span:last-child {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.explanationText {
+  background: #e8f4fd;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #2c3e50;
+  border-left: 4px solid #3498db;
+}
+
+.savingsNote {
+  background: #e8f5e8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #2c3e50;
+  border-left: 4px solid #27ae60;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.actionButton {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.actionButton:hover {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .tab {
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Masquer la flèche sur mobile */
+  .resultCard.salaireTempsPlein::after {
+    display: none;
+  }
+  
+  .scenariosTable {
+    grid-template-columns: 1fr;
+    font-size: 0.9rem;
+  }
+  
+  .tableHeader > div,
+  .tableRow > div {
+    padding: 0.75rem;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actionButton {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .amount {
+    font-size: 1.5rem;
+  }
+  
+  .resultCard {
+    padding: 1rem;
+  }
+  
+  .detailCard {
+    padding: 1rem;
+  }
+}

@@ -8,7 +8,6 @@ import {
 import PageHeader from './PageHeader';
 
 const ConseilsPageSimple = ({ onPageChange }) => {
-  const navigate = useNavigate();
   const [checklistItems, setChecklistItems] = useState({
     age: false,
     trimestres: false,

@@ -1,0 +1,145 @@
+/* CTASection.module.css */
+
+.container {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.primaryButton {
+  background-color: #3498db;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  min-width: 200px;
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.secondaryButton {
+  background-color: #2ecc71;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  min-width: 200px;
+}
+
+.secondaryButton:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.helpSection {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.helpText {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.helpLink {
+  color: #f39c12;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.helpLink:hover {
+  color: #e67e22;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 0;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 0 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .helpText {
+    font-size: 1rem;
+  }
+}
+
+

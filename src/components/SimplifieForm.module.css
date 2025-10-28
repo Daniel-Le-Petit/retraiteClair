@@ -1,0 +1,166 @@
+/* SimplifieForm.module.css */
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.description {
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 500;
+  color: #0f766e;
+  font-size: 1rem;
+}
+
+.input,
+.select {
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.input.error,
+.select.error {
+  border-color: #e74c3c;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.4);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.infoBox {
+  background: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.infoBox h3 {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.infoBox p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .form {
+    gap: 1.25rem;
+  }
+  
+  .input,
+  .select {
+    padding: 0.875rem;
+  }
+  
+  .submitButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .input,
+  .select {
+    padding: 0.75rem;
+  }
+  
+  .submitButton {
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .infoBox {
+    padding: 1rem;
+  }
+}

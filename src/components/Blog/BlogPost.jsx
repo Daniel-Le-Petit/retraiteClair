@@ -318,7 +318,7 @@ const BlogPost = () => {
       <div className="newsletter-cta">
         <div className="container">
           <div className="newsletter-content">
-            <h3>📧 Restez informé</h3>
+            <h3>Restez informé</h3>
             <p>Recevez nos derniers conseils et actualités sur la retraite progressive</p>
             <div className="newsletter-form">
               <input type="email" placeholder="Votre adresse email" />
