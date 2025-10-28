@@ -398,6 +398,7 @@
 @media (max-width: 768px) {
   .horizontal-navigation {
     height: 50px !important;
+    box-shadow: none !important;
   }
   
   .nav-container {
