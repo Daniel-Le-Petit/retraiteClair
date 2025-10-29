@@ -88,7 +88,7 @@ const ScenarioComparator = ({
   const vsActuel = calculateDifference(current.totalNet, reference.totalNet);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} animate-slideUp animate-delay-200`}>
       <div className={styles.header}>
         <h3 className={styles.title}>
           🔄 Explorer d'autres temps partiels

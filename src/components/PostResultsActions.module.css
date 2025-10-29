@@ -108,6 +108,20 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+.emailInput:disabled {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.emailInputError {
+  border-color: #dc2626;
+}
+
+.emailInputError:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
 .emailButton {
   background: #2563eb;
   color: white;
@@ -127,6 +141,22 @@
 .emailButton:disabled {
   background: #10b981;
   cursor: not-allowed;
+}
+
+.emailNote {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: #10b981;
+  font-weight: 500;
+  text-align: center;
+}
+
+.emailError {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #dc2626;
+  font-weight: 500;
+  text-align: center;
 }
 
 /* Help Card */
@@ -229,6 +259,9 @@
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .guideButton:hover {

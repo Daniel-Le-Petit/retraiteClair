@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SEOHead from '../SEOHead';
 import { blogArticles } from '../../data/blogArticles';
 import './Blog.css';
@@ -6,6 +7,12 @@ import './Blog.css';
 const BlogPostViewer = ({ articleSlug }) => {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  
+  // Vérifier l'origine : depuis le simulateur ou depuis le blog
+  const fromParam = searchParams.get('from');
+  const originFromStorage = sessionStorage.getItem('blogArticleOrigin');
+  const isFromSimulator = fromParam === 'simulator' || originFromStorage === 'simulator';
 
   useEffect(() => {
     const foundArticle = blogArticles.find(a => a.slug === articleSlug);
@@ -129,26 +136,78 @@ const BlogPostViewer = ({ articleSlug }) => {
               Accueil
             </button>
             <span>›</span>
-            <button 
-              className="breadcrumb-link"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent('backToBlog'));
-              }}
-            >
-              Blog
-            </button>
-            <span>›</span>
+            {isFromSimulator ? (
+              <>
+                <button 
+                  className="breadcrumb-link"
+                  onClick={() => {
+                    const savedPosition = sessionStorage.getItem('simulatorScrollPosition');
+                    window.dispatchEvent(new CustomEvent('navigateToPage', { 
+                      detail: { page: 'simulateurs' } 
+                    }));
+                    setTimeout(() => {
+                      if (savedPosition) {
+                        window.scrollTo(0, parseInt(savedPosition, 10));
+                      }
+                      sessionStorage.removeItem('simulatorScrollPosition');
+                      sessionStorage.removeItem('blogArticleOrigin');
+                    }, 100);
+                  }}
+                >
+                  Simulateurs
+                </button>
+                <span>›</span>
+              </>
+            ) : (
+              <>
+                <button 
+                  className="breadcrumb-link"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('backToBlog'));
+                  }}
+                >
+                  Blog
+                </button>
+                <span>›</span>
+              </>
+            )}
             <span className="article-title-breadcrumb">{article.title}</span>
           </nav>
           <div className="back-to-blog">
-            <button 
-              className="btn-secondary"
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent('backToBlog'));
-              }}
-            >
-              ← Retour au blog
-            </button>
+            {isFromSimulator ? (
+              <button 
+                className="btn-secondary"
+                onClick={() => {
+                  // Sauvegarder la position de scroll pour y revenir
+                  const savedPosition = sessionStorage.getItem('simulatorScrollPosition');
+                  
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { 
+                    detail: { page: 'simulateurs' } 
+                  }));
+                  
+                  // Restaurer la position de scroll après un court délai
+                  setTimeout(() => {
+                    if (savedPosition) {
+                      window.scrollTo(0, parseInt(savedPosition, 10));
+                    }
+                    // Nettoyer le sessionStorage
+                    sessionStorage.removeItem('simulatorScrollPosition');
+                    sessionStorage.removeItem('blogArticleOrigin');
+                  }, 100);
+                }}
+              >
+                ← Retour au simulateur
+              </button>
+            ) : (
+              <button 
+                className="btn-secondary"
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('backToBlog'));
+                }}
+              >
+                ← Retour au blog
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -1,0 +1,14 @@
+/* AnimatedAmount.module.css */
+
+.animatedAmount {
+  display: inline-block;
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  animation: fadeInUp 0.5s var(--easing);
+}
+
+.animatedAmount::before {
+  content: '';
+  display: inline-block;
+}
+

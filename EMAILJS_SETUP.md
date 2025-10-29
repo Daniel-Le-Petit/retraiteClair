@@ -1,123 +1,142 @@
-# 📧 Configuration EmailJS - RetraiteClair
+# Configuration EmailJS pour l'envoi automatique d'emails
 
-## ✅ Migration terminée
-- ❌ **Formspree supprimé** : Tous les fichiers et références Formspree ont été supprimés
-- ✅ **EmailJS installé** : Package `@emailjs/browser` installé
-- ✅ **ContactForm créé** : Nouveau composant avec EmailJS
-- ✅ **Intégration terminée** : Formulaire accessible via le menu "Contact"
+## 📋 Prérequis
 
-## 🔧 Configuration requise
+EmailJS est **déjà installé** dans le projet. Il permet d'envoyer des emails directement depuis le frontend sans backend, en restant sur **Static Site** sur Render.
 
-### 1. Créer un compte EmailJS
-1. Allez sur [emailjs.com](https://emailjs.com)
-2. Créez un compte gratuit
+## 🚀 Étapes de configuration
+
+### 1. Créer un compte EmailJS (Gratuit)
+
+1. Allez sur [https://www.emailjs.com/](https://www.emailjs.com/)
+2. Créez un compte gratuit (200 emails/mois)
 3. Vérifiez votre email
 
-### 2. Créer un service email
-1. Dans le dashboard EmailJS, allez dans **"Email Services"**
-2. Cliquez sur **"Add New Service"**
-3. Choisissez **Gmail** (ou votre fournisseur email)
-4. Connectez votre compte Gmail
-5. **Copiez le Service ID** (ex: `service_abc123`)
+### 2. Configurer un service email
 
-### 3. Créer un template
+1. Dans le Dashboard EmailJS, allez dans **"Email Services"**
+2. Cliquez sur **"Add New Service"**
+3. Choisissez votre fournisseur email :
+   - **Gmail** (recommandé pour commencer)
+   - **Outlook**
+   - **Yahoo**
+   - Ou un autre service SMTP personnalisé
+
+4. Suivez les instructions pour connecter votre compte email
+5. Notez le **Service ID** (ex: `service_xxxxx`)
+
+### 3. Créer un template d'email
+
 1. Allez dans **"Email Templates"**
 2. Cliquez sur **"Create New Template"**
-3. Utilisez ce template :
+3. Utilisez ce template de base :
 
-```html
-Sujet: Nouveau message de {{from_name}} - RetraiteClair
+```
+Subject: {{subject}}
 
-De: {{from_name}} ({{from_email}})
-Email: {{from_email}}
-Message:
+Bonjour {{to_name}},
+
+Voici votre simulation de retraite progressive générée le {{date_simulation}}.
+
+📊 Vos résultats :
+• Revenu total net : {{total_net}}
+• Salaire temps partiel : {{salaire_partiel}}
+• Pension retraite : {{pension}}
+• Temps partiel : {{temps_partiel}}
+• Économie fiscale annuelle : {{economie_fiscale}}
+
 {{message}}
 
----
-Message envoyé depuis le formulaire de contact RetraiteClair
+Cordialement,
+L'équipe RetraiteClair
 ```
 
-4. **Copiez le Template ID** (ex: `template_xyz789`)
+4. Les variables disponibles :
+   - `{{to_email}}` - Email du destinataire
+   - `{{to_name}}` - Nom du destinataire
+   - `{{subject}}` - Sujet de l'email
+   - `{{total_net}}` - Revenu total net formaté
+   - `{{salaire_partiel}}` - Salaire temps partiel formaté
+   - `{{pension}}` - Pension formatée
+   - `{{temps_partiel}}` - Pourcentage de temps partiel
+   - `{{economie_fiscale}}` - Économie fiscale formatée
+   - `{{date_simulation}}` - Date de la simulation
+   - `{{message}}` - Message personnalisé
 
-### 4. Récupérer la clé publique
+5. Notez le **Template ID** (ex: `template_xxxxx`)
+
+### 4. Récupérer votre clé publique
+
 1. Allez dans **"Account"** > **"General"**
-2. **Copiez la Public Key** (déjà fournie: `gBCd9v4gii2QckAgK`)
+2. Trouvez votre **Public Key** (ex: `xxxxx`)
+3. Notez-la
 
-### 5. Configurer le code
-Dans `src/components/ContactForm.jsx`, remplacez :
+### 5. Configurer les variables d'environnement
 
-```javascript
-const EMAILJS_CONFIG = {
-  serviceId: 'YOUR_SERVICE_ID',        // ← Remplacez par votre Service ID
-  templateId: 'YOUR_TEMPLATE_ID',      // ← Remplacez par votre Template ID
-  publicKey: 'gBCd9v4gii2QckAgK'      // ← Déjà configuré
-};
+1. Créez un fichier `.env` à la racine du projet (copiez `.env.example`)
+2. Remplissez les variables :
+
+```env
+REACT_APP_EMAILJS_PUBLIC_KEY=votre_public_key
+REACT_APP_EMAILJS_SERVICE_ID=votre_service_id
+REACT_APP_EMAILJS_TEMPLATE_ID=votre_template_id
 ```
 
-## 📁 Fichiers créés/modifiés
+3. **IMPORTANT** : Ajoutez `.env` au `.gitignore` pour ne pas commiter vos clés
 
-### Nouveaux fichiers :
-- `src/components/ContactForm.jsx` - Composant principal
-- `src/components/ContactForm.css` - Styles
-- `EMAILJS_SETUP.md` - Cette documentation
+### 6. Redémarrer le serveur de développement
 
-### Fichiers modifiés :
-- `src/App.js` - Import et routage du nouveau composant
-- `src/components/Sidebar.js` - Menu "Contact" au lieu de "Votre avis"
-- `package.json` - Ajout de `@emailjs/browser`
+```bash
+npm start
+```
 
-### Fichiers supprimés :
-- Tous les fichiers Formspree (FeedbackForm.jsx, tests, documentation)
+### 7. Déployer sur Render
 
-## 🚀 Test du formulaire
+1. Dans votre projet Render, allez dans **"Environment"**
+2. Ajoutez les 3 variables d'environnement :
+   - `REACT_APP_EMAILJS_PUBLIC_KEY`
+   - `REACT_APP_EMAILJS_SERVICE_ID`
+   - `REACT_APP_EMAILJS_TEMPLATE_ID`
 
-1. **Lancez l'application** :
-   ```bash
-   npm start
-   ```
+3. Redéployez votre site statique
 
-2. **Allez sur "Contact"** dans le menu
+## ✅ Test
 
-3. **Testez l'envoi** avec vos vraies clés EmailJS
-
-4. **Vérifiez votre email** `dlepetit.maa@gmail.com`
+1. Rendez-vous sur votre site
+2. Complétez une simulation
+3. Dans la section "Recevoir par email", entrez votre email
+4. Cliquez sur "Envoyer"
+5. Vérifiez votre boîte mail !
 
 ## 🔒 Sécurité
 
-- ✅ **Champ honeypot** : Protection anti-spam
-- ✅ **Validation côté client** : Tous les champs requis
-- ✅ **Clé publique** : Sécurisée côté client
-- ✅ **Email de destination** : Configuré dans le template
+- Les clés EmailJS sont **publiques** par design (elles sont visibles dans le code frontend)
+- C'est normal et sécurisé pour EmailJS
+- EmailJS limite automatiquement le nombre d'emails envoyés
+- Vous pouvez configurer des restrictions par domaine dans EmailJS
 
-## 📊 Fonctionnalités
+## 💰 Coûts
 
-- ✅ **Champs requis** : Nom, email, message
-- ✅ **Validation** : Email valide, message min 10 caractères
-- ✅ **États visuels** : Envoi en cours, succès, erreur
-- ✅ **Responsive** : Largeur max 400px, mobile-friendly
-- ✅ **Accessibilité** : ARIA, focus, tabindex
-- ✅ **Animation** : Spinner sur le bouton d'envoi
+- **Gratuit** : 200 emails/mois
+- **Paid** : À partir de $15/mois pour 1000 emails/mois
 
-## 🆘 Dépannage
+## 🐛 Dépannage
 
-### Si l'envoi échoue :
-1. Vérifiez que vos clés EmailJS sont correctes
-2. Vérifiez que le service Gmail est bien connecté
-3. Vérifiez que le template existe et est actif
-4. Regardez la console pour les erreurs
+**Erreur "Configuration EmailJS manquante"**
+- Vérifiez que les variables d'environnement sont bien définies
+- Redémarrez le serveur après avoir ajouté les variables
 
-### Si l'email n'arrive pas :
-1. Vérifiez vos spams
-2. Vérifiez que l'email de destination est correct dans le template
-3. Attendez quelques minutes (délai d'envoi)
+**Email non reçu**
+- Vérifiez vos spams
+- Vérifiez les logs dans le Dashboard EmailJS
+- Testez avec un autre email
 
-## 📞 Support
+**Limite dépassée**
+- Vérifiez votre quota dans EmailJS Dashboard
+- Passez au plan payant si nécessaire
 
-Pour toute question sur EmailJS :
-- [Documentation EmailJS](https://www.emailjs.com/docs/)
-- [Support EmailJS](https://www.emailjs.com/support/)
+## 📝 Notes
 
-
-
-
-
+- L'email est envoyé depuis votre compte email configuré dans EmailJS
+- Le PDF n'est pas encore attaché automatiquement (amélioration future possible)
+- Pour ajouter le PDF, il faudrait utiliser l'API EmailJS avec des fichiers en base64

@@ -4,6 +4,7 @@ import ScenarioComparator from './ScenarioComparator';
 import FiscalImpact from './FiscalImpact';
 import ScenarioChart from './ScenarioChart';
 import PostResultsActions from './PostResultsActions';
+import AnimatedAmount from './AnimatedAmount';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
@@ -64,7 +65,10 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
               Votre revenu total net
             </div>
             <div className={styles.resultAmount}>
-              {formatCurrency(totalNet)} / mois
+              <AnimatedAmount 
+                value={totalNet} 
+                formatCurrency={true} 
+              /> / mois
             </div>
             <div className={styles.resultSubtext}>
               Salaire partiel + Pension retraite
@@ -103,7 +107,7 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
         {activeTab === 'overview' && (
           <div className={styles.overviewContent}>
             {/* Détail des revenus */}
-            <div className={styles.revenueBreakdown}>
+            <div className={`${styles.revenueBreakdown} animate-slideUp`}>
               <h3 className={styles.sectionTitle}>
                 <PieChart size={20} />
                 Détail de vos revenus
@@ -162,7 +166,7 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
             </div>
 
             {/* Comparaison avec autres scénarios */}
-            <div className={styles.comparisonSection}>
+            <div className={`${styles.comparisonSection} animate-slideUp animate-delay-200`}>
               <h3 className={styles.sectionTitle}>
                 <BarChart3 size={20} />
                 Comparaison avec d'autres scénarios

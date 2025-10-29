@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
+    "jspdf": "^3.0.3",
     "lucide-react": "^0.544.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

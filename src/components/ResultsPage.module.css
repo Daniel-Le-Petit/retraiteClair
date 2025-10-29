@@ -46,10 +46,18 @@
 }
 
 .resultAmount {
-  font-size: 4rem;
-  font-weight: 800;
-  line-height: 1;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 4.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-primary, system-ui, sans-serif);
+  color: white;
+  opacity: 1;
+}
+
+.resultAmount * {
+  color: white !important;
 }
 
 .resultSubtext {
@@ -250,7 +258,9 @@
   }
   
   .resultAmount {
-    font-size: 3rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
   
   .tabs {
@@ -330,7 +340,9 @@
   }
   
   .resultAmount {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
   
   .resultLabel {

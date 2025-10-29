@@ -1,26 +1,75 @@
 import React, { useState } from 'react';
-import { Download, Mail, Calendar, BookOpen, Share2, Edit } from 'lucide-react';
+import { Download, Mail, BookOpen, Share2, Edit } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { generateSimulationPDF } from '../utils/generatePDF';
+import { sendSimulationEmail } from '../utils/sendEmail';
 import styles from './PostResultsActions.module.css';
 
 const PostResultsActions = ({ simulationData, onModify }) => {
   const [email, setEmail] = useState('');
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const handleDownloadPDF = () => {
-    // Logique de génération PDF
-    console.log('Téléchargement PDF...', simulationData);
-    // Ici on pourrait utiliser une librairie comme jsPDF ou react-pdf
-    alert('Téléchargement du rapport PDF démarré');
+    if (!simulationData) {
+      alert('Aucune donnée de simulation disponible');
+      return;
+    }
+    
+    setIsGeneratingPDF(true);
+    
+    try {
+      generateSimulationPDF(simulationData);
+      // Petit délai pour permettre à l'utilisateur de voir le feedback
+      setTimeout(() => {
+        setIsGeneratingPDF(false);
+      }, 500);
+    } catch (error) {
+      console.error('Erreur lors de la génération du PDF:', error);
+      alert('Une erreur est survenue lors de la génération du PDF');
+      setIsGeneratingPDF(false);
+    }
   };
 
-  const handleSendEmail = (e) => {
+  const handleSendEmail = async (e) => {
     e.preventDefault();
     if (!email) return;
     
-    // Logique d'envoi email
-    console.log('Envoi email à:', email);
-    setIsEmailSent(true);
-    setTimeout(() => setIsEmailSent(false), 3000);
+    // Validation basique de l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError('Veuillez saisir une adresse email valide');
+      return;
+    }
+    
+    if (!simulationData) {
+      alert('Aucune donnée de simulation disponible');
+      return;
+    }
+    
+    setIsSendingEmail(true);
+    setEmailError('');
+    
+    try {
+      // Envoyer l'email via EmailJS
+      await sendSimulationEmail(email, simulationData);
+      
+      setIsEmailSent(true);
+      setIsSendingEmail(false);
+      setEmail('');
+      
+      // Réinitialiser après 5 secondes
+      setTimeout(() => {
+        setIsEmailSent(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      // Utiliser le message d'erreur détaillé depuis sendEmail
+      setEmailError(error.message || 'Erreur lors de l\'envoi. Veuillez réessayer.');
+      setIsSendingEmail(false);
+    }
   };
 
   const handleShare = async () => {
@@ -42,7 +91,7 @@ const PostResultsActions = ({ simulationData, onModify }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} animate-slideUp animate-delay-400`}>
       <h3 className={styles.title}>
         🎯 Prochaines étapes
       </h3>
@@ -60,8 +109,9 @@ const PostResultsActions = ({ simulationData, onModify }) => {
           <button
             className={styles.actionButton}
             onClick={handleDownloadPDF}
+            disabled={isGeneratingPDF || !simulationData}
           >
-            Télécharger
+            {isGeneratingPDF ? 'Génération...' : 'Télécharger'}
           </button>
         </div>
 
@@ -72,41 +122,38 @@ const PostResultsActions = ({ simulationData, onModify }) => {
           </div>
           <h4 className={styles.cardTitle}>Recevoir par email</h4>
           <p className={styles.cardDescription}>
-            Envoyez vos résultats directement dans votre boîte mail
+            Recevez vos résultats directement dans votre boîte mail
           </p>
           <form onSubmit={handleSendEmail} className={styles.emailForm}>
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError('');
+              }}
               placeholder="votre@email.fr"
-              className={styles.emailInput}
+              className={`${styles.emailInput} ${emailError ? styles.emailInputError : ''}`}
               required
+              disabled={isSendingEmail || isEmailSent}
             />
+            {emailError && (
+              <p className={styles.emailError}>{emailError}</p>
+            )}
             <button
               type="submit"
               className={styles.emailButton}
-              disabled={isEmailSent}
+              disabled={isEmailSent || isSendingEmail}
             >
-              {isEmailSent ? 'Envoyé ✓' : 'Envoyer'}
+              {isSendingEmail ? 'Envoi en cours...' : isEmailSent ? 'Email envoyé ✓' : 'Envoyer'}
             </button>
           </form>
+          {isEmailSent && (
+            <p className={styles.emailNote}>
+              ✅ Email envoyé avec succès ! Vérifiez votre boîte de réception.
+            </p>
+          )}
         </div>
-      </div>
-
-      {/* Besoin d'aide */}
-      <div className={styles.helpCard}>
-        <div className={styles.helpIcon}>💬</div>
-        <div className={styles.helpContent}>
-          <h4 className={styles.helpTitle}>Besoin d'aide pour vos démarches ?</h4>
-          <p className={styles.helpText}>
-            Un conseiller peut vous accompagner dans votre projet de retraite progressive
-          </p>
-        </div>
-        <button className={styles.helpButton}>
-          <Calendar size={16} />
-          Prendre RDV avec un conseiller →
-        </button>
       </div>
 
       {/* Guide pratique */}
@@ -122,9 +169,19 @@ const PostResultsActions = ({ simulationData, onModify }) => {
             "10 étapes pour demander votre Retraite Progressive"
           </p>
         </div>
-        <button className={styles.guideButton}>
+        <Link 
+          to="/blog/guide-complet-retraite-progressive-2025?from=simulator"
+          className={styles.guideButton}
+          onClick={(e) => {
+            // Sauvegarder la position de scroll avant de naviguer
+            const scrollPosition = window.scrollY;
+            sessionStorage.setItem('simulatorScrollPosition', scrollPosition.toString());
+            // Sauvegarder aussi que l'origine est le simulateur
+            sessionStorage.setItem('blogArticleOrigin', 'simulator');
+          }}
+        >
           Lire le guide →
-        </button>
+        </Link>
       </div>
 
       {/* Actions secondaires */}

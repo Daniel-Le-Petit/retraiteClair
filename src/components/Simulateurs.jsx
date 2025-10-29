@@ -5,6 +5,7 @@ import SimplifieForm from './SimplifieForm';
 import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
 import ReassuranceBanner from './ReassuranceBanner';
+import CalculProgress from './CalculProgress';
 import styles from './Simulateurs.module.css';
 
 const Simulateurs = () => {
@@ -103,7 +104,8 @@ const Simulateurs = () => {
     impotRevenu = impotRevenu / 12;
     
     // Calculs pour comparaison (temps plein)
-    const revenusTempsPlein = salaireBrut + revenusComplementaires;
+    // IMPORTANT: Utiliser les revenus NETS pour le calcul de l'impôt
+    const revenusTempsPlein = salaireNetTempsPlein + revenusComplementaires;
     const revenusTempsPleinAnnuel = revenusTempsPlein * 12;
     let impotTempsPlein = 0;
     
@@ -143,7 +145,8 @@ const Simulateurs = () => {
       impactFiscal: {
         avant: impotTempsPlein,
         apres: impotRevenu,
-        economie: impotTempsPlein - impotRevenu
+        economie: impotTempsPlein - impotRevenu, // Mensuel
+        economieAnnuelle: (impotTempsPlein - impotRevenu) * 12 // Annuel
       },
       cotisations: {
         salariales: salaireBrut * 0.2117,
@@ -155,7 +158,8 @@ const Simulateurs = () => {
         tauxProgressive: 0.1728,
         sam: sam || (salaireBrut * 12 * 0.8),
         trimestres: trimestres,
-        age: age
+        age: age,
+        tempsPartiel: tempsPartiel // Ajouter le temps partiel
       }
     };
   };
@@ -270,13 +274,8 @@ const Simulateurs = () => {
           />
         )}
 
-        {/* Indicateur de calcul */}
-        {isCalculating && (
-          <div className={styles.loadingOverlay}>
-            <div className={styles.loadingSpinner}></div>
-            <p>Calcul en cours...</p>
-          </div>
-        )}
+        {/* Indicateur de calcul avec progression */}
+        <CalculProgress isCalculating={isCalculating} />
       </div>
     </div>
   );

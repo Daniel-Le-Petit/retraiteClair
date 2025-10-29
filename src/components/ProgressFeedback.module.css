@@ -1,0 +1,68 @@
+/* ProgressFeedback.module.css */
+
+.container {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  flex: 1;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--gray-200);
+  transition: all 0.3s var(--easing);
+  position: relative;
+}
+
+.dot.completed {
+  background: var(--secondary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.dot.current {
+  background: var(--primary);
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.dotInner {
+  width: 8px;
+  height: 8px;
+  background: var(--gray-400);
+  border-radius: 50%;
+}
+
+.dot.completed .dotInner,
+.dot.current .dotInner {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .dot {
+    height: 28px;
+  }
+  
+  .message {
+    font-size: var(--text-sm);
+  }
+}

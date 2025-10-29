@@ -59,7 +59,7 @@ const Contact = () => {
             </div>
             <div className={styles.aboutImage}>
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                src="/daniel-photo.jpg"
                 alt="Équipe RetraiteClair"
                 className={styles.image}
               />

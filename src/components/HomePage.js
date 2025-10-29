@@ -40,24 +40,28 @@ const HomePage = () => {
   const definitionData = [
     {
       icon: Briefcase,
+      image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "Travailler à temps partiel",
       description: "Réduisez votre temps de travail (entre 40% et 80%) tout en conservant votre emploi.",
       popupContent: "La retraite progressive vous permet de réduire votre temps de travail tout en gardant votre emploi. Vous pouvez choisir de travailler entre 40% et 80% de votre temps plein, ce qui vous laisse plus de temps libre tout en conservant une partie de vos revenus."
     },
     {
       icon: Euro,
+      image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "Toucher une partie de sa retraite",
       description: "Percevez 30% à 50% de votre pension estimée au taux plein, selon votre situation.",
       popupContent: "En plus de votre salaire partiel, vous percevez une partie de votre pension de retraite. Le montant dépend de votre situation : entre 30% et 50% de votre pension au taux plein. Cette pension partielle est calculée selon vos trimestres validés."
     },
     {
       icon: Calendar,
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "Transition en douceur",
       description: "Préparez sereinement votre retraite complète tout en gardant un revenu stable.",
       popupContent: "La retraite progressive est une transition douce vers la retraite complète. Elle vous permet de vous habituer progressivement à un nouveau rythme de vie tout en conservant des revenus stables et en préparant votre avenir."
     },
     {
       icon: Users,
+      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       title: "Flexibilité temporelle",
       description: "Choisissez quand commencer et ajustez votre rythme selon vos besoins personnels.",
       popupContent: "Vous avez la flexibilité de choisir quand commencer votre retraite progressive et d'ajuster votre rythme selon vos besoins. Vous pouvez modifier votre temps partiel ou revenir au temps plein si nécessaire."
@@ -269,15 +273,27 @@ const HomePage = () => {
               const IconComponent = item.icon;
               return (
                 <div key={index} className="definition-card">
-                  <div className="definition-icon">
-                    <IconComponent size={32} />
+                  {item.image && (
+                    <div className="definition-card-image">
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        loading="lazy"
+                      />
+                      <div className="definition-card-overlay"></div>
+                    </div>
+                  )}
+                  <div className="definition-card-content">
+                    <div className="definition-icon">
+                      <IconComponent size={32} />
+                    </div>
+                    <h3 className="definition-title">{item.title}</h3>
+                    <p className="definition-description">{item.description}</p>
+                    
+                    <Accordion title="En savoir plus →">
+                      <p className="modal-intro">{item.popupContent}</p>
+                    </Accordion>
                   </div>
-                  <h3 className="definition-title">{item.title}</h3>
-                  <p className="definition-description">{item.description}</p>
-                  
-                  <Accordion title="En savoir plus →">
-                    <p className="modal-intro">{item.popupContent}</p>
-                  </Accordion>
                 </div>
               );
             })}

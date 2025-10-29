@@ -17,8 +17,9 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
 
   if (!fiscalData) return null;
 
-  const annualSavings = fiscalData.economie || 0;
-  const monthlySavings = annualSavings / 12;
+  // Utiliser economieAnnuelle si disponible, sinon convertir economie (mensuel) en annuel
+  const annualSavings = fiscalData.economieAnnuelle || (fiscalData.economie ? fiscalData.economie * 12 : 0);
+  const monthlySavings = fiscalData.economie || (annualSavings / 12);
   const fiveYearSavings = annualSavings * 5;
 
   const tooltipContent = `Calcul de l'économie fiscale :
@@ -29,7 +30,7 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
 • Revenus nets considérés : ${formatCurrency(simulationData?.revenusNets?.total || 0)}/mois`;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} animate-slideUp animate-delay-300`}>
       <div className={styles.header}>
         <div className={styles.icon}>
           <Euro size={24} />

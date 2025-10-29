@@ -24,7 +24,7 @@ const WhyChooseSection = () => {
               <p className={styles.description}>{feature.description}</p>
               {feature.hasReadMore && (
                 <div className={styles.readMore}>
-                  <span className={styles.readMoreText}>Lire la suite →</span>
+                  <span className={styles.readMoreText}>En savoir plus →</span>
                 </div>
               )}
             </div>

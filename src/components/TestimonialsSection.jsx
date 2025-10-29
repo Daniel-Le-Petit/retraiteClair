@@ -13,6 +13,15 @@ const TestimonialsSection = () => {
         <div className={styles.grid}>
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className={styles.card}>
+              {testimonial.photo && (
+                <div className={styles.photoContainer}>
+                  <img 
+                    src={testimonial.photo} 
+                    alt={testimonial.author}
+                    className={styles.photo}
+                  />
+                </div>
+              )}
               <blockquote className={styles.text}>
                 "{testimonial.text}"
               </blockquote>
@@ -28,6 +37,7 @@ const TestimonialsSection = () => {
 };
 
 export default TestimonialsSection;
+
 
 
 

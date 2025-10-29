@@ -1,11 +1,26 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, Link, useSearchParams, useNavigate } from 'react-router-dom';
 import SEOHead from '../SEOHead';
 import { blogArticles } from '../../data/blogArticles';
 import './Blog.css';
 
 const BlogPostStable = () => {
   const { slug } = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  // Vérifier l'origine : depuis le simulateur ou depuis le blog
+  const fromParam = searchParams.get('from');
+  const originFromStorage = sessionStorage.getItem('blogArticleOrigin');
+  const isFromSimulator = fromParam === 'simulator' || originFromStorage === 'simulator';
+  
+  // Si on accède depuis le blog directement (pas de paramètre from), nettoyer le sessionStorage
+  useEffect(() => {
+    if (!fromParam && !originFromStorage) {
+      sessionStorage.removeItem('simulatorScrollPosition');
+      sessionStorage.removeItem('blogArticleOrigin');
+    }
+  }, [fromParam, originFromStorage]);
   
   // Trouver l'article directement - pas d'état React pour éviter le flash
   const article = blogArticles.find(a => a.slug === slug);
@@ -96,10 +111,68 @@ const BlogPostStable = () => {
           <nav className="breadcrumb">
             <Link to="/">Accueil</Link>
             <span>›</span>
-            <Link to="/blog">Blog</Link>
-            <span>›</span>
-            <span>{article.title}</span>
+            {isFromSimulator ? (
+              <>
+                <Link to="/simulateurs" onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/simulateurs');
+                  // Restaurer la position de scroll après un court délai
+                  setTimeout(() => {
+                    const savedPosition = sessionStorage.getItem('simulatorScrollPosition');
+                    if (savedPosition) {
+                      window.scrollTo(0, parseInt(savedPosition, 10));
+                    }
+                    // Nettoyer le sessionStorage
+                    sessionStorage.removeItem('simulatorScrollPosition');
+                    sessionStorage.removeItem('blogArticleOrigin');
+                  }, 100);
+                }}>
+                  Simulateurs
+                </Link>
+                <span>›</span>
+                <span>{article.title}</span>
+              </>
+            ) : (
+              <>
+                <Link to="/blog">Blog</Link>
+                <span>›</span>
+                <span>{article.title}</span>
+              </>
+            )}
           </nav>
+          <div className="back-to-blog" style={{ marginTop: '1rem' }}>
+            {isFromSimulator ? (
+              <Link
+                to="/simulateurs"
+                className="btn-secondary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate('/simulateurs');
+                  // Restaurer la position de scroll après un court délai
+                  setTimeout(() => {
+                    const savedPosition = sessionStorage.getItem('simulatorScrollPosition');
+                    if (savedPosition) {
+                      window.scrollTo(0, parseInt(savedPosition, 10));
+                    }
+                    // Nettoyer le sessionStorage
+                    sessionStorage.removeItem('simulatorScrollPosition');
+                    sessionStorage.removeItem('blogArticleOrigin');
+                  }, 100);
+                }}
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                ← Retour au simulateur
+              </Link>
+            ) : (
+              <Link
+                to="/blog"
+                className="btn-secondary"
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                ← Retour au blog
+              </Link>
+            )}
+          </div>
         </div>
       </div>
 

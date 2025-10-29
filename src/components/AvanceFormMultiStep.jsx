@@ -149,20 +149,75 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
     return Object.keys(stepErrors).length === 0;
   };
 
+  const scrollToField = (fieldName) => {
+    setTimeout(() => {
+      const fieldElement = document.querySelector(`input[name="${fieldName}"], select[name="${fieldName}"]`);
+      if (fieldElement) {
+        fieldElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        fieldElement.focus();
+      }
+    }, 100);
+  };
+
   const nextStep = () => {
-    if (validateStep(currentStep)) {
-      setCompletedSteps(prev => new Set([...prev, currentStep]));
-      if (currentStep < steps.length) {
-        setCurrentStep(currentStep + 1);
+    const step = steps.find(s => s.id === currentStep);
+    if (!step) return;
+
+    // Valider l'étape actuelle et récupérer les champs en erreur
+    const stepErrors = {};
+    
+    step.fields.forEach(field => {
+      if (field === 'age' && (!formData.age || parseInt(formData.age) < 60)) {
+        stepErrors.age = 'Vous devez avoir au moins 60 ans';
+      }
+      if (field === 'salaireBrut' && (!formData.salaireBrut || parseFloat(formData.salaireBrut) <= 0)) {
+        stepErrors.salaireBrut = 'Veuillez saisir un salaire brut valide';
+      }
+      if (field === 'trimestres' && (!formData.trimestres || parseInt(formData.trimestres) < 150)) {
+        stepErrors.trimestres = 'Vous devez avoir au moins 150 trimestres validés';
+      }
+      if (field === 'sam' && (!formData.sam || parseFloat(formData.sam) <= 0)) {
+        stepErrors.sam = 'Veuillez saisir votre SAM';
+      }
+    });
+    
+    // Si des erreurs existent, les afficher et faire défiler vers le premier champ en erreur
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(prev => ({ ...prev, ...stepErrors }));
+      const firstErrorField = step.fields.find(field => stepErrors[field]);
+      if (firstErrorField) {
+        scrollToField(firstErrorField);
+      }
+      return;
+    }
+
+    // Si valide, passer à l'étape suivante
+    setCompletedSteps(prev => new Set([...prev, currentStep]));
+    if (currentStep < steps.length) {
+      const nextStepNumber = currentStep + 1;
+      setCurrentStep(nextStepNumber);
+      
+      // Faire défiler vers le premier champ de la nouvelle étape
+      const nextStep = steps.find(s => s.id === nextStepNumber);
+      if (nextStep && nextStep.fields.length > 0) {
+        scrollToField(nextStep.fields[0]);
       }
     }
   };
 
   const prevStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+      const prevStepNumber = currentStep - 1;
+      setCurrentStep(prevStepNumber);
+      
+      // Faire défiler vers le premier champ de l'étape précédente
+      const prevStep = steps.find(s => s.id === prevStepNumber);
+      if (prevStep && prevStep.fields.length > 0) {
+        scrollToField(prevStep.fields[0]);
+      }
     }
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

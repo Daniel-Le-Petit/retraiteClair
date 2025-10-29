@@ -51,7 +51,7 @@ const ArticleCard = ({ article, featured = false }) => {
               }));
             }}
           >
-            Lire la suite →
+            En savoir plus →
           </button>
         </div>
       </div>

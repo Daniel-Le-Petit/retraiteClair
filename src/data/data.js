@@ -272,11 +272,13 @@ export const testimonials = [
   {
     id: 1,
     text: "Enfin un simulateur qui me donne des résultats clairs ! J'ai pu voir exactement combien je gagnerais avec la retraite progressive.",
-    author: "Marie, 58 ans, enseignante"
+    author: "Marie, 58 ans, enseignante",
+    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 2,
     text: "L'interface est tellement intuitive que j'ai pu faire ma simulation en quelques clics. Les conseils sont vraiment pertinents.",
-    author: "Pierre, 61 ans, cadre"
+    author: "Pierre, 61 ans, cadre",
+    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   }
 ];

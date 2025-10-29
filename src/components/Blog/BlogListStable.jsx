@@ -130,7 +130,7 @@ const BlogListStable = () => {
                         }));
                       }}
                     >
-                      Lire la suite →
+                      En savoir plus →
                     </button>
                   </div>
                 </div>
