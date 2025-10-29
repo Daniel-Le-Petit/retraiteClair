@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, ExternalLink, Clock, User, Briefcase, PiggyBank, Plus } from 'lucide-react';
 import InputField from './InputField';
 import InfoBox from './InfoBox';
+import ReassuranceBanner from './ReassuranceBanner';
 import styles from './AvanceFormMultiStep.module.css';
 
 const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataChange = () => {} }) => {
@@ -468,6 +469,8 @@ votre brut est environ 3850€`}
         )}
       </div>
 
+      <ReassuranceBanner type="security" />
+      
       <div className={styles.infoBox}>
         <h3>Mode avancé</h3>
         <p>
@@ -475,6 +478,8 @@ votre brut est environ 3850€`}
           Les résultats incluent l'impact fiscal et les revenus complémentaires.
         </p>
       </div>
+      
+      <ReassuranceBanner type="compliance" />
     </div>
   );
 };

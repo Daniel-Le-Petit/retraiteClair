@@ -1,0 +1,339 @@
+/* PostResultsActions.module.css */
+
+.container {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.actionCard {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.actionCard:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+}
+
+.cardIcon {
+  background: #2563eb;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.actionButton {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.actionButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Email Form */
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.emailInput {
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.emailInput:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.emailButton {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emailButton:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.emailButton:disabled {
+  background: #10b981;
+  cursor: not-allowed;
+}
+
+/* Help Card */
+.helpCard {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 2px solid #bae6fd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.helpIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.helpContent {
+  flex: 1;
+}
+
+.helpTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 0.5rem;
+}
+
+.helpText {
+  font-size: 0.9rem;
+  color: #1e40af;
+  opacity: 0.8;
+}
+
+.helpButton {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.helpButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Guide Card */
+.guideCard {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.guideIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.guideContent {
+  flex: 1;
+}
+
+.guideTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.guideDescription {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.guideButton {
+  background: transparent;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.guideButton:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* Secondary Actions */
+.secondaryActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.secondaryButton {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #e9ecef;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.secondaryButton:hover {
+  background: #e9ecef;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+/* CTA Sticky sur mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* Téléchargement et Email toujours visibles en sticky */
+  .actionsGrid {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1rem 0;
+    margin: 0;
+    z-index: 50;
+    border-top: 1px solid #e9ecef;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .actionsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .helpCard,
+  .guideCard {
+    flex-direction: column;
+    text-align: center;
+    align-items: stretch;
+  }
+  
+  .helpButton,
+  .guideButton {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .secondaryActions {
+    flex-direction: column;
+  }
+  
+  .secondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .actionCard {
+    padding: 1rem;
+  }
+  
+  .helpCard,
+  .guideCard {
+    padding: 1rem;
+  }
+}

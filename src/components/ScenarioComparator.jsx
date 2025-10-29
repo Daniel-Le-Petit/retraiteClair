@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Clock, Euro } from 'lucide-react';
+import { TrendingUp, TrendingDown, Clock, Euro, CheckCircle } from 'lucide-react';
 import styles from './ScenarioComparator.module.css';
 
 const ScenarioComparator = ({ 
@@ -9,6 +9,19 @@ const ScenarioComparator = ({
 }) => {
   const [selectedPercentage, setSelectedPercentage] = useState(currentScenario?.tempsPartiel || 80);
   const [comparisonData, setComparisonData] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détecter mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Calculer les données de comparaison
   useEffect(() => {
@@ -154,45 +167,106 @@ const ScenarioComparator = ({
         </div>
       </div>
 
-      {/* Tableau récapitulatif */}
+      {/* Comparaison rapide */}
       <div className={styles.tableSection}>
         <h4 className={styles.tableTitle}>Comparaison rapide :</h4>
-        <div className={styles.table}>
-          <div className={styles.tableHeader}>
-            <div className={styles.tableCell}>%</div>
-            <div className={styles.tableCell}>Revenu</div>
-            <div className={styles.tableCell}>vs actuel</div>
-            <div className={styles.tableCell}>Temps libre</div>
+        
+        {isMobile ? (
+          // Vue mobile : Cards
+          <div className={styles.cardsContainer}>
+            {scenarios.map((scenario) => {
+              const diff = calculateDifference(scenario.totalNet, reference.totalNet);
+              const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
+              
+              return (
+                <div 
+                  key={scenario.percentage} 
+                  className={`${styles.scenarioCard} ${isCurrent ? styles.currentCard : ''}`}
+                >
+                  <div className={styles.cardHeader}>
+                    <div className={styles.cardPercentage}>
+                      {scenario.percentage}%
+                      {isCurrent && (
+                        <span className={styles.currentBadge}>
+                          <CheckCircle size={14} />
+                          Actuel
+                        </span>
+                      )}
+                    </div>
+                    <div className={styles.cardRevenue}>
+                      {formatCurrency(scenario.totalNet)}
+                    </div>
+                  </div>
+                  
+                  <div className={styles.cardDetails}>
+                    <div className={styles.cardDetail}>
+                      <span className={styles.detailLabel}>vs actuel :</span>
+                      <span 
+                        className={styles.detailValue}
+                        style={{ color: getDifferenceColor(diff.amount) }}
+                      >
+                        {diff.percentage > 0 ? '+' : ''}{diff.percentage.toFixed(0)}%
+                      </span>
+                    </div>
+                    <div className={styles.cardDetail}>
+                      <span className={styles.detailLabel}>Temps libre :</span>
+                      <span className={styles.detailValue}>
+                        {scenario.daysOffPerWeek} jours/sem.
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {!isCurrent && (
+                    <button
+                      className={styles.cardButton}
+                      onClick={() => onScenarioSelect && onScenarioSelect(scenario.percentage)}
+                    >
+                      Choisir {scenario.percentage}%
+                    </button>
+                  )}
+                </div>
+              );
+            })}
           </div>
-          
-          {scenarios.map((scenario) => {
-            const diff = calculateDifference(scenario.totalNet, reference.totalNet);
-            const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
+        ) : (
+          // Vue desktop : Tableau
+          <div className={styles.table}>
+            <div className={styles.tableHeader}>
+              <div className={styles.tableCell}>%</div>
+              <div className={styles.tableCell}>Revenu</div>
+              <div className={styles.tableCell}>vs actuel</div>
+              <div className={styles.tableCell}>Temps libre</div>
+            </div>
             
-            return (
-              <div 
-                key={scenario.percentage} 
-                className={`${styles.tableRow} ${isCurrent ? styles.currentRow : ''}`}
-              >
-                <div className={styles.tableCell}>
-                  {scenario.percentage}%
-                  {isCurrent && <span className={styles.currentBadge}>✓</span>}
+            {scenarios.map((scenario) => {
+              const diff = calculateDifference(scenario.totalNet, reference.totalNet);
+              const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
+              
+              return (
+                <div 
+                  key={scenario.percentage} 
+                  className={`${styles.tableRow} ${isCurrent ? styles.currentRow : ''}`}
+                >
+                  <div className={styles.tableCell}>
+                    {scenario.percentage}%
+                    {isCurrent && <span className={styles.currentBadge}>✓</span>}
+                  </div>
+                  <div className={styles.tableCell}>
+                    {formatCurrency(scenario.totalNet)}
+                  </div>
+                  <div className={styles.tableCell}>
+                    <span style={{ color: getDifferenceColor(diff.amount) }}>
+                      {diff.percentage > 0 ? '+' : ''}{diff.percentage.toFixed(0)}%
+                    </span>
+                  </div>
+                  <div className={styles.tableCell}>
+                    {scenario.daysOffPerWeek} jours/sem.
+                  </div>
                 </div>
-                <div className={styles.tableCell}>
-                  {formatCurrency(scenario.totalNet)}
-                </div>
-                <div className={styles.tableCell}>
-                  <span style={{ color: getDifferenceColor(diff.amount) }}>
-                    {diff.percentage > 0 ? '+' : ''}{diff.percentage.toFixed(0)}%
-                  </span>
-                </div>
-                <div className={styles.tableCell}>
-                  {scenario.daysOffPerWeek} jours/sem.
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

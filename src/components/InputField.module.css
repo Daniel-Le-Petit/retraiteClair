@@ -154,19 +154,41 @@
 /* Responsive */
 @media (max-width: 768px) {
   .label {
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
   }
   
   .input {
-    padding: 0.875rem;
+    padding: 1.25rem;
+    font-size: 1.125rem; /* Plus gros sur mobile */
+    border-width: 2px;
+    width: 100%;
+    box-sizing: border-box;
   }
   
-  .sliderValue {
+  /* Clavier numérique pour montants */
+  .input[type="text"][inputMode="numeric"],
+  .input[type="number"] {
     font-size: 1.25rem;
   }
   
+  .sliderValue {
+    font-size: 1.5rem;
+  }
+  
   .calculatorButton {
-    padding: 0.4rem;
-    font-size: 0.9rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  .fieldGroup {
+    margin-bottom: 2rem;
+  }
+  
+  /* Un champ par écran sur mobile */
+  .fieldGroup:not(:first-of-type) {
+    margin-top: 1.5rem;
   }
 }

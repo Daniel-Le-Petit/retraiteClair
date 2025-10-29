@@ -1,0 +1,83 @@
+/* ReassuranceBanner.module.css */
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.security {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #1e40af;
+}
+
+.trust {
+  background: #fefce8;
+  border: 1px solid #fde047;
+  color: #a16207;
+}
+
+.compliance {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.content strong {
+  font-size: 0.95rem;
+  display: block;
+}
+
+.content span {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.complianceList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.complianceList span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.banner svg {
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner {
+    padding: 0.875rem 1rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .content {
+    align-items: center;
+  }
+  
+  .complianceList {
+    align-items: center;
+  }
+  
+  .complianceList span {
+    text-align: center;
+  }
+}

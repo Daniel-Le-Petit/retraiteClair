@@ -3,6 +3,7 @@ import { TrendingUp, PieChart, BarChart3, Euro, Calendar, Clock } from 'lucide-r
 import ScenarioComparator from './ScenarioComparator';
 import FiscalImpact from './FiscalImpact';
 import ScenarioChart from './ScenarioChart';
+import PostResultsActions from './PostResultsActions';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
@@ -194,6 +195,15 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
           />
         )}
       </div>
+
+      {/* Actions post-résultats */}
+      <PostResultsActions 
+        simulationData={data}
+        onModify={() => {
+          // Scroll vers le formulaire ou déclencher modification
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
     </div>
   );
 };

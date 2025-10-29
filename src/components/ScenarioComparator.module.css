@@ -226,6 +226,123 @@
   font-weight: bold;
 }
 
+/* Cards Mobile */
+.cardsContainer {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    display: flex;
+  }
+}
+
+.scenarioCard {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.scenarioCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.currentCard {
+  background: #f0f9ff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.cardPercentage {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cardRevenue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #374151;
+  text-align: right;
+}
+
+.scenarioCard .currentBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+}
+
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.cardDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.detailLabel {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.detailValue {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.cardButton {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cardButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
@@ -254,19 +371,19 @@
     font-size: 1.5rem;
   }
   
-  .tableHeader,
-  .tableRow {
-    grid-template-columns: 0.8fr 1.2fr 0.8fr 0.8fr;
-  }
-  
-  .tableCell {
-    padding: 0.5rem;
-    font-size: 0.8rem;
-  }
-  
   .selectButton {
     width: 100%;
     text-align: center;
+  }
+  
+  /* Masquer le tableau sur mobile */
+  .table {
+    display: none;
+  }
+  
+  /* Afficher les cards */
+  .cardsContainer {
+    display: flex;
   }
 }
 
@@ -275,24 +392,38 @@
     padding: 1rem;
   }
   
-  .tableHeader,
-  .tableRow {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
   
-  .tableCell {
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid #e9ecef;
+  .cardPercentage {
+    font-size: 1.25rem;
   }
   
-  .tableCell:last-child {
-    border-bottom: none;
+  .cardRevenue {
+    font-size: 1.25rem;
+    text-align: left;
+    width: 100%;
   }
   
-  .tableCell::before {
-    content: attr(data-label) ': ';
-    font-weight: 600;
-    color: #6c757d;
+  .scenarioCard .currentBadge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .cardDetail {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .detailValue {
+    font-size: 1rem;
+  }
+  
+  .scenarioCard {
+    padding: 1rem;
   }
 }

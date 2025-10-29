@@ -531,48 +531,95 @@
 /* Responsive */
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
+    padding: 0;
+    border-radius: 0;
+  }
+  
+  .header {
+    padding: 1.5rem 1rem;
+    border-radius: 0;
   }
   
   .title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+  }
+  
+  .description {
+    font-size: 0.9rem;
   }
   
   .progressBar {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
   }
   
   .stepIcon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
   
   .stepNumber {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
   
   .progressText {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    padding: 0 1rem;
   }
   
   .stepContainer {
-    min-height: 300px;
+    min-height: calc(100vh - 300px);
+    padding: 1rem;
   }
   
   .stepContent {
-    padding: 1rem 0;
+    padding: 0;
+    /* Un champ par écran sur mobile */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Masquer les autres champs sauf le premier visible */
+  .stepContent > * {
+    display: block;
   }
   
   .navigation {
-    flex-direction: column;
-    gap: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e9ecef;
+    padding: 1rem;
+    flex-direction: row;
+    gap: 0.75rem;
+    z-index: 100;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   }
   
   .prevButton,
   .nextButton,
   .submitButton {
-    width: 100%;
+    flex: 1;
+    padding: 1rem;
+    font-size: 1rem;
     justify-content: center;
+    min-height: 48px; /* Taille tactile optimale */
+  }
+  
+  /* Espace pour le bouton fixe */
+  .container::after {
+    content: '';
+    display: block;
+    height: 90px;
+  }
+  
+  .infoBox {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 100px; /* Espace pour le bouton fixe */
   }
 }
 

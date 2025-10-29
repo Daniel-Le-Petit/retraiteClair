@@ -4,6 +4,7 @@ import { simulationModes } from '../data/data';
 import SimplifieForm from './SimplifieForm';
 import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
+import ReassuranceBanner from './ReassuranceBanner';
 import styles from './Simulateurs.module.css';
 
 const Simulateurs = () => {
@@ -215,6 +216,8 @@ const Simulateurs = () => {
             </div>
           </div>
         )}
+        
+        <ReassuranceBanner type="trust" />
 
         {/* Formulaire dynamique selon le mode */}
         <div className={styles.formContainer}>
