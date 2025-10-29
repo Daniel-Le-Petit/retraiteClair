@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { simulationModes } from '../data/data';
 import SimplifieForm from './SimplifieForm';
-import AvanceForm from './AvanceForm';
+import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
 import styles from './Simulateurs.module.css';
 
@@ -171,19 +171,50 @@ const Simulateurs = () => {
           </div>
         </header>
 
-        {/* Sélecteur de mode */}
-        <div className={styles.modeSelector}>
-          {simulationModes.map((modeOption) => (
-            <button
-              key={modeOption.id}
-              className={`${styles.modeButton} ${styles[modeOption.id]} ${mode === modeOption.id ? styles.active : ''}`}
-              onClick={() => setMode(modeOption.id)}
-            >
-              <h3>{modeOption.name}</h3>
-              <p>{modeOption.description}</p>
-            </button>
-          ))}
-        </div>
+        {/* Sélecteur de mode amélioré */}
+        {simulationModes && simulationModes.length > 0 && (
+          <div className={styles.modeSelectorContainer}>
+            <h2 className={styles.modeSelectorTitle}>Choisissez votre mode de calcul</h2>
+            <div className={styles.modeSelector}>
+              {simulationModes.map((modeOption) => (
+                <button
+                  key={modeOption.id}
+                  className={`${styles.modeButton} ${styles[modeOption.id]} ${mode === modeOption.id ? styles.active : ''}`}
+                  onClick={() => setMode(modeOption.id)}
+                >
+                  <div className={styles.modeIcon}>{modeOption.icon || '📋'}</div>
+                  <div className={styles.modeContent}>
+                    <h3>{modeOption.name}</h3>
+                    <div className={styles.modeDetails}>
+                      <div className={styles.modeDetail}>
+                        <span className={styles.detailIcon}>⏱</span>
+                        <span>{modeOption.duration || 'N/A'}</span>
+                      </div>
+                      <div className={styles.modeDetail}>
+                        <span className={styles.detailIcon}>📝</span>
+                        <span>{modeOption.fieldsCount || 0} champs</span>
+                      </div>
+                    </div>
+                    <ul className={styles.modeAdvantages}>
+                      {(modeOption.advantages || []).map((advantage, index) => (
+                        <li key={index}>
+                          <span className={styles.checkmark}>✓</span>
+                          {advantage}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className={styles.modeButtonText}>
+                      Commencer →
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <div className={styles.modeSelectorNote}>
+              💡 Vous pourrez passer d'un mode à l'autre à tout moment
+            </div>
+          </div>
+        )}
 
         {/* Formulaire dynamique selon le mode */}
         <div className={styles.formContainer}>
@@ -195,7 +226,7 @@ const Simulateurs = () => {
               onDataChange={updateSharedData}
             />
           ) : (
-            <AvanceForm 
+            <AvanceFormMultiStep 
               onSubmit={handleSimulation}
               isCalculating={isCalculating}
               sharedData={sharedFormData}
@@ -223,6 +254,16 @@ const Simulateurs = () => {
           <ResultsTabs 
             data={simulationData}
             mode={mode}
+            onScenarioChange={(percentage) => {
+              // Mettre à jour le temps partiel dans les données partagées
+              updateSharedData({ tempsPartiel: percentage.toString() });
+              // Recalculer avec le nouveau temps partiel
+              const newData = {
+                ...sharedFormData,
+                tempsPartiel: percentage.toString()
+              };
+              handleSimulation(newData);
+            }}
           />
         )}
 

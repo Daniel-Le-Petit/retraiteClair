@@ -27,3 +27,4 @@ const FaqAccordion = ({ items }) => {
 export default FaqAccordion;
 
 
+

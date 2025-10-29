@@ -174,12 +174,30 @@ export const simulationModes = [
     id: 'simplifie',
     name: 'Mode simplifié',
     description: 'Calcul rapide avec les informations essentielles',
+    icon: '🚀',
+    duration: '2 minutes',
+    fieldsCount: 4,
+    advantages: [
+      'Résultat indicatif',
+      'Interface simplifiée',
+      'Calcul rapide',
+      'Idéal pour débuter'
+    ],
     fields: ['salaireBrut', 'tempsPartiel', 'age']
   },
   {
     id: 'avance',
     name: 'Mode avancé',
     description: 'Calcul détaillé avec tous les paramètres',
+    icon: '🎯',
+    duration: '5 minutes',
+    fieldsCount: 8,
+    advantages: [
+      'Calcul précis',
+      'Impact fiscal détaillé',
+      'Revenus complémentaires',
+      'Optimisation personnalisée'
+    ],
     fields: ['salaireBrut', 'tempsPartiel', 'age', 'trimestres', 'sam', 'revenusComplementaires']
   }
 ];

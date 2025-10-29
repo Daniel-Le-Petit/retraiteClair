@@ -1,0 +1,604 @@
+/* AvanceFormMultiStep.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Barre de progression */
+.progressContainer {
+  margin-bottom: 3rem;
+}
+
+.progressBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.progressBar::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e9ecef;
+  z-index: 1;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background: white;
+  padding: 0.5rem;
+}
+
+.stepIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.stepNumber {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.progressStep.current .stepIcon {
+  background: #2563eb;
+  color: white;
+  transform: scale(1.1);
+}
+
+.progressStep.completed .stepIcon {
+  background: #10b981;
+  color: white;
+}
+
+.progressStep.completed .stepNumber {
+  color: #10b981;
+}
+
+.progressText {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Contenu des étapes */
+.stepContainer {
+  min-height: 400px;
+  margin-bottom: 2rem;
+}
+
+.stepContent {
+  padding: 2rem 0;
+}
+
+.fieldGroup {
+  margin-bottom: 2rem;
+}
+
+.label {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input.error {
+  border-color: #dc2626;
+}
+
+.inputWithHelp {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.inputWithCalculator {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.helpButton,
+.calculatorButton {
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+}
+
+.helpButton:hover,
+.calculatorButton:hover {
+  background: #e9ecef;
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+/* Slider pour le temps partiel */
+.sliderContainer {
+  margin-bottom: 1rem;
+}
+
+.slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e9ecef;
+  outline: none;
+  -webkit-appearance: none;
+  margin-bottom: 1rem;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #2563eb;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.sliderValue {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+/* Messages d'état */
+.errorMessage {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.successMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #10b981;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.helpText {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Boîtes d'aide */
+.infoBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.infoBox svg {
+  color: #2563eb;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.helpBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.helpBox svg {
+  color: #6c757d;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.helpBox strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.helpBox p {
+  margin: 0 0 0.75rem 0;
+  color: #6c757d;
+}
+
+.externalLink {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.externalLink:hover {
+  background: #1d4ed8;
+}
+
+/* Estimation automatique */
+.estimateBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.estimateBox svg {
+  color: #10b981;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.estimateBox strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #166534;
+}
+
+.estimateBox p {
+  margin: 0 0 0.75rem 0;
+  color: #166534;
+}
+
+.useEstimate {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.useEstimate:hover {
+  background: #059669;
+}
+
+/* Étape optionnelle */
+.optionalStep {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px dashed #e9ecef;
+}
+
+.optionalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.optionalHeader svg {
+  color: #2563eb;
+}
+
+.optionalHeader h3 {
+  margin: 0;
+  color: #374151;
+  font-size: 1.25rem;
+}
+
+.optionalStep p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.prevButton,
+.nextButton,
+.submitButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.prevButton {
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 2px solid #e9ecef;
+}
+
+.prevButton:hover:not(:disabled) {
+  background: #e9ecef;
+  color: #374151;
+}
+
+.prevButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextButton,
+.submitButton {
+  background: #2563eb;
+  color: white;
+}
+
+.nextButton:hover:not(:disabled),
+.submitButton:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.nextButton:disabled,
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Boîte d'information */
+.infoBox {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+}
+
+.infoBox h3 {
+  margin: 0 0 0.75rem 0;
+  color: #2563eb;
+  font-size: 1.25rem;
+}
+
+.infoBox p {
+  margin: 0;
+  color: #1e40af;
+  line-height: 1.6;
+}
+
+/* Styles pour les nouvelles classes */
+.timeInfo {
+  margin-top: 1rem;
+}
+
+.popularChoice {
+  margin-top: 0.5rem;
+}
+
+.externalLinkBox {
+  margin-top: 1rem;
+}
+
+.externalLink {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 0.75rem;
+}
+
+.externalLink:hover {
+  background: #1d4ed8;
+}
+
+.calculatorPrompt {
+  margin-top: 1rem;
+}
+
+.estimateBox {
+  margin-top: 1rem;
+}
+
+.useEstimate {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 0.75rem;
+}
+
+.useEstimate:hover {
+  background: #059669;
+}
+
+.optionalStep {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .progressBar {
+    margin-bottom: 1.5rem;
+  }
+  
+  .stepIcon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .stepNumber {
+    font-size: 0.75rem;
+  }
+  
+  .progressText {
+    font-size: 1rem;
+  }
+  
+  .stepContainer {
+    min-height: 300px;
+  }
+  
+  .stepContent {
+    padding: 1rem 0;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .prevButton,
+  .nextButton,
+  .submitButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .stepIcon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .stepNumber {
+    font-size: 0.7rem;
+  }
+  
+  .sliderValue {
+    font-size: 1.25rem;
+  }
+  
+  .optionalStep {
+    padding: 1rem;
+  }
+}
