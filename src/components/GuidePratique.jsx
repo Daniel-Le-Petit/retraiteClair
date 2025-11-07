@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { faqs, checklist, resources } from '../data/data';
-import FaqAccordion from './FaqAccordion';
+import { checklist, resources } from '../data/data';
 import styles from './GuidePratique.module.css';
 
 const GuidePratique = () => {
@@ -69,16 +68,10 @@ const GuidePratique = () => {
           
           {getCheckedCount() === checklist.length && (
             <div className={styles.completionMessage}>
-              <h3>Félicitations !</h3>
-              <p>Vous avez complété toutes les étapes. Vous êtes prêt à faire votre demande de retraite progressive.</p>
+              <h3>✅ Toutes les étapes sont complétées !</h3>
+              <p>Vous avez rempli tous les critères. Vous pouvez maintenant passer à la simulation de vos revenus et préparer votre demande.</p>
             </div>
           )}
-        </section>
-
-        {/* FAQ */}
-        <section className={styles.faqSection}>
-          <h2 className={styles.sectionTitle}>Questions fréquentes</h2>
-          <FaqAccordion items={faqs} />
         </section>
 
         {/* Ressources */}
@@ -151,10 +144,10 @@ const GuidePratique = () => {
         {/* CTA */}
         <section className={styles.ctaSection}>
           <div className={styles.ctaCard}>
-            <h3>Prêt à commencer ?</h3>
-            <p>Utilisez notre simulateur pour calculer vos revenus en retraite progressive.</p>
+            <h3>Calculer vos revenus en retraite progressive</h3>
+            <p>Maintenant que vous avez toutes les informations, utilisez notre simulateur pour obtenir une estimation précise de vos revenus.</p>
             <a href="/simulateurs" className={styles.ctaButton}>
-              Lancer la simulation
+              Utiliser le simulateur
             </a>
           </div>
         </section>

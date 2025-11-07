@@ -21,3 +21,5 @@ const AnimatedAmount = ({
 
 export default AnimatedAmount;
 
+
+

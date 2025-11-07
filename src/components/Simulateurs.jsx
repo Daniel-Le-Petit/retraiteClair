@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { simulationModes } from '../data/data';
 import SimplifieForm from './SimplifieForm';
 import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
@@ -164,6 +163,21 @@ const Simulateurs = () => {
     };
   };
 
+  const modeMeta = {
+    simplifie: {
+      title: 'Mode simplifié',
+      tagline: 'Estimation rapide (3 champs)',
+      duration: '≈ 2 minutes',
+      fields: '3 champs essentiels'
+    },
+    avance: {
+      title: 'Mode avancé',
+      tagline: 'Calcul complet en 5 étapes',
+      duration: '≈ 6 minutes',
+      fields: '9 champs détaillés'
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -176,50 +190,38 @@ const Simulateurs = () => {
           </div>
         </header>
 
-        {/* Sélecteur de mode amélioré */}
-        {simulationModes && simulationModes.length > 0 && (
-          <div className={styles.modeSelectorContainer}>
-            <h2 className={styles.modeSelectorTitle}>Choisissez votre mode de calcul</h2>
-            <div className={styles.modeSelector}>
-              {simulationModes.map((modeOption) => (
-                <button
-                  key={modeOption.id}
-                  className={`${styles.modeButton} ${styles[modeOption.id]} ${mode === modeOption.id ? styles.active : ''}`}
-                  onClick={() => setMode(modeOption.id)}
-                >
-                  <div className={styles.modeIcon}>{modeOption.icon || '📋'}</div>
-                  <div className={styles.modeContent}>
-                    <h3>{modeOption.name}</h3>
-                    <div className={styles.modeDetails}>
-                      <div className={styles.modeDetail}>
-                        <span className={styles.detailIcon}>⏱</span>
-                        <span>{modeOption.duration || 'N/A'}</span>
-                      </div>
-                      <div className={styles.modeDetail}>
-                        <span className={styles.detailIcon}>📝</span>
-                        <span>{modeOption.fieldsCount || 0} champs</span>
-                      </div>
-                    </div>
-                    <ul className={styles.modeAdvantages}>
-                      {(modeOption.advantages || []).map((advantage, index) => (
-                        <li key={index}>
-                          <span className={styles.checkmark}>✓</span>
-                          {advantage}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className={styles.modeButtonText}>
-                      Commencer →
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className={styles.modeSelectorNote}>
-              💡 Vous pourrez passer d'un mode à l'autre à tout moment
+        {/* Barre de sélection de mode */}
+        <div className={styles.modeToggleBar}>
+          <div className={styles.modeContext}>
+            <span className={`${styles.modeBadge} ${mode === 'avance' ? styles.modeBadgeAdvanced : styles.modeBadgeSimplifie}`}>
+              {modeMeta[mode].title}
+            </span>
+            <p className={styles.modeTagline}>{modeMeta[mode].tagline}</p>
+            <div className={styles.modeStats}>
+              <span className={styles.modeStat}>⏱ {modeMeta[mode].duration}</span>
+              <span className={styles.modeStat}>📝 {modeMeta[mode].fields}</span>
             </div>
           </div>
-        )}
+          <button
+            type="button"
+            className={`${styles.modeSwitchButton} ${mode === 'simplifie' ? styles.modeSwitchAdvanced : styles.modeSwitchSimplifie}`}
+            onClick={() => setMode(mode === 'simplifie' ? 'avance' : 'simplifie')}
+          >
+            {mode === 'simplifie' ? 'Passer au mode avancé' : 'Revenir au mode simplifié'}
+          </button>
+        </div>
+
+        <div className={styles.modeHint}>
+          {mode === 'simplifie' ? (
+            <>
+              Renseignez vos trois informations clés pour obtenir une estimation immédiate. Vous pourrez ensuite affiner vos calculs avec le mode avancé si besoin.
+            </>
+          ) : (
+            <>
+              Avancez pas à pas dans le formulaire détaillé. Vos données déjà saisies sont pré-remplies et vous pouvez revenir au mode simplifié à tout moment.
+            </>
+          )}
+        </div>
         
         <ReassuranceBanner type="trust" />
 

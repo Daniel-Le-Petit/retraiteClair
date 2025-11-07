@@ -1,13 +1,13 @@
 /* SimplifieForm.module.css */
 
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  background: white;
-  border: 1px solid #e9ecef;
+  width: 100%;
+  margin: 0;
+  background: transparent;
+  border: none;
   border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  box-shadow: none;
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;

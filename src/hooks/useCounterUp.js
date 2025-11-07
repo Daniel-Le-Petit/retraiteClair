@@ -50,3 +50,5 @@ const useCounterUp = (targetValue, duration = 1500, formatCurrency = false) => {
 
 export default useCounterUp;
 
+
+

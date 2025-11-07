@@ -1,12 +1,23 @@
 /* AvanceFormMultiStep.module.css */
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+  overflow: hidden;
+  border: none;
+}
+
+/* Premier bloc - En-tête et progression */
+.headerSection {
+  background: white;
+  padding: 2rem;
+  border-bottom: 1px solid #e9ecef;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header {
@@ -29,7 +40,15 @@
 
 /* Barre de progression */
 .progressContainer {
-  margin-bottom: 3rem;
+  margin-bottom: 0;
+}
+
+/* Deuxième bloc - Contenu des étapes */
+.contentSection {
+  background: white;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .progressBar {
@@ -106,6 +125,10 @@
 .stepContainer {
   min-height: 400px;
   margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #bbf7d0;
 }
 
 .stepContent {
@@ -453,20 +476,20 @@
 .infoBox {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
   border-radius: 12px;
 }
 
 .infoBox h3 {
   margin: 0 0 0.75rem 0;
-  color: #2563eb;
+  color: #92400e;
   font-size: 1.25rem;
 }
 
 .infoBox p {
   margin: 0;
-  color: #1e40af;
+  color: #78350f;
   line-height: 1.6;
 }
 
@@ -535,9 +558,16 @@
     border-radius: 0;
   }
   
-  .header {
+  .headerSection {
     padding: 1.5rem 1rem;
-    border-radius: 0;
+  }
+  
+  .header {
+    padding: 0;
+  }
+  
+  .contentSection {
+    padding: 1.5rem 1rem;
   }
   
   .title {

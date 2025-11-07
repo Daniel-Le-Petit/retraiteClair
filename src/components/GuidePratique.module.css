@@ -49,7 +49,6 @@
 }
 
 .checklistSection,
-.faqSection,
 .resourcesSection,
 .stepsSection {
   background: white;
@@ -321,7 +320,6 @@
   }
   
   .checklistSection,
-  .faqSection,
   .resourcesSection,
   .stepsSection {
     padding: 1.5rem;
@@ -373,7 +371,6 @@
   }
   
   .checklistSection,
-  .faqSection,
   .resourcesSection,
   .stepsSection {
     padding: 1rem;

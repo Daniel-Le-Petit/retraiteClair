@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, ExternalLink, Clock, User, Briefcase, PiggyBank, Plus } from 'lucide-react';
 import InputField from './InputField';
 import InfoBox from './InfoBox';
-import ReassuranceBanner from './ReassuranceBanner';
 import styles from './AvanceFormMultiStep.module.css';
 
 const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataChange = () => {} }) => {
@@ -450,15 +449,17 @@ votre brut est environ 3850€`}
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Mode Avancé</h2>
-        <p className={styles.description}>
-          Calcul précis avec tous vos paramètres personnels
-        </p>
-      </div>
+      {/* Premier bloc - En-tête et progression */}
+      <div className={styles.headerSection}>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Mode Avancé</h2>
+          <p className={styles.description}>
+            Calcul précis avec tous vos paramètres personnels
+          </p>
+        </div>
 
-      {/* Barre de progression */}
-      <div className={styles.progressContainer}>
+        {/* Barre de progression */}
+        <div className={styles.progressContainer}>
         <div className={styles.progressBar}>
           {steps.map((step) => {
             const IconComponent = step.iconComponent;
@@ -485,14 +486,17 @@ votre brut est environ 3850€`}
           Étape {currentStep}/{steps.length} : {steps[currentStep - 1]?.title || ''}
         </div>
       </div>
+      </div>
 
-      {/* Contenu de l'étape */}
-      <div className={styles.stepContainer}>
+      {/* Deuxième bloc - Contenu des étapes */}
+      <div className={styles.contentSection}>
+        {/* Contenu de l'étape */}
+        <div className={styles.stepContainer}>
         {renderStepContent()}
       </div>
 
-      {/* Navigation */}
-      <div className={styles.navigation}>
+        {/* Navigation */}
+        <div className={styles.navigation}>
         <button
           type="button"
           className={styles.prevButton}
@@ -522,19 +526,8 @@ votre brut est environ 3850€`}
             {isCalculating ? 'Calcul en cours...' : 'Calculer mes revenus précis'}
           </button>
         )}
+        </div>
       </div>
-
-      <ReassuranceBanner type="security" />
-      
-      <div className={styles.infoBox}>
-        <h3>Mode avancé</h3>
-        <p>
-          Ce mode utilise vos données exactes pour un calcul précis. 
-          Les résultats incluent l'impact fiscal et les revenus complémentaires.
-        </p>
-      </div>
-      
-      <ReassuranceBanner type="compliance" />
     </div>
   );
 };

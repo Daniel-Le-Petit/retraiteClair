@@ -48,162 +48,108 @@
   line-height: 1.5;
 }
 
-.modeSelectorContainer {
-  margin-bottom: 3rem;
-}
-
-.modeSelectorTitle {
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 2rem;
-}
-
-.modeSelector {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-}
-
-.modeSelectorNote {
-  text-align: center;
-  color: #6c757d;
-  font-size: 1rem;
-  font-style: italic;
-}
-
-.modeButton {
+.modeToggleBar {
   background: white;
-  border: 2px solid #e9ecef;
   border-radius: 16px;
-  padding: 2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: left;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e2e8f0;
+  gap: 1.5rem;
+}
+
+.modeContext {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+  gap: 0.5rem;
 }
 
-.modeButton:hover {
-  border-color: #3498db;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
-}
-
-.modeIcon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.modeButton:hover .modeIcon {
-  transform: scale(1.1);
-}
-
-.modeContent {
-  text-align: center;
-  width: 100%;
-}
-
-.modeContent h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-}
-
-.modeDetails {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.modeDetail {
-  display: flex;
+.modeBadge {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-.detailIcon {
-  font-size: 1rem;
-}
-
-.modeAdvantages {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem 0;
-  text-align: left;
-}
-
-.modeAdvantages li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-.checkmark {
-  color: #10b981;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-.modeButtonText {
   font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.modeBadgeSimplifie {
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+}
+
+.modeBadgeAdvanced {
+  background: rgba(37, 99, 235, 0.12);
   color: #2563eb;
-  font-size: 1rem;
-  margin-top: auto;
 }
 
-/* Styles pour les boutons de mode avec dégradés */
-.modeButton.simplifie.active {
-  border-color: #0f766e;
-  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+.modeTagline {
+  font-size: 1.05rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.modeStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+.modeStat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.modeSwitchButton {
   color: white;
-  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.3);
+  border: none;
+  padding: 0.95rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
-.modeButton.simplifie.active .modeContent h3,
-.modeButton.simplifie.active .modeDetail,
-.modeButton.simplifie.active .modeAdvantages li,
-.modeButton.simplifie.active .modeButtonText {
-  color: white;
-}
-
-.modeButton.avance.active {
-  border-color: #2563eb;
+.modeSwitchAdvanced {
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  color: white;
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
 }
 
-.modeButton.avance.active .modeContent h3,
-.modeButton.avance.active .modeDetail,
-.modeButton.avance.active .modeAdvantages li,
-.modeButton.avance.active .modeButtonText {
-  color: white;
+.modeSwitchSimplifie {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  box-shadow: 0 10px 25px rgba(15, 118, 110, 0.25);
 }
 
-.modeButton.simplifie:hover {
-  border-color: #0f766e;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(15, 118, 110, 0.2);
+.modeSwitchButton:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-.modeButton.avance:hover {
-  border-color: #2563eb;
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.2);
+.modeSwitchButton:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+
+.modeHint {
+  margin-bottom: 2rem;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.6;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .formContainer {
@@ -212,6 +158,7 @@
   padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 3rem;
+  border: 1px solid #e9ecef;
 }
 
 .howItWorks {
@@ -308,28 +255,6 @@
     font-size: 1.1rem;
   }
   
-  .modeSelector {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .modeButton {
-    padding: 1.5rem;
-  }
-  
-  .modeIcon {
-    font-size: 2.5rem;
-  }
-  
-  .modeContent h3 {
-    font-size: 1.25rem;
-  }
-  
-  .modeDetails {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
   .formContainer,
   .howItWorks {
     padding: 1.5rem;
@@ -337,6 +262,16 @@
   
   .sectionTitle {
     font-size: 1.75rem;
+  }
+
+  .modeToggleBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modeSwitchButton {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -348,21 +283,13 @@
   .title {
     font-size: 2rem;
   }
-  
-  .modeButton {
-    padding: 1rem;
-  }
-  
-  .modeIcon {
-    font-size: 2rem;
-  }
-  
-  .modeContent h3 {
-    font-size: 1.1rem;
-  }
-  
+
   .formContainer,
   .howItWorks {
     padding: 1rem;
+  }
+
+  .modeStats {
+    gap: 0.6rem;
   }
 }
