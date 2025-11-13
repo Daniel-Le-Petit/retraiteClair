@@ -222,11 +222,11 @@ const SwipeNavigation = () => {
       const { page, mode } = event.detail;
       if (page === 'calculateur') {
         goToPage(1); // Index du calculateur
-        // Déclencher le mode de simulation après un délai
+        // Déclencher le mode de simulation après un délai pour laisser le temps à la page de se charger
         if (mode) {
           setTimeout(() => {
             window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: { mode: mode } }));
-          }, 400);
+          }, 600);
         }
       } else if (page === 'contact') {
         goToPage(4); // Index de la page contact

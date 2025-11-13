@@ -256,7 +256,7 @@ const CalculateurAvance = () => {
   // Écouter les événements de mode de simulation
   useEffect(() => {
     const handleSimulationMode = (event) => {
-      const mode = event.detail.mode || event.detail;
+      const mode = event.detail?.mode || event.detail;
       if (mode === 'simplified') {
         setSimulationMode('simplified');
         setShowAdvancedMode(false);
@@ -268,13 +268,29 @@ const CalculateurAvance = () => {
       }
     };
 
+    const handleNavigation = (event) => {
+      const { page, mode } = event.detail || {};
+      if (page === 'calculateur' && mode) {
+        // Appliquer le mode immédiatement si le composant est monté
+        if (mode === 'advanced') {
+          setSimulationMode('advanced');
+          setShowAdvancedMode(true);
+          setActiveTab('saisie');
+        } else if (mode === 'simplified') {
+          setSimulationMode('simplified');
+          setShowAdvancedMode(false);
+          setActiveTab('saisie');
+        }
+      }
+    };
+
     // Écouter l'événement setSimulationMode envoyé par SwipeNavigation
     window.addEventListener('setSimulationMode', handleSimulationMode);
-    // Écouter aussi navigateToPage pour compatibilité
-    window.addEventListener('navigateToPage', handleSimulationMode);
+    // Écouter aussi navigateToPage pour compatibilité et application immédiate
+    window.addEventListener('navigateToPage', handleNavigation);
     return () => {
       window.removeEventListener('setSimulationMode', handleSimulationMode);
-      window.removeEventListener('navigateToPage', handleSimulationMode);
+      window.removeEventListener('navigateToPage', handleNavigation);
     };
   }, []);
 
