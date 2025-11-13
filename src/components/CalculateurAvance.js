@@ -256,19 +256,26 @@ const CalculateurAvance = () => {
   // Écouter les événements de mode de simulation
   useEffect(() => {
     const handleSimulationMode = (event) => {
-      if (event.detail.mode === 'simplified') {
+      const mode = event.detail.mode || event.detail;
+      if (mode === 'simplified') {
         setSimulationMode('simplified');
         setShowAdvancedMode(false);
         setActiveTab('saisie');
-      } else if (event.detail.mode === 'advanced') {
+      } else if (mode === 'advanced') {
         setSimulationMode('advanced');
         setShowAdvancedMode(true);
         setActiveTab('saisie');
       }
     };
 
+    // Écouter l'événement setSimulationMode envoyé par SwipeNavigation
+    window.addEventListener('setSimulationMode', handleSimulationMode);
+    // Écouter aussi navigateToPage pour compatibilité
     window.addEventListener('navigateToPage', handleSimulationMode);
-    return () => window.removeEventListener('navigateToPage', handleSimulationMode);
+    return () => {
+      window.removeEventListener('setSimulationMode', handleSimulationMode);
+      window.removeEventListener('navigateToPage', handleSimulationMode);
+    };
   }, []);
 
   // Mise à jour du step actuel

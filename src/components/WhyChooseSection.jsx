@@ -3,6 +3,30 @@ import { whyChooseFeatures } from '../data/data';
 import styles from './WhyChooseSection.module.css';
 
 const WhyChooseSection = () => {
+  const handleReadMore = (feature) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    switch (feature.id) {
+      case 3:
+        window.dispatchEvent(
+          new CustomEvent('navigateToPage', { detail: { page: 'guide-pratique' } })
+        );
+        break;
+      case 4:
+        window.dispatchEvent(
+          new CustomEvent('navigateToPage', { detail: { page: 'simulateurs' } })
+        );
+        break;
+      default:
+        window.dispatchEvent(
+          new CustomEvent('navigateToPage', { detail: { page: 'contact' } })
+        );
+        break;
+    }
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.content}>
@@ -23,9 +47,13 @@ const WhyChooseSection = () => {
               </div>
               <p className={styles.description}>{feature.description}</p>
               {feature.hasReadMore && (
-                <div className={styles.readMore}>
+                <button
+                  type="button"
+                  className={styles.readMore}
+                  onClick={() => handleReadMore(feature)}
+                >
                   <span className={styles.readMoreText}>En savoir plus →</span>
-                </div>
+                </button>
               )}
             </div>
           ))}

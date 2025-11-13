@@ -81,17 +81,30 @@
 .readMore {
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   margin-top: auto;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  width: fit-content;
+  gap: 0.5rem;
+}
+
+.readMore:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 .readMoreText {
   color: #3498db;
   font-weight: 500;
   font-size: 0.9rem;
-  cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.readMoreText:hover {
+.readMore:hover .readMoreText {
   color: #2980b9;
 }
 

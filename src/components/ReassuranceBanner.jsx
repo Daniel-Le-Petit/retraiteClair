@@ -19,10 +19,7 @@ const ReassuranceBanner = ({ type = 'security' }) => {
     return (
       <div className={`${styles.banner} ${styles.trust}`}>
         <Star size={20} />
-        <div className={styles.content}>
-          <strong>⭐ Déjà 12 450 simulations réalisées</strong>
-          <span>Note moyenne : 4.8/5</span>
-        </div>
+        <div className={styles.content}></div>
       </div>
     );
   }

@@ -225,7 +225,7 @@ const SwipeNavigation = () => {
         // Déclencher le mode de simulation après un délai
         if (mode) {
           setTimeout(() => {
-            window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: mode }));
+            window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: { mode: mode } }));
           }, 400);
         }
       } else if (page === 'contact') {

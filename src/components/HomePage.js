@@ -221,7 +221,14 @@ const HomePage = () => {
           </div>
 
           <div className="simulation-card simulation-card-advanced">
-            <div className="card-image-container">
+            <div 
+              className="card-image-container"
+              onClick={() => {
+                // Déclencher la navigation vers le calculateur en mode avancé
+                window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'advanced' } }));
+              }}
+              style={{ cursor: 'pointer' }}
+            >
               <img 
                 src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
                 alt="Femme détendue et souriante faisant du ski sur une montagne ensoleillée - Simulation avancée"
@@ -241,7 +248,8 @@ const HomePage = () => {
                 </p>
                 <button 
                   className="card-button card-button-secondary"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation(); // Empêcher le double déclenchement
                     // Déclencher la navigation vers le calculateur en mode avancé
                     window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur', mode: 'advanced' } }));
                   }}
