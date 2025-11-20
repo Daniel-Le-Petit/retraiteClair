@@ -279,6 +279,6 @@ export const testimonials = [
     id: 2,
     text: "L'interface est tellement intuitive que j'ai pu faire ma simulation en quelques clics. Les conseils sont vraiment pertinents.",
     author: "Pierre, 61 ans, cadre",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   }
 ];

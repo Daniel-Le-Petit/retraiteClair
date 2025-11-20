@@ -131,7 +131,7 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
   // Gestion des événements de navigation
   useEffect(() => {
     const handleNavigation = (event) => {
-      const { page } = event.detail || {};
+      const { page, mode } = event.detail || {};
       
       switch (page) {
         case 'accueil':
@@ -140,6 +140,12 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
         case 'simulateurs':
         case 'calculateur':
           navigateToPage(1);
+          // Déclencher le mode de simulation après un délai pour laisser le temps à la page de se charger
+          if (mode) {
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('setSimulationMode', { detail: { mode: mode } }));
+            }, 600);
+          }
           break;
         case 'blog':
         case 'conseils':

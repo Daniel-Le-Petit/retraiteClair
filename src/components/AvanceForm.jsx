@@ -94,7 +94,7 @@ const AvanceForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
     <div className={styles.container}>
       <h2 className={styles.title}>Mode Avancé</h2>
       <p className={styles.description}>
-        Calcul précis avec tous vos paramètres personnels
+        Avancez pas à pas dans le formulaire détaillé. Vos données déjà saisies sont pré-remplies et vous pouvez revenir au mode simplifié à tout moment
       </p>
       
       <form onSubmit={handleSubmit} className={styles.form}>

@@ -24,8 +24,12 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   };
 
   const getCurrentScenario = () => {
+    // Récupérer le temps partiel depuis les données de simulation
+    const tempsPartiel = data?.details?.tempsPartiel 
+      ? parseFloat(data.details.tempsPartiel) 
+      : 80; // Valeur par défaut si non disponible
     return {
-      tempsPartiel: 80, // Valeur par défaut, à adapter selon les données
+      tempsPartiel: tempsPartiel,
       totalNet: data?.revenusNets?.total || 0
     };
   };

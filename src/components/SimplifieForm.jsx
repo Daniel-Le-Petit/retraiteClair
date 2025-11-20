@@ -80,7 +80,7 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
     <div className={styles.container}>
       <h2 className={styles.title}>Mode Simplifié</h2>
       <p className={styles.description}>
-        Quelques informations essentielles pour une estimation rapide
+        Renseignez vos 3 informations clés pour obtenir une estimation immédiate. Vous pourrez ensuite affiner vos calculs avec le mode avancé si besoin
       </p>
       
       <form onSubmit={handleSubmit} className={styles.form}>

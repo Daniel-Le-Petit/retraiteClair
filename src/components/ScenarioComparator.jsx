@@ -11,6 +11,13 @@ const ScenarioComparator = ({
   const [comparisonData, setComparisonData] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Mettre à jour selectedPercentage quand currentScenario change
+  useEffect(() => {
+    if (currentScenario?.tempsPartiel) {
+      setSelectedPercentage(currentScenario.tempsPartiel);
+    }
+  }, [currentScenario]);
+
   // Détecter mobile
   useEffect(() => {
     const checkMobile = () => {

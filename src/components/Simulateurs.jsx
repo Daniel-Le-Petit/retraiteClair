@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import SimplifieForm from './SimplifieForm';
 import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
@@ -8,6 +7,40 @@ import styles from './Simulateurs.module.css';
 
 const Simulateurs = () => {
   const [mode, setMode] = useState('simplifie');
+  
+  // Écouter les événements de mode de simulation
+  useEffect(() => {
+    const handleSimulationMode = (event) => {
+      const modeFromEvent = event.detail?.mode || event.detail;
+      // Convertir 'advanced' en 'avance' et 'simplified' en 'simplifie'
+      if (modeFromEvent === 'advanced' || modeFromEvent === 'avance') {
+        setMode('avance');
+      } else if (modeFromEvent === 'simplified' || modeFromEvent === 'simplifie') {
+        setMode('simplifie');
+      }
+    };
+
+    const handleNavigation = (event) => {
+      const { page, mode: modeFromEvent } = event.detail || {};
+      if ((page === 'simulateurs' || page === 'calculateur') && modeFromEvent) {
+        // Appliquer le mode immédiatement si le composant est monté
+        if (modeFromEvent === 'advanced' || modeFromEvent === 'avance') {
+          setMode('avance');
+        } else if (modeFromEvent === 'simplified' || modeFromEvent === 'simplifie') {
+          setMode('simplifie');
+        }
+      }
+    };
+
+    // Écouter l'événement setSimulationMode envoyé par SwipeNavigation
+    window.addEventListener('setSimulationMode', handleSimulationMode);
+    // Écouter aussi navigateToPage pour compatibilité et application immédiate
+    window.addEventListener('navigateToPage', handleNavigation);
+    return () => {
+      window.removeEventListener('setSimulationMode', handleSimulationMode);
+      window.removeEventListener('navigateToPage', handleNavigation);
+    };
+  }, []);
   const [simulationData, setSimulationData] = useState(null);
   const [isCalculating, setIsCalculating] = useState(false);
   
@@ -211,11 +244,7 @@ const Simulateurs = () => {
         </div>
 
         <div className={styles.modeHint}>
-          {mode === 'simplifie' ? (
-            <>
-              Renseignez vos trois informations clés pour obtenir une estimation immédiate. Vous pourrez ensuite affiner vos calculs avec le mode avancé si besoin.
-            </>
-          ) : (
+          {mode === 'avance' && (
             <>
               Avancez pas à pas dans le formulaire détaillé. Vos données déjà saisies sont pré-remplies et vous pouvez revenir au mode simplifié à tout moment.
             </>
@@ -240,20 +269,6 @@ const Simulateurs = () => {
             />
           )}
         </div>
-
-        {/* Section "Comment ça marche ?" */}
-        <section className={styles.howItWorks}>
-          <h2 className={`${styles.sectionTitle} ${mode === 'avance' ? styles.advanced : ''}`}>Comment ça marche ?</h2>
-          <div className={styles.explanation}>
-            <p>
-              Le simulateur M@rel est la référence officielle. Notre outil s'appuie sur les mêmes règles, 
-              avec des fonctionnalités supplémentaires (fiscalité, revenus complémentaires).
-            </p>
-            <Link to="/guide-pratique" className={styles.guideLink}>
-              Voir le guide détaillé →
-            </Link>
-          </div>
-        </section>
 
         {/* Résultats unifiés */}
         {simulationData && (
