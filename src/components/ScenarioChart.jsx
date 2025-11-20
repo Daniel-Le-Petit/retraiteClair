@@ -86,11 +86,11 @@ const ScenarioChart = ({ data }) => {
                     title={`${scenario.percentage}%: ${formatCurrency(scenario.totalNet)}`}
                   >
                     <div className={styles.barValue}>
-                      {formatCurrency(scenario.totalNet)}
+                      {scenario.percentage}%
                     </div>
                   </div>
                   <div className={styles.barLabel}>
-                    {scenario.percentage}%
+                    {formatCurrency(scenario.totalNet)}
                   </div>
                 </div>
               );
