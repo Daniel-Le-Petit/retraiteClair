@@ -14,7 +14,8 @@ const ScenarioChart = ({ data }) => {
   // Utiliser la même logique que la simulation principale pour les scénarios
   const calculateScenario = (percentage) => {
     const salaireBrutTempsPartiel = data.revenusBruts.tempsPlein * (percentage / 100);
-    const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7883;
+    // Utiliser le même coefficient que le calcul principal : 0.7698 (76.98% du brut)
+    const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
     
     // Utiliser la même logique que la simulation principale pour la pension progressive
     let pensionProgressiveBrut, pensionProgressiveNet;
@@ -22,15 +23,19 @@ const ScenarioChart = ({ data }) => {
     // Si on a une pension complète dans les données (mode avancé)
     if (data.revenusBruts.pensionComplete && data.revenusBruts.pensionComplete > 0) {
       // Mode avancé : utiliser la pension complète calculée
-      pensionProgressiveBrut = data.revenusBruts.pensionComplete * 0.1728; // 17.28% de la pension complète
+      // La pension progressive = 17.33% du salaire brut (ratio exact M@rel)
+      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1733;
       pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     } else {
-      // Mode simplifié : calcul approximatif basé sur le salaire brut
-      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1728;
+      // Mode simplifié : calcul selon les valeurs M@rel exactes
+      // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
+      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1733;
       pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     }
     
-    const totalNet = salaireNetTempsPartiel + pensionProgressiveNet;
+    // Ajouter les revenus complémentaires si présents
+    const revenusComplementaires = data.revenusNets?.revenusComplementaires || 0;
+    const totalNet = salaireNetTempsPartiel + pensionProgressiveNet + revenusComplementaires;
     
     return {
       percentage,
@@ -53,17 +58,6 @@ const ScenarioChart = ({ data }) => {
     <div className={styles.chartContainer}>
       <h3 className={styles.chartTitle}>Comparaison des scénarios en revenu net</h3>
       <div className={styles.chart}>
-        <div className={styles.yAxis}>
-          <div className={styles.yLabel}>Revenus nets (€)</div>
-          <div className={styles.yScale}>
-            {[maxValue, (maxValue + minValue) / 2, minValue].map(value => (
-              <div key={value} className={styles.yTick}>
-                {formatCurrency(value)}
-              </div>
-            ))}
-          </div>
-        </div>
-        
         <div className={styles.chartArea}>
           <div className={styles.bars}>
             {scenarios.map((scenario, index) => {
@@ -96,13 +90,6 @@ const ScenarioChart = ({ data }) => {
               );
             })}
           </div>
-        </div>
-      </div>
-      
-      <div className={styles.legend}>
-        <div className={styles.legendItem}>
-          <div className={styles.legendColor} style={{ backgroundColor: '#3498db' }}></div>
-          <span>Revenus nets totaux</span>
         </div>
       </div>
     </div>
