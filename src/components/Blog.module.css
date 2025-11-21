@@ -16,6 +16,51 @@
   padding: 0 1rem;
 }
 
+/* Sur mobile, supprimer le padding-top du conteneur pour éviter l'espace après le header */
+@media (max-width: 768px) {
+  .content {
+    padding-top: 0 !important;
+  }
+  
+  /* Supprimer l'espace entre header et premier élément */
+  .content > .header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Pour très petits écrans (iPhone) */
+@media (max-width: 480px) {
+  .content {
+    padding-top: 0 !important;
+  }
+  
+  /* Supprimer l'espace entre header et premier élément */
+  .content > .header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Pour les appareils tactiles (iPhone, iPad) */
+@media (hover: none) and (pointer: coarse) {
+  .header {
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  .content > .header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  .searchSection {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
 /* === HEADER PRINCIPAL === */
 .header {
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
@@ -38,6 +83,12 @@
   
   /* Supprimer l'espace entre le header et le premier bloc */
   .searchSection {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Supprimer tout espace dans le conteneur après le header */
+  .content > .header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
@@ -390,6 +441,12 @@
   
   /* Supprimer l'espace entre le header et le premier bloc */
   .searchSection {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Supprimer tout espace dans le conteneur après le header */
+  .content > .header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }

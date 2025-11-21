@@ -158,6 +158,17 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 15px !important;
+    padding-top: 0 !important; /* Supprimer le padding-top pour éviter l'espace après le header */
+  }
+  
+  /* Supprimer l'espace entre header et premier bloc dans les conteneurs */
+  .page-container .container > .header + *,
+  .page-container .simulateurs-container > .header + *,
+  .page-container .blog-container > .header + *,
+  .page-container .guide-container > .header + *,
+  .page-container .contact-container > .header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }
 
@@ -177,6 +188,17 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 10px !important;
+    padding-top: 0 !important; /* Supprimer le padding-top pour éviter l'espace après le header */
+  }
+  
+  /* Supprimer l'espace entre header et premier bloc dans les conteneurs */
+  .page-container .container > .header + *,
+  .page-container .simulateurs-container > .header + *,
+  .page-container .blog-container > .header + *,
+  .page-container .guide-container > .header + *,
+  .page-container .contact-container > .header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 }
 
