@@ -77,17 +77,29 @@
   .header {
     box-shadow: none !important;
     border: none !important;
-    margin-bottom: 0 !important; /* Pas de margin-bottom sur mobile pour éviter la ligne */
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
   }
   
-  /* Supprimer l'espace entre le header et le premier bloc */
+  /* Supprimer l'espace entre le header et le premier bloc - règles très spécifiques */
+  .content .header {
+    margin-bottom: 0 !important;
+  }
+  
+  .content .header + .checklistSection,
+  .content .header ~ .checklistSection {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
   .checklistSection {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }
   
   /* Supprimer tout espace dans le conteneur après le header */
-  .content > .header + * {
+  .content > .header + *,
+  .content > header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }

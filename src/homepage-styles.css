@@ -71,10 +71,21 @@
   .homepage-header {
     box-shadow: none !important;
     border: none !important;
-    margin-bottom: 0 !important; /* Pas de margin-bottom sur mobile pour éviter la ligne */
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
   }
   
-  /* Supprimer l'espace entre le header et le premier bloc */
+  /* Supprimer l'espace entre le header et le premier bloc - règles très spécifiques */
+  .homepage-content .homepage-header {
+    margin-bottom: 0 !important;
+  }
+  
+  .homepage-content .homepage-header + .simulation-cards,
+  .homepage-content .homepage-header ~ .simulation-cards {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
   .homepage-header + .simulation-cards,
   .homepage-header ~ .simulation-cards {
     margin-top: 0 !important;
@@ -84,10 +95,12 @@
   /* Ajuster le padding du premier bloc sur mobile */
   .simulation-cards {
     padding-top: 0 !important;
+    margin-top: 0 !important;
   }
   
   /* Supprimer tout espace dans le conteneur après le header */
-  .homepage-content > .homepage-header + * {
+  .homepage-content > .homepage-header + *,
+  .homepage-content > header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
   }

@@ -29,6 +29,51 @@ body {
   }
 }
 
+/* RÈGLE GLOBALE ULTRA-AGRESSIVE pour supprimer l'espace entre header et premier bloc sur mobile/iPhone */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  /* Supprimer margin-bottom de TOUS les headers */
+  header,
+  .header,
+  .homepage-header,
+  [class*="header"] {
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Supprimer margin-top et padding-top du premier élément après TOUS les headers */
+  header + *,
+  .header + *,
+  .homepage-header + *,
+  [class*="header"] + *,
+  header ~ *:first-of-type,
+  .header ~ *:first-of-type,
+  .homepage-header ~ *:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Cibler spécifiquement les conteneurs de contenu */
+  .content > header + *,
+  .content > .header + *,
+  .homepage-content > header + *,
+  .homepage-content > .homepage-header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Cibler les sections spécifiques */
+  .modeToggleBar,
+  .searchSection,
+  .checklistSection,
+  .aboutSection,
+  .contactFormSection,
+  .simulation-cards {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
 body::before {
   content: '';
   position: fixed;

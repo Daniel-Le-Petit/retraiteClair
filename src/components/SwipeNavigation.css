@@ -161,14 +161,30 @@
     padding-top: 0 !important; /* Supprimer le padding-top pour éviter l'espace après le header */
   }
   
-  /* Supprimer l'espace entre header et premier bloc dans les conteneurs */
+  /* RÈGLE UNIVERSELLE : Supprimer TOUT espace entre header et premier bloc */
+  .page-container .container > header + *,
   .page-container .container > .header + *,
+  .page-container .simulateurs-container > header + *,
   .page-container .simulateurs-container > .header + *,
+  .page-container .blog-container > header + *,
   .page-container .blog-container > .header + *,
+  .page-container .guide-container > header + *,
   .page-container .guide-container > .header + *,
-  .page-container .contact-container > .header + * {
+  .page-container .contact-container > header + *,
+  .page-container .contact-container > .header + *,
+  .page-container .homepage-content > header + *,
+  .page-container .homepage-content > .homepage-header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
+  }
+  
+  /* RÈGLE UNIVERSELLE : Supprimer margin-bottom de TOUS les headers */
+  .page-container header,
+  .page-container .header,
+  .page-container .homepage-header {
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 }
 
@@ -191,14 +207,30 @@
     padding-top: 0 !important; /* Supprimer le padding-top pour éviter l'espace après le header */
   }
   
-  /* Supprimer l'espace entre header et premier bloc dans les conteneurs */
+  /* RÈGLE UNIVERSELLE : Supprimer TOUT espace entre header et premier bloc */
+  .page-container .container > header + *,
   .page-container .container > .header + *,
+  .page-container .simulateurs-container > header + *,
   .page-container .simulateurs-container > .header + *,
+  .page-container .blog-container > header + *,
   .page-container .blog-container > .header + *,
+  .page-container .guide-container > header + *,
   .page-container .guide-container > .header + *,
-  .page-container .contact-container > .header + * {
+  .page-container .contact-container > header + *,
+  .page-container .contact-container > .header + *,
+  .page-container .homepage-content > header + *,
+  .page-container .homepage-content > .homepage-header + * {
     margin-top: 0 !important;
     padding-top: 0 !important;
+  }
+  
+  /* RÈGLE UNIVERSELLE : Supprimer margin-bottom de TOUS les headers */
+  .page-container header,
+  .page-container .header,
+  .page-container .homepage-header {
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 }
 
