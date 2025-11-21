@@ -106,12 +106,12 @@
 }
 
 .progressStep.completed .stepIcon {
-  background: #10b981;
+  background: #2563eb;
   color: white;
 }
 
 .progressStep.completed .stepNumber {
-  color: #10b981;
+  color: #2563eb;
 }
 
 .progressText {
@@ -128,7 +128,7 @@
   background: white;
   padding: 1.5rem;
   border-radius: 12px;
-  border: 1px solid #bbf7d0;
+  border: 1px solid #93c5fd;
 }
 
 .stepContent {
@@ -261,7 +261,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #10b981;
+  color: #2563eb;
   font-size: 0.875rem;
   margin-top: 0.5rem;
   font-weight: 500;
@@ -341,14 +341,14 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1rem;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  background: #eff6ff;
+  border: 1px solid #93c5fd;
   border-radius: 8px;
   margin-top: 1rem;
 }
 
 .estimateBox svg {
-  color: #10b981;
+  color: #2563eb;
   margin-top: 0.125rem;
   flex-shrink: 0;
 }
@@ -356,16 +356,16 @@
 .estimateBox strong {
   display: block;
   margin-bottom: 0.5rem;
-  color: #166534;
+  color: #1e40af;
 }
 
 .estimateBox p {
   margin: 0 0 0.75rem 0;
-  color: #166534;
+  color: #1e40af;
 }
 
 .useEstimate {
-  background: #10b981;
+  background: #2563eb;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -376,7 +376,7 @@
 }
 
 .useEstimate:hover {
-  background: #059669;
+  background: #1d4ed8;
 }
 
 /* Étape optionnelle */
@@ -493,6 +493,9 @@
   line-height: 1.6;
 }
 
+/* Messages de succès en bleu pour le mode avancé */
+/* Style pour surcharger InfoBox.success dans le mode avancé */
+
 /* Styles pour les nouvelles classes */
 .timeInfo {
   margin-top: 1rem;
@@ -531,7 +534,7 @@
 }
 
 .useEstimate {
-  background: #10b981;
+  background: #2563eb;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -543,7 +546,7 @@
 }
 
 .useEstimate:hover {
-  background: #059669;
+  background: #1d4ed8;
 }
 
 .optionalStep {

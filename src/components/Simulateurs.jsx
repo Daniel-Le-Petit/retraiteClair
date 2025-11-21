@@ -205,7 +205,7 @@ const Simulateurs = () => {
     avance: {
       title: 'Mode avancé',
       tagline: 'Calcul complet en 5 étapes',
-      duration: '≈ 6 minutes',
+      duration: '≈ 5 minutes',
       fields: '9 champs détaillés'
     }
   };
@@ -241,14 +241,6 @@ const Simulateurs = () => {
           >
             {mode === 'simplifie' ? 'Passer au mode avancé' : 'Revenir au mode simplifié'}
           </button>
-        </div>
-
-        <div className={styles.modeHint}>
-          {mode === 'avance' && (
-            <>
-              Avancez pas à pas dans le formulaire détaillé. Vos données déjà saisies sont pré-remplies et vous pouvez revenir au mode simplifié à tout moment.
-            </>
-          )}
         </div>
         
         {/* Formulaire dynamique selon le mode */}

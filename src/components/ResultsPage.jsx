@@ -57,7 +57,7 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
-      <div className={styles.heroSection}>
+      <div className={`${styles.heroSection} ${mode === 'simplifie' ? styles.heroSectionSimplifie : styles.heroSectionAvance}`}>
         <div className={styles.heroContent}>
           <div className={styles.celebration}>
             🎉 Voici vos revenus en Retraite Progressive !

@@ -61,7 +61,10 @@ const ScenarioChart = ({ data }) => {
         <div className={styles.chartArea}>
           <div className={styles.bars}>
             {scenarios.map((scenario, index) => {
-              const height = ((scenario.totalNet - minValue) / (maxValue - minValue)) * 100;
+              // Calculer la hauteur proportionnelle au pourcentage de temps partiel
+              // 80% = 100% de hauteur, 40% = 50% de hauteur, etc.
+              const maxPercentage = 80;
+              const height = (scenario.percentage / maxPercentage) * 100;
               const getBarClass = (percentage) => {
                 switch (percentage) {
                   case 40: return styles.bar40;
