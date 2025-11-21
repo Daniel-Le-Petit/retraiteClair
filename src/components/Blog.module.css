@@ -382,6 +382,18 @@
 }
 
 @media (max-width: 480px) {
+  .header {
+    box-shadow: none !important;
+    border: none !important;
+    margin-bottom: 0 !important; /* Pas de margin-bottom sur très petits écrans */
+  }
+  
+  /* Supprimer l'espace entre le header et le premier bloc */
+  .searchSection {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
   .headerStats {
     flex-direction: column;
     gap: 1rem;

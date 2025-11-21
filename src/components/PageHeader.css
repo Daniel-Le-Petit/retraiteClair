@@ -72,7 +72,9 @@
   .page-header {
     padding: 1rem 0;
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0 !important; /* Pas de margin-bottom sur très petits écrans */
+    box-shadow: none !important;
+    border: none !important;
   }
   
   .page-header h1 {
