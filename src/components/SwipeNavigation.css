@@ -212,7 +212,7 @@
 
 /* Réduire les espaces des headers */
 .swipe-page .page-header {
-  padding: 30px 0 20px !important;
+  padding: 2rem 0 !important; /* Même padding que Simulateur Retraite Progressive */
   margin: 0 !important;
 }
 

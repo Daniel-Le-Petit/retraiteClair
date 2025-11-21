@@ -11,8 +11,13 @@ interface LegalPageLayoutProps {
 const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
-  // Masquer le background image quand on est sur une page légale
+  // Masquer le background image quand on est sur une page légale et scroll to top
   useEffect(() => {
+    // Scroll to top au chargement de la page légale
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
     const backgroundImage = document.querySelector('.background-image') as HTMLElement;
     const bodyElement = document.body;
     
@@ -98,7 +103,9 @@ const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ children }) => {
         onPageChange={handlePageChange}
       />
       <div className="legal-page-content">
-        {children}
+        <div className="legal-content-wrapper">
+          {children}
+        </div>
       </div>
       <Footer />
     </div>

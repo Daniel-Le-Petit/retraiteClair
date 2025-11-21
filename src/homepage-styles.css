@@ -15,7 +15,7 @@
 .homepage-header {
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  padding: 1.5rem 0;
+  padding: 2rem 0; /* Même padding que Simulateur Retraite Progressive */
   margin-top: 0;
   margin-bottom: 1.5rem;
   border-radius: 0 0 16px 16px;

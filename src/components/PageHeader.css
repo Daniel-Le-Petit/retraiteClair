@@ -3,7 +3,7 @@
 .page-header {
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  padding: 1.5rem 0; /* Exactement comme homepage-header */
+  padding: 2rem 0 !important; /* Même padding que Simulateur Retraite Progressive - !important pour override SwipeNavigation.css */
   margin-top: 0;
   margin-bottom: 1.5rem;
   border-radius: 0; /* Pas de border-radius en haut pour les pages légales */
@@ -11,6 +11,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box; /* S'assurer que le padding est inclus dans la largeur */
 }
 
 .page-header h1,
@@ -34,18 +35,20 @@
   color: white !important;
 }
 
-/* Container à l'intérieur du page-header - doit correspondre à homepage-header-content */
-.page-header .container {
-  text-align: center; /* Exactement comme homepage-header-content */
-  max-width: 800px; /* Exactement comme homepage-header-content */
-  margin: 0 auto; /* Exactement comme homepage-header-content */
-  padding: 0 1rem;
+/* Container à l'intérieur du page-header - doit correspondre exactement à headerContent du Simulateur */
+.page-header-content {
+  text-align: center; /* Exactement comme headerContent */
+  max-width: 800px; /* Exactement comme headerContent */
+  margin: 0 auto; /* Exactement comme headerContent */
+  padding: 0;
+  width: 100%; /* S'assurer que le conteneur prend toute la largeur disponible jusqu'à max-width */
+  box-sizing: border-box;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .page-header {
-    padding: 1.5rem 0;
+    padding: 2rem 0; /* Même padding que Simulateur Retraite Progressive */
     margin-top: 0;
     margin-bottom: 1rem;
     box-shadow: none; /* Comme homepage-header responsive */

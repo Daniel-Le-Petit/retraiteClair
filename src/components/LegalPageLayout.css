@@ -16,6 +16,21 @@
   margin-top: 0; /* Pas de margin-top */
 }
 
+/* Wrapper pour le contenu (comme .content dans Simulateurs) */
+.legal-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Le header doit être dans le wrapper pour avoir la même largeur que le Simulateur */
+.legal-content-wrapper > .page-header {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* Masquer le background image sur les pages légales */
 body.legal-page-active .background-image {
   display: none !important;

@@ -168,6 +168,11 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
     const handleLegalNavigation = (event) => {
       const { page } = event.detail || {};
       
+      // Scroll to top avant la navigation
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
       switch (page) {
         case 'mentions-legales':
           navigate('/mentions-legales');
@@ -181,6 +186,13 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
         default:
           console.log('Page légale non reconnue:', page);
       }
+      
+      // Scroll to top après la navigation (avec un petit délai pour s'assurer que le DOM est mis à jour)
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 100);
     };
 
     window.addEventListener('navigateToPage', handleNavigation);

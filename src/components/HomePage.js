@@ -428,7 +428,13 @@ const HomePage = () => {
               <ul className="footer-links">
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => navigate('/mentions-legales')}
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                    navigate('/mentions-legales');
+                    setTimeout(() => {
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                    }, 100);
+                  }}
                 >
                   Mentions légales
                 </button></li>
@@ -440,7 +446,13 @@ const HomePage = () => {
                 </button></li>
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => navigate('/politique-confidentialite')}
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                    navigate('/politique-confidentialite');
+                    setTimeout(() => {
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                    }, 100);
+                  }}
                 >
                   Politique de confidentialité
                 </button></li>

@@ -4,7 +4,7 @@ import './PageHeader.css';
 const PageHeader = ({ title, subtitle = '', backgroundImage = '' }) => {
   return (
     <div className="page-header">
-      <div className="container">
+      <div className="page-header-content">
         <h1>{title}</h1>
         {subtitle && <p className="page-subtitle">{subtitle}</p>}
       </div>
