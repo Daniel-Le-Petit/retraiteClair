@@ -28,6 +28,18 @@
     border: none !important;
     margin-bottom: 0 !important; /* Pas de margin-bottom sur mobile pour éviter la ligne */
   }
+  
+  /* Supprimer l'espace entre le header et le premier bloc */
+  .homepage-header + .simulation-cards,
+  .homepage-header ~ .simulation-cards {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Ajuster le padding du premier bloc sur mobile */
+  .simulation-cards {
+    padding-top: 0 !important;
+  }
 }
 
 .homepage-header-content {
