@@ -30,7 +30,9 @@
 
 @media (max-width: 768px) {
   .header {
-    box-shadow: none;
+    box-shadow: none !important;
+    border: none !important;
+    margin-bottom: 0 !important; /* Pas de margin-bottom sur mobile pour éviter la ligne */
   }
 }
 

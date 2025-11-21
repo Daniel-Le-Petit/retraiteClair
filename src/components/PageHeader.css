@@ -50,8 +50,9 @@
   .page-header {
     padding: 2rem 0; /* Même padding que Simulateur Retraite Progressive */
     margin-top: 0;
-    margin-bottom: 1rem;
-    box-shadow: none; /* Comme homepage-header responsive */
+    margin-bottom: 0; /* Pas de margin-bottom sur mobile pour éviter la ligne */
+    box-shadow: none !important; /* Supprimer complètement le box-shadow sur mobile */
+    border: none !important; /* S'assurer qu'il n'y a pas de border */
   }
   
   .page-header h1 {
