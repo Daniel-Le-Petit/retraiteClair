@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, CheckCircle, ExternalLink, Clock, User, Briefcase, PiggyBank, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle, Clock, User, Briefcase, PiggyBank, Plus } from 'lucide-react';
 import InputField from './InputField';
 import InfoBox from './InfoBox';
 import styles from './AvanceFormMultiStep.module.css';

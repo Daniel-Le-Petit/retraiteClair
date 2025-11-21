@@ -7,7 +7,7 @@ const SEOHead = ({
   canonical = '',
   ogImage = "https://retraiteclair.onrender.com/og-image.svg"
 }) => {
-  const baseUrl = "https://retraiteclair.onrender.com";
+  // const baseUrl = "https://retraiteclair.onrender.com";
   // const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
 
   // Temporairement désactivé pour éviter l'erreur HelmetDispatcher

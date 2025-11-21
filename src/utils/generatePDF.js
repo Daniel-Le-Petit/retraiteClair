@@ -8,14 +8,14 @@ export const generateSimulationPDF = (simulationData) => {
   const secondaryColor = [16, 185, 129];
   const grayColor = [107, 114, 128];
   
-  // Fonction de formatage personnalisée - format avec espaces insécables
-  const formatCurrency = (amount) => {
-    const rounded = Math.round(amount);
-    const str = rounded.toString();
-    // Utiliser des espaces insécables (caractère Unicode \u00A0) qui ne seront pas coupés
-    const formatted = str.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
-    return formatted + '\u00A0€'; // Espace insécable aussi avant le symbole
-  };
+  // Fonction de formatage personnalisée - format avec espaces insécables (non utilisée, formatCurrencyCompact utilisé à la place)
+  // const formatCurrency = (amount) => {
+  //   const rounded = Math.round(amount);
+  //   const str = rounded.toString();
+  //   // Utiliser des espaces insécables (caractère Unicode \u00A0) qui ne seront pas coupés
+  //   const formatted = str.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0');
+  //   return formatted + '\u00A0€'; // Espace insécable aussi avant le symbole
+  // };
   
   // Format compact SANS espaces pour éviter absolument les coupures dans jsPDF
   const formatCurrencyCompact = (amount) => {

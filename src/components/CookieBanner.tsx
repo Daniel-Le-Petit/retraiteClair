@@ -3,7 +3,6 @@ import styles from './CookieBanner.module.css';
 
 const CookieBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
-  const [consentGiven, setConsentGiven] = useState(false);
 
   useEffect(() => {
     // Check if user has already given consent
@@ -20,7 +19,6 @@ const CookieBanner = () => {
       if (new Date(consentDate) < thirteenMonthsAgo) {
         setShowBanner(true);
       } else {
-        setConsentGiven(consent === 'accepted' || consent === 'true');
         // If consent was given, load analytics
         if (consent === 'accepted' || consent === 'true') {
           loadAnalytics();
@@ -31,11 +29,9 @@ const CookieBanner = () => {
     // Listen for consent changes from the HTML banner
     const handleConsentChange = (event) => {
       if (event.detail.accepted) {
-        setConsentGiven(true);
         setShowBanner(false);
         loadAnalytics();
       } else {
-        setConsentGiven(false);
         setShowBanner(false);
       }
     };
@@ -66,7 +62,6 @@ const CookieBanner = () => {
     localStorage.setItem('retraiteClair_cookieConsentDate', consentDate);
     localStorage.setItem('consent-given', 'true');
     localStorage.setItem('consent-date', consentDate);
-    setConsentGiven(true);
     setShowBanner(false);
     loadAnalytics();
     
@@ -88,7 +83,6 @@ const CookieBanner = () => {
     localStorage.setItem('retraiteClair_cookieConsentDate', consentDate);
     localStorage.setItem('consent-given', 'false');
     localStorage.setItem('consent-date', consentDate);
-    setConsentGiven(false);
     setShowBanner(false);
     
     // Revoke consent for analytics

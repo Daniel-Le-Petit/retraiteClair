@@ -50,9 +50,9 @@ const ScenarioChart = ({ data }) => {
   // Calcul des scénarios pour différents temps partiels (ordre croissant : 40% → 80%)
   const scenarios = [40, 50, 60, 70, 80].map(calculateScenario);
 
-  // Trouver les valeurs min/max pour l'échelle
-  const maxValue = Math.max(...scenarios.map(s => s.totalNet));
-  const minValue = Math.min(...scenarios.map(s => s.totalNet));
+  // Trouver les valeurs min/max pour l'échelle (pour usage futur)
+  // const maxValue = Math.max(...scenarios.map(s => s.totalNet));
+  // const minValue = Math.min(...scenarios.map(s => s.totalNet));
 
   return (
     <div className={styles.chartContainer}>

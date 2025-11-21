@@ -118,33 +118,33 @@ const HomePage = () => {
     }
   ];
 
-  // FAQ data
-  const faqData = [
-    {
-      question: "Qu'est-ce que la retraite progressive ?",
-      answer: "La retraite progressive est un dispositif qui vous permet de travailler à temps partiel tout en percevant une partie de votre pension de retraite. C'est une transition en douceur vers la retraite complète."
-    },
-    {
-      question: "Suis-je éligible ?",
-      answer: "Vous devez avoir au moins 60 ans (ou 55 ans dans certains cas), justifier d'au moins 150 trimestres validés, et obtenir l'accord de votre employeur pour un temps partiel entre 40% et 80%."
-    },
-    {
-      question: "Combien vais-je toucher ?",
-      answer: "Vos revenus dépendent de votre salaire partiel, de votre pension calculée selon vos trimestres validés, et du pourcentage d'activité choisi. Utilisez notre simulateur pour une estimation précise."
-    },
-    {
-      question: "Puis-je ajuster mon temps partiel ?",
-      answer: "Oui, vous pouvez modifier votre temps partiel, mais cela nécessite un nouvel accord avec votre employeur et une nouvelle demande à l'Assurance Retraite."
-    },
-    {
-      question: "Comment faire ma demande ?",
-      answer: "Vous devez faire votre demande 4 mois avant la date souhaitée. Rassemblez vos documents (relevé de carrière, accord employeur) et contactez l'Assurance Retraite."
-    },
-    {
-      question: "La retraite progressive impacte-t-elle ma pension finale ?",
-      answer: "Non, la retraite progressive n'affecte pas le montant de votre pension à taux plein. Elle vous permet simplement de la percevoir partiellement pendant votre activité."
-    }
-  ];
+  // FAQ data - utilisé dans FAQSection component (importé depuis data/data.js)
+  // const faqData = [
+  //   {
+  //     question: "Qu'est-ce que la retraite progressive ?",
+  //     answer: "La retraite progressive est un dispositif qui vous permet de travailler à temps partiel tout en percevant une partie de votre pension de retraite. C'est une transition en douceur vers la retraite complète."
+  //   },
+  //   {
+  //     question: "Suis-je éligible ?",
+  //     answer: "Vous devez avoir au moins 60 ans (ou 55 ans dans certains cas), justifier d'au moins 150 trimestres validés, et obtenir l'accord de votre employeur pour un temps partiel entre 40% et 80%."
+  //   },
+  //   {
+  //     question: "Combien vais-je toucher ?",
+  //     answer: "Vos revenus dépendent de votre salaire partiel, de votre pension calculée selon vos trimestres validés, et du pourcentage d'activité choisi. Utilisez notre simulateur pour une estimation précise."
+  //   },
+  //   {
+  //     question: "Puis-je ajuster mon temps partiel ?",
+  //     answer: "Oui, vous pouvez modifier votre temps partiel, mais cela nécessite un nouvel accord avec votre employeur et une nouvelle demande à l'Assurance Retraite."
+  //   },
+  //   {
+  //     question: "Comment faire ma demande ?",
+  //     answer: "Vous devez faire votre demande 4 mois avant la date souhaitée. Rassemblez vos documents (relevé de carrière, accord employeur) et contactez l'Assurance Retraite."
+  //   },
+  //   {
+  //     question: "La retraite progressive impacte-t-elle ma pension finale ?",
+  //     answer: "Non, la retraite progressive n'affecte pas le montant de votre pension à taux plein. Elle vous permet simplement de la percevoir partiellement pendant votre activité."
+  //   }
+  // ];
 
   // Smooth scroll to section
   // Handle scroll to update active section
@@ -167,7 +167,7 @@ const HomePage = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   return (
     <div className="homepage">

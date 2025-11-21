@@ -4,9 +4,7 @@ import {
   Calculator, 
   BookOpen, 
   CheckCircle, 
-  User,
-  MessageSquare,
-  ChevronRight
+  MessageSquare
 } from 'lucide-react';
 
 const HorizontalNavigation = ({ currentPage, onPageChange }) => {
@@ -59,7 +57,7 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
         setActiveIndex(currentIndex);
       }
     }
-  }, [currentPage]);
+  }, [currentPage, navigationItems]);
 
   const handleNavigation = (item, index) => {
     setActiveIndex(index);

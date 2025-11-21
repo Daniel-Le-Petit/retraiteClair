@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { blogCategories } from '../data/data';
 import styles from './ArticleCard.module.css';
 

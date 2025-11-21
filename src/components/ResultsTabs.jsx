@@ -3,17 +3,9 @@ import ResultsPage from './ResultsPage';
 import styles from './ResultsTabs.module.css';
 
 const ResultsTabs = ({ data, mode, onScenarioChange }) => {
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+    // Mobile detection removed - using CSS media queries instead
+    // No cleanup needed
   }, []);
 
   return (

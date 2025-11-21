@@ -33,7 +33,6 @@ const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ children }) => {
     bodyElement.classList.add('legal-page-active');
     
     // Forcer le background blanc sur le body et html
-    const originalBodyBg = bodyElement.style.backgroundColor;
     bodyElement.style.setProperty('background-color', '#ffffff', 'important');
     document.documentElement.style.setProperty('background-color', '#ffffff', 'important');
     

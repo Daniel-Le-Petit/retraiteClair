@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { faqs } from '../data/data';
 import styles from './FAQSection.module.css';
 
