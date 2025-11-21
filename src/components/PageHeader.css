@@ -3,12 +3,14 @@
 .page-header {
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  padding: 2rem 0;
-  text-align: center;
+  padding: 1.5rem 0; /* Exactement comme homepage-header */
   margin-top: 0;
   margin-bottom: 1.5rem;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0; /* Pas de border-radius en haut pour les pages légales */
   box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .page-header h1,
@@ -18,26 +20,25 @@
 
 .page-header h1 {
   color: white !important;
-}
-
-.page-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 2rem; /* Exactement comme homepage-title */
+  font-weight: 700; /* Exactement comme homepage-title */
+  margin-bottom: 0.5rem; /* Exactement comme homepage-title */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Exactement comme homepage-title */
 }
 
 .page-subtitle {
-  font-size: 1rem;
-  opacity: 0.9;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.5;
+  font-size: 1rem; /* Exactement comme homepage-subtitle */
+  opacity: 0.9; /* Exactement comme homepage-subtitle */
+  margin-bottom: 0; /* Exactement comme homepage-subtitle */
+  line-height: 1.5; /* Exactement comme homepage-subtitle */
+  color: white !important;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Container à l'intérieur du page-header - doit correspondre à homepage-header-content */
+.page-header .container {
+  text-align: center; /* Exactement comme homepage-header-content */
+  max-width: 800px; /* Exactement comme homepage-header-content */
+  margin: 0 auto; /* Exactement comme homepage-header-content */
   padding: 0 1rem;
 }
 
@@ -47,6 +48,7 @@
     padding: 1.5rem 0;
     margin-top: 0;
     margin-bottom: 1rem;
+    box-shadow: none; /* Comme homepage-header responsive */
   }
   
   .page-header h1 {

@@ -3,6 +3,8 @@ import { Eye, Settings, ArrowRight } from 'lucide-react';
 import PageHeader from './PageHeader';
 import SimulatorNavigation from './SimulatorNavigation';
 import { useGA4 } from '../hooks/useGA4';
+import { validateSimplifiedForm, validateAdvancedForm } from '../utils/validation';
+import { logCalculation } from '../utils/calculationLogger';
 import './SimulatorNavigation.css';
 
 const CalculateurAvance = () => {
@@ -122,35 +124,51 @@ const CalculateurAvance = () => {
   };
 
   const validateForResults = () => {
-    if (simulationMode === 'simplified') {
-      if (!formData.salaireBrut) {
-        setValidationError('Vous devez entrer le "Salaire brut mensuel"');
-        return false;
+    try {
+      if (simulationMode === 'simplified') {
+        const age = formData.anneeNaissance ? new Date().getFullYear() - parseInt(formData.anneeNaissance) : 60;
+        const validationResult = validateSimplifiedForm({
+          salaireBrut: parseFloat(formData.salaireBrut) || 0,
+          tempsPartiel: parseFloat(formData.tempsPartiel) || 60,
+          age: age
+        });
+        
+        if (!validationResult.success) {
+          const errorMessages = validationResult.errors.map(e => e.message).join(', ');
+          setValidationError(`Erreur de validation : ${errorMessages}`);
+          return false;
+        }
+        
+        if (!formData.debutRetraite) {
+          setValidationError('Vous devez sélectionner une date de début de retraite progressive');
+          return false;
+        }
+      } else {
+        const age = formData.anneeNaissance ? new Date().getFullYear() - parseInt(formData.anneeNaissance) : 60;
+        const validationResult = validateAdvancedForm({
+          salaireBrut: parseFloat(formData.salaireBrut) || 0,
+          tempsPartiel: parseFloat(formData.tempsPartiel) || 60,
+          age: age,
+          trimestres: parseInt(formData.trimestresValides) || 0,
+          sam: formData.salaireAnnuelMoyen ? parseFloat(formData.salaireAnnuelMoyen) : undefined,
+          pensionComplete: formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : undefined,
+          revenusComplementaires: undefined
+        });
+        
+        if (!validationResult.success) {
+          const errorMessages = validationResult.errors.map(e => e.message).join(', ');
+          setValidationError(`Erreur de validation : ${errorMessages}`);
+          return false;
+        }
       }
       
-      if (!formData.debutRetraite) {
-        setValidationError('Vous devez sélectionner une date de début de retraite progressive');
-        return false;
-      }
-    } else {
-      if (!formData.salaireAnnuelMoyen) {
-        setValidationError('Vous devez entrer le "Salaire annuel moyen"');
-        return false;
-      }
-      
-      if (!formData.anneeNaissance) {
-        setValidationError('Vous devez entrer votre "Année de naissance"');
-        return false;
-      }
-      
-      if (!formData.trimestresValides) {
-        setValidationError('Vous devez entrer le "Nombre de trimestres validés"');
-        return false;
-      }
+      setValidationError('');
+      return true;
+    } catch (error) {
+      setValidationError('Une erreur est survenue lors de la validation. Veuillez réessayer.');
+      console.error('Validation error:', error);
+      return false;
     }
-    
-    setValidationError('');
-    return true;
   };
 
   // Fonction pour vérifier si l'étape Résultats est accessible
@@ -220,17 +238,40 @@ const CalculateurAvance = () => {
         modeCalcul = 'simplifie';
       }
 
+      const totalNet = salairePartiel + pensionProgressive;
+      
       setResultats({
         salaireActuel: salaireBrut,
         salaireNet: salaireBrut * 0.77,
         salairePartiel: salairePartiel,
         pensionProgressive: pensionProgressive,
         pensionComplete: pensionComplete,
-        revenuTotal: salairePartiel + pensionProgressive,
+        revenuTotal: totalNet,
         revenuApresRetraite: pensionComplete,
         tempsPartiel: tempsPartiel,
         modeCalcul: modeCalcul,
         pensionFournie: formData.pensionEstimee ? parseFloat(formData.pensionEstimee) : null
+      });
+      
+      // Log calculation for audit (no personal data)
+      const formulaVersion = process.env.REACT_APP_FORMULA_VERSION || '1.0.0';
+      logCalculation({
+        timestamp: new Date().toISOString(),
+        mode: modeCalcul,
+        parameters: {
+          tempsPartiel: tempsPartiel,
+          age: formData.anneeNaissance ? new Date().getFullYear() - parseInt(formData.anneeNaissance) : null,
+          hasTrimestres: !!formData.trimestresValides,
+          hasSam: !!formData.salaireAnnuelMoyen,
+          hasPensionComplete: !!formData.pensionEstimee,
+          hasRevenusComplementaires: false
+        },
+        results: {
+          totalNet: Math.round(totalNet),
+          salaireNetTempsPartiel: Math.round(salairePartiel),
+          pensionProgressiveNet: Math.round(pensionProgressive)
+        },
+        formulaVersion: formulaVersion
       });
     }
   }, [formData, maintienCotisation100, showAdvancedMode]);

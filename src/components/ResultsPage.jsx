@@ -5,6 +5,7 @@ import FiscalImpact from './FiscalImpact';
 import ScenarioChart from './ScenarioChart';
 import PostResultsActions from './PostResultsActions';
 import AnimatedAmount from './AnimatedAmount';
+import CalculationDetails from './CalculationDetails';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
@@ -203,6 +204,26 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
           />
         )}
       </div>
+
+      {/* Détail du calcul */}
+      {data && (
+        <div className={styles.calculationDetailsSection}>
+          <CalculationDetails 
+            calculationData={{
+              salaireBrutTempsPlein: data.revenusBruts?.tempsPlein || 0,
+              tempsPartiel: data.details?.tempsPartiel || 0,
+              salaireBrutTempsPartiel: (data.revenusBruts?.tempsPlein || 0) * ((data.details?.tempsPartiel || 0) / 100),
+              salaireNetTempsPartiel: data.revenusNets?.tempsPartiel || 0,
+              pensionProgressiveBrut: data.revenusBruts?.pension || 0,
+              pensionProgressiveNet: data.revenusNets?.pension || 0,
+              totalNet: data.revenusNets?.total || 0,
+              revenusComplementaires: data.revenusNets?.revenusComplementaires || 0,
+              impactFiscal: data.impactFiscal
+            }}
+            formulaVersion={process.env.REACT_APP_FORMULA_VERSION || '1.0.0'}
+          />
+        </div>
+      )}
 
       {/* Actions post-résultats */}
       <PostResultsActions 

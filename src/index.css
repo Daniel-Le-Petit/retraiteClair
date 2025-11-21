@@ -44,6 +44,10 @@ body::before {
 .homepage {
   min-height: 100vh;
   background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  margin-top: -80px; /* Compenser le padding-top du swipe-navigation-content */
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
 }
 
 /* Header Hero */
@@ -54,6 +58,8 @@ body::before {
   text-align: center;
   position: relative;
   overflow: hidden;
+  margin-top: 0 !important;
+  border-radius: 0; /* Pas de border-radius en haut */
 }
 
 .homepage-content {

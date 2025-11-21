@@ -1,19 +1,22 @@
 import React from 'react';
 import SEOHead from './SEOHead';
 import PageHeader from './PageHeader';
+import LegalPageLayout from './LegalPageLayout';
 
 const ConditionsUtilisation = () => {
   return (
-    <>
+    <LegalPageLayout>
       <SEOHead 
         title="Conditions d'utilisation - RetraiteClair"
         description="Conditions d'utilisation du site RetraiteClair - Règles d'usage du simulateur et des services."
         keywords="conditions utilisation, retraiteclair, simulateur, règles usage"
+        canonical="/conditions-utilisation"
       />
       
       <PageHeader 
         title="Conditions d'utilisation"
         subtitle="Règles d'usage du site RetraiteClair"
+        backgroundImage=""
       />
       
       <div className="legal-content">
@@ -143,7 +146,7 @@ const ConditionsUtilisation = () => {
           </div>
         </div>
       </div>
-    </>
+    </LegalPageLayout>
   );
 };
 

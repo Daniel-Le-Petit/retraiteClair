@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import HomePage from './HomePage';
 import Simulateurs from './Simulateurs';
@@ -8,15 +8,18 @@ import GuidePratique from './GuidePratique';
 import Contact from './Contact';
 import HorizontalNavigation from './HorizontalNavigation';
 import BlogPostViewer from './Blog/BlogPostViewer';
-import MentionsLegales from './MentionsLegales';
-import PolitiqueConfidentialite from './PolitiqueConfidentialite';
+import MentionsLegales from '../pages/mentions-legales';
+import PolitiqueConfidentialite from '../pages/politique-confidentialite';
 import ConditionsUtilisation from './ConditionsUtilisation';
+import Footer from './Footer';
+import CookieBanner from './CookieBanner';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
 
 const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
   const { trackPageView } = useGA4();
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentArticle, setCurrentArticle] = useState(initialArticle);
 
@@ -167,13 +170,13 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       
       switch (page) {
         case 'mentions-legales':
-          window.location.href = '/mentions-legales';
+          navigate('/mentions-legales');
           break;
         case 'politique-confidentialite':
-          window.location.href = '/politique-confidentialite';
+          navigate('/politique-confidentialite');
           break;
         case 'conditions-utilisation':
-          window.location.href = '/conditions-utilisation';
+          navigate('/conditions-utilisation');
           break;
         default:
           console.log('Page légale non reconnue:', page);
@@ -204,13 +207,32 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       window.removeEventListener('navigateToArticle', handleArticleNavigation);
       window.removeEventListener('backToBlog', handleBackToBlog);
     };
-  }, [navigateToPage]);
+  }, [navigateToPage, navigate]);
 
   // Tracking GA4 au chargement
   useEffect(() => {
     const currentPage = pages[currentIndex];
     trackPageView(currentPage.gaTitle, currentPage.gaPath);
   }, [currentIndex, trackPageView, pages]);
+
+  // Masquer le background image pour toutes les pages principales
+  useEffect(() => {
+    const backgroundImage = document.querySelector('.background-image');
+    
+    if (backgroundImage) {
+      backgroundImage.style.setProperty('display', 'none', 'important');
+      backgroundImage.style.setProperty('visibility', 'hidden', 'important');
+      backgroundImage.style.setProperty('opacity', '0', 'important');
+    }
+    
+    // Forcer un background propre
+    document.body.style.setProperty('background-color', '#ffffff', 'important');
+    document.documentElement.style.setProperty('background-color', '#ffffff', 'important');
+    
+    return () => {
+      // Optionnel : restaurer si nécessaire
+    };
+  }, [currentIndex, currentArticle]);
 
   // Rendu de la page actuelle
   const CurrentPageComponent = pages[currentIndex].component;
@@ -227,12 +249,15 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
         }}
       />
       
-      <div className="page-container">
-        {currentArticle ? (
-          <BlogPostViewer articleSlug={currentArticle.slug} />
-        ) : (
-          <CurrentPageComponent />
-        )}
+      <div className="swipe-navigation-content">
+        <div className="page-container">
+          {currentArticle ? (
+            <BlogPostViewer articleSlug={currentArticle.slug} />
+          ) : (
+            <CurrentPageComponent />
+          )}
+        </div>
+        <Footer />
       </div>
     </div>
   );
@@ -261,31 +286,35 @@ const SwipeNavigationWrapper = () => {
 // Composant principal avec Routes pour les redirections
 const AppContent = () => {
   return (
-    <Routes>
-      {/* Redirections des anciennes URLs */}
-      <Route path="/pourquoi-retraiteclair" element={<Navigate to="/" replace />} />
-      <Route path="/mon-parcours" element={<Navigate to="/contact" replace />} />
-      <Route path="/calculez-vos-revenus" element={<Navigate to="/simulateurs" replace />} />
-      <Route path="/conseils" element={<Navigate to="/blog" replace />} />
-      
-      {/* Routes principales */}
-      <Route path="/" element={<SwipeNavigation />} />
-      <Route path="/simulateurs" element={<SwipeNavigation />} />
-      <Route path="/blog" element={<SwipeNavigation />} />
-      <Route path="/guide-pratique" element={<SwipeNavigation />} />
-      <Route path="/contact" element={<SwipeNavigation />} />
-      
-      {/* Routes légales */}
-      <Route path="/mentions-legales" element={<MentionsLegales />} />
-      <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-      <Route path="/conditions-utilisation" element={<ConditionsUtilisation />} />
-      
-      {/* Routes pour les articles de blog */}
-      <Route path="/blog/:slug" element={<SwipeNavigationWrapper />} />
-      
-      {/* Route par défaut */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <CookieBanner />
+      <Routes>
+        {/* Redirections des anciennes URLs */}
+        <Route path="/pourquoi-retraiteclair" element={<Navigate to="/" replace />} />
+        <Route path="/mon-parcours" element={<Navigate to="/contact" replace />} />
+        <Route path="/calculez-vos-revenus" element={<Navigate to="/simulateurs" replace />} />
+        <Route path="/conseils" element={<Navigate to="/blog" replace />} />
+        
+        {/* Routes principales */}
+        <Route path="/" element={<SwipeNavigation />} />
+        <Route path="/simulateurs" element={<SwipeNavigation />} />
+        <Route path="/blog" element={<SwipeNavigation />} />
+        <Route path="/guide-pratique" element={<SwipeNavigation />} />
+        <Route path="/contact" element={<SwipeNavigation />} />
+        
+        {/* Routes légales */}
+        <Route path="/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+        <Route path="/conditions-utilisation" element={<ConditionsUtilisation />} />
+        
+        {/* Routes pour les articles de blog */}
+        <Route path="/blog/:slug" element={<SwipeNavigationWrapper />} />
+        
+        {/* Route par défaut */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* Footer supprimé d'ici car il est maintenant dans chaque page/composant */}
+    </>
   );
 };
 

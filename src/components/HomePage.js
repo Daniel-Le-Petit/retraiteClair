@@ -190,8 +190,8 @@ const HomePage = () => {
           <div className="simulation-card">
             <div className="card-image-container">
               <img 
-                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Femme détendue faisant du yoga sur une plage ensoleillée - Simulation simplifiée"
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                alt="Personne utilisant un ordinateur pour une simulation rapide - Simulation simplifiée"
                 className="card-image"
               />
               <div className="card-overlay">
@@ -428,7 +428,7 @@ const HomePage = () => {
               <ul className="footer-links">
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'mentions-legales' } }))}
+                  onClick={() => navigate('/mentions-legales')}
                 >
                   Mentions légales
                 </button></li>
@@ -440,17 +440,29 @@ const HomePage = () => {
                 </button></li>
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'politique-confidentialite' } }))}
+                  onClick={() => navigate('/politique-confidentialite')}
                 >
                   Politique de confidentialité
                 </button></li>
                 <li><button 
                   className="footer-legal-btn" 
-                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToLegalPage', { detail: { page: 'conditions-utilisation' } }))}
+                  onClick={() => navigate('/conditions-utilisation')}
                 >
                   Conditions d'utilisation
                 </button></li>
-                <li><button className="footer-cookie-btn">Gestion des cookies</button></li>
+                <li><button 
+                  className="footer-cookie-btn"
+                  onClick={() => {
+                    // Afficher le cookie banner si masqué
+                    const banner = document.querySelector('[class*="CookieBanner"]');
+                    if (banner) {
+                      banner.style.display = 'block';
+                      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  Gestion des cookies
+                </button></li>
               </ul>
             </div>
 

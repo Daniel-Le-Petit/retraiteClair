@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <!-- Google Analytics 4 (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9WF389CM13"></script>
+    <!-- Google Analytics 4 (GA4) - Chargé uniquement après consentement -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      // Ne charger Google Analytics que si le consentement a été donné
+      function loadGoogleAnalytics() {
+        if (typeof window.gtag === 'undefined') {
+          // Créer la fonction gtag avant de charger le script
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          
+          // Charger le script Google Analytics
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-9WF389CM13';
+          document.head.appendChild(script);
+          
+          // Configuration GA4
+          gtag('config', 'G-9WF389CM13', {
+            'send_page_view': true,
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+          });
+          
+          gtag('consent', 'grant', {
+            'analytics_storage': 'granted'
+          });
+        }
+      }
       
-      // Configuration GA4 avec consentement
-      gtag('config', 'G-9WF389CM13', {
-        'send_page_view': true,
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure'
-      });
-      
-      // Vérifier le consentement existant
-      const consent = localStorage.getItem('consent-given');
-      if (consent === 'true') {
-        gtag('consent', 'grant', {
-          'analytics_storage': 'granted'
-        });
+      // Vérifier le consentement existant au chargement
+      const existingConsent = localStorage.getItem('retraiteClair_cookieConsent') || localStorage.getItem('consent-given');
+      if (existingConsent === 'accepted' || existingConsent === 'true') {
+        loadGoogleAnalytics();
       } else {
+        // Initialiser gtag en mode refusé par défaut
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
         gtag('consent', 'default', {
           'analytics_storage': 'denied'
         });
@@ -97,32 +116,41 @@
     <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="sjDIWqfTOwIzYu1X9ru-AG5NHm7MVgLDU5SrvZ-onyM" />
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code - Chargé uniquement après consentement -->
     <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+      // Ne charger Meta Pixel que si le consentement a été donné
+      function loadMetaPixel() {
+        if (typeof window.fbq === 'undefined') {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          
+          // Initialiser Meta Pixel
+          fbq('init', '736513402739299', {
+            autoConfig: false,
+            debug: false
+          });
+          
+          fbq('set', 'autoConfig', false, '736513402739299');
+          fbq('consent', 'grant');
+          fbq('track', 'PageView');
+        }
+      }
       
-      // Initialiser Meta Pixel avec autoConfig désactivé pour éviter les doubles tracking
-      fbq('init', '736513402739299', {
-        autoConfig: false,
-        debug: false
-      });
-      
-      // Désactiver les événements automatiques pour un contrôle total
-      fbq('set', 'autoConfig', false, '736513402739299');
-      
-      // Vérifier le consentement avant de tracker
-      const consent = localStorage.getItem('consent-given');
-      if (consent === 'true') {
-        fbq('track', 'PageView');
+      // Vérifier le consentement existant au chargement
+      const existingConsent = localStorage.getItem('retraiteClair_cookieConsent') || localStorage.getItem('consent-given');
+      if (existingConsent === 'accepted' || existingConsent === 'true') {
+        loadMetaPixel();
       } else {
-        // Attendre le consentement
+        // Initialiser fbq en mode refusé par défaut
+        window.fbq = window.fbq || function() {
+          (window.fbq.q = window.fbq.q || []).push(arguments);
+        };
         fbq('consent', 'revoke');
       }
     </script>
@@ -223,11 +251,16 @@
     <script>
     // RGPD Consent Management
     function acceptCookies() {
+      localStorage.setItem('retraiteClair_cookieConsent', 'accepted');
+      localStorage.setItem('retraiteClair_cookieConsentDate', new Date().toISOString());
       localStorage.setItem('consent-given', 'true');
       localStorage.setItem('consent-date', new Date().toISOString());
       document.getElementById('consent-banner').style.display = 'none';
       
-      // Activer GA4
+      // Charger et activer GA4
+      if (typeof loadGoogleAnalytics === 'function') {
+        loadGoogleAnalytics();
+      }
       if (typeof gtag !== 'undefined') {
         gtag('consent', 'grant', {
           'analytics_storage': 'granted'
@@ -238,15 +271,23 @@
         console.log('GA4 consent granted and PageView tracked');
       }
       
-      // Activer Meta Pixel et tracker PageView
+      // Charger et activer Meta Pixel
+      if (typeof loadMetaPixel === 'function') {
+        loadMetaPixel();
+      }
       if (typeof fbq !== 'undefined') {
         fbq('consent', 'grant');
         fbq('track', 'PageView');
         console.log('Meta Pixel consent granted and PageView tracked');
       }
+      
+      // Déclencher l'événement pour le composant React CookieBanner
+      window.dispatchEvent(new CustomEvent('cookieConsentChanged', { detail: { accepted: true } }));
     }
 
     function declineCookies() {
+      localStorage.setItem('retraiteClair_cookieConsent', 'rejected');
+      localStorage.setItem('retraiteClair_cookieConsentDate', new Date().toISOString());
       localStorage.setItem('consent-given', 'false');
       localStorage.setItem('consent-date', new Date().toISOString());
       document.getElementById('consent-banner').style.display = 'none';
@@ -264,23 +305,34 @@
         fbq('consent', 'revoke');
         console.log('Meta Pixel consent revoked');
       }
+      
+      // Supprimer les cookies analytiques
+      document.cookie.split(";").forEach((c) => {
+        const cookieName = c.split("=")[0].trim();
+        if (cookieName.startsWith('_ga') || cookieName.startsWith('_gid') || cookieName.startsWith('_gat')) {
+          document.cookie = `${cookieName}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+        }
+      });
+      
+      // Déclencher l'événement pour le composant React CookieBanner
+      window.dispatchEvent(new CustomEvent('cookieConsentChanged', { detail: { accepted: false } }));
     }
 
     // Vérifier le consentement au chargement
     document.addEventListener('DOMContentLoaded', function() {
-      const consent = localStorage.getItem('consent-given');
-      const consentDate = localStorage.getItem('consent-date');
+      const consent = localStorage.getItem('retraiteClair_cookieConsent') || localStorage.getItem('consent-given');
+      const consentDate = localStorage.getItem('retraiteClair_cookieConsentDate') || localStorage.getItem('consent-date');
       
-      // Si pas de consentement ou consentement ancien (> 1 an), afficher la bannière
+      // Si pas de consentement ou consentement ancien (> 13 mois), afficher la bannière
       if (!consent || !consentDate) {
         document.getElementById('consent-banner').style.display = 'block';
       } else {
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        const thirteenMonthsAgo = new Date();
+        thirteenMonthsAgo.setMonth(thirteenMonthsAgo.getMonth() - 13);
         
-        if (new Date(consentDate) < oneYearAgo) {
+        if (new Date(consentDate) < thirteenMonthsAgo) {
           document.getElementById('consent-banner').style.display = 'block';
-        } else if (consent === 'false') {
+        } else if (consent === 'rejected' || consent === 'false') {
           // Désactiver GA4 et Meta Pixel si refusé
           if (typeof gtag !== 'undefined') {
             gtag('consent', 'revoke', {

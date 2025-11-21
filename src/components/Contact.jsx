@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { aboutContent, contactReasons } from '../data/data';
 import styles from './Contact.module.css';
 
@@ -11,6 +11,30 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Masquer le background image sur la page Contact
+  useEffect(() => {
+    const backgroundImage = document.querySelector('.background-image');
+    
+    if (backgroundImage) {
+      backgroundImage.style.setProperty('display', 'none', 'important');
+      backgroundImage.style.setProperty('visibility', 'hidden', 'important');
+      backgroundImage.style.setProperty('opacity', '0', 'important');
+    }
+    
+    // Forcer le background blanc
+    document.body.style.setProperty('background-color', '#f5f5f5', 'important');
+    
+    return () => {
+      // Restaurer le background quand on quitte la page
+      if (backgroundImage) {
+        backgroundImage.style.removeProperty('display');
+        backgroundImage.style.removeProperty('visibility');
+        backgroundImage.style.removeProperty('opacity');
+      }
+      document.body.style.removeProperty('background-color');
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

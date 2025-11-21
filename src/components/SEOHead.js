@@ -4,7 +4,7 @@ const SEOHead = ({
   title, 
   description, 
   keywords, 
-  canonical,
+  canonical = '',
   ogImage = "https://retraiteclair.onrender.com/og-image.svg"
 }) => {
   const baseUrl = "https://retraiteclair.onrender.com";

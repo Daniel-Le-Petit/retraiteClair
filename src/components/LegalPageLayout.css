@@ -1,0 +1,51 @@
+.legal-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  z-index: 10; /* Au-dessus du background */
+  background: #ffffff !important; /* Fond blanc pour les pages légales */
+}
+
+.legal-page-content {
+  flex: 1;
+  padding-top: 0; /* Pas de padding-top, le header sera collé */
+  width: 100%;
+  background: #ffffff !important; /* Fond blanc */
+  margin-top: 0; /* Pas de margin-top */
+}
+
+/* Masquer le background image sur les pages légales */
+body.legal-page-active .background-image {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+body.legal-page-active::before {
+  background: #ffffff !important;
+  opacity: 1 !important;
+}
+
+body.legal-page-active {
+  background: #ffffff !important;
+}
+
+/* S'assurer que le PageHeader dans les pages légales n'a pas d'espace en haut */
+.legal-page-content .page-header {
+  margin-top: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* S'assurer que le legal-content n'a pas d'espace en haut */
+.legal-page-content .legal-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .legal-page-content {
+    padding-top: 0;
+  }
+}
