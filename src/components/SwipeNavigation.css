@@ -430,13 +430,13 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 80px; /* Espace pour la barre de navigation */
+  padding-top: 60px !important; /* Espace pour la navigation fixed (60px de hauteur) */
 }
 
-/* Sur mobile, réduire le padding-top pour éviter l'espace */
+/* Sur mobile, la navigation peut avoir une hauteur différente */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
   .swipe-navigation-content {
-    padding-top: 60px !important; /* Réduire l'espace pour la barre de navigation sur mobile */
+    padding-top: 50px !important; /* Navigation plus petite sur mobile (50px) */
   }
 }
 
@@ -449,7 +449,8 @@
 
 .swipe-page,
 .page-container {
-  padding-top: 0; /* Plus besoin car le padding est sur le parent */
+  padding-top: 0 !important; /* FORCER padding-top à 0 */
+  margin-top: 0 !important; /* FORCER margin-top à 0 */
   flex: 1; /* Prend l'espace disponible */
   padding-bottom: 2rem; /* Espace en bas pour le footer */
   width: 100%;

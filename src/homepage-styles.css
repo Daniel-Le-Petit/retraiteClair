@@ -4,6 +4,14 @@
   min-height: 100vh;
   background: #f5f5f5;
   padding: 0;
+  margin-top: -60px !important; /* Compenser le padding-top de 60px du swipe-navigation-content */
+}
+
+/* Sur mobile, ajuster le margin-top pour compenser le padding réduit */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .homepage {
+    margin-top: -50px !important; /* Compenser le padding-top réduit (50px au lieu de 60px) */
+  }
 }
 
 .homepage-content {
