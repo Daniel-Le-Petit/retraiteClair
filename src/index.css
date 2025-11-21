@@ -29,7 +29,7 @@ body {
   }
 }
 
-/* RÈGLE GLOBALE ULTRA-AGRESSIVE pour supprimer l'espace entre header et premier bloc sur mobile/iPhone */
+/* RÈGLE GLOBALE ULTRA-AGRESSIVE avec marges négatives pour supprimer l'espace entre header et premier bloc sur mobile/iPhone */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
   /* Supprimer margin-bottom de TOUS les headers */
   header,
@@ -41,15 +41,12 @@ body {
     border: none !important;
   }
   
-  /* Supprimer margin-top et padding-top du premier élément après TOUS les headers */
+  /* APPROCHE RADICALE : Utiliser des marges négatives pour "coller" le premier élément au header */
   header + *,
   .header + *,
   .homepage-header + *,
-  [class*="header"] + *,
-  header ~ *:first-of-type,
-  .header ~ *:first-of-type,
-  .homepage-header ~ *:first-of-type {
-    margin-top: 0 !important;
+  [class*="header"] + * {
+    margin-top: -1.5rem !important; /* Marge négative pour compenser et coller au header */
     padding-top: 0 !important;
   }
   
@@ -58,18 +55,18 @@ body {
   .content > .header + *,
   .homepage-content > header + *,
   .homepage-content > .homepage-header + * {
-    margin-top: 0 !important;
+    margin-top: -1.5rem !important; /* Marge négative pour coller au header */
     padding-top: 0 !important;
   }
   
-  /* Cibler les sections spécifiques */
+  /* Cibler les sections spécifiques avec marges négatives */
   .modeToggleBar,
   .searchSection,
   .checklistSection,
   .aboutSection,
   .contactFormSection,
   .simulation-cards {
-    margin-top: 0 !important;
+    margin-top: -1.5rem !important; /* Marge négative pour coller au header */
     padding-top: 0 !important;
   }
 }

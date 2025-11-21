@@ -10,6 +10,16 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  padding-top: 0 !important; /* FORCER padding-top à 0 pour éviter tout espace */
+}
+
+/* APPROCHE RADICALE : Utiliser flexbox avec gap: 0 sur mobile pour supprimer TOUT espace */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .homepage-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important; /* FORCER gap à 0 pour supprimer tout espace entre les enfants */
+  }
 }
 
 /* Sur mobile, supprimer le padding-top du conteneur pour éviter l'espace après le header */
@@ -65,6 +75,28 @@
   margin-bottom: 1.5rem;
   border-radius: 0 0 16px 16px;
   box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+}
+
+/* APPROCHE RADICALE : Forcer margin-bottom à 0 et réduire le padding-bottom du header */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .homepage-header {
+    margin-bottom: 0 !important;
+    padding-bottom: 1rem !important; /* Réduire le padding-bottom sur mobile */
+    padding-top: 2rem !important; /* Garder le padding-top */
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Utiliser une marge négative sur le premier élément pour "coller" au header */
+  .homepage-content > .homepage-header + * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+  
+  .simulation-cards {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 }
 
 @media (max-width: 768px) {
