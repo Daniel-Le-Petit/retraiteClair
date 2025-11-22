@@ -189,3 +189,4 @@ Ajouter des tests unitaires pour vérifier que la validation Zod fonctionne corr
 - Le cookie banner bloque Google Analytics jusqu'à consentement. Assurez-vous que votre code GA respecte cela.
 
 
+

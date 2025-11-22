@@ -37,7 +37,7 @@ export const logCalculation = (logData: CalculationLog) => {
     }));
   } else {
     // In development, pretty print for debugging
-    console.log('📊 Calculation Log:', logData);
+    console.log('Calculation Log:', logData);
   }
 };
 

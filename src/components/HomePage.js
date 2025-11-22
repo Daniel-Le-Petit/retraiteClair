@@ -8,12 +8,6 @@ import {
   Euro,
   Calendar,
   Users,
-  Mail,
-  Linkedin,
-  Facebook,
-  Shield,
-  Lock,
-  MapPin,
   X
 } from 'lucide-react';
 import WhyChooseSection from './WhyChooseSection';
@@ -172,13 +166,31 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="homepage-content">
-        {/* Header intégré comme les autres pages */}
+        {/* Header avec layout 3 colonnes */}
         <header className="homepage-header">
-          <div className="homepage-header-content">
-            <h1 className="homepage-title">RetraiteClair</h1>
-            <p className="homepage-subtitle">
-              Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive
-            </p>
+          <div className="homepage-header-layout">
+            {/* Colonne gauche : RetraiteClair */}
+            <div className="homepage-header-left">
+              <p className="homepage-subtitle homepage-subtitle-large">RetraiteClair</p>
+            </div>
+            
+            {/* Colonne centre : Image */}
+            <div className="homepage-header-center">
+              <div className="homepage-header-image-container">
+                <img 
+                  src="/images/homepage-hero-couple.jpg" 
+                  alt="Couple souriant utilisant un smartphone"
+                  className="homepage-header-image"
+                />
+              </div>
+            </div>
+            
+            {/* Colonne droite : Sous-titre */}
+            <div className="homepage-header-right">
+              <p className="homepage-subtitle">
+                Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive
+              </p>
+            </div>
           </div>
         </header>
 
@@ -392,149 +404,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-grid">
-            {/* Bloc 1 — Logo et baseline */}
-            <div className="footer-section footer-brand">
-              <div className="footer-logo">
-                <h3>RetraiteClair</h3>
-                <p className="footer-baseline">Simplifiez votre départ à la retraite</p>
-              </div>
-              <p className="footer-description">
-                RetraiteClair vous aide à comprendre vos droits, simuler votre retraite progressive et optimiser vos choix grâce à des outils clairs et accessibles.
-              </p>
-            </div>
-
-            {/* Bloc 2 — Navigation */}
-            <div className="footer-section footer-nav">
-              <h4 className="footer-title">Navigation</h4>
-              <ul className="footer-links">
-                <li><a href="/">Accueil</a></li>
-                <li><a href="#definition">Qu'est-ce que c'est ?</a></li>
-                <li><a href="#eligibilite">Éligibilité</a></li>
-                <li><a href="#etapes">Étapes</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="/calculateur">Simulateur</a></li>
-                <li><a href="/contact">Mon parcours</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
-            </div>
-
-            {/* Bloc 3 — Informations légales */}
-            <div className="footer-section footer-legal">
-              <h4 className="footer-title">Informations légales</h4>
-              <ul className="footer-links">
-                <li><button 
-                  className="footer-legal-btn" 
-                  onClick={() => {
-                    window.scrollTo({ top: 0, behavior: 'auto' });
-                    navigate('/mentions-legales');
-                    setTimeout(() => {
-                      window.scrollTo({ top: 0, behavior: 'auto' });
-                    }, 100);
-                  }}
-                >
-                  Mentions légales
-                </button></li>
-                <li><button 
-                  className="footer-legal-btn" 
-                  onClick={() => window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }))}
-                >
-                  Mon parcours / Pourquoi RetraiteClair
-                </button></li>
-                <li><button 
-                  className="footer-legal-btn" 
-                  onClick={() => {
-                    window.scrollTo({ top: 0, behavior: 'auto' });
-                    navigate('/politique-confidentialite');
-                    setTimeout(() => {
-                      window.scrollTo({ top: 0, behavior: 'auto' });
-                    }, 100);
-                  }}
-                >
-                  Politique de confidentialité
-                </button></li>
-                <li><button 
-                  className="footer-legal-btn" 
-                  onClick={() => navigate('/conditions-utilisation')}
-                >
-                  Conditions d'utilisation
-                </button></li>
-                <li><button 
-                  className="footer-cookie-btn"
-                  onClick={() => {
-                    // Afficher le cookie banner si masqué
-                    const banner = document.querySelector('[class*="CookieBanner"]');
-                    if (banner) {
-                      banner.style.display = 'block';
-                      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  Gestion des cookies
-                </button></li>
-              </ul>
-            </div>
-
-            {/* Bloc 4 — Contact & réseaux */}
-            <div className="footer-section footer-contact">
-              <h4 className="footer-title">Contact</h4>
-              <div className="contact-info">
-                <div className="contact-item">
-                  <Mail size={16} />
-                  <button 
-                    className="footer-legal-btn" 
-                    onClick={() => {
-                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
-                      // Fallback si l'événement ne fonctionne pas
-                      setTimeout(() => {
-                        window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'contact' } }));
-                      }, 100);
-                    }}
-                  >
-                    retraiteclair@gmail.com
-                  </button>
-                </div>
-                <p className="contact-response">Une question ? Notre équipe vous répond sous 24 h.</p>
-              </div>
-              <div className="social-links">
-                <a href="https://linkedin.com/company/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn">
-                  <Linkedin size={20} />
-                </a>
-                <a href="https://www.facebook.com/retraiteclair" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook">
-                  <Facebook size={20} />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Bloc 5 — Crédit et droits */}
-          <div className="footer-bottom">
-            <div className="footer-credits">
-              <p>© 2025 RetraiteClair – Tous droits réservés</p>
-              <p className="footer-creator">Site conçu par l'équipe RetraiteClair avec l'aide de l'IA.</p>
-            </div>
-            
-            {/* Bloc 6 — Rassurance */}
-            <div className="footer-reassurance">
-              <div className="reassurance-item">
-                <Shield size={16} />
-                <span>Données 100% confidentielles</span>
-              </div>
-              <div className="reassurance-item">
-                <Lock size={16} />
-                <span>Aucune information transmise sans accord</span>
-              </div>
-              <div className="reassurance-item">
-                <MapPin size={16} />
-                <span>Service conçu en France</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Popup Modal */}
       {openPopup && (

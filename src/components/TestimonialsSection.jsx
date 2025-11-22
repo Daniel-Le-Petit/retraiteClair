@@ -7,7 +7,7 @@ const TestimonialsSection = () => {
     <section className={styles.container}>
       <div className={styles.content}>
         <h2 className={styles.title}>
-          📊 Nos utilisateurs adorent RetraiteClair
+          Nos utilisateurs adorent RetraiteClair
         </h2>
         
         <div className={styles.grid}>

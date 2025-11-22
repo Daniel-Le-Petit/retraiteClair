@@ -327,7 +327,7 @@ votre brut est environ 3850€`}
           <div className={styles.stepContent}>
             <InputField
               label="Nombre de trimestres validés"
-              icon="📊"
+              icon=""
               type="number"
               name="trimestres"
               value={formData.trimestres}
@@ -354,7 +354,7 @@ votre brut est environ 3850€`}
 
             <InputField
               label="SAM - Salaire Annuel Moyen"
-              icon="📊"
+              icon=""
               type="text"
               name="sam"
               value={formData.sam}

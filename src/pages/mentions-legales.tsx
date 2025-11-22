@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import PageHeader from '../components/PageHeader';
 import LegalPageLayout from '../components/LegalPageLayout';
 
 const MentionsLegales = () => {
+  const navigate = useNavigate();
   return (
     <LegalPageLayout>
       <SEOHead 
@@ -28,8 +30,8 @@ const MentionsLegales = () => {
             </p>
             <ul>
               <li><strong>Raison sociale :</strong> RetraiteClair – micro-entreprise</li>
-              <li><strong>SIRET :</strong> XXX XXX XXX XXXXX</li>
-              <li><strong>Adresse :</strong> 10 rue du Test, 75000 Paris</li>
+              <li><strong>SIRET :</strong> En cours...</li>
+              <li><strong>Adresse :</strong> 10, Cours de la liberté, 69003 Lyon</li>
               <li><strong>Email :</strong> contact@retraiteclair.fr</li>
             </ul>
           </div>
@@ -109,7 +111,8 @@ const MentionsLegales = () => {
               <li><strong>Formulaire de contact :</strong> <button 
                 className="footer-legal-btn" 
                 onClick={() => {
-                  window.location.href = '#/contact';
+                  window.scrollTo({ top: 0, behavior: 'auto' });
+                  navigate('/contact');
                 }}
               >
                 Page de contact

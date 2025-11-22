@@ -377,7 +377,7 @@ const ConseilsPageSimple = ({ onPageChange }) => {
 
         {/* Section Sources et hypothèses */}
         <div className="conseils-section">
-          <h3>📊 Sources et hypothèses de calcul</h3>
+          <h3>Sources et hypothèses de calcul</h3>
           <div className="conseils-grid">
             <div className="conseil-card">
               <div className="conseil-icon purple">

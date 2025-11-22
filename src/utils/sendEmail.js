@@ -38,7 +38,7 @@ export const sendSimulationEmail = async (recipientEmail, simulationData) => {
       minute: '2-digit'
     })}
 
-📊 VOS RÉSULTATS :
+VOS RÉSULTATS :
 
 💰 Revenu total net mensuel : ${formatCurrency(simulationData.revenusNets?.total || 0)}
 💼 Salaire temps partiel : ${formatCurrency(simulationData.revenusNets?.tempsPartiel || 0)}

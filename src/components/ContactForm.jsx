@@ -184,7 +184,7 @@ const ContactForm = () => {
           <div className="contact-info">
             <h3>Pourquoi nous contacter ?</h3>
             <ul>
-              <li>📊 <strong>Questions sur le simulateur</strong> : Vous avez des difficultés avec le calculateur de retraite progressive ?</li>
+              <li><strong>Questions sur le simulateur</strong> : Vous avez des difficultés avec le calculateur de retraite progressive ?</li>
               <li>💡 <strong>Suggestions d'amélioration</strong> : Vous souhaitez voir de nouvelles fonctionnalités ?</li>
               <li>🐛 <strong>Signalement de bugs</strong> : Vous avez rencontré un problème technique ?</li>
               <li>📚 <strong>Conseils personnalisés</strong> : Vous avez besoin d'aide personnalisée ?</li>

@@ -78,19 +78,136 @@
 .homepage-header {
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   color: white;
-  padding: 2rem 0; /* Même padding que Simulateur Retraite Progressive */
+  padding: 0;
   margin-top: 0;
-  margin-bottom: 1.5rem;
-  border-radius: 0 0 16px 16px;
-  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+  margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100%;
+  overflow: hidden;
 }
 
-/* APPROCHE RADICALE : Forcer margin-bottom à 0 et réduire le padding-bottom du header */
+.homepage-header-layout {
+  display: flex;
+  width: 100%;
+  min-height: 300px;
+  align-items: stretch;
+  gap: 0;
+}
+
+.homepage-header-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  border-right: none;
+  text-align: center;
+}
+
+.homepage-header-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+.homepage-header-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+  border-left: none;
+  text-align: center;
+}
+
+.homepage-header-image-container {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.homepage-header-image {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  display: block;
+  object-fit: cover;
+  object-position: center 60%;
+  position: relative;
+  z-index: 1;
+  /* Masque pour ne montrer que la zone centrale (personnages) et masquer le texte/fond */
+  mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 50%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 50%, transparent 75%);
+  filter: brightness(1.1) contrast(1.1) saturate(1.2);
+}
+
+/* Overlay blanc pour remplacer le fond de l'image */
+.homepage-header-image-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  pointer-events: none;
+  z-index: 0;
+  /* Le fond blanc sera visible là où l'image est masquée */
+}
+
+.homepage-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffffff !important;
+}
+
+.homepage-subtitle {
+  font-size: 1.4rem;
+  opacity: 0.95;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.homepage-subtitle-large {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+/* APPROCHE RADICALE : Forcer margin-bottom à 0 pour le header avec image */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
   .homepage-header {
     margin-bottom: 0 !important;
-    padding-bottom: 1rem !important; /* Réduire le padding-bottom sur mobile */
-    padding-top: 2rem !important; /* Garder le padding-top */
+    padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
   }
@@ -146,24 +263,111 @@
   }
 }
 
-.homepage-header-content {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+/* Styles pour le header - responsive */
+@media (max-width: 768px) {
+  .homepage-header-layout {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .homepage-header-left,
+  .homepage-header-center,
+  .homepage-header-right {
+    flex: none;
+    width: 100%;
+  }
+  
+  .homepage-header-left {
+    padding: 1.5rem;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .homepage-header-right {
+    padding: 1.5rem;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .homepage-header-center {
+    padding: 0;
+    min-height: 200px;
+  }
+  
+  .homepage-header-image-container {
+    min-height: 200px;
+  }
+  
+  .homepage-header-image {
+    min-height: 200px;
+  }
+  
+  .homepage-header-right {
+    display: none; /* Masquer la colonne droite sur mobile */
+  }
+  
+  .homepage-header-image {
+    max-height: none;
+    min-height: 200px;
+    object-fit: cover;
+    object-position: center 60%;
+    mask-image: radial-gradient(ellipse 75% 65% at center 65%, black 35%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 65% at center 65%, black 35%, transparent 65%);
+  }
+  
+  .homepage-title {
+    font-size: 2rem;
+  }
+  
+  .homepage-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .homepage-subtitle-large {
+    font-size: 2.5rem;
+  }
 }
 
-.homepage-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.homepage-subtitle {
-  font-size: 1rem;
-  opacity: 0.9;
-  margin-bottom: 0;
-  line-height: 1.5;
+@media (max-width: 480px) {
+  .homepage-header-left {
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .homepage-header-right {
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .homepage-header-center {
+    min-height: 180px;
+    padding: 0;
+  }
+  
+  .homepage-header-image-container {
+    min-height: 180px;
+  }
+  
+  .homepage-header-image {
+    min-height: 180px;
+    max-height: none;
+    mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 30%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 30%, transparent 60%);
+  }
+  
+  .homepage-title {
+    font-size: 1.75rem;
+  }
+  
+  .homepage-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .homepage-subtitle-large {
+    font-size: 2rem;
+  }
 }
 
 /* Sticky Navigation - Supprimée */
