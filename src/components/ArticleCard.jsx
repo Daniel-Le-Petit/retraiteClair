@@ -103,15 +103,15 @@ const ArticleCard = ({ article, featured = false, horizontal = false }) => {
     <article className={`${styles.card} ${featured ? styles.featured : ''}`}>
       <div className={styles.categoryTag} style={{ backgroundColor: categoryInfo.color }}>
         {categoryInfo.name}
-      </div>
+        </div>
       
       <div className={styles.cardContent}>
         <div className={styles.metaInfo}>
           <span className={styles.date}>{formatDate(article.date)}</span>
           <span className={styles.separator}>,</span>
           <span className={styles.readTime}>{article.readTime}</span>
-        </div>
-        
+      </div>
+      
         <h3 className={styles.title}>
           <button 
             className={styles.titleLink}
@@ -123,12 +123,12 @@ const ArticleCard = ({ article, featured = false, horizontal = false }) => {
         
         <p className={styles.excerpt}>{article.excerpt}</p>
         
-        <button 
-          className={styles.readMoreLink}
+          <button 
+            className={styles.readMoreLink}
           onClick={handleClick}
         >
           {isLinkedIn ? 'Lire sur LinkedIn →' : 'En savoir plus →'}
-        </button>
+          </button>
       </div>
     </article>
   );

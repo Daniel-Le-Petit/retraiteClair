@@ -172,6 +172,9 @@ const HomePage = () => {
             {/* Colonne gauche : RetraiteClair */}
             <div className="homepage-header-left">
               <p className="homepage-subtitle homepage-subtitle-large">RetraiteClair</p>
+              <p className="homepage-subtitle-small">
+                Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive
+              </p>
             </div>
             
             {/* Colonne centre : Image */}
