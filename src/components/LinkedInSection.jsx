@@ -5,10 +5,21 @@ import styles from './LinkedInSection.module.css';
 
 const LinkedInSection = () => {
   // Convertir les articles LinkedIn au format attendu par ArticleCard
-  const formattedArticles = linkedinArticles.map(article => ({
-    ...article,
-    category: article.category.toLowerCase().replace('é', 'e').replace('É', 'E')
-  }));
+  const formattedArticles = linkedinArticles.map(article => {
+    // Mapping des catégories LinkedIn vers les catégories du blog
+    const categoryMap = {
+      'Conseils': 'conseils',
+      'Actualités': 'actualites',
+      'Témoignages': 'temoignages',
+      'Réformes': 'reformes',
+      'Fiscalité': 'fiscalite'
+    };
+    
+    return {
+      ...article,
+      category: categoryMap[article.category] || article.category.toLowerCase()
+    };
+  });
 
   return (
     <section className={styles.linkedinSection}>

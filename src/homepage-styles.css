@@ -138,10 +138,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  padding: 0;
+  background: #0f766e; /* Fond vert RetraiteClair */
+  padding: 20px; /* Créer un cadre vert autour de l'image */
   overflow: hidden;
   position: relative;
+  border-radius: 12px; /* Coins arrondis pour le cadre */
+  box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3); /* Ombre pour donner de la profondeur */
 }
 
 .homepage-header-image {
@@ -153,6 +155,7 @@
   object-position: center 60%;
   position: relative;
   z-index: 1;
+  border-radius: 8px; /* Coins arrondis pour l'image */
   /* Masque pour ne montrer que la zone centrale (personnages) et masquer le texte/fond */
   mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 50%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at center 65%, black 50%, transparent 75%);
@@ -296,6 +299,7 @@
   
   .homepage-header-image-container {
     min-height: 200px;
+    padding: 15px; /* Cadre vert réduit sur mobile */
   }
   
   .homepage-header-image {
@@ -348,6 +352,7 @@
   
   .homepage-header-image-container {
     min-height: 180px;
+    padding: 12px; /* Cadre vert encore plus réduit sur très petits écrans */
   }
   
   .homepage-header-image {
@@ -1901,7 +1906,11 @@
   z-index: 10;
 }
 
-/* Masquer les indicateurs sur PC */
+/* Masquer les indicateurs sur PC et sur mobile */
+.cards-indicators {
+  display: none;
+}
+
 @media (min-width: 769px) {
   .cards-indicators {
     display: none;

@@ -139,36 +139,21 @@ const BlogList = () => {
               {filteredArticles.map(article => {
                 const categoryInfo = getCategoryInfo(article.category);
                 return (
-                  <article key={article.id} className="article-card">
+                <article key={article.id} className="article-card">
                     <div className="article-category-tag" style={{ backgroundColor: categoryInfo.color }}>
                       {categoryInfo.name}
+                  </div>
+                  
+                  <div className="article-content">
+                    <div className="article-meta">
+                      <span className="article-date">{formatDate(article.date)}</span>
+                        <span className="article-separator">,</span>
+                      <span className="article-read-time">{article.readTime}</span>
                     </div>
                     
-                    <div className="article-content">
-                      <div className="article-meta">
-                        <span className="article-date">{formatDate(article.date)}</span>
-                        <span className="article-separator">,</span>
-                        <span className="article-read-time">{article.readTime}</span>
-                      </div>
-                      
-                      <h2 className="article-title">
-                        <button 
-                          className="article-link"
-                          onClick={() => {
-                            // Navigation vers l'article
-                            window.dispatchEvent(new CustomEvent('navigateToArticle', { 
-                              detail: { article } 
-                            }));
-                          }}
-                        >
-                          {article.title}
-                        </button>
-                      </h2>
-                      
-                      <p className="article-excerpt">{article.excerpt}</p>
-                      
+                    <h2 className="article-title">
                       <button 
-                        className="read-more-btn"
+                        className="article-link"
                         onClick={() => {
                           // Navigation vers l'article
                           window.dispatchEvent(new CustomEvent('navigateToArticle', { 
@@ -176,10 +161,25 @@ const BlogList = () => {
                           }));
                         }}
                       >
-                        En savoir plus →
+                        {article.title}
                       </button>
-                    </div>
-                  </article>
+                    </h2>
+                    
+                    <p className="article-excerpt">{article.excerpt}</p>
+                    
+                    <button 
+                      className="read-more-btn"
+                      onClick={() => {
+                        // Navigation vers l'article
+                        window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                          detail: { article } 
+                        }));
+                      }}
+                    >
+                        En savoir plus →
+                    </button>
+                  </div>
+                </article>
                 );
               })}
             </div>

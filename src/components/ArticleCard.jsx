@@ -36,8 +36,12 @@ const ArticleCard = ({ article, featured = false, horizontal = false }) => {
 
   const categoryInfo = getCategoryInfo(article.category);
   
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (isLinkedIn && article.linkedinUrl) {
+      // Ouvrir le lien LinkedIn dans un nouvel onglet
       window.open(article.linkedinUrl, '_blank', 'noopener,noreferrer');
     } else {
       window.dispatchEvent(new CustomEvent('navigateToArticle', { 
