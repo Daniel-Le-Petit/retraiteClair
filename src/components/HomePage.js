@@ -184,13 +184,6 @@ const HomePage = () => {
                 />
               </div>
             </div>
-            
-            {/* Colonne droite : Sous-titre */}
-            <div className="homepage-header-right">
-              <p className="homepage-subtitle">
-                Simplifiez votre départ à la retraite avec notre simulateur de retraite progressive
-              </p>
-            </div>
           </div>
         </header>
 
