@@ -1,18 +1,14 @@
 import React from 'react';
 import { linkedinArticles } from '../data/linkedinArticles';
+import ArticleCard from './ArticleCard';
 import styles from './LinkedInSection.module.css';
 
 const LinkedInSection = () => {
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  const featuredArticles = linkedinArticles.filter(article => article.featured);
-  const regularArticles = linkedinArticles.filter(article => !article.featured);
+  // Convertir les articles LinkedIn au format attendu par ArticleCard
+  const formattedArticles = linkedinArticles.map(article => ({
+    ...article,
+    category: article.category.toLowerCase().replace('é', 'e').replace('É', 'E')
+  }));
 
   return (
     <section className={styles.linkedinSection}>
@@ -34,76 +30,17 @@ const LinkedInSection = () => {
           </a>
         </div>
 
-        {/* Articles mis en avant */}
-        {featuredArticles.length > 0 && (
-          <div className={styles.featuredSection}>
-            <h3 className={styles.sectionTitle}>Articles à la une</h3>
-            <div className={styles.featuredGrid}>
-              {featuredArticles.map((article) => (
-                <div key={article.id} className={styles.featuredCard}>
-                  <div className={styles.cardImage}>
-                    <img 
-                      src={article.image || '/images/linkedin-default.svg'} 
-                      alt={article.title}
-                      onError={(e) => {
-                        e.target.src = '/images/linkedin-default.svg';
-                      }}
-                    />
-                    <div className={styles.linkedinBadge}>
-                      LinkedIn
-                    </div>
-                  </div>
-                  <div className={styles.cardContent}>
-                    <div className={styles.cardMeta}>
-                      <span className={styles.date}>{formatDate(article.date)}</span>
-                      <span className={styles.readTime}>{article.readTime}</span>
-                      <span className={styles.category}>{article.category}</span>
-                    </div>
-                    <h4 className={styles.cardTitle}>{article.title}</h4>
-                    <p className={styles.cardExcerpt}>{article.excerpt}</p>
-                    <div className={styles.cardTags}>
-                      {article.tags.slice(0, 2).map(tag => (
-                        <span key={tag} className={styles.tag}>#{tag}</span>
-                      ))}
-                    </div>
-                    <a 
-                      href={article.linkedinUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.readMore}
-                    >
-                      Lire sur LinkedIn →
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Autres articles */}
-        {regularArticles.length > 0 && (
-          <div className={styles.regularSection}>
-            <h3 className={styles.sectionTitle}>Autres articles LinkedIn</h3>
-            <div className={styles.regularGrid}>
-              {regularArticles.map((article) => (
-                <div key={article.id} className={styles.regularCard}>
-                  <div className={styles.cardMeta}>
-                    <span className={styles.date}>{formatDate(article.date)}</span>
-                    <span className={styles.readTime}>{article.readTime}</span>
-                    <span className={styles.linkedinBadgeSmall}>LI</span>
-                  </div>
-                  <h4 className={styles.cardTitle}>{article.title}</h4>
-                  <p className={styles.cardExcerpt}>{article.excerpt}</p>
-                  <a 
-                    href={article.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.readMore}
-                  >
-                    Lire sur LinkedIn →
-                  </a>
-                </div>
+        {/* Articles LinkedIn avec design horizontal */}
+        {formattedArticles.length > 0 && (
+          <div className={styles.articlesContainer}>
+            <div className={styles.articlesGrid}>
+              {formattedArticles.map((article) => (
+                <ArticleCard 
+                  key={article.id} 
+                  article={article}
+                  featured={article.featured}
+                  horizontal={true}
+                />
               ))}
             </div>
           </div>

@@ -52,6 +52,16 @@
   box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
 }
 
+.articlesContainer {
+  margin-bottom: 3rem;
+}
+
+.articlesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
 .sectionTitle {
   font-size: 1.8rem;
   font-weight: 600;

@@ -86,6 +86,7 @@ const Blog = () => {
                   key={article.id} 
                   article={article}
                   featured={false}
+                  horizontal={true}
                 />
               ))}
             </div>

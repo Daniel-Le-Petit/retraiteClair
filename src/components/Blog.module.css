@@ -287,10 +287,19 @@
   margin-bottom: 2rem;
 }
 
+.featuredArticleContainer {
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Grille pour cartes horizontales - 1 colonne (1 article par ligne) */
 .articlesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
 /* === AUCUN RÉSULTAT === */

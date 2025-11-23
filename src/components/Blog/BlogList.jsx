@@ -35,11 +35,29 @@ const BlogList = () => {
 
   const categories = [
     { id: 'tous', name: 'Tous les articles', count: articles.length },
-    { id: 'guides', name: 'Guides', count: articles.filter(a => a.category === 'guides').length },
-    { id: 'conseils', name: 'Conseils', count: articles.filter(a => a.category === 'conseils').length },
-    { id: 'cas-etudes', name: 'Cas d\'Études', count: articles.filter(a => a.category === 'cas-etudes').length },
-    { id: 'actualites', name: 'Actualités', count: articles.filter(a => a.category === 'actualites').length }
+    { id: 'guides', name: 'GUIDES', count: articles.filter(a => a.category === 'guides').length },
+    { id: 'conseils', name: 'CONSEILS', count: articles.filter(a => a.category === 'conseils').length },
+    { id: 'cas-etudes', name: 'CAS D\'ÉTUDES', count: articles.filter(a => a.category === 'cas-etudes').length },
+    { id: 'actualites', name: 'ACTUALITÉS', count: articles.filter(a => a.category === 'actualites').length },
+    { id: 'fiscalite', name: 'FISCALITÉ', count: articles.filter(a => a.category === 'fiscalite').length },
+    { id: 'demarches', name: 'DÉMARCHES', count: articles.filter(a => a.category === 'demarches').length },
+    { id: 'temoignages', name: 'TÉMOIGNAGES', count: articles.filter(a => a.category === 'temoignages').length },
+    { id: 'reformes', name: 'RÉFORMES', count: articles.filter(a => a.category === 'reformes').length }
   ];
+
+  const getCategoryInfo = (categoryId) => {
+    const categoryMap = {
+      'guides': { name: 'GUIDES', color: '#10b981' }, // green
+      'conseils': { name: 'CONSEILS', color: '#10b981' }, // green
+      'cas-etudes': { name: 'CAS D\'ÉTUDES', color: '#3b82f6' }, // blue
+      'actualites': { name: 'ACTUALITÉS', color: '#3b82f6' }, // blue
+      'fiscalite': { name: 'FISCALITÉ', color: '#3b82f6' }, // blue
+      'demarches': { name: 'DÉMARCHES', color: '#10b981' }, // green
+      'temoignages': { name: 'TÉMOIGNAGES', color: '#10b981' }, // green
+      'reformes': { name: 'RÉFORMES', color: '#3b82f6' } // blue
+    };
+    return categoryMap[categoryId] || { name: categoryId.toUpperCase(), color: '#6b7280' };
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -118,30 +136,39 @@ const BlogList = () => {
         <div className="container">
           {filteredArticles.length > 0 ? (
             <div className="articles-grid">
-              {filteredArticles.map(article => (
-                <article key={article.id} className="article-card">
-                  <div className="article-image">
-                    <img 
-                      src={article.image} 
-                      alt={article.title}
-                      onError={(e) => {
-                        e.target.src = '/images/blog-default.jpg';
-                      }}
-                    />
-                    <div className="article-category">
-                      {categories.find(cat => cat.id === article.category)?.name}
-                    </div>
-                  </div>
-                  
-                  <div className="article-content">
-                    <div className="article-meta">
-                      <span className="article-date">{formatDate(article.date)}</span>
-                      <span className="article-read-time">{article.readTime}</span>
+              {filteredArticles.map(article => {
+                const categoryInfo = getCategoryInfo(article.category);
+                return (
+                  <article key={article.id} className="article-card">
+                    <div className="article-category-tag" style={{ backgroundColor: categoryInfo.color }}>
+                      {categoryInfo.name}
                     </div>
                     
-                    <h2 className="article-title">
+                    <div className="article-content">
+                      <div className="article-meta">
+                        <span className="article-date">{formatDate(article.date)}</span>
+                        <span className="article-separator">,</span>
+                        <span className="article-read-time">{article.readTime}</span>
+                      </div>
+                      
+                      <h2 className="article-title">
+                        <button 
+                          className="article-link"
+                          onClick={() => {
+                            // Navigation vers l'article
+                            window.dispatchEvent(new CustomEvent('navigateToArticle', { 
+                              detail: { article } 
+                            }));
+                          }}
+                        >
+                          {article.title}
+                        </button>
+                      </h2>
+                      
+                      <p className="article-excerpt">{article.excerpt}</p>
+                      
                       <button 
-                        className="article-link"
+                        className="read-more-btn"
                         onClick={() => {
                           // Navigation vers l'article
                           window.dispatchEvent(new CustomEvent('navigateToArticle', { 
@@ -149,32 +176,12 @@ const BlogList = () => {
                           }));
                         }}
                       >
-                        {article.title}
+                        En savoir plus →
                       </button>
-                    </h2>
-                    
-                    <p className="article-excerpt">{article.excerpt}</p>
-                    
-                    <div className="article-tags">
-                      {article.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="tag">#{tag}</span>
-                      ))}
                     </div>
-                    
-                    <button 
-                      className="read-more-btn"
-                      onClick={() => {
-                        // Navigation vers l'article
-                        window.dispatchEvent(new CustomEvent('navigateToArticle', { 
-                          detail: { article } 
-                        }));
-                      }}
-                    >
-                      Lire l'article →
-                    </button>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <div className="no-articles">

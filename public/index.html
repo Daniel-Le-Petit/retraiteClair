@@ -148,8 +148,8 @@
       }
       
       // Vérifier le consentement existant au chargement
-      const existingConsent = localStorage.getItem('retraiteClair_cookieConsent') || localStorage.getItem('consent-given');
-      if (existingConsent === 'accepted' || existingConsent === 'true') {
+      const metaPixelConsent = localStorage.getItem('retraiteClair_cookieConsent') || localStorage.getItem('consent-given');
+      if (metaPixelConsent === 'accepted' || metaPixelConsent === 'true') {
         loadMetaPixel();
       } else {
         // Initialiser fbq en mode refusé par défaut

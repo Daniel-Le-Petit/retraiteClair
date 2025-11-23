@@ -1434,5 +1434,134 @@ export const blogArticles = [
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     slug: "temoignage-pierre-cadre-retraite-progressive",
     tags: ["témoignage", "cadre", "négociation", "industrie"]
+  },
+  {
+    id: 13,
+    title: "Suspension de la réforme des retraites… mais des inégalités persistent",
+    excerpt: "Le gouvernement a annoncé une pause sur la réforme Borne. Mais certains profils sont exclus de cette suspension, créant des inégalités. Dans ce contexte, la retraite progressive prend une importance énorme.",
+    content: [
+      {
+        type: 'p',
+        content: "Le gouvernement a annoncé une pause sur la réforme Borne. Sur le papier, cela signifie un départ possible un peu plus tôt pour une partie des futurs retraités. Mais selon Le Parisien, certains profils sont exclus de cette suspension : les départs anticipés \"carrières longues\" et certains régimes spéciaux."
+      },
+      {
+        type: 'p',
+        content: "Résultat : deux trajectoires différentes, pour des parcours tout aussi complets. Et beaucoup de frustration pour ceux qui pensaient souffler un peu. Dans ce contexte, la retraite progressive prend une importance énorme."
+      },
+      {
+        type: 'p',
+        content: "Pour beaucoup, elle devient la seule alternative réaliste pour réduire progressivement son temps de travail, préserver sa santé et son équilibre, continuer à cotiser pour sa retraite finale, et sortir de la logique du tout ou rien."
+      }
+    ],
+    category: "actualites",
+    author: "Équipe RetraiteClair",
+    date: "2025-10-28",
+    readTime: "4 min",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    slug: "suspension-reforme-retraites-inegalites",
+    tags: ["réforme des retraites", "suspension", "inégalités", "retraite progressive"],
+    linkedinUrl: "https://linkedin.com/company/retraiteclair"
+  },
+  {
+    id: 14,
+    title: "Retraite progressive : 5 conseils pour bien préparer votre transition",
+    excerpt: "Découvrez les étapes clés pour réussir votre passage à la retraite progressive et optimiser vos revenus.",
+    content: [
+      {
+        type: 'h2',
+        content: "5 conseils essentiels pour votre retraite progressive"
+      },
+      {
+        type: 'p',
+        content: "La retraite progressive nécessite une préparation minutieuse. Voici les 5 conseils essentiels pour réussir votre transition."
+      },
+      {
+        type: 'h3',
+        content: "1. Anticipez votre demande"
+      },
+      {
+        type: 'p',
+        content: "Commencez les démarches 6 à 12 mois avant la date souhaitée. Les procédures administratives peuvent être longues."
+      },
+      {
+        type: 'h3',
+        content: "2. Calculez précisément vos revenus"
+      },
+      {
+        type: 'p',
+        content: "Utilisez notre simulateur pour estimer vos revenus totaux (salaire partiel + pension progressive) et vérifier que cela correspond à vos besoins."
+      },
+      {
+        type: 'h3',
+        content: "3. Négociez avec votre employeur"
+      },
+      {
+        type: 'p',
+        content: "Préparez un dossier solide pour convaincre votre employeur. Montrez les avantages pour l'entreprise (transmission de savoir, réduction des coûts)."
+      },
+      {
+        type: 'h3',
+        content: "4. Optimisez votre fiscalité"
+      },
+      {
+        type: 'p',
+        content: "La retraite progressive peut avoir un impact fiscal positif. Consultez un expert-comptable pour optimiser votre situation."
+      },
+      {
+        type: 'h3',
+        content: "5. Testez votre nouveau rythme"
+      },
+      {
+        type: 'p',
+        content: "La retraite progressive est réversible pendant les 3 premières années. Profitez-en pour tester si ce rythme vous convient."
+      }
+    ],
+    category: "conseils",
+    author: "Équipe RetraiteClair",
+    date: "2025-10-25",
+    readTime: "3 min",
+    image: "https://images.unsplash.com/photo-1554224154-26032fced8bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    slug: "5-conseils-preparer-retraite-progressive",
+    tags: ["retraite progressive", "transition", "conseils"],
+    linkedinUrl: "https://linkedin.com/company/retraiteclair"
+  },
+  {
+    id: 15,
+    title: "Calculer l'impact fiscal de votre retraite progressive",
+    excerpt: "Guide pratique pour comprendre et optimiser les aspects fiscaux de votre retraite progressive.",
+    content: [
+      {
+        type: 'h2',
+        content: "Impact fiscal de la retraite progressive"
+      },
+      {
+        type: 'p',
+        content: "L'impact fiscal est souvent sous-estimé dans la retraite progressive. Voici comment le calculer et l'optimiser."
+      },
+      {
+        type: 'h3',
+        content: "Comment calculer votre impôt"
+      },
+      {
+        type: 'p',
+        content: "Vos revenus en retraite progressive (salaire partiel + pension progressive) sont imposables. Utilisez notre simulateur pour estimer votre impôt sur le revenu."
+      },
+      {
+        type: 'h3',
+        content: "Optimisations possibles"
+      },
+      {
+        type: 'p',
+        content: "Plusieurs stratégies permettent d'optimiser votre fiscalité : épargne retraite (PER), déduction des frais professionnels, etc."
+      }
+    ],
+    category: "fiscalite",
+    author: "Équipe RetraiteClair",
+    date: "2025-10-18",
+    readTime: "6 min",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    slug: "calculer-impact-fiscal-retraite-progressive",
+    tags: ["fiscalité", "impôts", "optimisation"],
+    linkedinUrl: "https://linkedin.com/company/retraiteclair"
   }
 ];

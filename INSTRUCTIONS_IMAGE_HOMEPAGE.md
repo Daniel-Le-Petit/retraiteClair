@@ -50,3 +50,4 @@ Remplacez `homepage-hero-couple.jpg` par le nom de votre fichier.
 
 L'image remplace complètement le header texte et s'affiche en haut de la page d'accueil, avec un espacement optimal entre l'image et les cartes de simulation.
 
+
