@@ -105,6 +105,15 @@
   background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
   border-right: none;
   text-align: center;
+  min-height: 100%; /* Assurer que le bloc prend toute la hauteur */
+}
+
+.homepage-header-left .homepage-subtitle-large {
+  margin: 0; /* Supprimer les marges pour un meilleur centrage vertical */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .homepage-header-center {
@@ -116,6 +125,7 @@
   background: #ffffff;
   overflow: hidden;
   position: relative;
+  min-height: 100%; /* Assurer que le bloc prend toute la hauteur */
 }
 
 .homepage-header-right {
@@ -144,6 +154,7 @@
   position: relative;
   border-radius: 12px; /* Coins arrondis pour le cadre */
   box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3); /* Ombre pour donner de la profondeur */
+  align-self: center; /* Centrer verticalement dans le parent */
 }
 
 .homepage-header-image {
@@ -284,6 +295,15 @@
     padding: 1.5rem;
     text-align: center;
     align-items: center;
+    justify-content: center; /* Centrer verticalement sur mobile */
+    min-height: auto;
+  }
+  
+  .homepage-header-left .homepage-subtitle-large {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .homepage-header-right {
@@ -295,6 +315,9 @@
   .homepage-header-center {
     padding: 0;
     min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .homepage-header-image-container {
@@ -337,6 +360,15 @@
     padding: 1rem;
     text-align: center;
     align-items: center;
+    justify-content: center; /* Centrer verticalement sur très petits écrans */
+    min-height: auto;
+  }
+  
+  .homepage-header-left .homepage-subtitle-large {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .homepage-header-right {
