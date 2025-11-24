@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ResultsPage from './ResultsPage';
 import styles from './ResultsTabs.module.css';
 

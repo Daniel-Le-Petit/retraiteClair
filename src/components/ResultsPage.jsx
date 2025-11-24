@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, PieChart, BarChart3, Euro, Calendar, Clock } from 'lucide-react';
+import { TrendingUp, PieChart, BarChart3, Euro } from 'lucide-react';
 import ScenarioComparator from './ScenarioComparator';
 import FiscalImpact from './FiscalImpact';
 import ScenarioChart from './ScenarioChart';

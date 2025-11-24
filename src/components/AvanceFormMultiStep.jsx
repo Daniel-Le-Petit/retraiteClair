@@ -118,6 +118,9 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
           delete newErrors.sam;
         }
         break;
+      default:
+        // Pas de validation pour les autres champs
+        break;
     }
     
     setErrors(newErrors);

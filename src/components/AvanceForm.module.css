@@ -76,7 +76,9 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  background: white;
+  background: #dbeafe; /* Bleu clair pour mode avancé */
+  max-width: 400px; /* Réduire la largeur des champs */
+  width: 100%;
 }
 
 .input:focus,
@@ -98,9 +100,14 @@
 }
 
 .helpText {
-  color: #6c757d;
+  color: #1e40af; /* Bleu foncé pour le texte des commentaires */
   font-size: 0.875rem;
   font-style: italic;
+  background: #eff6ff; /* Fond bleu très clair (plus clair que les champs #dbeafe) pour les zones de commentaire */
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-top: 0.25rem;
+  display: block;
 }
 
 .submitButton {

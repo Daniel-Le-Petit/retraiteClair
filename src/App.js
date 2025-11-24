@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router } from 'react-router-dom';
-import SwipeNavigationNew, { AppContent } from './components/SwipeNavigationNew';
+import { AppContent } from './components/SwipeNavigationNew';
 import BackgroundImage from './components/BackgroundImage';
 import './index.css';
 import './definition-styles.css';

@@ -55,7 +55,9 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  background: white;
+  background: #d1fae5; /* Vert clair pour mode simplifié */
+  max-width: 400px; /* Réduire la largeur des champs */
+  width: 100%;
 }
 
 .input:focus,

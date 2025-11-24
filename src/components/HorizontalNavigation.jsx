@@ -10,7 +10,7 @@ import {
 const HorizontalNavigation = ({ currentPage, onPageChange }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const navigationItems = [
+  const navigationItems = React.useMemo(() => [
     {
       id: 'accueil',
       label: 'Accueil',
@@ -41,7 +41,7 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
       icon: MessageSquare,
       description: 'Nous contacter'
     }
-  ];
+  ], []);
 
   // Trouver l'index de la page actuelle
   useEffect(() => {

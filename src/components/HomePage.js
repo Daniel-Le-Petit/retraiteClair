@@ -22,13 +22,13 @@ const HomePage = () => {
   const [openEligibilityTest, setOpenEligibilityTest] = useState(false);
 
   // Navigation sticky
-  const navItems = [
+  const navItems = React.useMemo(() => [
     { id: 'accueil', label: 'Accueil' },
     { id: 'definition', label: 'Qu\'est-ce que c\'est ?' },
     { id: 'eligibilite', label: 'Éligibilité' },
     { id: 'etapes', label: 'Étapes' },
     { id: 'faq', label: 'FAQ' }
-  ];
+  ], []);
 
   // Definition data with popups
   const definitionData = [

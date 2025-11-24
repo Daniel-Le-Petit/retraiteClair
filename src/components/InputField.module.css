@@ -31,17 +31,19 @@
 .input {
   width: 100%;
   padding: 1rem;
-  border: 2px solid #e9ecef;
+  border: 2px solid #93c5fd; /* Bordure bleue pour distinguer les champs */
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
+  background: #dbeafe; /* Bleu clair distinct pour les champs de saisie */
+  color: #1e3a8a; /* Texte bleu foncé pour meilleur contraste */
 }
 
 .input:focus {
   outline: none;
   border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #bfdbfe; /* Bleu légèrement plus foncé au focus */
 }
 
 .input.error {
@@ -164,6 +166,9 @@
     border-width: 2px;
     width: 100%;
     box-sizing: border-box;
+    background: #dbeafe !important; /* Bleu clair pour mode avancé - force sur mobile */
+    border-color: #93c5fd !important; /* Bordure bleue - force sur mobile */
+    color: #1e3a8a !important; /* Texte bleu foncé - force sur mobile */
   }
   
   /* Clavier numérique pour montants */
