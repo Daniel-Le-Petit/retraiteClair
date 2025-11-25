@@ -1,19 +1,21 @@
 /* PostResultsActions.module.css */
 
 .container {
-  background: white;
+  background: linear-gradient(135deg, #1E3A8A 0%, #10B981 100%);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(30, 58, 138, 0.3);
   margin-top: 2rem;
+  color: white;
 }
 
 .title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #374151;
+  color: white;
   margin-bottom: 2rem;
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .actionsGrid {
@@ -24,8 +26,9 @@
 }
 
 .actionCard {
-  background: #f8f9fa;
-  border: 2px solid #e9ecef;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   padding: 1.5rem;
   display: flex;
@@ -36,13 +39,14 @@
 }
 
 .actionCard:hover {
-  border-color: #2563eb;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .cardIcon {
-  background: #2563eb;
+  background: rgba(255, 255, 255, 0.2);
   color: white;
   width: 56px;
   height: 56px;
@@ -56,21 +60,23 @@
 .cardTitle {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #374151;
+  color: white;
   margin-bottom: 0.5rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .cardDescription {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 1rem;
   line-height: 1.5;
+  font-family: 'Inter', sans-serif;
 }
 
 .actionButton {
-  background: #2563eb;
+  background: rgba(255, 255, 255, 0.25);
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -78,10 +84,11 @@
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
+  font-family: 'Inter', sans-serif;
 }
 
-.actionButton:hover {
-  background: #1d4ed8;
+.actionButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.35);
   transform: translateY(-1px);
 }
 
@@ -95,17 +102,25 @@
 
 .emailInput {
   padding: 0.75rem;
-  border: 2px solid #e9ecef;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   font-size: 0.95rem;
   transition: border-color 0.2s ease;
   width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-family: 'Inter', sans-serif;
+}
+
+.emailInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .emailInput:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .emailInput:disabled {
@@ -123,19 +138,20 @@
 }
 
 .emailButton {
-  background: #2563eb;
+  background: rgba(255, 255, 255, 0.25);
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 0.75rem;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
 }
 
 .emailButton:hover:not(:disabled) {
-  background: #1d4ed8;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .emailButton:disabled {
@@ -146,17 +162,19 @@
 .emailNote {
   margin-top: 0.75rem;
   font-size: 0.85rem;
-  color: #10b981;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .emailError {
   margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: #dc2626;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Help Card */
@@ -216,8 +234,9 @@
 
 /* Guide Card */
 .guideCard {
-  background: #f8f9fa;
-  border: 2px solid #e9ecef;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   padding: 1.5rem;
   display: flex;
@@ -227,7 +246,7 @@
 }
 
 .guideIcon {
-  color: #2563eb;
+  color: white;
   flex-shrink: 0;
 }
 
@@ -238,20 +257,22 @@
 .guideTitle {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #374151;
+  color: white;
   margin-bottom: 0.5rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .guideDescription {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: rgba(255, 255, 255, 0.9);
   font-style: italic;
+  font-family: 'Inter', sans-serif;
 }
 
 .guideButton {
-  background: transparent;
-  color: #2563eb;
-  border: 2px solid #2563eb;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -262,10 +283,11 @@
   text-decoration: none;
   display: inline-block;
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .guideButton:hover {
-  background: #2563eb;
+  background: rgba(255, 255, 255, 0.35);
   color: white;
 }
 

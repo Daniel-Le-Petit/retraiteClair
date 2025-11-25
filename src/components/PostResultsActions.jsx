@@ -93,7 +93,7 @@ const PostResultsActions = ({ simulationData, onModify }) => {
   return (
     <div className={`${styles.container} animate-slideUp animate-delay-400`}>
       <h3 className={styles.title}>
-        🎯 Prochaines étapes
+        Prochaines étapes
       </h3>
 
       <div className={styles.actionsGrid}>
@@ -163,7 +163,7 @@ const PostResultsActions = ({ simulationData, onModify }) => {
         </div>
         <div className={styles.guideContent}>
           <h4 className={styles.guideTitle}>
-            📚 Consultez notre guide complet
+            Consultez notre guide complet
           </h4>
           <p className={styles.guideDescription}>
             "10 étapes pour demander votre Retraite Progressive"

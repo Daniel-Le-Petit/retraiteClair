@@ -54,29 +54,54 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   const salairePartiel = data.revenusNets?.tempsPartiel || 0;
   const pensionNet = data.revenusNets?.pension || 0;
   const revenusComplementaires = data.revenusNets?.revenusComplementaires || 0;
+  const salaireActuel = data.revenusNets?.tempsPlein || 0;
+  const tempsPartiel = data?.details?.tempsPartiel || 60;
+  
+  // Calculer le pourcentage par rapport au salaire actuel
+  const pourcentageSalaire = salaireActuel > 0 ? Math.round((totalNet / salaireActuel) * 100) : 0;
+  
+  // Calculer les pourcentages pour chaque composante
+  const pourcentageSalairePartiel = totalNet > 0 ? Math.round((salairePartiel / totalNet) * 100) : 0;
+  const pourcentagePension = totalNet > 0 ? Math.round((pensionNet / totalNet) * 100) : 0;
 
   return (
     <div className={styles.container}>
       {/* Hero Section */}
-      <div className={`${styles.heroSection} ${mode === 'simplifie' ? styles.heroSectionSimplifie : styles.heroSectionAvance}`}>
+      <div className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <div className={styles.celebration}>
-            🎉 Voici vos revenus en Retraite Progressive !
+          <div className={styles.mainTitle}>
+            Votre revenu total mensuel estimé
           </div>
           
           <div className={styles.mainResult}>
-            <div className={styles.resultLabel}>
-              <Euro size={24} />
-              Votre revenu total net
-            </div>
             <div className={styles.resultAmount}>
               <AnimatedAmount 
                 value={totalNet} 
                 formatCurrency={true} 
-              /> / mois
+              />
             </div>
-            <div className={styles.resultSubtext}>
-              Salaire partiel + Pension retraite
+            <div className={styles.resultPercentage}>
+              soit {pourcentageSalaire}% de votre salaire actuel
+            </div>
+          </div>
+          
+          <div className={styles.breakdownCards}>
+            <div className={styles.breakdownCard}>
+              <div className={styles.cardLabel}>
+                Salaire temps partiel ({tempsPartiel}%)
+              </div>
+              <div className={styles.cardAmount}>
+                {formatCurrency(salairePartiel)}
+              </div>
+            </div>
+            
+            <div className={styles.breakdownCard}>
+              <div className={styles.cardLabel}>
+                Pension retraite ({pourcentagePension}%)
+              </div>
+              <div className={styles.cardAmount}>
+                {formatCurrency(pensionNet)}
+              </div>
             </div>
           </div>
         </div>
@@ -111,65 +136,6 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
       <div className={styles.tabContent}>
         {activeTab === 'overview' && (
           <div className={styles.overviewContent}>
-            {/* Détail des revenus */}
-            <div className={`${styles.revenueBreakdown} animate-slideUp`}>
-              <h3 className={styles.sectionTitle}>
-                <PieChart size={20} />
-                Détail de vos revenus
-              </h3>
-              
-              <div className={styles.breakdownChart}>
-                <div className={styles.chartVisual}>
-                  <div className={styles.pieChart}>
-                    <div 
-                      className={styles.pieSlice}
-                      style={{
-                        background: `conic-gradient(
-                          #2563eb 0deg ${calculatePercentage(salairePartiel, totalNet) * 3.6}deg,
-                          #10b981 ${calculatePercentage(salairePartiel, totalNet) * 3.6}deg ${(calculatePercentage(salairePartiel, totalNet) + calculatePercentage(pensionNet, totalNet)) * 3.6}deg,
-                          #f59e0b ${(calculatePercentage(salairePartiel, totalNet) + calculatePercentage(pensionNet, totalNet)) * 3.6}deg 360deg
-                        )`
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                
-                <div className={styles.breakdownList}>
-                  <div className={styles.breakdownItem}>
-                    <div className={styles.itemColor} style={{ backgroundColor: '#2563eb' }}></div>
-                    <div className={styles.itemContent}>
-                      <div className={styles.itemLabel}>Salaire temps partiel</div>
-                      <div className={styles.itemValue}>
-                        {formatCurrency(salairePartiel)} ({calculatePercentage(salairePartiel, totalNet)}%)
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.breakdownItem}>
-                    <div className={styles.itemColor} style={{ backgroundColor: '#10b981' }}></div>
-                    <div className={styles.itemContent}>
-                      <div className={styles.itemLabel}>Pension retraite</div>
-                      <div className={styles.itemValue}>
-                        {formatCurrency(pensionNet)} ({calculatePercentage(pensionNet, totalNet)}%)
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {revenusComplementaires > 0 && (
-                    <div className={styles.breakdownItem}>
-                      <div className={styles.itemColor} style={{ backgroundColor: '#f59e0b' }}></div>
-                      <div className={styles.itemContent}>
-                        <div className={styles.itemLabel}>Revenus complémentaires</div>
-                        <div className={styles.itemValue}>
-                          {formatCurrency(revenusComplementaires)} ({calculatePercentage(revenusComplementaires, totalNet)}%)
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
             {/* Comparaison avec autres scénarios */}
             <div className={`${styles.comparisonSection} animate-slideUp animate-delay-200`}>
               <h3 className={styles.sectionTitle}>
