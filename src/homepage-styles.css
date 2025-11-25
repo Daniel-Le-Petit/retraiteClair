@@ -2,7 +2,7 @@
 
 .homepage {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: #ffffff;
   padding: 0;
   margin-top: -60px !important; /* Compenser le padding-top de 60px du swipe-navigation-content */
 }
@@ -343,23 +343,23 @@
   
   .homepage-header + .simulation-cards,
   .homepage-header ~ .simulation-cards {
-    margin-top: 20px !important; /* Ligne blanche de 20px sur mobile */
+    margin-top: 0 !important;
     padding-top: 0 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Ligne blanche subtile */
+    border-top: none !important;
   }
   
   /* Ajuster le padding du premier bloc sur mobile */
   .simulation-cards {
-    padding-top: 20px !important; /* Espace pour la ligne blanche */
+    padding-top: 0 !important;
     margin-top: 0 !important;
   }
   
-  /* Ligne blanche entre header et simulation-cards sur mobile */
+  /* Supprimer les lignes blanches entre header et simulation-cards sur mobile */
   .homepage-content > .homepage-header + .simulation-cards,
   .homepage-content > header + .simulation-cards {
-    margin-top: 20px !important;
+    margin-top: 0 !important;
     padding-top: 0 !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-top: none !important;
   }
   
   /* Supprimer tout espace dans le conteneur après le header pour les autres éléments */
@@ -703,27 +703,59 @@
 
 /* Simulation Cards */
 .simulation-cards {
-  padding: 80px 20px;
+  padding: 100px 20px;
   background: #ffffff;
+  position: relative;
+  margin: 0;
+}
+
+.simulation-cards-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.simulation-cards-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.simulation-cards-subtitle {
+  font-size: 1.25rem;
+  color: #475569;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 .cards-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .simulation-card {
   background: #ffffff;
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 2.5rem;
+  border: 3px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 3rem;
   text-align: center;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transform: scale(1);
+}
+
+/* Fond blanc pour toutes les cartes */
+.simulation-card:not(.simulation-card-advanced) {
+  background: #ffffff;
 }
 
 .simulation-card::before {
@@ -732,19 +764,31 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 6px;
   background: linear-gradient(90deg, #10b981, #059669);
+  z-index: 1;
+}
+
+/* Supprimer le contour vert pour la première carte (simplifiée) */
+.simulation-card:not(.simulation-card-advanced)::before {
+  display: none;
 }
 
 /* Barre colorée spécifique pour la carte avancée (bleu) */
 .simulation-card-advanced::before {
   background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  height: 6px;
 }
 
 .simulation-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   border-color: #10b981;
+}
+
+/* Supprimer le contour vert au hover pour la première carte (simplifiée) */
+.simulation-card:not(.simulation-card-advanced):hover {
+  border-color: #e2e8f0;
 }
 
 /* Styles spécifiques pour la carte avancée (bleu) */
@@ -774,10 +818,11 @@
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 1rem;
+  line-height: 1.3;
 }
 
 .card-description {
@@ -788,13 +833,14 @@
 
 .card-button {
   width: 100%;
-  padding: 14px 24px;
+  padding: 16px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .card-button-primary {
@@ -838,6 +884,19 @@
 /* Content Sections */
 .content-section {
   padding: 80px 20px;
+  background: #ffffff;
+  margin: 0;
+}
+
+/* Supprimer tous les espaces entre les sections */
+section + section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.homepage-content > section {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .section-container {
@@ -1032,9 +1091,10 @@
 /* Final CTA Section */
 .final-cta-section {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  background: #ffffff;
   text-align: center;
-  color: white;
+  color: #1e293b;
+  margin: 0;
 }
 
 .cta-title {
@@ -1045,7 +1105,7 @@
 
 .cta-subtitle {
   font-size: 1.1rem;
-  color: #cbd5e1;
+  color: #64748b;
   margin-bottom: 2.5rem;
   max-width: 600px;
   margin-left: auto;
@@ -1750,9 +1810,36 @@
     font-size: 1.1rem;
   }
 
+  .simulation-cards {
+    padding: 60px 20px;
+  }
+
+  .simulation-cards-header {
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
+
+  .simulation-cards-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .simulation-cards-subtitle {
+    font-size: 1.1rem;
+  }
+
   .cards-container {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
+  }
+
+  .simulation-card {
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
   }
 
   /* Footer Mobile */

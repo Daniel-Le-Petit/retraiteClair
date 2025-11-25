@@ -194,6 +194,12 @@ const HomePage = () => {
 
       {/* Simulation Cards */}
       <section className="simulation-cards">
+        <div className="simulation-cards-header">
+          <h2 className="simulation-cards-title">Choisissez votre simulateur</h2>
+          <p className="simulation-cards-subtitle">
+            Calculez vos revenus en retraite progressive en quelques minutes
+          </p>
+        </div>
         <div className="cards-container">
           <div className="simulation-card">
             <div className="card-image-container">

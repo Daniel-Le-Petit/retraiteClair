@@ -1,9 +1,10 @@
 /* CTASection.module.css */
 
 .container {
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 80px 0;
+  background: #ffffff;
+  color: #1e293b;
+  margin: 0;
 }
 
 .content {
@@ -18,7 +19,7 @@
   font-weight: 700;
   margin-bottom: 3rem;
   line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #1e293b;
 }
 
 .buttonGroup {
@@ -76,12 +77,12 @@
 .helpSection {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid #e2e8f0;
 }
 
 .helpText {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #64748b;
   margin: 0;
 }
 
