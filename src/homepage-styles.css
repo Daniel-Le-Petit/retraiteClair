@@ -722,7 +722,7 @@
 }
 
 .simulation-cards-title {
-  font-size: 2.5rem; /* 40px - H2 */
+  font-size: 3rem; /* 48px - Plus grande */
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 1.5rem;
@@ -1841,7 +1841,7 @@ section + section {
   }
 
   .simulation-cards-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin-bottom: 0.75rem;
   }
 

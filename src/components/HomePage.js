@@ -195,9 +195,9 @@ const HomePage = () => {
       {/* Simulation Cards */}
       <section className="simulation-cards">
         <div className="simulation-cards-header">
-          <h2 className="simulation-cards-title">Choisissez votre simulateur</h2>
+          <h2 className="simulation-cards-title">Calculez votre retraite progressive en 2 minutes</h2>
           <p className="simulation-cards-subtitle">
-            Calculez vos revenus en retraite progressive en quelques minutes
+            Découvrez combien vous pouvez percevoir en travaillant à temps partiel. Simulateur gratuit, précis et confidentiel
           </p>
         </div>
         <div className="cards-container">
