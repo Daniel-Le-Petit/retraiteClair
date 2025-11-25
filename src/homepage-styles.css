@@ -732,9 +732,9 @@
 }
 
 .simulation-cards-subtitle {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1rem; /* 16px - Réduit */
   color: #475569;
-  line-height: 1.7;
+  line-height: 1.6;
   font-weight: 400;
   font-family: 'Inter', sans-serif;
 }
@@ -1846,7 +1846,8 @@ section + section {
   }
 
   .simulation-cards-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
   .cards-container {
