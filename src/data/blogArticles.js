@@ -1460,7 +1460,7 @@ export const blogArticles = [
     image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     slug: "suspension-reforme-retraites-inegalites",
     tags: ["réforme des retraites", "suspension", "inégalités", "retraite progressive"],
-    linkedinUrl: "https://linkedin.com/company/retraiteclair"
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388"
   },
   {
     id: 14,
@@ -1523,7 +1523,7 @@ export const blogArticles = [
     image: "https://images.unsplash.com/photo-1554224154-26032fced8bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     slug: "5-conseils-preparer-retraite-progressive",
     tags: ["retraite progressive", "transition", "conseils"],
-    linkedinUrl: "https://linkedin.com/company/retraiteclair"
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388"
   },
   {
     id: 15,
@@ -1562,6 +1562,6 @@ export const blogArticles = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     slug: "calculer-impact-fiscal-retraite-progressive",
     tags: ["fiscalité", "impôts", "optimisation"],
-    linkedinUrl: "https://linkedin.com/company/retraiteclair"
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388"
   }
 ];

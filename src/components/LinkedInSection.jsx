@@ -32,7 +32,7 @@ const LinkedInSection = () => {
             Suivez-nous sur LinkedIn pour plus de conseils et d'actualités
           </p>
           <a 
-            href="https://linkedin.com/company/retraiteclair" 
+            href="https://www.linkedin.com/in/clair-retraite-914755388" 
             target="_blank" 
             rel="noopener noreferrer"
             className={styles.followButton}
@@ -63,7 +63,7 @@ const LinkedInSection = () => {
             <h3>Restez connecté</h3>
             <p>Suivez RetraiteClair sur LinkedIn pour recevoir nos derniers conseils et actualités directement dans votre fil d'actualité.</p>
             <a 
-              href="https://linkedin.com/company/retraiteclair" 
+              href="https://www.linkedin.com/in/clair-retraite-914755388" 
               target="_blank" 
               rel="noopener noreferrer"
               className={styles.ctaButton}

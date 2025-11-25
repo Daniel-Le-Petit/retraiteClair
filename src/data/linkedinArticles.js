@@ -11,7 +11,7 @@ export const linkedinArticles = [
     category: "Actualités",
     tags: ["réforme des retraites", "suspension", "inégalités", "retraite progressive"],
     image: "/images/linkedin-reform-suspension.svg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: true
   },
@@ -25,7 +25,7 @@ export const linkedinArticles = [
     category: "Conseils",
     tags: ["retraite progressive", "transition", "conseils"],
     image: "/images/linkedin-article-1.jpg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: false
   },
@@ -39,7 +39,7 @@ export const linkedinArticles = [
     category: "Témoignages",
     tags: ["témoignage", "enseignante", "expérience"],
     image: "/images/linkedin-article-2.jpg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: false
   },
@@ -53,7 +53,7 @@ export const linkedinArticles = [
     category: "Réformes",
     tags: ["réforme 2025", "nouvelles règles", "opportunités"],
     image: "/images/linkedin-article-3.jpg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: false
   },
@@ -67,7 +67,7 @@ export const linkedinArticles = [
     category: "Fiscalité",
     tags: ["fiscalité", "impôts", "optimisation"],
     image: "/images/linkedin-article-4.jpg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: true
   },
@@ -81,7 +81,7 @@ export const linkedinArticles = [
     category: "Conseils",
     tags: ["erreurs", "pièges", "conseils"],
     image: "/images/linkedin-article-5.jpg",
-    linkedinUrl: "https://linkedin.com/company/retraiteclair",
+    linkedinUrl: "https://www.linkedin.com/in/clair-retraite-914755388",
     author: "Équipe RetraiteClair",
     featured: false
   }
