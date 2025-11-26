@@ -102,10 +102,11 @@
 }
 
 .barLabel {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .barWrapper {
@@ -137,12 +138,16 @@
 }
 
 .barValue {
-  font-size: 0.65rem;
+  font-size: 1rem;
   font-weight: 700;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   text-align: center;
   line-height: 1.2;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .savingsIndicator {
@@ -320,7 +325,7 @@
   }
   
   .barValue {
-    font-size: 0.6rem;
+    font-size: 0.9rem;
   }
   
   .projectionCard {

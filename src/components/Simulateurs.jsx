@@ -312,7 +312,7 @@ const Simulateurs = () => {
             </p>
             
             {/* Informations du mode actuel intégrées dans le header */}
-            <div className={styles.modeInfoInline}>
+            <div className={`${styles.modeInfoInline} ${mode === 'simplifie' ? styles.simplifieMode : styles.advancedMode}`}>
               <div className={styles.modeInfoContent}>
                 <span className={styles.modeInfoTitle}>{modeMeta[mode].title}</span>
                 <span className={styles.modeInfoTagline}>{modeMeta[mode].tagline}</span>
