@@ -725,7 +725,7 @@
   font-size: 3rem; /* 48px - Plus grande */
   font-weight: 700;
   color: #1e293b;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem; /* Réduit de 1.5rem à 0.75rem */
   line-height: 1.2;
   letter-spacing: -0.01em;
   font-family: 'Inter', sans-serif;
@@ -1841,13 +1841,15 @@ section + section {
   }
 
   .simulation-cards-title {
-    font-size: 2.25rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.75rem; /* Réduit pour mobile */
+    margin-bottom: 0.5rem; /* Réduit l'espace */
+    line-height: 1.3;
   }
 
   .simulation-cards-subtitle {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.875rem; /* Réduit encore plus pour mobile */
+    line-height: 1.4;
+    margin-top: 0;
   }
 
   .cards-container {
