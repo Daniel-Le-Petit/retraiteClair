@@ -56,7 +56,6 @@ const ScenarioChart = ({ data }) => {
 
   return (
     <div className={styles.chartContainer}>
-      <h3 className={styles.chartTitle}>Comparaison des scénarios en revenu net</h3>
       <div className={styles.chart}>
         <div className={styles.chartArea}>
           <div className={styles.bars}>

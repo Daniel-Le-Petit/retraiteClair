@@ -330,25 +330,26 @@
     border-radius: 0;
   }
   
-  /* Téléchargement et Email toujours visibles en sticky */
-  .actionsGrid {
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 1rem 0;
-    margin: 0;
-    z-index: 50;
-    border-top: 1px solid #e9ecef;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
   .title {
     font-size: 1.5rem;
   }
   
+  /* Téléchargement et Email toujours visibles */
   .actionsGrid {
-    grid-template-columns: 1fr;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .actionCard {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .helpCard,

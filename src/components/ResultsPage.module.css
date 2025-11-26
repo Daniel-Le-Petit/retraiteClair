@@ -107,11 +107,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1rem;
   border: none;
   background: none;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -320,8 +321,8 @@
     justify-content: center;
     flex: 0 0 auto;
     white-space: nowrap;
-    padding: 0.75rem 1rem;
-    font-size: 0.875rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
   }
   
   .tabContent {
