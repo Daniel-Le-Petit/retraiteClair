@@ -199,9 +199,9 @@
 
 /* Style spécial pour le mode avancé */
 .modeContextAdvanced {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-  border: 2px solid #1d4ed8 !important;
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%) !important;
+  border: 2px solid rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(96, 165, 250, 0.35) !important;
   color: white;
 }
 
@@ -299,8 +299,8 @@
 }
 
 .modeSwitchAdvanced {
-  background: linear-gradient(135deg, #1E3A8A 0%, #10B981 100%);
-  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.25);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+  box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
 }
 
 .modeSwitchSimplifie {
@@ -356,7 +356,7 @@
 
 /* Style pour le mode avancé */
 .sectionTitle.advanced {
-  color: #2563eb;
+  color: #3b82f6;
 }
 
 .explanation {

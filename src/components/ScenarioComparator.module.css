@@ -98,6 +98,7 @@
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   padding: 2rem;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3);
   transition: all 0.3s ease;
@@ -239,9 +240,54 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
+.selectButtonImportant {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+  border: 3px solid #f59e0b !important;
+  color: #1e293b !important;
+  font-weight: 800 !important;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5) !important;
+  animation: pulse 2s infinite;
+}
+
+.selectButtonImportant:hover {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%) !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 10px 32px rgba(245, 158, 11, 0.6) !important;
+  transform: translateY(-3px) scale(1.02);
+}
+
+.importantBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(30, 41, 59, 0.9);
+  color: #fbbf24;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.7);
+  }
+}
+
 /* Chart Section */
 .chartSection {
   margin-top: 2rem;
+}
+
+/* Feuille de paie à la fin du bloc */
+.payslipSection {
+  margin-top: 2rem;
+  width: 100%;
 }
 
 .chartTitle {
@@ -278,7 +324,12 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.barGroup:hover {
+  transform: translateY(-4px);
+  opacity: 0.9;
 }
 
 .barGroup:hover {

@@ -108,11 +108,12 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
 
       {/* Contenu combiné sans onglets */}
       <div className={styles.combinedContent}>
-        {/* Section Scénarios */}
+        {/* Section Scénarios - Explorer et comparer */}
         <ScenarioComparator
           currentScenario={getCurrentScenario()}
           onScenarioSelect={handleScenarioSelect}
           baseData={getBaseData()}
+          simulationData={data}
         />
 
         {/* Section Impact fiscal */}

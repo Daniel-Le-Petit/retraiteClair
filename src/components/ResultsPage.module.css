@@ -90,6 +90,15 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* Feuille de paie intégrée dans hero */
+.payslipInline {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Combined Content */
 .combinedContent {
   display: flex;

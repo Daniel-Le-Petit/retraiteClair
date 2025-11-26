@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Clock, Euro, CheckCircle } from 'lucide-react';
+import Payslip from './Payslip';
 import styles from './ScenarioComparator.module.css';
 
 const ScenarioComparator = ({ 
   currentScenario, 
   onScenarioSelect, 
-  baseData 
+  baseData,
+  simulationData
 }) => {
   const [selectedPercentage, setSelectedPercentage] = useState(currentScenario?.tempsPartiel || 80);
   const [comparisonData, setComparisonData] = useState(null);
@@ -38,9 +40,15 @@ const ScenarioComparator = ({
       const salaireBrutTempsPartiel = baseData.salaireBrut * (percentage / 100);
       const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
       
-      // Pension progressive (simplifiée)
-      const pensionProgressiveBrut = baseData.salaireBrut * 0.1733;
-      const pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+      // Pension progressive : seulement si temps partiel < 100%
+      // À 100%, on est en temps plein, donc pas de pension progressive
+      let pensionProgressiveBrut = 0;
+      let pensionProgressiveNet = 0;
+      
+      if (percentage < 100) {
+        pensionProgressiveBrut = baseData.salaireBrut * 0.1733;
+        pensionProgressiveNet = pensionProgressiveBrut * 0.9;
+      }
       
       const totalNet = salaireNetTempsPartiel + pensionProgressiveNet + (baseData.revenusComplementaires || 0);
       
@@ -50,13 +58,13 @@ const ScenarioComparator = ({
         salaireNetPartiel: salaireNetTempsPartiel,
         pensionNet: pensionProgressiveNet,
         hoursPerWeek: Math.round((percentage / 100) * 35),
-        daysOffPerWeek: Math.round(((100 - percentage) / 100) * 5 * 10) / 10 // Arrondi à 1 décimale
+        daysOffPerWeek: percentage === 100 ? 0 : Math.round(((100 - percentage) / 100) * 5 * 10) / 10 // Arrondi à 1 décimale
       };
     };
 
-    const scenarios = [40, 50, 60, 70, 80].map(calculateScenario);
+    const scenarios = [40, 50, 60, 70, 80, 100].map(calculateScenario);
     const currentScenarioData = calculateScenario(selectedPercentage);
-    const currentScenarioRef = currentScenario ? calculateScenario(currentScenario.tempsPartiel) : scenarios[4]; // 80% par défaut
+    const currentScenarioRef = currentScenario ? calculateScenario(currentScenario.tempsPartiel) : scenarios[5]; // 100% par défaut (temps plein)
 
     setComparisonData({
       scenarios,
@@ -95,7 +103,8 @@ const ScenarioComparator = ({
       50: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)', // Orange
       60: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', // Vert
       70: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', // Bleu
-      80: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' // Violet
+      80: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)', // Violet
+      100: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)' // Gris foncé pour temps plein
     };
     return gradients[percentage] || gradients[60];
   };
@@ -106,7 +115,8 @@ const ScenarioComparator = ({
       50: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)', // Orange clair
       60: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)', // Vert clair
       70: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)', // Bleu clair
-      80: 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)' // Violet clair
+      80: 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)', // Violet clair
+      100: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)' // Gris clair pour temps plein
     };
     return gradients[percentage] || gradients[60];
   };
@@ -114,7 +124,7 @@ const ScenarioComparator = ({
   if (!comparisonData) return null;
 
   const { current, reference, scenarios } = comparisonData;
-  const vsTempsPlein = calculateDifference(current.totalNet, scenarios[4].totalNet); // 80% = temps plein
+  const vsTempsPlein = calculateDifference(current.totalNet, scenarios[5].totalNet); // 100% = temps plein
   const vsActuel = calculateDifference(current.totalNet, reference.totalNet);
 
   return (
@@ -124,34 +134,73 @@ const ScenarioComparator = ({
           🔄 Explorer d'autres temps partiels
         </h3>
         <p className={styles.subtitle}>
-          Déplacez le curseur pour comparer :
+          Cliquez sur un bloc de couleur pour lancer le recalcul avec ce scénario
         </p>
       </div>
 
-      {/* Slider interactif */}
-      <div className={styles.sliderSection}>
-        <div className={styles.sliderContainer}>
-          <input
-            type="range"
-            min="40"
-            max="80"
-            step="10"
-            value={selectedPercentage}
-            onChange={(e) => setSelectedPercentage(parseInt(e.target.value))}
-            className={styles.slider}
-          />
-          <div className={styles.sliderLabels}>
-            <span>40%</span>
-            <span>50%</span>
-            <span>60%</span>
-            <span>70%</span>
-            <span>80%</span>
+      {/* Graphique de comparaison visuel - Vue d'ensemble d'abord */}
+      <div className={styles.chartSection}>
+        <div className={styles.chartContainer}>
+          <div className={styles.chartBars}>
+            {scenarios.map((scenario) => {
+              const diff = calculateDifference(scenario.totalNet, reference.totalNet);
+              const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
+              const maxRevenu = Math.max(...scenarios.map(s => s.totalNet));
+              const barHeight = (scenario.totalNet / maxRevenu) * 100;
+              
+              return (
+                <div 
+                  key={scenario.percentage} 
+                  className={styles.barGroup}
+                  onClick={() => {
+                    const newPercentage = scenario.percentage;
+                    setSelectedPercentage(newPercentage);
+                    // Lancer automatiquement le calcul avec le nouveau pourcentage
+                    if (onScenarioSelect) {
+                      onScenarioSelect(newPercentage);
+                    }
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className={styles.barWrapper}>
+                    <div 
+                      className={`${styles.bar} ${isCurrent ? styles.currentBar : ''}`}
+                      style={{ 
+                        height: `${barHeight}%`,
+                        background: getScenarioGradient(scenario.percentage)
+                      }}
+                    >
+                      <div className={styles.barValue}>
+                        {formatCurrency(scenario.totalNet)}
+                      </div>
+                      {isCurrent && (
+                        <div className={styles.currentIndicator}>
+                          <CheckCircle size={16} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className={styles.barLabel}>
+                    <div className={styles.percentageLabel}>
+                      {scenario.percentage}%
+                      {isCurrent && <span className={styles.currentDot}>●</span>}
+                    </div>
+                    <div className={styles.diffLabel} style={{ color: getDifferenceColor(diff.amount) }}>
+                      {diff.percentage > 0 ? '+' : ''}{diff.percentage.toFixed(0)}%
+                    </div>
+                    <div className={styles.daysLabel}>
+                      {scenario.daysOffPerWeek} jours libres
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className={styles.sliderValue}>{selectedPercentage}%</div>
         </div>
       </div>
 
-      {/* Détail du scénario sélectionné - Version visuelle */}
+      {/* Détail du scénario sélectionné - Après la vue d'ensemble */}
       <div className={styles.scenarioDetail}>
         <div className={styles.scenarioHeader}>
           <h4>Scénario sélectionné : {selectedPercentage}% de temps partiel</h4>
@@ -180,7 +229,7 @@ const ScenarioComparator = ({
             <div className={styles.comparisonCard}>
               <div className={styles.comparisonHeader}>
                 {getDifferenceIcon(vsTempsPlein.amount)}
-                <span>vs Temps plein (80%)</span>
+                <span>vs Temps plein (100%)</span>
               </div>
               <div 
                 className={styles.comparisonValue}
@@ -224,102 +273,15 @@ const ScenarioComparator = ({
               </div>
             </div>
           </div>
-          
-          <button
-            className={styles.selectButton}
-            onClick={() => onScenarioSelect && onScenarioSelect(selectedPercentage)}
-          >
-            <CheckCircle size={20} />
-            Choisir ce scénario ({selectedPercentage}%)
-          </button>
         </div>
       </div>
 
-      {/* Graphique de comparaison visuel */}
-      <div className={styles.chartSection}>
-        <h4 className={styles.chartTitle}>Comparaison visuelle des scénarios</h4>
-        
-        <div className={styles.chartContainer}>
-          <div className={styles.chartBars}>
-            {scenarios.map((scenario) => {
-              const diff = calculateDifference(scenario.totalNet, reference.totalNet);
-              const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
-              const maxRevenu = Math.max(...scenarios.map(s => s.totalNet));
-              const barHeight = (scenario.totalNet / maxRevenu) * 100;
-              
-              return (
-                <div 
-                  key={scenario.percentage} 
-                  className={styles.barGroup}
-                  onClick={() => !isCurrent && onScenarioSelect && onScenarioSelect(scenario.percentage)}
-                >
-                  <div className={styles.barWrapper}>
-                    <div 
-                      className={`${styles.bar} ${isCurrent ? styles.currentBar : ''}`}
-                      style={{ 
-                        height: `${barHeight}%`,
-                        background: getScenarioGradient(scenario.percentage)
-                      }}
-                    >
-                      <div className={styles.barValue}>
-                        {formatCurrency(scenario.totalNet)}
-                      </div>
-                      {isCurrent && (
-                        <div className={styles.currentIndicator}>
-                          <CheckCircle size={16} />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className={styles.barLabel}>
-                    <div className={styles.percentageLabel}>
-                      {scenario.percentage}%
-                      {isCurrent && <span className={styles.currentDot}>●</span>}
-                    </div>
-                    <div className={styles.diffLabel} style={{ color: getDifferenceColor(diff.amount) }}>
-                      {diff.percentage > 0 ? '+' : ''}{diff.percentage.toFixed(0)}%
-                    </div>
-                    <div className={styles.daysLabel}>
-                      {scenario.daysOffPerWeek} jours libres
-                    </div>
-                  </div>
-                  
-                  {!isCurrent && (
-                    <button
-                      className={styles.barButton}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onScenarioSelect && onScenarioSelect(scenario.percentage);
-                      }}
-                    >
-                      Choisir
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          
-          {/* Légende */}
-          <div className={styles.chartLegend}>
-            {scenarios.map((scenario) => {
-              const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
-              return (
-                <div key={scenario.percentage} className={styles.legendItem}>
-                  <div 
-                    className={styles.legendColor} 
-                    style={{ background: getScenarioGradient(scenario.percentage) }}
-                  ></div>
-                  <span>
-                    {scenario.percentage}% {isCurrent && '(Actuel)'}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+      {/* Feuille de paie à la fin du bloc */}
+      {simulationData && (
+        <div className={styles.payslipSection}>
+          <Payslip simulationData={simulationData} />
         </div>
-      </div>
+      )}
     </div>
   );
 };

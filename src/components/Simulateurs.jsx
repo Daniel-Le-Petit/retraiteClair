@@ -150,24 +150,38 @@ const Simulateurs = () => {
     const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
     
     // Pension progressive brut - Utiliser la pension saisie si disponible
+    // IMPORTANT : À 100% (temps plein), pas de pension progressive
     let pensionProgressiveBrut, pensionCompleteBrut, pensionCompleteNet;
     
-    if (pensionComplete) {
-      // Mode avancé : utiliser la pension réelle saisie
-      // La pension saisie est NETTE avant RP (pension complète si pas de RP)
-      pensionCompleteNet = pensionComplete; // Utiliser directement la valeur saisie
-      pensionCompleteBrut = pensionComplete / 0.7698; // Convertir net en brut
-      // CORRECTION : La pension progressive doit être calculée à partir du salaire brut, pas de la pension complète
-      pensionProgressiveBrut = salaireBrut * 0.1733; // Utiliser le ratio M@rel exact sur le salaire brut
+    if (tempsPartiel >= 100) {
+      // Temps plein : pas de pension progressive
+      pensionProgressiveBrut = 0;
+      if (pensionComplete) {
+        pensionCompleteNet = pensionComplete;
+        pensionCompleteBrut = pensionComplete / 0.7698;
+      } else {
+        pensionCompleteBrut = salaireBrut * 0.5178;
+        pensionCompleteNet = pensionCompleteBrut * 0.7698;
+      }
     } else {
-      // Mode simplifié : calcul selon les valeurs M@rel exactes
-      // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
-      pensionProgressiveBrut = salaireBrut * 0.1733; // Ratio exact M@rel
-      pensionCompleteBrut = salaireBrut * 0.5178; // Ratio exact M@rel
-      pensionCompleteNet = pensionCompleteBrut * 0.7698;
+      // Temps partiel : calcul de la pension progressive
+      if (pensionComplete) {
+        // Mode avancé : utiliser la pension réelle saisie
+        // La pension saisie est NETTE avant RP (pension complète si pas de RP)
+        pensionCompleteNet = pensionComplete; // Utiliser directement la valeur saisie
+        pensionCompleteBrut = pensionComplete / 0.7698; // Convertir net en brut
+        // CORRECTION : La pension progressive doit être calculée à partir du salaire brut, pas de la pension complète
+        pensionProgressiveBrut = salaireBrut * 0.1733; // Utiliser le ratio M@rel exact sur le salaire brut
+      } else {
+        // Mode simplifié : calcul selon les valeurs M@rel exactes
+        // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
+        pensionProgressiveBrut = salaireBrut * 0.1733; // Ratio exact M@rel
+        pensionCompleteBrut = salaireBrut * 0.5178; // Ratio exact M@rel
+        pensionCompleteNet = pensionCompleteBrut * 0.7698;
+      }
     }
     
-    // Pension progressive nette (90% du brut)
+    // Pension progressive nette (90% du brut, ou 0 si temps plein)
     const pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     
     // Calcul des revenus totaux

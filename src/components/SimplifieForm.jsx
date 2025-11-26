@@ -56,8 +56,8 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
       newErrors.salaireBrut = 'Veuillez saisir un salaire brut valide';
     }
     
-    if (!formData.tempsPartiel || formData.tempsPartiel < 40 || formData.tempsPartiel > 80) {
-      newErrors.tempsPartiel = 'Le temps partiel doit être entre 40% et 80%';
+    if (!formData.tempsPartiel || formData.tempsPartiel < 40 || formData.tempsPartiel > 100) {
+      newErrors.tempsPartiel = 'Le temps partiel doit être entre 40% et 100%';
     }
     
     if (!formData.age || formData.age < 60) {
@@ -129,6 +129,7 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
             <option value="60">60%</option>
             <option value="70">70%</option>
             <option value="80">80%</option>
+            <option value="100">100% (Temps plein - Comparaison)</option>
           </select>
           {errors.tempsPartiel && (
             <span className={styles.errorMessage}>{errors.tempsPartiel}</span>
