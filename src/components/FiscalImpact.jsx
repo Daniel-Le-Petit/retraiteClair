@@ -29,57 +29,87 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
 • Calcul basé sur : Couple, 2 parts
 • Revenus nets considérés : ${formatCurrency(simulationData?.revenusNets?.total || 0)}/mois`;
 
+  // Calculer les pourcentages pour le graphique
+  const tempsPleinRevenu = simulationData?.revenusNets?.tempsPlein || 0;
+  const rpRevenu = simulationData?.revenusNets?.total || 0;
+  const difference = tempsPleinRevenu - rpRevenu;
+  const rpPercentage = tempsPleinRevenu > 0 ? (rpRevenu / tempsPleinRevenu) * 100 : 0;
+  const savingsPercentage = tempsPleinRevenu > 0 ? (annualSavings / (tempsPleinRevenu * 12)) * 100 : 0;
+
   return (
     <div className={`${styles.container} animate-slideUp animate-delay-300`}>
       <div className={styles.header}>
-        <div className={styles.icon}>
-          <Euro size={24} />
-        </div>
-        <div className={styles.titleSection}>
-          <h3 className={styles.title}>Économie fiscale annuelle</h3>
-          <div className={styles.amount}>
-            {formatCurrency(annualSavings)} / an
-          </div>
-        </div>
+        <h3 className={styles.title}>💰 Économies fiscales</h3>
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.monthlySavings}>
-          <TrendingUp size={16} />
-          <span>Soit {formatCurrency(monthlySavings)} d'économie par mois</span>
-        </div>
-
-        <div className={styles.separator}></div>
-
-        <div className={styles.detailsSection}>
-          <div className={styles.detailsHeader}>
-            <Calculator size={16} />
-            <span>Détail :</span>
+      <div className={styles.visualContent}>
+        {/* Graphique principal */}
+        <div className={styles.mainCard}>
+          <div className={styles.mainAmount}>
+            {formatCurrency(annualSavings)}
+            <span className={styles.period}>/an</span>
           </div>
-          
-          <ul className={styles.detailsList}>
-            <li>Tranche d'imposition réduite</li>
-            <li>Abattement pension retraite : 10%</li>
-            <li>Calcul basé sur : Couple, 2 parts</li>
-          </ul>
-
-          <button
-            className={styles.detailsButton}
-            onClick={() => setShowDetails(!showDetails)}
-          >
-            <Tooltip content={tooltipContent}>
-              <Info size={16} />
-            </Tooltip>
-            Comment est calculée cette économie ?
-          </button>
-        </div>
-
-        <div className={styles.projection}>
-          <div className={styles.projectionIcon}>💡</div>
-          <div className={styles.projectionText}>
-            Sur 5 ans de RP, c'est {formatCurrency(fiveYearSavings)} d'économies !
+          <div className={styles.monthlyBadge}>
+            <TrendingUp size={18} />
+            {formatCurrency(monthlySavings)}/mois
           </div>
         </div>
+
+        {/* Graphique de comparaison */}
+        <div className={styles.comparisonChart}>
+          <div className={styles.chartTitle}>Revenus comparés</div>
+          <div className={styles.barsContainer}>
+            <div className={styles.barGroup}>
+              <div className={styles.barLabel}>Temps plein</div>
+              <div className={styles.barWrapper}>
+                <div 
+                  className={`${styles.bar} ${styles.barFull}`}
+                  style={{ height: '100%' }}
+                >
+                  <div className={styles.barValue}>{formatCurrency(tempsPleinRevenu)}</div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.barGroup}>
+              <div className={styles.barLabel}>Retraite progressive</div>
+              <div className={styles.barWrapper}>
+                <div 
+                  className={`${styles.bar} ${styles.barRP}`}
+                  style={{ height: `${rpPercentage}%` }}
+                >
+                  <div className={styles.barValue}>{formatCurrency(rpRevenu)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.savingsIndicator}>
+            <div className={styles.savingsArrow}>↓</div>
+            <div className={styles.savingsAmount}>
+              Économie : {formatCurrency(annualSavings)}/an
+            </div>
+          </div>
+        </div>
+
+        {/* Projection 5 ans */}
+        <div className={styles.projectionCard}>
+          <div className={styles.projectionHeader}>
+            <div className={styles.projectionIcon}>💡</div>
+            <div className={styles.projectionTitle}>Sur 5 ans</div>
+          </div>
+          <div className={styles.projectionAmount}>
+            {formatCurrency(fiveYearSavings)}
+          </div>
+          <div className={styles.projectionSubtext}>d'économies cumulées</div>
+        </div>
+
+        {/* Détails simplifiés */}
+        <button
+          className={styles.detailsButton}
+          onClick={() => setShowDetails(!showDetails)}
+        >
+          <Info size={18} />
+          <span>Comment est calculée cette économie ?</span>
+        </button>
 
         {showDetails && (
           <div className={styles.expandedDetails}>

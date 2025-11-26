@@ -168,6 +168,12 @@ export const blogCategories = [
     name: 'Réformes',
     description: 'Évolutions réglementaires et actualités',
     color: '#374151'
+  },
+  {
+    id: 'linkedin',
+    name: 'Articles LinkedIn',
+    description: 'Articles publiés sur LinkedIn',
+    color: '#0077b5'
   }
 ];
 

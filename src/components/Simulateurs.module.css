@@ -189,7 +189,28 @@
 .modeContext {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+/* Style spécial pour le mode avancé */
+.modeContextAdvanced {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  border: 2px solid #1d4ed8 !important;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3) !important;
+  color: white;
+}
+
+/* Style spécial pour le mode simplifié - Même vert que le header */
+.modeContextSimplifie {
+  background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%) !important;
+  border: 2px solid #134e4a !important;
+  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3) !important;
+  color: white;
 }
 
 .modeBadge {
@@ -204,19 +225,36 @@
 }
 
 .modeBadgeSimplifie {
-  background: rgba(15, 118, 110, 0.12);
-  color: #0f766e;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .modeBadgeAdvanced {
-  background: rgba(37, 99, 235, 0.12);
-  color: #2563eb;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .modeTagline {
   font-size: 1.05rem;
   color: #1f2937;
   margin: 0;
+  font-weight: 500;
+}
+
+/* Style pour le tagline en mode avancé */
+.modeContextAdvanced .modeTagline {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Style pour le tagline en mode simplifié */
+.modeContextSimplifie .modeTagline {
+  color: white !important;
+  font-weight: 600;
 }
 
 .modeStats {
@@ -227,10 +265,25 @@
   color: #6b7280;
 }
 
+/* Style pour les stats en mode avancé */
+.modeContextAdvanced .modeStats {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Style pour les stats en mode simplifié */
+.modeContextSimplifie .modeStats {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
 .modeStat {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
 }
 
 .modeSwitchButton {

@@ -9,7 +9,6 @@ import CalculationDetails from './CalculationDetails';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
-  const [activeTab, setActiveTab] = useState('overview');
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {
@@ -107,68 +106,20 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className={styles.tabs}>
-        <button
-          className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`}
-          onClick={() => setActiveTab('overview')}
-        >
-          <PieChart size={16} />
-          Vue d'ensemble
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'scenarios' ? styles.active : ''}`}
-          onClick={() => setActiveTab('scenarios')}
-        >
-          <BarChart3 size={16} />
-          Autres scénarios
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === 'fiscal' ? styles.active : ''}`}
-          onClick={() => setActiveTab('fiscal')}
-        >
-          <TrendingUp size={16} />
-          Impact fiscal
-        </button>
-      </div>
+      {/* Contenu combiné sans onglets */}
+      <div className={styles.combinedContent}>
+        {/* Section Scénarios */}
+        <ScenarioComparator
+          currentScenario={getCurrentScenario()}
+          onScenarioSelect={handleScenarioSelect}
+          baseData={getBaseData()}
+        />
 
-      {/* Tab Content */}
-      <div className={styles.tabContent}>
-        {activeTab === 'overview' && (
-          <div className={styles.overviewContent}>
-            {/* Comparaison avec autres scénarios */}
-            <div className={`${styles.comparisonSection} animate-slideUp animate-delay-200`}>
-              <h3 className={styles.sectionTitle}>
-                <BarChart3 size={20} />
-                Comparaison avec d'autres scénarios
-              </h3>
-              
-              <ScenarioChart data={data} />
-              
-              <div className={styles.insight}>
-                <div className={styles.insightIcon}>💡</div>
-                <div className={styles.insightText}>
-                  Avec 80%, vous conservez 95% de votre revenu !
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'scenarios' && (
-          <ScenarioComparator
-            currentScenario={getCurrentScenario()}
-            onScenarioSelect={handleScenarioSelect}
-            baseData={getBaseData()}
-          />
-        )}
-
-        {activeTab === 'fiscal' && (
-          <FiscalImpact
-            fiscalData={data.impactFiscal}
-            simulationData={data}
-          />
-        )}
+        {/* Section Impact fiscal */}
+        <FiscalImpact
+          fiscalData={data.impactFiscal}
+          simulationData={data}
+        />
       </div>
 
       {/* Détail du calcul */}

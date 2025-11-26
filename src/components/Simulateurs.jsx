@@ -41,19 +41,80 @@ const Simulateurs = () => {
       window.removeEventListener('navigateToPage', handleNavigation);
     };
   }, []);
-  const [simulationData, setSimulationData] = useState(null);
+
+  // Charger les données sauvegardées depuis localStorage au montage
+  const loadSavedData = () => {
+    try {
+      const savedFormData = localStorage.getItem('retraiteClair_formData');
+      const savedSimulationData = localStorage.getItem('retraiteClair_simulationData');
+      const savedMode = localStorage.getItem('retraiteClair_mode');
+      
+      if (savedFormData) {
+        return JSON.parse(savedFormData);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des données sauvegardées:', error);
+    }
+    return {
+      salaireBrut: '',
+      tempsPartiel: '60',
+      age: '',
+      trimestres: '',
+      sam: '',
+      pensionComplete: '',
+      revenusComplementaires: ''
+    };
+  };
+
+  const [simulationData, setSimulationData] = useState(() => {
+    try {
+      const savedSimulationData = localStorage.getItem('retraiteClair_simulationData');
+      return savedSimulationData ? JSON.parse(savedSimulationData) : null;
+    } catch (error) {
+      return null;
+    }
+  });
   const [isCalculating, setIsCalculating] = useState(false);
   
-  // État partagé entre les formulaires
-  const [sharedFormData, setSharedFormData] = useState({
-    salaireBrut: '',
-    tempsPartiel: '60',
-    age: '',
-    trimestres: '',
-    sam: '',
-    pensionComplete: '',
-    revenusComplementaires: ''
-  });
+  // État partagé entre les formulaires - initialisé avec les données sauvegardées
+  const [sharedFormData, setSharedFormData] = useState(loadSavedData);
+
+  // Restaurer le mode sauvegardé
+  useEffect(() => {
+    const savedMode = localStorage.getItem('retraiteClair_mode');
+    if (savedMode && (savedMode === 'simplifie' || savedMode === 'avance')) {
+      setMode(savedMode);
+    }
+  }, []);
+
+  // Sauvegarder les données dans localStorage quand elles changent
+  useEffect(() => {
+    try {
+      localStorage.setItem('retraiteClair_formData', JSON.stringify(sharedFormData));
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde des données:', error);
+    }
+  }, [sharedFormData]);
+
+  // Sauvegarder les résultats de simulation
+  useEffect(() => {
+    if (simulationData) {
+      try {
+        localStorage.setItem('retraiteClair_simulationData', JSON.stringify(simulationData));
+      } catch (error) {
+        console.error('Erreur lors de la sauvegarde des résultats:', error);
+      }
+    }
+  }, [simulationData]);
+
+  // Sauvegarder le mode
+  useEffect(() => {
+    try {
+      localStorage.setItem('retraiteClair_mode', mode);
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde du mode:', error);
+    }
+  }, [mode]);
 
   // Fonction pour mettre à jour les données partagées
   const updateSharedData = (newData) => {
@@ -156,6 +217,18 @@ const Simulateurs = () => {
     // Convertir l'impôt annuel en mensuel
     impotTempsPlein = impotTempsPlein / 12;
     
+    // Calculer les tranches d'imposition
+    const getTrancheImposition = (revenusAnnuel) => {
+      if (revenusAnnuel <= 10777) return 0;
+      if (revenusAnnuel <= 27478) return 11;
+      if (revenusAnnuel <= 78570) return 30;
+      if (revenusAnnuel <= 168994) return 41;
+      return 45;
+    };
+    
+    const trancheAvant = getTrancheImposition(revenusTempsPleinAnnuel);
+    const trancheApres = getTrancheImposition(revenusAnnuelNet);
+    
     return {
       revenusBruts: {
         tempsPlein: salaireBrut,
@@ -177,7 +250,11 @@ const Simulateurs = () => {
         avant: impotTempsPlein,
         apres: impotRevenu,
         economie: impotTempsPlein - impotRevenu, // Mensuel
-        economieAnnuelle: (impotTempsPlein - impotRevenu) * 12 // Annuel
+        economieAnnuelle: (impotTempsPlein - impotRevenu) * 12, // Annuel
+        revenuAvant: revenusTempsPleinAnnuel, // Revenu imposable annuel avant RP
+        revenuApres: revenusAnnuelNet, // Revenu imposable annuel avec RP
+        trancheAvant: trancheAvant, // Tranche d'imposition avant RP (%)
+        trancheApres: trancheApres // Tranche d'imposition avec RP (%)
       },
       cotisations: {
         salariales: salaireBrut * 0.2117,
@@ -224,7 +301,7 @@ const Simulateurs = () => {
 
         {/* Barre de sélection de mode */}
         <div className={styles.modeToggleBar}>
-          <div className={styles.modeContext}>
+          <div className={`${styles.modeContext} ${mode === 'avance' ? styles.modeContextAdvanced : styles.modeContextSimplifie}`}>
             <span className={`${styles.modeBadge} ${mode === 'avance' ? styles.modeBadgeAdvanced : styles.modeBadgeSimplifie}`}>
               {modeMeta[mode].title}
             </span>

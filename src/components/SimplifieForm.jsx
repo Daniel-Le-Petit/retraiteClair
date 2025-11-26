@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SimplifieForm.module.css';
 
 const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {
@@ -9,6 +9,15 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
   });
 
   const [errors, setErrors] = useState({});
+
+  // Synchroniser avec sharedData quand il change (chargement depuis localStorage)
+  useEffect(() => {
+    setFormData({
+      salaireBrut: sharedData.salaireBrut || '',
+      tempsPartiel: sharedData.tempsPartiel || '60',
+      age: sharedData.age || ''
+    });
+  }, [sharedData.salaireBrut, sharedData.tempsPartiel, sharedData.age]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +89,7 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
     <div className={styles.container}>
       <h2 className={styles.title}>Mode Simplifié</h2>
       <p className={styles.description}>
-        Renseignez vos 3 informations clés pour obtenir une estimation immédiate. Vous pourrez ensuite affiner vos calculs avec le mode avancé si besoin
+        Renseignez vos 3 informations clés pour obtenir une estimation immédiate.
       </p>
       
       <form onSubmit={handleSubmit} className={styles.form}>

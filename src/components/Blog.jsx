@@ -59,6 +59,13 @@ const Blog = () => {
                   {category.name}
                 </button>
               ))}
+              <button
+                className={`${styles.categoryButton} ${selectedCategory === 'linkedin' ? styles.active : ''}`}
+                onClick={() => setSelectedCategory('linkedin')}
+                style={{ '--category-color': '#0077b5' }}
+              >
+                Articles LinkedIn
+              </button>
             </div>
           </div>
         </section>

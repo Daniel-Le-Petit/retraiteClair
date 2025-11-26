@@ -51,21 +51,38 @@
 .input,
 .select {
   padding: 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
+  border: 2px solid rgba(30, 58, 138, 0.2);
+  border-radius: 12px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
-  background: #d1fae5; /* Vert clair pour mode simplifié */
-  max-width: 400px; /* Réduire la largeur des champs */
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+  max-width: 400px;
   width: 100%;
-  color: #000000; /* Police noire pour le texte, notamment pour le pourcentage */
+  color: #1E3A8A;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.1);
+  font-weight: 500;
+}
+
+.input::placeholder {
+  color: rgba(30, 58, 138, 0.5);
+}
+
+.select {
+  color: #1E3A8A;
+}
+
+.select option {
+  background: #e0f2fe;
+  color: #1E3A8A;
 }
 
 .input:focus,
 .select:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: #1E3A8A;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2), 0 4px 12px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
 .input.error,

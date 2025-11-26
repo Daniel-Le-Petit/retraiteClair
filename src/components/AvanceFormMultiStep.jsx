@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, Clock, User, Briefcase, PiggyBank, Plus } from 'lucide-react';
 import InputField from './InputField';
 import InfoBox from './InfoBox';
@@ -18,6 +18,27 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
 
   const [errors, setErrors] = useState({});
   const [completedSteps, setCompletedSteps] = useState(new Set());
+
+  // Synchroniser avec sharedData quand il change (chargement depuis localStorage)
+  useEffect(() => {
+    setFormData({
+      salaireBrut: sharedData?.salaireBrut || '',
+      tempsPartiel: sharedData?.tempsPartiel || '60',
+      age: sharedData?.age || '',
+      trimestres: sharedData?.trimestres || '',
+      sam: sharedData?.sam || '',
+      pensionComplete: sharedData?.pensionComplete || '',
+      revenusComplementaires: sharedData?.revenusComplementaires || ''
+    });
+  }, [
+    sharedData?.salaireBrut,
+    sharedData?.tempsPartiel,
+    sharedData?.age,
+    sharedData?.trimestres,
+    sharedData?.sam,
+    sharedData?.pensionComplete,
+    sharedData?.revenusComplementaires
+  ]);
 
   // Définition des étapes avec des références aux composants d'icônes
   const steps = [
