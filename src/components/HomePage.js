@@ -205,7 +205,7 @@ const HomePage = () => {
             <div className="card-image-container">
               <img 
                 src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Personne utilisant un ordinateur pour une simulation rapide - Simulation simplifiée"
+                alt="Simulation simplifiée"
                 className="card-image"
               />
               <div className="card-overlay">

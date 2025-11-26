@@ -304,35 +304,33 @@ const Simulateurs = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <header className={styles.header}>
+        <header className={`${styles.header} ${mode === 'avance' ? styles.advancedMode : ''}`}>
           <div className={styles.headerContent}>
             <h1 className={styles.title}>Simulateur Retraite Progressive</h1>
             <p className={styles.subtitle}>
               Calculez vos revenus avec précision (mode simplifié ou avancé)
             </p>
-          </div>
-        </header>
-
-        {/* Barre de sélection de mode */}
-        <div className={styles.modeToggleBar}>
-          <div className={`${styles.modeContext} ${mode === 'avance' ? styles.modeContextAdvanced : styles.modeContextSimplifie}`}>
-            <span className={`${styles.modeBadge} ${mode === 'avance' ? styles.modeBadgeAdvanced : styles.modeBadgeSimplifie}`}>
-              {modeMeta[mode].title}
-            </span>
-            <p className={styles.modeTagline}>{modeMeta[mode].tagline}</p>
-            <div className={styles.modeStats}>
-              <span className={styles.modeStat}>⏱ {modeMeta[mode].duration}</span>
-              <span className={styles.modeStat}>📝 {modeMeta[mode].fields}</span>
+            
+            {/* Informations du mode actuel intégrées dans le header */}
+            <div className={styles.modeInfoInline}>
+              <div className={styles.modeInfoContent}>
+                <span className={styles.modeInfoTitle}>{modeMeta[mode].title}</span>
+                <span className={styles.modeInfoTagline}>{modeMeta[mode].tagline}</span>
+                <div className={styles.modeInfoStats}>
+                  <span className={styles.modeInfoStat}>⏱ {modeMeta[mode].duration}</span>
+                  <span className={styles.modeInfoStat}>📝 {modeMeta[mode].fields}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                className={styles.modeSwitchButtonInline}
+                onClick={() => setMode(mode === 'simplifie' ? 'avance' : 'simplifie')}
+              >
+                {mode === 'simplifie' ? 'Passer au mode avancé' : 'Revenir au mode simplifié'}
+              </button>
             </div>
           </div>
-          <button
-            type="button"
-            className={`${styles.modeSwitchButton} ${mode === 'simplifie' ? styles.modeSwitchAdvanced : styles.modeSwitchSimplifie}`}
-            onClick={() => setMode(mode === 'simplifie' ? 'avance' : 'simplifie')}
-          >
-            {mode === 'simplifie' ? 'Passer au mode avancé' : 'Revenir au mode simplifié'}
-          </button>
-        </div>
+        </header>
         
         {/* Formulaire dynamique selon le mode */}
         <div className={styles.formContainer}>

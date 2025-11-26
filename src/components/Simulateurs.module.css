@@ -83,11 +83,17 @@
   color: white;
   padding: 2rem 0;
   margin-top: 60px !important; /* Commencer juste après la navigation fixe (60px de hauteur) */
-  margin-bottom: 1.5rem;
+  margin-bottom: 0 !important; /* Coller au formulaire */
   border-radius: 0; /* Pas de border-radius en haut */
   box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
   position: relative;
   z-index: 1;
+}
+
+/* Header pour mode avancé - bleu */
+.header.advancedMode {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+  box-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
 }
 
 /* Sur mobile, la navigation fait aussi 60px (ou 50px selon les breakpoints) */
@@ -168,8 +174,95 @@
 .subtitle {
   font-size: 1rem;
   opacity: 0.9;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   line-height: 1.5;
+}
+
+/* Informations du mode intégrées dans le header */
+.modeInfoInline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.modeInfoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.modeInfoTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.modeInfoTagline {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.modeInfoStats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.modeInfoStat {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.modeSwitchButtonInline {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.modeSwitchButtonInline:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Responsive pour modeInfoInline */
+@media (max-width: 768px) {
+  .modeInfoInline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .modeSwitchButtonInline {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .modeInfoStats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 .modeToggleBar {
@@ -332,11 +425,13 @@
 
 .formContainer {
   background: white;
-  border-radius: 16px;
+  border-radius: 0 0 16px 16px; /* Arrondir seulement en bas */
   padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 0 !important; /* Coller au header */
   margin-bottom: 3rem;
   border: 1px solid #e9ecef;
+  border-top: none; /* Pas de bordure en haut pour coller au header */
 }
 
 .howItWorks {
@@ -436,6 +531,9 @@
   .formContainer,
   .howItWorks {
     padding: 1.5rem;
+    margin-top: 0 !important;
+    border-radius: 0;
+    border-top: none;
   }
   
   .sectionTitle {

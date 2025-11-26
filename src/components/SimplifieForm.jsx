@@ -87,11 +87,6 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Mode Simplifié</h2>
-      <p className={styles.description}>
-        Renseignez vos 3 informations clés pour obtenir une estimation immédiate.
-      </p>
-      
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.fieldGroup}>
           <label htmlFor="salaireBrut" className={styles.label}>
