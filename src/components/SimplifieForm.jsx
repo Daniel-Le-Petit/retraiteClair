@@ -150,6 +150,8 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
             placeholder="Ex: 62"
             min="60"
             max="70"
+            inputMode="numeric"
+            pattern="[0-9]*"
           />
           {errors.age && (
             <span className={styles.errorMessage}>{errors.age}</span>

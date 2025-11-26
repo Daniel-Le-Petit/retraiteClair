@@ -66,6 +66,32 @@ const InputField = ({
       );
     }
 
+    // Déterminer inputMode pour les champs numériques sur mobile
+    // Sur mobile, inputMode="numeric" ouvre le clavier numérique
+    const getInputMode = () => {
+      // Si inputMode est déjà défini dans props, on l'utilise
+      if (props.inputMode) {
+        return props.inputMode;
+      }
+      // Si type est "number", on force inputMode="numeric"
+      if (type === 'number') {
+        return 'numeric';
+      }
+      // Si type est "text" avec pattern numérique, on suggère numeric
+      if (type === 'text' && props.pattern === '[0-9]*') {
+        return 'numeric';
+      }
+      return undefined;
+    };
+
+    const inputMode = getInputMode();
+    const inputProps = {
+      ...props,
+      ...(inputMode && { inputMode }),
+      // Ajouter pattern pour les champs number si pas déjà défini
+      ...(type === 'number' && !props.pattern && { pattern: '[0-9]*' })
+    };
+
     return (
       <div className={styles.inputContainer}>
         <input
@@ -75,7 +101,7 @@ const InputField = ({
           onChange={onChange}
           className={getInputClassName()}
           placeholder={placeholder}
-          {...props}
+          {...inputProps}
         />
         {tooltipContent && (
           <div className={styles.inputTooltip}>

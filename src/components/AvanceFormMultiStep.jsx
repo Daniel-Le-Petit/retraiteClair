@@ -359,6 +359,8 @@ votre brut est environ 3850€`}
               placeholder="Ex: 160"
               min="150"
               max="172"
+              inputMode="numeric"
+              pattern="[0-9]*"
               error={errors.trimestres}
               success={formData.trimestres && parseInt(formData.trimestres) >= 150 ? "Nombre valide pour votre génération" : null}
               tooltipContent="Consultez votre relevé de carrière sur lassuranceretraite.fr"
@@ -384,6 +386,8 @@ votre brut est environ 3850€`}
               value={formData.sam}
               onChange={handleChange}
               placeholder="Ex: 45000"
+              inputMode="numeric"
+              pattern="[0-9]*"
               error={errors.sam}
               showCalculator={true}
               onCalculatorResult={(result) => {
