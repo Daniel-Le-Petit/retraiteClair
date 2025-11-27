@@ -237,22 +237,23 @@ const AnalyticsDashboard = ({ onLogout }) => {
       {onLogout && (
         <div style={{ 
           position: 'fixed', 
-          top: '20px', 
-          right: '20px', 
+          top: '10px', 
+          right: '10px', 
           zIndex: 10000 
         }}>
           <button
             onClick={onLogout}
             style={{
-              padding: '0.5rem 1rem',
+              padding: '0.5rem 0.75rem',
               background: '#ef4444',
               color: 'white',
               border: 'none',
               borderRadius: '8px',
               cursor: 'pointer',
-              fontSize: '0.9rem',
+              fontSize: '0.85rem',
               fontWeight: '600',
-              boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)'
+              boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)',
+              whiteSpace: 'nowrap'
             }}
           >
             Déconnexion
