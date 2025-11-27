@@ -40,6 +40,10 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
     <div className={`${styles.container} animate-slideUp animate-delay-300`}>
       <div className={styles.header}>
         <h3 className={styles.title}>💰 Économies fiscales</h3>
+        <p className={styles.introText}>
+          La retraite progressive vous permet de réduire votre revenu imposable et donc de payer moins d'impôts. 
+          Cette économie fiscale s'ajoute à votre revenu net, améliorant ainsi votre pouvoir d'achat réel.
+        </p>
       </div>
 
       <div className={styles.visualContent}>
@@ -139,6 +143,9 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
                   {formatCurrency(annualSavings)}/an
                 </div>
               </div>
+            </div>
+            <div className={styles.calculationNote}>
+              <strong>💡 Prélèvement à la source :</strong> Calculé selon les tranches 2024 (11%, 30%, 41%, 45%). Mensuel = annuel ÷ 12.
             </div>
           </div>
         )}

@@ -4,6 +4,25 @@
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #e9ecef;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.container:hover::before {
+  opacity: 0.1;
 }
 
 .fiscalSummary {
@@ -76,23 +95,58 @@
 .toggleButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.75rem;
   width: 100%;
-  background: white;
-  border: 2px solid #0f766e;
-  border-radius: 8px;
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f766e;
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  border: 3px solid #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4), 0 0 0 0 rgba(59, 130, 246, 0.7);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.toggleButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.toggleButton:hover::before {
+  left: 100%;
 }
 
 .toggleButton:hover {
-  background: #f0fdfa;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+  background: linear-gradient(135deg, #2563eb 0%, #059669 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.toggleButton:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4), 0 0 0 0 rgba(59, 130, 246, 0.7);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0);
+  }
 }
 
 .details {
@@ -193,6 +247,12 @@
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
+  }
+  
+  .toggleButton {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-width: 2px;
   }
   
   .details {

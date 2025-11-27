@@ -10,21 +10,37 @@
 
 .header {
   text-align: center;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem; /* Espace en haut pour s'assurer que le titre est visible */
+  position: relative;
+  z-index: 10; /* S'assurer que le header est au-dessus */
 }
 
 .title {
   font-size: 1.25rem;
   font-weight: 600;
   color: white;
+  margin: 0 0 0.75rem 0;
+  padding: 0.5rem 0; /* Padding vertical pour plus d'espace */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: block; /* S'assurer que le titre est affiché */
+  visibility: visible; /* Forcer la visibilité */
+  opacity: 1; /* Forcer l'opacité */
+}
+
+.introText {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.5;
   margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 0.5rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .visualContent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 /* Carte principale */
@@ -32,25 +48,25 @@
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 12px;
-  padding: 1.25rem;
+  border-radius: 10px;
+  padding: 0.875rem;
   text-align: center;
   color: white;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .mainAmount {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
 }
 
 .period {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   opacity: 0.9;
 }
@@ -58,11 +74,11 @@
 .monthlyBadge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   background: rgba(255, 255, 255, 0.2);
-  padding: 0.4rem 0.875rem;
-  border-radius: 16px;
-  font-size: 0.95rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 14px;
+  font-size: 0.85rem;
   font-weight: 600;
   backdrop-filter: blur(10px);
 }
@@ -72,15 +88,15 @@
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem;
 }
 
 .chartTitle {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   text-align: center;
 }
 
@@ -88,9 +104,9 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  gap: 0.75rem;
-  min-height: 140px;
-  margin-bottom: 0.75rem;
+  gap: 0.6rem;
+  min-height: 110px;
+  margin-bottom: 0.6rem;
 }
 
 .barGroup {
@@ -98,20 +114,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .barLabel {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .barWrapper {
   width: 100%;
-  height: 120px;
+  height: 90px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -138,10 +154,10 @@
 }
 
 .barValue {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   line-height: 1.2;
   width: 100%;
@@ -152,19 +168,19 @@
 
 .savingsIndicator {
   text-align: center;
-  padding-top: 0.75rem;
+  padding-top: 0.6rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.3);
 }
 
 .savingsArrow {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: white;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .savingsAmount {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: white;
 }
@@ -174,8 +190,8 @@
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem;
   text-align: center;
 }
 
@@ -183,30 +199,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  margin-bottom: 0.75rem;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .projectionIcon {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .projectionTitle {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: white;
 }
 
 .projectionAmount {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .projectionSubtext {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -214,16 +230,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  padding: 0.6rem 0.875rem;
-  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
   transition: all 0.2s ease;
   width: 100%;
 }
@@ -236,21 +252,21 @@
 .expandedDetails {
   background: white;
   border: 1px solid #e9ecef;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-top: 1rem;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.75rem;
 }
 
 .expandedDetails h4 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   color: #374151;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 .calculationSteps {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .step,
@@ -258,8 +274,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
-  border-radius: 6px;
+  padding: 0.6rem;
+  border-radius: 5px;
 }
 
 .step {
@@ -274,13 +290,13 @@
 
 .stepTitle {
   color: #6c757d;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .stepValue {
   color: #374151;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .stepResult .stepTitle,
@@ -288,52 +304,86 @@
   color: #166534;
 }
 
+.calculationNote {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f0f9ff;
+  border-left: 3px solid #3b82f6;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #1e40af;
+}
+
+.calculationNote strong {
+  color: #1e3a8a;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 1.25rem;
+    padding-top: 1.5rem; /* Plus d'espace en haut sur mobile */
+  }
+  
+  .header {
+    margin-bottom: 1rem;
+    padding-top: 0.75rem; /* Plus d'espace en haut sur mobile */
   }
   
   .title {
-    font-size: 1.1rem;
+    font-size: 1.15rem; /* Légèrement plus grand pour mobile */
+    padding: 0.75rem 0 0.5rem 0; /* Plus de padding vertical sur mobile */
+    line-height: 1.4;
+  }
+  
+  .introText {
+    font-size: 0.8rem;
+    padding: 0 0.25rem;
   }
   
   .mainCard {
-    padding: 1rem;
+    padding: 0.75rem;
   }
   
   .mainAmount {
-    font-size: 1.75rem;
+    font-size: 1.4rem;
   }
   
   .period {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   
   .monthlyBadge {
-    font-size: 0.85rem;
-    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.65rem;
   }
   
   .barsContainer {
-    min-height: 120px;
+    min-height: 100px;
     gap: 0.5rem;
   }
   
   .barWrapper {
-    height: 100px;
+    height: 85px;
   }
   
   .barValue {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+  }
+  
+  .barLabel {
+    font-size: 0.8rem;
   }
   
   .projectionCard {
-    padding: 0.875rem;
+    padding: 0.65rem;
   }
   
   .projectionAmount {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
   
   .expandedDetails {
@@ -354,36 +404,40 @@
   }
   
   .mainAmount {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
   .period {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   
   .monthlyBadge {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   
   .barsContainer {
-    min-height: 100px;
+    min-height: 90px;
     gap: 0.4rem;
   }
   
   .barWrapper {
-    height: 80px;
+    height: 75px;
   }
   
   .barLabel {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
+  }
+  
+  .barValue {
+    font-size: 1rem;
   }
   
   .projectionAmount {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .detailsButton {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    padding: 0.45rem 0.65rem;
   }
 }

@@ -4,44 +4,62 @@ import {
   Calculator, 
   BookOpen, 
   CheckCircle, 
-  MessageSquare
+  MessageSquare,
+  BarChart3
 } from 'lucide-react';
 
 const HorizontalNavigation = ({ currentPage, onPageChange }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const navigationItems = React.useMemo(() => [
-    {
-      id: 'accueil',
-      label: 'Accueil',
-      icon: Home,
-      description: 'Découvrez la retraite progressive'
-    },
-    {
-      id: 'simulateurs',
-      label: 'Simulateurs',
-      icon: Calculator,
-      description: 'Calculez vos revenus'
-    },
-    {
-      id: 'blog',
-      label: 'Blog',
-      icon: BookOpen,
-      description: 'Conseils et actualités'
-    },
-    {
-      id: 'guide-pratique',
-      label: 'Guide pratique',
-      icon: CheckCircle,
-      description: 'FAQ et ressources'
-    },
-    {
-      id: 'contact',
-      label: 'Contact',
-      icon: MessageSquare,
-      description: 'Nous contacter'
+  const navigationItems = React.useMemo(() => {
+    const baseItems = [
+      {
+        id: 'accueil',
+        label: 'Accueil',
+        icon: Home,
+        description: 'Découvrez la retraite progressive'
+      },
+      {
+        id: 'simulateurs',
+        label: 'Simulateurs',
+        icon: Calculator,
+        description: 'Calculez vos revenus'
+      },
+      {
+        id: 'blog',
+        label: 'Blog',
+        icon: BookOpen,
+        description: 'Conseils et actualités'
+      },
+      {
+        id: 'guide-pratique',
+        label: 'Guide pratique',
+        icon: CheckCircle,
+        description: 'FAQ et ressources'
+      },
+      {
+        id: 'contact',
+        label: 'Contact',
+        icon: MessageSquare,
+        description: 'Nous contacter'
+      }
+    ];
+
+    // Dashboard - Toujours visible dans le header (mais protégé par mot de passe)
+    // En production, il faut définir REACT_APP_ENABLE_DASHBOARD=true pour l'activer
+    if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true') {
+      baseItems.push({
+        id: 'dashboard',
+        label: 'Dashboard',
+        icon: BarChart3,
+        description: 'Statistiques et analytics'
+      });
     }
-  ], []);
+    
+    console.log('🔄 [DEBUG] HorizontalNavigation items:', baseItems.map(i => i.id));
+
+    return baseItems;
+  }, []);
 
   // Trouver l'index de la page actuelle
   useEffect(() => {
@@ -60,8 +78,11 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
   }, [currentPage, navigationItems]);
 
   const handleNavigation = (item, index) => {
+    console.log('🔄 [CLICK] handleNavigation called with item:', item.id, 'index:', index);
     setActiveIndex(index);
+    console.log('🔄 [CLICK] Calling onPageChange with:', item.id);
     onPageChange(item.id);
+    console.log('🔄 [CLICK] onPageChange called');
   };
 
   // Indicateur spécial pour les articles

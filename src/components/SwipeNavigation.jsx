@@ -8,14 +8,32 @@ import ConseilsPageSimple from './ConseilsPageSimple';
 import AboutPage from './AboutPage';
 import ContactForm from './ContactForm';
 import LegalPage from './LegalPage';
+import AnalyticsDashboard from './AnalyticsDashboard';
 import HorizontalNavigation from './HorizontalNavigation';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
 
 const SwipeNavigation = () => {
+  console.log('🚀🚀🚀 [SWIPE] SwipeNavigation component function called!');
   const { trackPageView, trackEvent } = useGA4();
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Debug: Log les pages au montage
+  useEffect(() => {
+    console.log('🔄 SwipeNavigation mounted');
+    console.log('🔄 NODE_ENV:', process.env.NODE_ENV);
+    console.log('🔄 REACT_APP_ENABLE_DASHBOARD:', process.env.REACT_APP_ENABLE_DASHBOARD);
+    console.log('🔄 Total pages:', pages.length);
+    console.log('🔄 Pages IDs:', pages.map(p => p.id));
+    const dashboardIndex = pages.findIndex(p => p.id === 'dashboard');
+    console.log('🔄 Dashboard index:', dashboardIndex);
+    if (dashboardIndex === -1) {
+      console.warn('⚠️ Dashboard NOT FOUND in pages array!');
+    } else {
+      console.log('✅ Dashboard found at index:', dashboardIndex);
+    }
+  }, []);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentArticle, setCurrentArticle] = useState(null);
   const [isTextSelection, setIsTextSelection] = useState(false);
@@ -65,8 +83,25 @@ const SwipeNavigation = () => {
       title: 'Contact',
       gaTitle: 'Contact RetraiteClair',
       gaPath: '/contact'
+    },
+    // Dashboard Analytics - TOUJOURS ajouté pour le moment (on peut le restreindre après)
+    {
+      id: 'dashboard',
+      component: AnalyticsDashboard,
+      title: 'Dashboard',
+      gaTitle: 'Dashboard Analytics',
+      gaPath: '/dashboard'
     }
   ];
+  
+  // Debug: Vérifier que le dashboard est bien dans les pages (au moment de la création)
+  console.log('📊📊📊 [SWIPE-MOUNT] Pages array created. Total:', pages.length);
+  console.log('📊📊📊 [SWIPE-MOUNT] Pages IDs:', pages.map(p => p.id));
+  console.log('📊📊📊 [SWIPE-MOUNT] Dashboard in pages?', pages.some(p => p.id === 'dashboard'));
+  console.log('📊📊📊 [SWIPE-MOUNT] NODE_ENV:', process.env.NODE_ENV);
+  
+  // Vérifier que le composant AnalyticsDashboard est bien importé
+  console.log('📊📊📊 [SWIPE-MOUNT] AnalyticsDashboard imported?', typeof AnalyticsDashboard !== 'undefined');
 
   // Fonction pour scroll vers le haut
   const scrollToTop = () => {
@@ -187,11 +222,17 @@ const SwipeNavigation = () => {
 
   // Navigation par clic sur les dots
   const goToPage = (index) => {
+    console.log('🔄 goToPage called:', index, 'Total pages:', pages.length);
+    console.log('🔄 Pages IDs:', pages.map(p => p.id));
+    
     if (!isTransitioning && index !== currentIndex) {
       setIsTransitioning(true);
       
       // Track la page précédente
       const currentPage = pages[currentIndex];
+      const newPage = pages[index];
+      console.log('🔄 Navigating from:', currentPage?.id, 'to:', newPage?.id);
+      
       trackEvent('page_exit', {
         event_category: 'navigation',
         event_label: currentPage.gaTitle,
@@ -307,7 +348,14 @@ const SwipeNavigation = () => {
 
     return pages.map((page, index) => {
       const PageComponent = page.component;
+      if (page.id === 'dashboard') {
+        console.log('📊 [RENDER] Rendering dashboard page at index:', index, 'currentIndex:', currentIndex, 'isActive:', index === currentIndex);
+      }
       const isActive = index === currentIndex;
+      
+      if (isActive && page.id === 'dashboard') {
+        console.log('📊 Dashboard page is active, rendering AnalyticsDashboard component');
+      }
       
       return (
         <div
@@ -320,7 +368,7 @@ const SwipeNavigation = () => {
             display: isActive ? 'block' : 'none'
           }}
         >
-          <PageComponent />
+          {isActive && <PageComponent />}
         </div>
       );
     });
@@ -331,6 +379,10 @@ const SwipeNavigation = () => {
     return null; // Désactivé car remplacé par NavigationWidget
   };
 
+  // Log au rendu pour vérifier que le composant se monte
+  console.log('🚀🚀🚀 [SWIPE-RENDER] SwipeNavigation rendering. Current index:', currentIndex, 'Current page:', pages[currentIndex]?.id);
+  console.log('🚀🚀🚀 [SWIPE-RENDER] Dashboard page exists?', pages.some(p => p.id === 'dashboard'));
+  
   return (
     <div 
       className={`swipe-navigation ${currentArticle ? 'article-mode' : ''} ${readingMode ? 'reading-mode' : ''}`}
@@ -342,20 +394,78 @@ const SwipeNavigation = () => {
         {renderPages()}
       </div>
       
+      {/* Bouton d'accès direct au Dashboard (uniquement en développement) */}
+      {(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true') && (
+        <button
+          onClick={() => {
+            const dashboardIndex = pages.findIndex(page => page.id === 'dashboard');
+            console.log('Dashboard index:', dashboardIndex, 'Total pages:', pages.length);
+            if (dashboardIndex !== -1) {
+              goToPage(dashboardIndex);
+            } else {
+              console.warn('Dashboard non trouvé dans les pages. Pages disponibles:', pages.map(p => p.id));
+              window.location.hash = '#dashboard';
+              setTimeout(() => window.location.reload(), 100);
+            }
+          }}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            zIndex: 9999,
+            background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)',
+            color: 'white',
+            border: 'none',
+            borderRadius: '50px',
+            padding: '12px 24px',
+            fontSize: '0.9rem',
+            fontWeight: '600',
+            cursor: 'pointer',
+            boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            transition: 'all 0.3s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'scale(1.05)';
+            e.target.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.5)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'scale(1)';
+            e.target.style.boxShadow = '0 4px 15px rgba(59, 130, 246, 0.4)';
+          }}
+          title="Accéder au Dashboard Analytics"
+        >
+          📊 Dashboard
+        </button>
+      )}
+      
       {/* Horizontal Navigation Bar */}
       <HorizontalNavigation 
         currentPage={currentLegalPage ? 'legal' : currentArticle ? 'article' : pages[currentIndex].id}
         onPageChange={(pageId) => {
+          console.log('🔄🔄🔄 [SWIPE] onPageChange called with pageId:', pageId);
+          console.log('🔄🔄🔄 [SWIPE] Available pages:', pages.map(p => p.id));
+          console.log('🔄🔄🔄 [SWIPE] Current index:', currentIndex);
+          
           if (pageId === 'blog' && currentArticle) {
+            console.log('🔄🔄🔄 [SWIPE] Blog + article case');
             setCurrentArticle(null);
             goToPage(2); // Index du blog
           } else if (pageId === 'accueil' && currentLegalPage) {
+            console.log('🔄🔄🔄 [SWIPE] Accueil + legal case');
             setCurrentLegalPage(null);
             goToPage(0); // Index de l'accueil
           } else {
+            console.log('🔄🔄🔄 [SWIPE] Normal navigation case');
             const pageIndex = pages.findIndex(page => page.id === pageId);
+            console.log('🔄🔄🔄 [SWIPE] Page index found:', pageIndex, 'for pageId:', pageId);
             if (pageIndex !== -1) {
+              console.log('✅✅✅ [SWIPE] Calling goToPage with index:', pageIndex);
               goToPage(pageIndex);
+            } else {
+              console.error('❌❌❌ [SWIPE] Page not found:', pageId, 'Available pages:', pages.map(p => p.id));
             }
           }
         }}

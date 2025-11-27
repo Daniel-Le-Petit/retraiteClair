@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SimplifieForm from './SimplifieForm';
 import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
 import CalculProgress from './CalculProgress';
+import { trackEvent, trackTimeOnPage, initScrollTracking } from '../utils/tracking';
 import styles from './Simulateurs.module.css';
 
 const Simulateurs = () => {
@@ -76,6 +77,21 @@ const Simulateurs = () => {
   });
   const [isCalculating, setIsCalculating] = useState(false);
   
+  // Tracking du temps passé sur la page
+  const pageStartTime = useRef(Date.now());
+  
+  // Track le temps passé quand l'utilisateur quitte la page
+  useEffect(() => {
+    return () => {
+      trackTimeOnPage('simulateur', pageStartTime.current);
+    };
+  }, []);
+  
+  // Track le scroll depth
+  useEffect(() => {
+    return initScrollTracking('simulateur');
+  }, []);
+  
   // État partagé entre les formulaires - initialisé avec les données sauvegardées
   const [sharedFormData, setSharedFormData] = useState(loadSavedData);
 
@@ -125,6 +141,14 @@ const Simulateurs = () => {
   };
 
   const handleSimulation = async (data) => {
+    // Track le début du calcul
+    trackEvent('calculation_started', {
+      mode: mode === 'avance' ? 'advanced' : 'simplified',
+      salaire_brut: data.salaireBrut,
+      temps_partiel: data.tempsPartiel,
+      age: data.age
+    });
+    
     setIsCalculating(true);
     
     // Calculs précis basés sur les règles officielles de la retraite progressive
@@ -132,6 +156,16 @@ const Simulateurs = () => {
       const results = calculateRetraiteProgressive(data);
       setSimulationData(results);
       setIsCalculating(false);
+      
+      // Track la fin du calcul avec résultats
+      trackEvent('calculation_completed', {
+        mode: mode === 'avance' ? 'advanced' : 'simplified',
+        revenu_total: results.revenusNets?.total || 0,
+        economie_fiscale: results.impactFiscal?.economie || 0,
+        temps_partiel: data.tempsPartiel,
+        revenu_temps_plein: results.revenusNets?.tempsPlein || 0,
+        salaire_brut: data.salaireBrut
+      });
     }, 1500);
   };
 

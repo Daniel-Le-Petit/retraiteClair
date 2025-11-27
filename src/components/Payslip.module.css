@@ -7,7 +7,7 @@
 .payslip {
   width: 100%;
   max-width: 800px;
-  background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 50%, #ffffff 100%);
+  background: linear-gradient(180deg, #e0f2fe 0%, #ffffff 50%, #e0f2fe 100%);
   border-radius: 16px;
   padding: 2.5rem;
   box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);

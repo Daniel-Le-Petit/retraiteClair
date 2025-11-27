@@ -189,6 +189,31 @@
   transform: translateY(-2px);
 }
 
+/* Bloc Temps libre avec image et dégradé en bandes */
+.freeTimeCard {
+  background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.freeTimeImageContainer {
+  width: 100%;
+  height: 150px;
+  margin: -1.25rem -1.25rem 1rem -1.25rem;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+.freeTimeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 .comparisonHeader {
   display: flex;
   align-items: center;
@@ -206,6 +231,16 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.comparisonValue.negativeValue {
+  background: rgba(245, 158, 11, 0.15);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 2px solid rgba(245, 158, 11, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
 }
 
 .comparisonPercentage {
@@ -503,6 +538,10 @@
   
   .scenarioHeader h4 {
     font-size: 1.25rem;
+  }
+  
+  .freeTimeImageContainer {
+    height: 120px;
   }
   
   .mainRevenueCard {

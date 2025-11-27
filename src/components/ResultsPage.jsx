@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TrendingUp, PieChart, BarChart3, Euro } from 'lucide-react';
 import ScenarioComparator from './ScenarioComparator';
 import FiscalImpact from './FiscalImpact';
@@ -6,9 +6,24 @@ import ScenarioChart from './ScenarioChart';
 import PostResultsActions from './PostResultsActions';
 import AnimatedAmount from './AnimatedAmount';
 import CalculationDetails from './CalculationDetails';
+import { trackTimeOnPage, initScrollTracking } from '../utils/tracking';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
+  // Tracking du temps passé sur la page
+  const pageStartTime = useRef(Date.now());
+  
+  // Track le temps passé quand l'utilisateur quitte la page
+  useEffect(() => {
+    return () => {
+      trackTimeOnPage('resultats', pageStartTime.current);
+    };
+  }, []);
+  
+  // Track le scroll depth
+  useEffect(() => {
+    return initScrollTracking('resultats');
+  }, []);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {

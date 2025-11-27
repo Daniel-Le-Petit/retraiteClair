@@ -13,6 +13,7 @@ import PolitiqueConfidentialite from '../pages/politique-confidentialite';
 import ConditionsUtilisation from './ConditionsUtilisation';
 import Footer from './Footer';
 import CookieBanner from './CookieBanner';
+import ProtectedDashboard from './ProtectedDashboard';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
@@ -64,7 +65,15 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       title: 'Contact',
       gaTitle: 'Contact RetraiteClair',
       gaPath: '/contact'
-    }
+    },
+    // Dashboard Analytics - Seulement en développement ou si activé explicitement
+    ...(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true' ? [{
+      id: 'dashboard',
+      component: ProtectedDashboard,
+      title: 'Dashboard',
+      gaTitle: 'Dashboard Analytics',
+      gaPath: '/dashboard'
+    }] : [])
   ], []);
 
   // État pour désactiver le swipe pendant la sélection de texte
@@ -254,9 +263,15 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       <HorizontalNavigation 
         currentPage={pages[currentIndex].id}
         onPageChange={(pageId) => {
+          console.log('🔄🔄🔄 [SWIPE-NEW] onPageChange called with pageId:', pageId);
+          console.log('🔄🔄🔄 [SWIPE-NEW] Available pages:', pages.map(p => p.id));
           const pageIndex = pages.findIndex(page => page.id === pageId);
+          console.log('🔄🔄🔄 [SWIPE-NEW] Page index found:', pageIndex);
           if (pageIndex !== -1) {
+            console.log('✅✅✅ [SWIPE-NEW] Navigating to page index:', pageIndex);
             navigateToPage(pageIndex);
+          } else {
+            console.error('❌❌❌ [SWIPE-NEW] Page not found:', pageId);
           }
         }}
       />
@@ -313,6 +328,7 @@ const AppContent = () => {
         <Route path="/blog" element={<SwipeNavigation />} />
         <Route path="/guide-pratique" element={<SwipeNavigation />} />
         <Route path="/contact" element={<SwipeNavigation />} />
+        <Route path="/dashboard" element={<SwipeNavigation />} />
         
         {/* Routes légales */}
         <Route path="/mentions-legales" element={<MentionsLegales />} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Clock, Euro, CheckCircle } from 'lucide-react';
 import Payslip from './Payslip';
+import { trackEvent } from '../utils/tracking';
 import styles from './ScenarioComparator.module.css';
 
 const ScenarioComparator = ({ 
@@ -93,7 +94,7 @@ const ScenarioComparator = ({
   };
 
   const getDifferenceColor = (diff) => {
-    return diff >= 0 ? '#10b981' : '#dc2626';
+    return diff >= 0 ? '#10b981' : '#f59e0b';
   };
 
   // Couleurs dégradées pour chaque scénario
@@ -147,6 +148,7 @@ const ScenarioComparator = ({
               const isCurrent = scenario.percentage === (currentScenario?.tempsPartiel || 80);
               const maxRevenu = Math.max(...scenarios.map(s => s.totalNet));
               const barHeight = (scenario.totalNet / maxRevenu) * 100;
+              const vsTempsPleinDiff = calculateDifference(scenario.totalNet, scenarios[5].totalNet);
               
               return (
                 <div 
@@ -154,6 +156,17 @@ const ScenarioComparator = ({
                   className={styles.barGroup}
                   onClick={() => {
                     const newPercentage = scenario.percentage;
+                    const previousPercentage = selectedPercentage;
+                    
+                    // Track la sélection du scénario
+                    trackEvent('scenario_selected', {
+                      scenario_percentage: newPercentage,
+                      previous_percentage: previousPercentage,
+                      revenu_estime: scenario.totalNet,
+                      vs_temps_plein: vsTempsPleinDiff.amount,
+                      page: 'resultats'
+                    });
+                    
                     setSelectedPercentage(newPercentage);
                     // Lancer automatiquement le calcul avec le nouveau pourcentage
                     if (onScenarioSelect) {
@@ -232,7 +245,7 @@ const ScenarioComparator = ({
                 <span>vs Temps plein (100%)</span>
               </div>
               <div 
-                className={styles.comparisonValue}
+                className={`${styles.comparisonValue} ${vsTempsPlein.amount < 0 ? styles.negativeValue : ''}`}
                 style={{ color: getDifferenceColor(vsTempsPlein.amount) }}
               >
                 {formatCurrency(vsTempsPlein.amount)}
@@ -249,7 +262,7 @@ const ScenarioComparator = ({
                   <span>vs Votre choix ({currentScenario.tempsPartiel}%)</span>
                 </div>
                 <div 
-                  className={styles.comparisonValue}
+                  className={`${styles.comparisonValue} ${vsActuel.amount < 0 ? styles.negativeValue : ''}`}
                   style={{ color: getDifferenceColor(vsActuel.amount) }}
                 >
                   {formatCurrency(vsActuel.amount)}
@@ -260,7 +273,7 @@ const ScenarioComparator = ({
               </div>
             )}
             
-            <div className={styles.comparisonCard}>
+            <div className={`${styles.comparisonCard} ${styles.freeTimeCard}`}>
               <div className={styles.comparisonHeader}>
                 <Clock size={20} />
                 <span>Temps libre</span>
