@@ -45,16 +45,10 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
       }
     ];
 
-    // Dashboard - Toujours visible dans le header (mais protégé par mot de passe)
-    // En production, il faut définir REACT_APP_ENABLE_DASHBOARD=true pour l'activer
-    if (process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true') {
-      baseItems.push({
-        id: 'dashboard',
-        label: 'Dashboard',
-        icon: BarChart3,
-        description: 'Statistiques et analytics'
-      });
-    }
+    // Dashboard - MASQUÉ dans la navigation publique
+    // Accessible uniquement via URL directe : /#dashboard ou /dashboard
+    // Protégé par mot de passe (REACT_APP_DASHBOARD_PASSWORD)
+    // Ne pas ajouter au menu de navigation pour éviter que tous les utilisateurs le voient
     
     console.log('🔄 [DEBUG] HorizontalNavigation items:', baseItems.map(i => i.id));
 

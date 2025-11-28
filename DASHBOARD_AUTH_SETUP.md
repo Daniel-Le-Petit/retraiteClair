@@ -74,9 +74,10 @@ Le dashboard affiche **tous les événements** de **tous les utilisateurs** :
 2. **En production** :
    - Ajoutez `REACT_APP_ENABLE_DASHBOARD=true` et `REACT_APP_DASHBOARD_PASSWORD=...`
    - Redéployez
-   - Le dashboard apparaît dans le header
+   - Le lien "Admin" apparaît dans le footer (discret, en bas de page)
    - Cliquez dessus → Page de login
    - Entrez le mot de passe → Accès au dashboard
+   - Ou accédez directement via l'URL : `/#dashboard`
 
 ## 🚨 **Déconnexion**
 

@@ -74,6 +74,30 @@ const Footer = () => {
             >
               Code source & méthodologie
             </a>
+            {/* Dashboard link - Only visible if enabled, styled discretely */}
+            {(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true') && (
+              <>
+                <span className={styles.separator}>|</span>
+                <Link 
+                  to="/dashboard" 
+                  className={styles.dashboardLink}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                    // Use HashRouter compatible navigation
+                    window.location.hash = '#dashboard';
+                    // Also trigger navigation for React Router
+                    setTimeout(() => {
+                      navigate('/dashboard');
+                      // Dispatch event for SwipeNavigation
+                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'dashboard' } }));
+                    }, 100);
+                  }}
+                >
+                  Admin
+                </Link>
+              </>
+            )}
           </div>
           <div className={styles.copyright}>
             © {currentYear} RetraiteClair – Tous droits réservés

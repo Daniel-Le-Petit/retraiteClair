@@ -393,7 +393,6 @@ const AnalyticsDashboard = ({ onLogout }) => {
                 <tr>
                   <th>Date</th>
                   <th>Événement</th>
-                  <th>Utilisateur</th>
                   <th>Page</th>
                 </tr>
               </thead>
@@ -403,9 +402,6 @@ const AnalyticsDashboard = ({ onLogout }) => {
                     <td>{formatDate(event.created_at)}</td>
                     <td>
                       <span className={styles.eventBadge}>{event.event_name}</span>
-                    </td>
-                    <td className={styles.userId}>
-                      {event.user_id ? event.user_id.substring(0, 8) + '...' : '-'}
                     </td>
                     <td className={styles.pageUrl}>
                       {event.page_url ? new URL(event.page_url).pathname : '-'}
