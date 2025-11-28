@@ -598,6 +598,17 @@ const AnalyticsDashboard = ({ onLogout }) => {
                   const currentUserId = localStorage.getItem('retraiteClair_userId');
                   const isMyUser = currentUserId && userStat.userId === currentUserId;
                   
+                  // Identifiants spécifiques
+                  const isDanielsIPhone = userStat.userId === 'user_1764256139514_50smhm7zr';
+                  const isProfessionalLaptop = userStat.userId === 'user_1764334474809_zwds2mv79';
+                  
+                  let displayName = 'Utilisateur';
+                  if (isDanielsIPhone) {
+                    displayName = 'iPhone-Daniel';
+                  } else if (isProfessionalLaptop) {
+                    displayName = 'Professional_Laptop';
+                  }
+                  
                   return (
                     <div key={userStat.userId || index} style={{
                       background: '#f8f9fa',
@@ -614,7 +625,7 @@ const AnalyticsDashboard = ({ onLogout }) => {
                         <div style={{ flex: 1 }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                             <strong style={{ color: '#1e3a8a' }}>
-                              Utilisateur
+                              {displayName}
                             </strong>
                             {isMyUser && (
                               <span style={{ 
@@ -628,7 +639,31 @@ const AnalyticsDashboard = ({ onLogout }) => {
                                 [CET APPAREIL]
                               </span>
                             )}
-                            {!isMyUser && userStat.deviceType === 'iPhone' && (
+                            {isDanielsIPhone && (
+                              <span style={{ 
+                                background: '#10b981',
+                                color: 'white',
+                                padding: '0.15rem 0.5rem',
+                                borderRadius: '4px',
+                                fontSize: '0.75rem',
+                                fontWeight: '600'
+                              }}>
+                                [Votre iPhone]
+                              </span>
+                            )}
+                            {isProfessionalLaptop && (
+                              <span style={{ 
+                                background: '#3b82f6',
+                                color: 'white',
+                                padding: '0.15rem 0.5rem',
+                                borderRadius: '4px',
+                                fontSize: '0.75rem',
+                                fontWeight: '600'
+                              }}>
+                                [Votre Laptop]
+                              </span>
+                            )}
+                            {!isMyUser && !isDanielsIPhone && !isProfessionalLaptop && userStat.deviceType === 'iPhone' && (
                               <span style={{ 
                                 background: '#f59e0b',
                                 color: 'white',
