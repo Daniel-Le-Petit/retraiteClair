@@ -6,27 +6,6 @@ import styles from './FiscalImpact.module.css';
 const FiscalImpact = ({ fiscalData, simulationData }) => {
   const [showDetails, setShowDetails] = useState(false);
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount);
-  };
-
-  if (!fiscalData) return null;
-
-  // Utiliser economieAnnuelle si disponible, sinon convertir economie (mensuel) en annuel
-  const annualSavings = fiscalData.economieAnnuelle || (fiscalData.economie ? fiscalData.economie * 12 : 0);
-  const monthlySavings = fiscalData.economie || (annualSavings / 12);
-  const fiveYearSavings = annualSavings * 5;
-
-  // Calculer les pourcentages pour le graphique
-  const tempsPleinRevenu = simulationData?.revenusNets?.tempsPlein || 0;
-  const rpRevenu = simulationData?.revenusNets?.total || 0;
-  const rpPercentage = tempsPleinRevenu > 0 ? (rpRevenu / tempsPleinRevenu) * 100 : 0;
-
   // Track la vue de la section économies fiscales
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,6 +31,27 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
 
     return () => observer.disconnect();
   }, []);
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
+  };
+
+  if (!fiscalData) return null;
+
+  // Utiliser economieAnnuelle si disponible, sinon convertir economie (mensuel) en annuel
+  const annualSavings = fiscalData.economieAnnuelle || (fiscalData.economie ? fiscalData.economie * 12 : 0);
+  const monthlySavings = fiscalData.economie || (annualSavings / 12);
+  const fiveYearSavings = annualSavings * 5;
+
+  // Calculer les pourcentages pour le graphique
+  const tempsPleinRevenu = simulationData?.revenusNets?.tempsPlein || 0;
+  const rpRevenu = simulationData?.revenusNets?.total || 0;
+  const rpPercentage = tempsPleinRevenu > 0 ? (rpRevenu / tempsPleinRevenu) * 100 : 0;
 
   return (
     <div className={`${styles.container} animate-slideUp animate-delay-300`} data-section="fiscal-impact" data-section-name="economies_fiscales">

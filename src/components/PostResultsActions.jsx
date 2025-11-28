@@ -3,6 +3,7 @@ import { Download, Mail, BookOpen, Share2, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { generateSimulationPDF } from '../utils/generatePDF';
 import { sendSimulationEmail } from '../utils/sendEmail';
+import { trackEvent } from '../utils/tracking';
 import styles from './PostResultsActions.module.css';
 
 const PostResultsActions = ({ simulationData, onModify }) => {

@@ -12,6 +12,7 @@ const ScenarioComparator = ({
 }) => {
   const [selectedPercentage, setSelectedPercentage] = useState(currentScenario?.tempsPartiel || 80);
   const [comparisonData, setComparisonData] = useState(null);
+  const [comparisonViewed, setComparisonViewed] = useState(false);
 
   // Mettre à jour selectedPercentage quand currentScenario change
   useEffect(() => {
