@@ -78,24 +78,20 @@ const Footer = () => {
             {(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true') && (
               <>
                 <span className={styles.separator}>|</span>
-                <Link 
-                  to="/dashboard" 
+                <button
+                  type="button"
                   className={styles.dashboardLink}
                   onClick={(e) => {
                     e.preventDefault();
                     window.scrollTo({ top: 0, behavior: 'auto' });
-                    // Use HashRouter compatible navigation
+                    // Dispatch event for SwipeNavigation to handle dashboard navigation
+                    window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'dashboard' } }));
+                    // Also update URL hash for HashRouter
                     window.location.hash = '#dashboard';
-                    // Also trigger navigation for React Router
-                    setTimeout(() => {
-                      navigate('/dashboard');
-                      // Dispatch event for SwipeNavigation
-                      window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'dashboard' } }));
-                    }, 100);
                   }}
                 >
                   Admin
-                </Link>
+                </button>
               </>
             )}
           </div>

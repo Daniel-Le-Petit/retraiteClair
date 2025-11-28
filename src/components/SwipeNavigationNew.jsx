@@ -30,51 +30,65 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
   }, [initialArticle]);
 
   // Configuration des pages avec métadonnées GA4
-  const pages = useMemo(() => [
-    { 
-      id: 'accueil', 
-      component: HomePage, 
-      title: 'Accueil',
-      gaTitle: 'Page d\'accueil - RetraiteClair',
-      gaPath: '/'
-    },
-    { 
-      id: 'simulateurs', 
-      component: Simulateurs, 
-      title: 'Simulateurs',
-      gaTitle: 'Simulateur Retraite Progressive',
-      gaPath: '/simulateurs'
-    },
-    { 
-      id: 'blog', 
-      component: Blog, 
-      title: 'Blog',
-      gaTitle: 'Blog Retraite Progressive',
-      gaPath: '/blog'
-    },
-    { 
-      id: 'guide-pratique', 
-      component: GuidePratique, 
-      title: 'Guide pratique',
-      gaTitle: 'Guide Pratique Retraite Progressive',
-      gaPath: '/guide-pratique'
-    },
-    { 
-      id: 'contact', 
-      component: Contact, 
-      title: 'Contact',
-      gaTitle: 'Contact RetraiteClair',
-      gaPath: '/contact'
-    },
+  const pages = useMemo(() => {
+    const basePages = [
+      { 
+        id: 'accueil', 
+        component: HomePage, 
+        title: 'Accueil',
+        gaTitle: 'Page d\'accueil - RetraiteClair',
+        gaPath: '/'
+      },
+      { 
+        id: 'simulateurs', 
+        component: Simulateurs, 
+        title: 'Simulateurs',
+        gaTitle: 'Simulateur Retraite Progressive',
+        gaPath: '/simulateurs'
+      },
+      { 
+        id: 'blog', 
+        component: Blog, 
+        title: 'Blog',
+        gaTitle: 'Blog Retraite Progressive',
+        gaPath: '/blog'
+      },
+      { 
+        id: 'guide-pratique', 
+        component: GuidePratique, 
+        title: 'Guide pratique',
+        gaTitle: 'Guide Pratique Retraite Progressive',
+        gaPath: '/guide-pratique'
+      },
+      { 
+        id: 'contact', 
+        component: Contact, 
+        title: 'Contact',
+        gaTitle: 'Contact RetraiteClair',
+        gaPath: '/contact'
+      }
+    ];
+
     // Dashboard Analytics - Seulement en développement ou si activé explicitement
-    ...(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true' ? [{
-      id: 'dashboard',
-      component: ProtectedDashboard,
-      title: 'Dashboard',
-      gaTitle: 'Dashboard Analytics',
-      gaPath: '/dashboard'
-    }] : [])
-  ], []);
+    const isDashboardEnabled = process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_DASHBOARD === 'true';
+    console.log('📊 [PAGES] Dashboard enabled?', isDashboardEnabled);
+    console.log('📊 [PAGES] NODE_ENV:', process.env.NODE_ENV);
+    console.log('📊 [PAGES] REACT_APP_ENABLE_DASHBOARD:', process.env.REACT_APP_ENABLE_DASHBOARD);
+
+    if (isDashboardEnabled) {
+      basePages.push({
+        id: 'dashboard',
+        component: ProtectedDashboard,
+        title: 'Dashboard',
+        gaTitle: 'Dashboard Analytics',
+        gaPath: '/dashboard'
+      });
+    }
+
+    console.log('📊 [PAGES] Total pages:', basePages.length);
+    console.log('📊 [PAGES] Page IDs:', basePages.map(p => p.id));
+    return basePages;
+  }, []);
 
   // État pour désactiver le swipe pendant la sélection de texte
   const [isTextSelected, setIsTextSelected] = useState(false);
@@ -169,6 +183,23 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
         case 'contact':
           navigateToPage(4);
           break;
+        case 'dashboard':
+          // Trouver l'index du dashboard dans les pages
+          console.log('🔍 [NAV] Dashboard navigation requested');
+          console.log('🔍 [NAV] Available pages:', pages.map(p => p.id));
+          const dashboardIndex = pages.findIndex(p => p.id === 'dashboard');
+          console.log('🔍 [NAV] Dashboard index:', dashboardIndex);
+          if (dashboardIndex !== -1) {
+            console.log('✅ [NAV] Navigating to dashboard at index:', dashboardIndex);
+            navigateToPage(dashboardIndex);
+          } else {
+            console.warn('⚠️ [NAV] Dashboard non trouvé dans les pages');
+            console.warn('⚠️ [NAV] REACT_APP_ENABLE_DASHBOARD:', process.env.REACT_APP_ENABLE_DASHBOARD);
+            console.warn('⚠️ [NAV] NODE_ENV:', process.env.NODE_ENV);
+            // Fallback: naviguer via URL
+            navigate('/dashboard');
+          }
+          break;
         default:
           console.log('Page non reconnue:', page);
       }
@@ -228,7 +259,7 @@ const SwipeNavigation = ({ currentArticle: initialArticle = null }) => {
       window.removeEventListener('navigateToArticle', handleArticleNavigation);
       window.removeEventListener('backToBlog', handleBackToBlog);
     };
-  }, [navigateToPage, navigate]);
+  }, [navigateToPage, navigate, pages]);
 
   // Tracking GA4 au chargement
   useEffect(() => {
