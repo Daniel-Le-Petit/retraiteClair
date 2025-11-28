@@ -29,6 +29,7 @@ const AnalyticsDashboard = ({ onLogout }) => {
     otherUsersStats: []
   });
   const [timeRange, setTimeRange] = useState('7d'); // 1d, 7d, 30d, all
+  const [expandedUsers, setExpandedUsers] = useState(new Set()); // Utilisateurs dont on affiche tous les événements
 
   const loadStats = useCallback(async () => {
     if (!supabase) return;
@@ -721,41 +722,71 @@ const AnalyticsDashboard = ({ onLogout }) => {
                           <strong>Derniers événements :</strong>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                          {userStat.events.slice(0, 5).map((event, eventIndex) => (
-                            <div key={eventIndex} style={{ 
-                              display: 'flex', 
-                              gap: '1rem',
-                              padding: '0.25rem 0',
-                              borderBottom: eventIndex < Math.min(4, userStat.events.length - 1) ? '1px solid #e5e7eb' : 'none'
-                            }}>
-                              <span style={{ minWidth: '80px', color: '#9ca3af' }}>
-                                {formatDate(event.created_at)}
-                              </span>
-                              <span style={{ 
-                                background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)',
-                                color: 'white',
-                                padding: '0.15rem 0.5rem',
-                                borderRadius: '6px',
-                                fontSize: '0.75rem',
-                                fontWeight: '600'
+                          {(expandedUsers.has(userStat.userId) ? userStat.events : userStat.events.slice(0, 5)).map((event, eventIndex) => {
+                            const totalShown = expandedUsers.has(userStat.userId) ? userStat.events.length : 5;
+                            const isLast = eventIndex === totalShown - 1;
+                            return (
+                              <div key={eventIndex} style={{ 
+                                display: 'flex', 
+                                gap: '1rem',
+                                padding: '0.25rem 0',
+                                borderBottom: !isLast ? '1px solid #e5e7eb' : 'none'
                               }}>
-                                {event.event_name}
-                              </span>
-                              {event.page_url && (
-                                <span style={{ color: '#3b82f6', fontSize: '0.75rem' }}>
-                                  {new URL(event.page_url).pathname}
+                                <span style={{ minWidth: '80px', color: '#9ca3af' }}>
+                                  {formatDate(event.created_at)}
                                 </span>
-                              )}
-                            </div>
-                          ))}
+                                <span style={{ 
+                                  background: 'linear-gradient(135deg, #3b82f6 0%, #10b981 100%)',
+                                  color: 'white',
+                                  padding: '0.15rem 0.5rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.75rem',
+                                  fontWeight: '600'
+                                }}>
+                                  {event.event_name}
+                                </span>
+                                {event.page_url && (
+                                  <span style={{ color: '#3b82f6', fontSize: '0.75rem' }}>
+                                    {new URL(event.page_url).pathname}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })}
                           {userStat.events.length > 5 && (
-                            <div style={{ 
-                              marginTop: '0.5rem', 
-                              fontSize: '0.8rem', 
-                              color: '#9ca3af',
-                              fontStyle: 'italic'
-                            }}>
-                              ... et {userStat.events.length - 5} autre{userStat.events.length - 5 > 1 ? 's' : ''} événement{userStat.events.length - 5 > 1 ? 's' : ''}
+                            <div 
+                              style={{ 
+                                marginTop: '0.5rem', 
+                                fontSize: '0.8rem', 
+                                color: expandedUsers.has(userStat.userId) ? '#3b82f6' : '#3b82f6',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                textDecoration: 'underline',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.25rem'
+                              }}
+                              onClick={() => {
+                                const newExpanded = new Set(expandedUsers);
+                                if (newExpanded.has(userStat.userId)) {
+                                  newExpanded.delete(userStat.userId);
+                                } else {
+                                  newExpanded.add(userStat.userId);
+                                }
+                                setExpandedUsers(newExpanded);
+                              }}
+                            >
+                              {expandedUsers.has(userStat.userId) ? (
+                                <>
+                                  <span>▼</span>
+                                  <span>Masquer les {userStat.events.length - 5} autres événements</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span>▶</span>
+                                  <span>Voir les {userStat.events.length - 5} autres événements</span>
+                                </>
+                              )}
                             </div>
                           )}
                         </div>
