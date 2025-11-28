@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { trackEvent } from '../utils/tracking';
 import styles from './SimplifieForm.module.css';
 
 const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) => {

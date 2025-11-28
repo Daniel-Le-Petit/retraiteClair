@@ -160,18 +160,18 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
         {/* Section Scénarios - Explorer et comparer */}
         <div data-section="scenario-comparison" data-section-name="scenario_comparison">
           <ScenarioComparator
-          currentScenario={getCurrentScenario()}
-          onScenarioSelect={handleScenarioSelect}
-          baseData={getBaseData()}
-          simulationData={data}
-        />
+            currentScenario={getCurrentScenario()}
+            onScenarioSelect={handleScenarioSelect}
+            baseData={getBaseData()}
+            simulationData={data}
+          />
+        </div>
 
         {/* Section Impact fiscal */}
         <FiscalImpact
           fiscalData={data.impactFiscal}
           simulationData={data}
         />
-      </div>
 
       {/* Détail du calcul */}
       {data && (
