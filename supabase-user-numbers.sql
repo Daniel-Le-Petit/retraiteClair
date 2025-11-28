@@ -11,13 +11,28 @@ CREATE TABLE IF NOT EXISTS user_numbers (
   user_number INTEGER NOT NULL UNIQUE,
   first_seen TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   last_seen TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  -- Informations de localisation
+  country TEXT,
+  country_code TEXT,
+  region TEXT,
+  region_code TEXT,
+  city TEXT,
+  postal_code TEXT,
+  latitude DECIMAL(10, 8),
+  longitude DECIMAL(11, 8),
+  timezone TEXT,
+  ip_address TEXT
 );
 
 -- Index pour les requêtes rapides
 CREATE INDEX IF NOT EXISTS idx_user_numbers_user_id ON user_numbers(user_id);
 CREATE INDEX IF NOT EXISTS idx_user_numbers_user_number ON user_numbers(user_number);
 CREATE INDEX IF NOT EXISTS idx_user_numbers_last_seen ON user_numbers(last_seen);
+-- Index pour les requêtes de localisation
+CREATE INDEX IF NOT EXISTS idx_user_numbers_country ON user_numbers(country);
+CREATE INDEX IF NOT EXISTS idx_user_numbers_country_code ON user_numbers(country_code);
+CREATE INDEX IF NOT EXISTS idx_user_numbers_city ON user_numbers(city);
 
 -- Row Level Security : Autoriser les INSERT et SELECT depuis n'importe où
 ALTER TABLE user_numbers ENABLE ROW LEVEL SECURITY;
@@ -65,4 +80,19 @@ CREATE POLICY "Allow service role all access" ON user_numbers
 -- FROM user_numbers
 -- WHERE last_seen >= NOW() - INTERVAL '7 days'
 -- ORDER BY last_seen DESC;
+
+-- Utilisateurs par pays
+-- SELECT country, COUNT(*) as count
+-- FROM user_numbers
+-- WHERE country IS NOT NULL
+-- GROUP BY country
+-- ORDER BY count DESC;
+
+-- Utilisateurs par ville
+-- SELECT city, country, COUNT(*) as count
+-- FROM user_numbers
+-- WHERE city IS NOT NULL
+-- GROUP BY city, country
+-- ORDER BY count DESC
+-- LIMIT 20;
 

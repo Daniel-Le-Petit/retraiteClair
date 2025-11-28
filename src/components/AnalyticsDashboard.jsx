@@ -68,6 +68,11 @@ const AnalyticsDashboard = ({ onLogout }) => {
         .gte('created_at', startDate.toISOString())
         .order('created_at', { ascending: false });
 
+      // Récupérer les informations de localisation des utilisateurs
+      const { data: userLocations } = await supabase
+        .from('user_numbers')
+        .select('user_id, city, country, region, country_code');
+
       console.log('📊 [LOAD] Query result - events:', events?.length || 0, 'error:', error);
 
       if (error) {
@@ -186,6 +191,16 @@ const AnalyticsDashboard = ({ onLogout }) => {
               deviceInfo = 'Windows';
             }
             
+            // Trouver la localisation de l'utilisateur
+            const userLocation = userLocations?.find(loc => {
+              // Gérer les IDs numérotés (user#1_...) et les IDs originaux
+              const extractOriginalId = (userId) => {
+                const match = userId.match(/^user#\d+_(.+)$/);
+                return match ? `user_${match[1]}` : userId;
+              };
+              return extractOriginalId(loc.user_id) === extractOriginalId(event.user_id);
+            });
+
             otherUsersStats[event.user_id] = {
               userId: event.user_id,
               eventCount: 0,
@@ -194,7 +209,11 @@ const AnalyticsDashboard = ({ onLogout }) => {
               deviceInfo: deviceInfo,
               userAgent: userAgent,
               firstSeen: event.created_at,
-              lastSeen: event.created_at
+              lastSeen: event.created_at,
+              city: userLocation?.city || null,
+              country: userLocation?.country || null,
+              region: userLocation?.region || null,
+              countryCode: userLocation?.country_code || null
             };
           }
           otherUsersStats[event.user_id].eventCount++;
@@ -600,8 +619,16 @@ const AnalyticsDashboard = ({ onLogout }) => {
                   const isMyUser = currentUserId && userStat.userId === currentUserId;
                   
                   // Identifiants spécifiques
-                  const isDanielsIPhone = userStat.userId === 'user_1764256139514_50smhm7zr';
-                  const isProfessionalLaptop = userStat.userId === 'user_1764334474809_zwds2mv79';
+                  // Extraire l'ID original pour la comparaison (gère les IDs numérotés)
+                  const extractOriginalId = (userId) => {
+                    // Format: user#1_1764253590480_8818u0x2r -> user_1764253590480_8818u0x2r
+                    const match = userId.match(/^user#\d+_(.+)$/);
+                    return match ? `user_${match[1]}` : userId;
+                  };
+                  
+                  const originalUserId = extractOriginalId(userStat.userId);
+                  const isDanielsIPhone = originalUserId === 'user_1764256139514_50smhm7zr' || userStat.userId.includes('1764256139514_50smhm7zr');
+                  const isProfessionalLaptop = originalUserId === 'user_1764334474809_zwds2mv79' || userStat.userId.includes('1764334474809_zwds2mv79');
                   
                   let displayName = 'Utilisateur';
                   if (isDanielsIPhone) {
@@ -624,7 +651,7 @@ const AnalyticsDashboard = ({ onLogout }) => {
                         marginBottom: '0.75rem'
                       }}>
                         <div style={{ flex: 1 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
                             <strong style={{ color: '#1e3a8a' }}>
                               {displayName}
                             </strong>
@@ -638,6 +665,21 @@ const AnalyticsDashboard = ({ onLogout }) => {
                                 fontWeight: '600'
                               }}>
                                 [CET APPAREIL]
+                              </span>
+                            )}
+                            {(userStat.city || userStat.country) && (
+                              <span style={{ 
+                                background: '#e0f2fe',
+                                color: '#0369a1',
+                                padding: '0.15rem 0.5rem',
+                                borderRadius: '4px',
+                                fontSize: '0.75rem',
+                                fontWeight: '500',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.25rem'
+                              }}>
+                                📍 {userStat.city ? `${userStat.city}` : ''}{userStat.city && userStat.country ? ', ' : ''}{userStat.country || ''}
                               </span>
                             )}
                             {isDanielsIPhone && (
