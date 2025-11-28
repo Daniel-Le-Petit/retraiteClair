@@ -201,6 +201,7 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
+      </div>
     </div>
   );
 };
