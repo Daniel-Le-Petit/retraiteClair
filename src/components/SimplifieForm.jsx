@@ -9,6 +9,7 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
   });
 
   const [errors, setErrors] = useState({});
+  const previousValues = useRef({ salaireBrut: '', tempsPartiel: '60', age: '' });
 
   // Synchroniser avec sharedData quand il change (chargement depuis localStorage)
   useEffect(() => {
@@ -28,6 +29,20 @@ const SimplifieForm = ({ onSubmit, isCalculating, sharedData, onDataChange }) =>
       // Permettre n'importe quel nombre sans arrondi
       processedValue = value.replace(/[^0-9.]/g, '');
     }
+    
+    // Track le changement de paramètre
+    const oldValue = previousValues.current[name];
+    if (oldValue !== processedValue && processedValue !== '') {
+      trackEvent('simulation_parameters_changed', {
+        parameter: name,
+        old_value: oldValue,
+        new_value: processedValue,
+        mode: 'simplified'
+      });
+    }
+    
+    // Mettre à jour les valeurs précédentes
+    previousValues.current[name] = processedValue;
     
     const newFormData = {
       ...formData,

@@ -15,6 +15,7 @@ import TestimonialsSection from './TestimonialsSection';
 import CTASection from './CTASection';
 import FAQSection from './FAQSection';
 import Accordion from './Accordion';
+import { trackEvent } from '../utils/tracking';
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -396,6 +397,12 @@ const HomePage = () => {
           <button 
             className="final-cta-button"
             onClick={() => {
+              // Track le clic sur le CTA
+              trackEvent('cta_clicked', {
+                cta_name: 'lancer_simulation',
+                cta_location: 'homepage_final_section',
+                page: 'accueil'
+              });
               // Déclencher la navigation vers le calculateur
               window.dispatchEvent(new CustomEvent('navigateToPage', { detail: { page: 'calculateur' } }));
             }}

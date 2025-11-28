@@ -13,6 +13,13 @@ const PostResultsActions = ({ simulationData, onModify }) => {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const handleDownloadPDF = () => {
+    // Track le téléchargement PDF
+    trackEvent('document_downloaded', {
+      document_type: 'pdf',
+      document_name: 'simulation_results',
+      contains_data: true,
+      page: 'resultats'
+    });
     if (!simulationData) {
       alert('Aucune donnée de simulation disponible');
       return;
@@ -55,6 +62,13 @@ const PostResultsActions = ({ simulationData, onModify }) => {
     try {
       // Envoyer l'email via EmailJS
       await sendSimulationEmail(email, simulationData);
+      
+      // Track l'envoi d'email
+      trackEvent('email_sent', {
+        email_type: 'simulation_results',
+        recipient_count: 1,
+        page: 'resultats'
+      });
       
       setIsEmailSent(true);
       setIsSendingEmail(false);

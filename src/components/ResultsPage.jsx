@@ -4,7 +4,7 @@ import FiscalImpact from './FiscalImpact';
 import PostResultsActions from './PostResultsActions';
 import AnimatedAmount from './AnimatedAmount';
 import CalculationDetails from './CalculationDetails';
-import { trackTimeOnPage, initScrollTracking } from '../utils/tracking';
+import { trackTimeOnPage, initScrollTracking, trackEvent } from '../utils/tracking';
 import styles from './ResultsPage.module.css';
 
 const ResultsPage = ({ data, mode, onScenarioChange }) => {
@@ -23,6 +23,47 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   useEffect(() => {
     return initScrollTracking('resultats');
   }, []);
+
+  // Track la vue des sections importantes
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.5,
+      rootMargin: '0px'
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id || entry.target.className;
+          const sectionName = entry.target.getAttribute('data-section-name') || sectionId;
+          
+          trackEvent('section_viewed', {
+            section_name: sectionName,
+            section_id: sectionId,
+            page: 'resultats'
+          });
+          
+          // Ne track qu'une fois par section
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observer les sections importantes
+    const sectionsToTrack = [
+      document.querySelector('[data-section="scenario-comparison"]'),
+      document.querySelector('[data-section="fiscal-impact"]'),
+      document.querySelector('[data-section="results-summary"]')
+    ];
+
+    sectionsToTrack.forEach(section => {
+      if (section) {
+        sectionObserver.observe(section);
+      }
+    });
+
+    return () => sectionObserver.disconnect();
+  }, [data]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {
@@ -117,7 +158,8 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
       {/* Contenu combiné sans onglets */}
       <div className={styles.combinedContent}>
         {/* Section Scénarios - Explorer et comparer */}
-        <ScenarioComparator
+        <div data-section="scenario-comparison" data-section-name="scenario_comparison">
+          <ScenarioComparator
           currentScenario={getCurrentScenario()}
           onScenarioSelect={handleScenarioSelect}
           baseData={getBaseData()}

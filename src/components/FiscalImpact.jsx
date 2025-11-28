@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TrendingUp, Info } from 'lucide-react';
+import { trackEvent } from '../utils/tracking';
 import styles from './FiscalImpact.module.css';
 
 const FiscalImpact = ({ fiscalData, simulationData }) => {
@@ -26,8 +27,34 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
   const rpRevenu = simulationData?.revenusNets?.total || 0;
   const rpPercentage = tempsPleinRevenu > 0 ? (rpRevenu / tempsPleinRevenu) * 100 : 0;
 
+  // Track la vue de la section économies fiscales
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            trackEvent('section_viewed', {
+              section_name: 'economies_fiscales',
+              section_id: 'fiscal-impact',
+              page: 'resultats'
+            });
+            observer.disconnect(); // Ne track qu'une fois
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const section = document.querySelector('[data-section="fiscal-impact"]');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className={`${styles.container} animate-slideUp animate-delay-300`}>
+    <div className={`${styles.container} animate-slideUp animate-delay-300`} data-section="fiscal-impact" data-section-name="economies_fiscales">
       <div className={styles.header}>
         <h3 className={styles.title}>💰 Économies fiscales</h3>
         <p className={styles.introText}>

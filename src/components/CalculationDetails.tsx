@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Calculator } from 'lucide-react';
+import { trackEvent } from '../utils/tracking';
 import styles from './CalculationDetails.module.css';
 
 const CalculationDetails = ({ calculationData, formulaVersion }) => {
@@ -27,7 +28,20 @@ const CalculationDetails = ({ calculationData, formulaVersion }) => {
     <div className={styles.container}>
       <button
         className={styles.toggleButton}
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={() => {
+          const newExpanded = !isExpanded;
+          setIsExpanded(newExpanded);
+          
+          // Track le clic sur "Voir le détail du calcul"
+          if (newExpanded) {
+            trackEvent('cta_clicked', {
+              cta_name: 'voir_detail_calcul',
+              cta_location: 'results_page',
+              page: 'resultats',
+              action: 'expanded'
+            });
+          }
+        }}
       >
         <Calculator size={18} />
         <span>Voir le détail du calcul</span>

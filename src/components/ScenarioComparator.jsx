@@ -146,6 +146,16 @@ const ScenarioComparator = ({
                     const newPercentage = scenario.percentage;
                     const previousPercentage = selectedPercentage;
                     
+                    // Track la vue de la comparaison si c'est la première fois
+                    if (!comparisonViewed) {
+                      trackEvent('scenario_comparison_viewed', {
+                        scenarios_count: scenarios.length,
+                        default_scenario: currentScenario?.tempsPartiel || 80,
+                        page: 'resultats'
+                      });
+                      setComparisonViewed(true);
+                    }
+                    
                     // Track la sélection du scénario
                     trackEvent('scenario_selected', {
                       scenario_percentage: newPercentage,
