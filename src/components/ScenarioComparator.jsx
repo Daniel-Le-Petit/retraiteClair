@@ -12,7 +12,6 @@ const ScenarioComparator = ({
 }) => {
   const [selectedPercentage, setSelectedPercentage] = useState(currentScenario?.tempsPartiel || 80);
   const [comparisonData, setComparisonData] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
 
   // Mettre à jour selectedPercentage quand currentScenario change
   useEffect(() => {
@@ -21,17 +20,6 @@ const ScenarioComparator = ({
     }
   }, [currentScenario]);
 
-  // Détecter mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Calculer les données de comparaison
   useEffect(() => {

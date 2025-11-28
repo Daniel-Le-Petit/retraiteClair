@@ -1,7 +1,7 @@
 // Déclarer gtag comme variable globale
 /* global gtag */
 
-import { trackGA4Event, trackGA4PageView, getUserId, getSessionId } from '../utils/tracking';
+import { trackGA4Event, trackGA4PageView } from '../utils/tracking';
 
 export const useGA4 = () => {
   const trackPageView = (pageTitle, pagePath) => {

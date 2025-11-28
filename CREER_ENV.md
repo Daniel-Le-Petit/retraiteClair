@@ -9,7 +9,13 @@
 ```bash
 REACT_APP_SUPABASE_URL=https://kdrrqevuywsvwdffxuhp.supabase.co
 REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkcnJxZXZ1eXdzdndkZmZ4dWhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNDY1MTIsImV4cCI6MjA3OTgyMjUxMn0.Uh-G9XBqvEdWkWv0bZKXQcDREP3RjUVf404WfyWhRwM
+
+# Dashboard Analytics (optionnel - pour accéder au dashboard)
+REACT_APP_ENABLE_DASHBOARD=true
+REACT_APP_DASHBOARD_PASSWORD=votre_mot_de_passe_secret
 ```
+
+**Note** : Remplacez `votre_mot_de_passe_secret` par un mot de passe de votre choix (ex: `admin123` ou `retraiteclair2025`)
 
 3. **Sauvegardez le fichier**
 

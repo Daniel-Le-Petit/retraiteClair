@@ -4,8 +4,7 @@ import {
   Calculator, 
   BookOpen, 
   CheckCircle, 
-  MessageSquare,
-  BarChart3
+  MessageSquare
 } from 'lucide-react';
 
 const HorizontalNavigation = ({ currentPage, onPageChange }) => {

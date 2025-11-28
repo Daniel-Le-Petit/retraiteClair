@@ -47,8 +47,6 @@ const Simulateurs = () => {
   const loadSavedData = () => {
     try {
       const savedFormData = localStorage.getItem('retraiteClair_formData');
-      const savedSimulationData = localStorage.getItem('retraiteClair_simulationData');
-      const savedMode = localStorage.getItem('retraiteClair_mode');
       
       if (savedFormData) {
         return JSON.parse(savedFormData);
@@ -82,8 +80,9 @@ const Simulateurs = () => {
   
   // Track le temps passé quand l'utilisateur quitte la page
   useEffect(() => {
+    const startTime = pageStartTime.current;
     return () => {
-      trackTimeOnPage('simulateur', pageStartTime.current);
+      trackTimeOnPage('simulateur', startTime);
     };
   }, []);
   

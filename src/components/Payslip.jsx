@@ -27,9 +27,7 @@ const Payslip = ({ simulationData }) => {
   const pensionBrut = simulationData.revenusBruts?.pension || 0;
   const pensionNet = simulationData.revenusNets?.pension || 0;
   const tempsPartiel = simulationData.details?.tempsPartiel || 0;
-  const revenusComplementaires = simulationData.revenusNets?.revenusComplementaires || 0;
   const cotisations = salaireBrut - salaireNet;
-  const totalBrut = salaireBrut + pensionBrut;
   const totalNet = simulationData.revenusNets?.total || 0;
 
   // Calcul du prélèvement à la source (PAS)

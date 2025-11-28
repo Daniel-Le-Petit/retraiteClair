@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { TrendingUp, PieChart, BarChart3, Euro } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
 import ScenarioComparator from './ScenarioComparator';
 import FiscalImpact from './FiscalImpact';
-import ScenarioChart from './ScenarioChart';
 import PostResultsActions from './PostResultsActions';
 import AnimatedAmount from './AnimatedAmount';
 import CalculationDetails from './CalculationDetails';
@@ -15,8 +13,9 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   
   // Track le temps passé quand l'utilisateur quitte la page
   useEffect(() => {
+    const startTime = pageStartTime.current;
     return () => {
-      trackTimeOnPage('resultats', pageStartTime.current);
+      trackTimeOnPage('resultats', startTime);
     };
   }, []);
   
@@ -32,10 +31,6 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(amount);
-  };
-
-  const calculatePercentage = (part, total) => {
-    return total > 0 ? Math.round((part / total) * 100) : 0;
   };
 
   const getCurrentScenario = () => {
@@ -67,7 +62,6 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   const totalNet = data.revenusNets?.total || 0;
   const salairePartiel = data.revenusNets?.tempsPartiel || 0;
   const pensionNet = data.revenusNets?.pension || 0;
-  const revenusComplementaires = data.revenusNets?.revenusComplementaires || 0;
   const salaireActuel = data.revenusNets?.tempsPlein || 0;
   const tempsPartiel = data?.details?.tempsPartiel || 60;
   
@@ -75,7 +69,6 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
   const pourcentageSalaire = salaireActuel > 0 ? Math.round((totalNet / salaireActuel) * 100) : 0;
   
   // Calculer les pourcentages pour chaque composante
-  const pourcentageSalairePartiel = totalNet > 0 ? Math.round((salairePartiel / totalNet) * 100) : 0;
   const pourcentagePension = totalNet > 0 ? Math.round((pensionNet / totalNet) * 100) : 0;
 
   return (

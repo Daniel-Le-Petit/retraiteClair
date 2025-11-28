@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Euro, TrendingUp, Info, Calculator } from 'lucide-react';
-import Tooltip from './Tooltip';
+import { TrendingUp, Info } from 'lucide-react';
 import styles from './FiscalImpact.module.css';
 
 const FiscalImpact = ({ fiscalData, simulationData }) => {
@@ -22,19 +21,10 @@ const FiscalImpact = ({ fiscalData, simulationData }) => {
   const monthlySavings = fiscalData.economie || (annualSavings / 12);
   const fiveYearSavings = annualSavings * 5;
 
-  const tooltipContent = `Calcul de l'économie fiscale :
-─────────────────────────
-• Tranche d'imposition réduite
-• Abattement pension retraite : 10%
-• Calcul basé sur : Couple, 2 parts
-• Revenus nets considérés : ${formatCurrency(simulationData?.revenusNets?.total || 0)}/mois`;
-
   // Calculer les pourcentages pour le graphique
   const tempsPleinRevenu = simulationData?.revenusNets?.tempsPlein || 0;
   const rpRevenu = simulationData?.revenusNets?.total || 0;
-  const difference = tempsPleinRevenu - rpRevenu;
   const rpPercentage = tempsPleinRevenu > 0 ? (rpRevenu / tempsPleinRevenu) * 100 : 0;
-  const savingsPercentage = tempsPleinRevenu > 0 ? (annualSavings / (tempsPleinRevenu * 12)) * 100 : 0;
 
   return (
     <div className={`${styles.container} animate-slideUp animate-delay-300`}>
