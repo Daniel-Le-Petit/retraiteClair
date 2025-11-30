@@ -4,6 +4,111 @@
 /* global gtag */
 
 /**
+ * Détecte la source de trafic (réseaux sociaux, recherche, direct, etc.)
+ * @returns {Object} Objet avec source, medium, campaign, et referrer
+ */
+const getTrafficSource = () => {
+  const referrer = document.referrer || '';
+  const urlParams = new URLSearchParams(window.location.search);
+  const utmSource = urlParams.get('utm_source');
+  const utmMedium = urlParams.get('utm_medium');
+  const utmCampaign = urlParams.get('utm_campaign');
+  
+  // Si UTM parameters sont présents, les utiliser
+  if (utmSource) {
+    return {
+      source: utmSource,
+      medium: utmMedium || 'unknown',
+      campaign: utmCampaign || null,
+      referrer: referrer,
+      sourceType: 'utm'
+    };
+  }
+  
+  // Analyser le referrer pour détecter les réseaux sociaux
+  const referrerLower = referrer.toLowerCase();
+  
+  // Réseaux sociaux
+  const socialNetworks = {
+    'linkedin.com': { source: 'LinkedIn', medium: 'social', icon: '💼' },
+    'facebook.com': { source: 'Facebook', medium: 'social', icon: '📘' },
+    'twitter.com': { source: 'Twitter', medium: 'social', icon: '🐦' },
+    'x.com': { source: 'Twitter', medium: 'social', icon: '🐦' },
+    'instagram.com': { source: 'Instagram', medium: 'social', icon: '📷' },
+    'youtube.com': { source: 'YouTube', medium: 'social', icon: '📺' },
+    'tiktok.com': { source: 'TikTok', medium: 'social', icon: '🎵' },
+    'pinterest.com': { source: 'Pinterest', medium: 'social', icon: '📌' },
+    'reddit.com': { source: 'Reddit', medium: 'social', icon: '🤖' },
+    'whatsapp.com': { source: 'WhatsApp', medium: 'social', icon: '💬' },
+    'telegram.org': { source: 'Telegram', medium: 'social', icon: '✈️' }
+  };
+  
+  for (const [domain, info] of Object.entries(socialNetworks)) {
+    if (referrerLower.includes(domain)) {
+      return {
+        source: info.source,
+        medium: info.medium,
+        campaign: null,
+        referrer: referrer,
+        sourceType: 'social',
+        icon: info.icon
+      };
+    }
+  }
+  
+  // Moteurs de recherche
+  const searchEngines = {
+    'google.com': { source: 'Google', medium: 'organic', icon: '🔍' },
+    'google.fr': { source: 'Google', medium: 'organic', icon: '🔍' },
+    'bing.com': { source: 'Bing', medium: 'organic', icon: '🔍' },
+    'yahoo.com': { source: 'Yahoo', medium: 'organic', icon: '🔍' },
+    'duckduckgo.com': { source: 'DuckDuckGo', medium: 'organic', icon: '🔍' },
+    'qwant.com': { source: 'Qwant', medium: 'organic', icon: '🔍' },
+    'ecosia.org': { source: 'Ecosia', medium: 'organic', icon: '🌱' }
+  };
+  
+  for (const [domain, info] of Object.entries(searchEngines)) {
+    if (referrerLower.includes(domain)) {
+      return {
+        source: info.source,
+        medium: info.medium,
+        campaign: null,
+        referrer: referrer,
+        sourceType: 'search',
+        icon: info.icon
+      };
+    }
+  }
+  
+  // Autres sites (référents externes)
+  if (referrer && !referrer.includes(window.location.hostname)) {
+    try {
+      const referrerUrl = new URL(referrer);
+      return {
+        source: referrerUrl.hostname.replace('www.', ''),
+        medium: 'referral',
+        campaign: null,
+        referrer: referrer,
+        sourceType: 'referral',
+        icon: '🔗'
+      };
+    } catch (e) {
+      // URL invalide
+    }
+  }
+  
+  // Accès direct (pas de referrer)
+  return {
+    source: 'Direct',
+    medium: 'none',
+    campaign: null,
+    referrer: '',
+    sourceType: 'direct',
+    icon: '🔖'
+  };
+};
+
+/**
  * Obtient la localisation de l'utilisateur depuis son IP
  * Essaie plusieurs services gratuits en cas d'échec
  */
@@ -181,7 +286,14 @@ const assignUserNumber = async (userId) => {
       console.log('🌍 [ASSIGN] Localisation obtenue:', location);
     }
 
-    // Insérer le nouvel utilisateur avec son numéro et sa localisation
+    // Obtenir la source de trafic
+    const trafficSource = getTrafficSource();
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📊 [ASSIGN] Source de trafic détectée:', trafficSource);
+    }
+
+    // Insérer le nouvel utilisateur avec son numéro, sa localisation et sa source de trafic
     const insertData = {
       user_id: userId,
       user_number: nextNumber,
@@ -196,7 +308,12 @@ const assignUserNumber = async (userId) => {
       latitude: location.latitude,
       longitude: location.longitude,
       timezone: location.timezone,
-      ip_address: location.ip_address
+      ip_address: location.ip_address,
+      traffic_source: trafficSource.source,
+      traffic_medium: trafficSource.medium,
+      traffic_campaign: trafficSource.campaign,
+      traffic_source_type: trafficSource.sourceType,
+      referrer: trafficSource.referrer
     };
     
     if (process.env.NODE_ENV === 'development') {
@@ -453,16 +570,19 @@ export const trackSupabase = async (eventName, parameters = {}) => {
     if (userId.includes('user#')) {
       const originalUserId = extractOriginalUserId(userId);
       
-      // Vérifier si l'utilisateur a déjà une localisation
+      // Vérifier si l'utilisateur a déjà une localisation et une source de trafic
       const { data: userData } = await supabase
         .from('user_numbers')
-        .select('city, country')
+        .select('city, country, traffic_source')
         .eq('user_id', originalUserId)
         .single();
       
-      // Si pas de localisation, essayer de l'obtenir
+      // Si pas de localisation ou de source de trafic, essayer de les obtenir
       let updateData = { last_seen: new Date().toISOString() };
-      if (!userData || (!userData.city && !userData.country)) {
+      const needsLocation = !userData || (!userData.city && !userData.country);
+      const needsTrafficSource = !userData || !userData.traffic_source;
+      
+      if (needsLocation) {
         const location = await getUserLocation();
         updateData = {
           ...updateData,
@@ -476,6 +596,18 @@ export const trackSupabase = async (eventName, parameters = {}) => {
           longitude: location.longitude,
           timezone: location.timezone,
           ip_address: location.ip_address
+        };
+      }
+      
+      if (needsTrafficSource) {
+        const trafficSource = getTrafficSource();
+        updateData = {
+          ...updateData,
+          traffic_source: trafficSource.source,
+          traffic_medium: trafficSource.medium,
+          traffic_campaign: trafficSource.campaign,
+          traffic_source_type: trafficSource.sourceType,
+          referrer: trafficSource.referrer
         };
       }
       

@@ -235,3 +235,4 @@ Vous avez maintenant un tracking beaucoup plus riche qui vous permet de comprend
 
 Tous ces événements sont automatiquement enregistrés dans Supabase et visibles dans votre dashboard !
 
+

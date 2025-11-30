@@ -26,9 +26,24 @@ const ScenarioComparator = ({
   useEffect(() => {
     if (!baseData) return;
 
+    // Récupérer l'information sur les cotisations sur 100%
+    const cotisationSur100Pourcent = simulationData?.details?.cotisationSur100Pourcent || false;
+    const salaireBrutTempsPlein = baseData.salaireBrut;
+
     const calculateScenario = (percentage) => {
-      const salaireBrutTempsPartiel = baseData.salaireBrut * (percentage / 100);
-      const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
+      const salaireBrutTempsPartiel = salaireBrutTempsPlein * (percentage / 100);
+      
+      // Calculer le salaire net selon le toggle
+      let salaireNetTempsPartiel;
+      if (cotisationSur100Pourcent) {
+        // Cotisations sur 100% du salaire brut (temps plein)
+        const cotisations = salaireBrutTempsPlein * 0.2302;
+        // Salaire net = salaire brut temps partiel - cotisations sur temps plein
+        salaireNetTempsPartiel = salaireBrutTempsPartiel - cotisations;
+      } else {
+        // Cotisations sur le salaire brut temps partiel (76.98% du brut temps partiel)
+        salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
+      }
       
       // Pension progressive : seulement si temps partiel < 100%
       // À 100%, on est en temps plein, donc pas de pension progressive
@@ -61,7 +76,7 @@ const ScenarioComparator = ({
       current: currentScenarioData,
       reference: currentScenarioRef
     });
-  }, [selectedPercentage, baseData, currentScenario]);
+  }, [selectedPercentage, baseData, currentScenario, simulationData]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('fr-FR', {

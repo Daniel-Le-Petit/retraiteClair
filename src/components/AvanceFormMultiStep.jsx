@@ -13,7 +13,8 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
     trimestres: sharedData?.trimestres || '',
     sam: sharedData?.sam || '',
     pensionComplete: sharedData?.pensionComplete || '',
-    revenusComplementaires: sharedData?.revenusComplementaires || ''
+    revenusComplementaires: sharedData?.revenusComplementaires || '',
+    cotisationSur100Pourcent: sharedData?.cotisationSur100Pourcent || false
   });
 
   const [errors, setErrors] = useState({});
@@ -28,7 +29,8 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
       trimestres: sharedData?.trimestres || '',
       sam: sharedData?.sam || '',
       pensionComplete: sharedData?.pensionComplete || '',
-      revenusComplementaires: sharedData?.revenusComplementaires || ''
+      revenusComplementaires: sharedData?.revenusComplementaires || '',
+      cotisationSur100Pourcent: sharedData?.cotisationSur100Pourcent || false
     });
   }, [
     sharedData?.salaireBrut,
@@ -37,7 +39,8 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
     sharedData?.trimestres,
     sharedData?.sam,
     sharedData?.pensionComplete,
-    sharedData?.revenusComplementaires
+    sharedData?.revenusComplementaires,
+    sharedData?.cotisationSur100Pourcent
   ]);
 
   // Définition des étapes avec des références aux composants d'icônes
@@ -76,10 +79,12 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
   ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     
     let processedValue = value;
-    if (name === 'salaireBrut' || name === 'sam' || name === 'pensionComplete' || name === 'revenusComplementaires') {
+    if (type === 'checkbox') {
+      processedValue = checked;
+    } else if (name === 'salaireBrut' || name === 'sam' || name === 'pensionComplete' || name === 'revenusComplementaires') {
       processedValue = value.replace(/[^0-9.]/g, '');
     }
     
@@ -91,6 +96,7 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
     
     if (onDataChange && typeof onDataChange === 'function') {
       onDataChange({
+        ...formData,
         [name]: processedValue
       });
     }
@@ -103,8 +109,10 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
       }));
     }
 
-    // Validation en temps réel
-    validateField(name, processedValue);
+    // Validation en temps réel (sauf pour les checkboxes)
+    if (type !== 'checkbox') {
+      validateField(name, processedValue);
+    }
   };
 
   const validateField = (fieldName, value) => {
@@ -305,7 +313,6 @@ const AvanceFormMultiStep = ({ onSubmit, isCalculating, sharedData = {}, onDataC
               pattern="[0-9]*"
               inputMode="numeric"
               error={errors.salaireBrut}
-              success={formData.salaireBrut && parseFloat(formData.salaireBrut) > 0 ? "Salaire brut valide" : null}
               tooltipContent={`Votre salaire BRUT mensuel
 ────────────────────────────
 C'est le montant avant déduction des
@@ -314,7 +321,7 @@ de votre bulletin de salaire.
 
 Exemple : Si vous gagnez 3000€ net,
 votre brut est environ 3850€`}
-              helpText="Il s'agit du salaire AVANT prélèvement des cotisations. Vous le trouvez sur votre fiche de paie."
+              helpText="Salaire brut AVANT prélèvement des cotisations"
             />
           </div>
         );
@@ -343,6 +350,48 @@ votre brut est environ 3850€`}
             <InfoBox type="info" className={styles.popularChoice}>
               💡 La plupart des personnes choisissent 60%
             </InfoBox>
+
+            <div className={styles.toggleContainer}>
+              <label className={styles.toggleLabel}>
+                <input
+                  type="checkbox"
+                  name="cotisationSur100Pourcent"
+                  checked={formData.cotisationSur100Pourcent || false}
+                  onChange={handleChange}
+                  className={styles.toggleInput}
+                />
+                <span className={styles.toggleText}>
+                  Cotisation sur 100% du salaire
+                </span>
+              </label>
+              
+              <InfoBox type="info" className={styles.toggleInfo}>
+                <div className={styles.toggleExplanation}>
+                  <div className={styles.toggleSection}>
+                    <strong>✅ Pourquoi choisir cette option ?</strong>
+                    <ul>
+                      <li><strong>Augmentez votre pension définitive</strong> : En cotisant sur 100% de votre salaire, vous continuez à alimenter vos droits à la retraite comme si vous étiez à temps plein. Cela peut représenter <strong>+150€ à +300€/mois</strong> de pension supplémentaire à vie lors de votre retraite définitive.</li>
+                      <li><strong>Maintien de votre niveau de cotisation</strong> : Vos trimestres et votre salaire annuel moyen (SAM) continuent d'être calculés sur votre salaire plein, ce qui préserve votre niveau de retraite.</li>
+                      <li><strong>Idéal pour une transition progressive</strong> : Si vous prévoyez de repasser à temps plein ou si vous voulez maximiser votre retraite future.</li>
+                    </ul>
+                  </div>
+                  
+                  <div className={styles.toggleSection}>
+                    <strong>❌ Pourquoi ne pas choisir cette option ?</strong>
+                    <ul>
+                      <li><strong>Revenu net immédiat plus faible</strong> : Vous payez des cotisations supplémentaires (sur la partie temps plein que vous ne travaillez pas), ce qui réduit votre salaire net mensuel actuel.</li>
+                      <li><strong>Impact sur votre budget</strong> : La différence peut représenter <strong>200€ à 500€/mois</strong> de moins dans votre portefeuille immédiatement.</li>
+                      <li><strong>Si vous avez besoin de liquidités</strong> : Si votre priorité est d'avoir plus de revenus disponibles maintenant pour vos projets ou votre quotidien.</li>
+                      <li><strong>Si vous êtes proche de la retraite</strong> : L'impact sur votre pension définitive sera moindre si vous partez en retraite dans quelques années.</li>
+                    </ul>
+                  </div>
+                  
+                  <div className={styles.toggleNote}>
+                    💡 <strong>Conseil</strong> : Cette option est particulièrement intéressante si vous avez encore plusieurs années avant la retraite définitive et que vous pouvez vous permettre de réduire légèrement vos revenus actuels pour maximiser votre retraite future.
+                  </div>
+                </div>
+              </InfoBox>
+            </div>
           </div>
         );
 

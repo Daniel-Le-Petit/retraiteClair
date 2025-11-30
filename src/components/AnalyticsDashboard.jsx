@@ -68,10 +68,10 @@ const AnalyticsDashboard = ({ onLogout }) => {
         .gte('created_at', startDate.toISOString())
         .order('created_at', { ascending: false });
 
-      // Récupérer les informations de localisation des utilisateurs
+      // Récupérer les informations de localisation et source de trafic des utilisateurs
       const { data: userLocations } = await supabase
         .from('user_numbers')
-        .select('user_id, city, country, region, country_code');
+        .select('user_id, city, country, region, country_code, traffic_source, traffic_medium, traffic_source_type, referrer');
 
       console.log('📊 [LOAD] Query result - events:', events?.length || 0, 'error:', error);
 
@@ -213,7 +213,11 @@ const AnalyticsDashboard = ({ onLogout }) => {
               city: userLocation?.city || null,
               country: userLocation?.country || null,
               region: userLocation?.region || null,
-              countryCode: userLocation?.country_code || null
+              countryCode: userLocation?.country_code || null,
+              trafficSource: userLocation?.traffic_source || null,
+              trafficMedium: userLocation?.traffic_medium || null,
+              trafficSourceType: userLocation?.traffic_source_type || null,
+              referrer: userLocation?.referrer || null
             };
           }
           otherUsersStats[event.user_id].eventCount++;
@@ -680,6 +684,27 @@ const AnalyticsDashboard = ({ onLogout }) => {
                                 gap: '0.25rem'
                               }}>
                                 📍 {userStat.city ? `${userStat.city}` : ''}{userStat.city && userStat.country ? ', ' : ''}{userStat.country || ''}
+                              </span>
+                            )}
+                            {userStat.trafficSource && (
+                              <span style={{ 
+                                background: userStat.trafficSourceType === 'social' ? '#fef3c7' : 
+                                          userStat.trafficSourceType === 'search' ? '#dbeafe' :
+                                          userStat.trafficSourceType === 'direct' ? '#e5e7eb' : '#f3e8ff',
+                                color: userStat.trafficSourceType === 'social' ? '#92400e' : 
+                                       userStat.trafficSourceType === 'search' ? '#1e40af' :
+                                       userStat.trafficSourceType === 'direct' ? '#374151' : '#6b21a8',
+                                padding: '0.15rem 0.5rem',
+                                borderRadius: '4px',
+                                fontSize: '0.75rem',
+                                fontWeight: '500',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.25rem'
+                              }}>
+                                {userStat.trafficSourceType === 'social' ? '💼' : 
+                                 userStat.trafficSourceType === 'search' ? '🔍' :
+                                 userStat.trafficSourceType === 'direct' ? '🔖' : '🔗'} {userStat.trafficSource}
                               </span>
                             )}
                             {isDanielsIPhone && (

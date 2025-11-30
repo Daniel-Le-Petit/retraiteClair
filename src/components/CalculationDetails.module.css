@@ -244,6 +244,145 @@
   color: #134e4a;
 }
 
+/* Comparaison des modes de calcul */
+.comparisonBox {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+}
+
+.comparisonTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comparisonColumn {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.comparisonHeader {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.comparisonContent {
+  padding: 1rem;
+}
+
+.comparisonRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.comparisonRow span:first-child {
+  color: #6c757d;
+}
+
+.comparisonRow strong {
+  color: #2c3e50;
+}
+
+.comparisonDifference {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #2563eb;
+}
+
+.comparisonDifferenceLabel {
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.comparisonDifferenceValue {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2563eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.comparisonDifferenceNote {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Info box pour l'option disponible */
+.infoBox {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 12px;
+  border: 2px solid #3b82f6;
+}
+
+.infoBoxTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
+
+.infoBoxContent {
+  color: #1e3a8a;
+  line-height: 1.6;
+}
+
+.infoBoxContent p {
+  margin-bottom: 1rem;
+}
+
+.infoBoxComparison {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.infoBoxRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.infoBoxNote {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #92400e;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -268,6 +407,127 @@
   .stepValue {
     text-align: left;
     width: 100%;
+  }
+  
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .comparisonRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .infoBoxRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Explication détaillée des avantages/inconvénients */
+.explanationBox {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+}
+
+.explanationTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.explanationGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.explanationColumn {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.explanationHeader {
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.explanationContent {
+  padding: 1rem;
+}
+
+.explanationItem {
+  margin-bottom: 1.25rem;
+}
+
+.explanationItem:last-child {
+  margin-bottom: 0;
+}
+
+.explanationItem strong {
+  display: block;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.explanationItem p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #6c757d;
+}
+
+.explanationItem p strong {
+  display: inline;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.explanationConclusion {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 8px;
+  border-left: 4px solid #f59e0b;
+}
+
+.explanationConclusion strong {
+  display: block;
+  color: #92400e;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.explanationConclusion p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #78350f;
+}
+
+.explanationConclusion p strong {
+  display: inline;
+  color: #92400e;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .explanationGrid {
+    grid-template-columns: 1fr;
   }
 }
 

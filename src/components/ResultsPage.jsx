@@ -186,7 +186,8 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
               pensionProgressiveNet: data.revenusNets?.pension || 0,
               totalNet: data.revenusNets?.total || 0,
               revenusComplementaires: data.revenusNets?.revenusComplementaires || 0,
-              impactFiscal: data.impactFiscal
+              impactFiscal: data.impactFiscal,
+              cotisationSur100Pourcent: data.details?.cotisationSur100Pourcent || false
             }}
             formulaVersion={process.env.REACT_APP_FORMULA_VERSION || '1.0.0'}
           />

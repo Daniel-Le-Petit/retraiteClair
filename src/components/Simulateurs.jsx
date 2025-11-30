@@ -4,6 +4,13 @@ import AvanceFormMultiStep from './AvanceFormMultiStep';
 import ResultsTabs from './ResultsTabs';
 import CalculProgress from './CalculProgress';
 import { trackEvent, trackTimeOnPage, initScrollTracking } from '../utils/tracking';
+import { 
+  getTrimestresRequis,
+  calculerTauxLiquidation,
+  calculerSurcote,
+  calculerPensionBase,
+  calculerPensionProgressive
+} from '../utils/retraiteFormulas';
 import styles from './Simulateurs.module.css';
 
 const Simulateurs = () => {
@@ -61,7 +68,8 @@ const Simulateurs = () => {
       trimestres: '',
       sam: '',
       pensionComplete: '',
-      revenusComplementaires: ''
+      revenusComplementaires: '',
+      cotisationSur100Pourcent: false
     };
   };
 
@@ -168,9 +176,12 @@ const Simulateurs = () => {
     }, 1500);
   };
 
-  // Fonction de calcul précise de la retraite progressive selon M@rel
+  // Fonction de calcul précise de la retraite progressive selon la génération
   const calculateRetraiteProgressive = (data) => {
-    const { salaireBrut, tempsPartiel, age, trimestres, sam, pensionComplete, revenusComplementaires = 0 } = data;
+    const { salaireBrut, tempsPartiel, age, trimestres, sam, pensionComplete, revenusComplementaires = 0, cotisationSur100Pourcent = false } = data;
+    
+    // Calculer l'année de naissance à partir de l'âge si disponible
+    const anneeNaissance = age ? new Date().getFullYear() - parseInt(age) : null;
     
     // Calculs selon les valeurs M@rel exactes
     // Salaire brut temps partiel (selon M@rel)
@@ -179,42 +190,75 @@ const Simulateurs = () => {
     // Salaire net temps plein (76.98% du brut selon M@rel exact)
     const salaireNetTempsPlein = salaireBrut * 0.7698;
     
-    // Salaire net temps partiel (76.98% du brut temps partiel)
-    const salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
+    // Salaire net temps partiel
+    // Si cotisationSur100Pourcent est activé, les cotisations sont calculées sur 100% du salaire brut
+    let salaireNetTempsPartiel;
+    if (cotisationSur100Pourcent) {
+      // Cotisations sur 100% du salaire brut (23.02% de cotisations)
+      const cotisations = salaireBrut * 0.2302;
+      // Salaire net = salaire brut temps partiel - cotisations sur temps plein
+      salaireNetTempsPartiel = salaireBrutTempsPartiel - cotisations;
+    } else {
+      // Cotisations sur le salaire brut temps partiel (76.98% du brut temps partiel)
+      salaireNetTempsPartiel = salaireBrutTempsPartiel * 0.7698;
+    }
     
     // Pension progressive brut - Utiliser la pension saisie si disponible
     // IMPORTANT : À 100% (temps plein), pas de pension progressive
     let pensionProgressiveBrut, pensionCompleteBrut, pensionCompleteNet;
     
-    if (tempsPartiel >= 100) {
+    // Calculer la pension en fonction de la génération si on a les informations nécessaires
+    if (anneeNaissance && trimestres && sam) {
+      // Mode avancé avec génération : calcul précis basé sur les formules officielles
+      const trimestresRequis = getTrimestresRequis(anneeNaissance);
+      const tauxLiquidation = calculerTauxLiquidation(parseInt(trimestres) || 0, trimestresRequis);
+      const surcote = calculerSurcote(parseInt(trimestres) || 0, trimestresRequis);
+      
+      // Calculer la pension complète annuelle brute
+      const samAnnuel = sam || (salaireBrut * 12 * 0.8);
+      const pensionCompleteAnnuelleBrute = calculerPensionBase(samAnnuel, tauxLiquidation, surcote);
+      
+      // Convertir en mensuel
+      pensionCompleteBrut = pensionCompleteAnnuelleBrute / 12;
+      pensionCompleteNet = pensionCompleteBrut * 0.9; // 10% de cotisations
+      
+      // Calculer la pension progressive (40% de la pension complète en retraite progressive)
+      if (tempsPartiel < 100) {
+        const tauxProgression = 0.4; // 40% de la pension complète
+        const pensionProgressiveAnnuelleBrute = calculerPensionProgressive(pensionCompleteAnnuelleBrute, tauxProgression);
+        pensionProgressiveBrut = pensionProgressiveAnnuelleBrute / 12;
+      } else {
+        pensionProgressiveBrut = 0;
+      }
+    } else if (tempsPartiel >= 100) {
       // Temps plein : pas de pension progressive
       pensionProgressiveBrut = 0;
       if (pensionComplete) {
         pensionCompleteNet = pensionComplete;
-        pensionCompleteBrut = pensionComplete / 0.7698;
+        pensionCompleteBrut = pensionComplete / 0.9; // Convertir net en brut (10% cotisations)
       } else {
+        // Estimation si pas de données précises
         pensionCompleteBrut = salaireBrut * 0.5178;
-        pensionCompleteNet = pensionCompleteBrut * 0.7698;
+        pensionCompleteNet = pensionCompleteBrut * 0.9;
       }
     } else {
-      // Temps partiel : calcul de la pension progressive
+      // Mode simplifié ou données incomplètes : utiliser les ratios M@rel
       if (pensionComplete) {
         // Mode avancé : utiliser la pension réelle saisie
-        // La pension saisie est NETTE avant RP (pension complète si pas de RP)
-        pensionCompleteNet = pensionComplete; // Utiliser directement la valeur saisie
-        pensionCompleteBrut = pensionComplete / 0.7698; // Convertir net en brut
-        // CORRECTION : La pension progressive doit être calculée à partir du salaire brut, pas de la pension complète
-        pensionProgressiveBrut = salaireBrut * 0.1733; // Utiliser le ratio M@rel exact sur le salaire brut
+        pensionCompleteNet = pensionComplete;
+        pensionCompleteBrut = pensionComplete / 0.9;
+        // Estimation de la pension progressive (40% de la pension complète)
+        pensionProgressiveBrut = (pensionCompleteBrut * 0.4);
       } else {
         // Mode simplifié : calcul selon les valeurs M@rel exactes
         // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
-        pensionProgressiveBrut = salaireBrut * 0.1733; // Ratio exact M@rel
-        pensionCompleteBrut = salaireBrut * 0.5178; // Ratio exact M@rel
-        pensionCompleteNet = pensionCompleteBrut * 0.7698;
+        pensionProgressiveBrut = salaireBrut * 0.1733;
+        pensionCompleteBrut = salaireBrut * 0.5178;
+        pensionCompleteNet = pensionCompleteBrut * 0.9;
       }
     }
     
-    // Pension progressive nette (90% du brut, ou 0 si temps plein)
+    // Pension progressive nette (90% du brut après cotisations de 10%, ou 0 si temps plein)
     const pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     
     // Calcul des revenus totaux
@@ -304,17 +348,22 @@ const Simulateurs = () => {
         trancheApres: trancheApres // Tranche d'imposition avec RP (%)
       },
       cotisations: {
-        salariales: salaireBrut * 0.2117,
+        salariales: cotisationSur100Pourcent ? salaireBrut * 0.2302 : salaireBrutTempsPartiel * 0.2302,
         pension: pensionProgressiveBrut * 0.1,
-        total: (salaireBrut * 0.2117) + (pensionProgressiveBrut * 0.1)
+        total: (cotisationSur100Pourcent ? salaireBrut * 0.2302 : salaireBrutTempsPartiel * 0.2302) + (pensionProgressiveBrut * 0.1),
+        sur100Pourcent: cotisationSur100Pourcent
       },
       details: {
-        tauxPension: 1.0,
-        tauxProgressive: 0.1728,
+        tauxPension: anneeNaissance && trimestres ? calculerTauxLiquidation(parseInt(trimestres) || 0, getTrimestresRequis(anneeNaissance)) : 1.0,
+        tauxProgressive: 0.4, // 40% de la pension complète
         sam: sam || (salaireBrut * 12 * 0.8),
         trimestres: trimestres,
+        trimestresRequis: anneeNaissance ? getTrimestresRequis(anneeNaissance) : null,
         age: age,
-        tempsPartiel: tempsPartiel // Ajouter le temps partiel
+        anneeNaissance: anneeNaissance,
+        tempsPartiel: tempsPartiel,
+        surcote: anneeNaissance && trimestres ? calculerSurcote(parseInt(trimestres) || 0, getTrimestresRequis(anneeNaissance)) : 1.0,
+        cotisationSur100Pourcent: cotisationSur100Pourcent
       }
     };
   };
@@ -392,10 +441,11 @@ const Simulateurs = () => {
             onScenarioChange={(percentage) => {
               // Mettre à jour le temps partiel dans les données partagées
               updateSharedData({ tempsPartiel: percentage.toString() });
-              // Recalculer avec le nouveau temps partiel
+              // Recalculer avec le nouveau temps partiel en conservant toutes les autres données (y compris cotisationSur100Pourcent)
               const newData = {
                 ...sharedFormData,
                 tempsPartiel: percentage.toString()
+                // cotisationSur100Pourcent est déjà dans sharedFormData, donc conservé automatiquement
               };
               handleSimulation(newData);
             }}
