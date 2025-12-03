@@ -27,7 +27,9 @@ const ScenarioComparator = ({
     if (!baseData) return;
 
     // Récupérer l'information sur les cotisations sur 100%
-    const cotisationSur100Pourcent = simulationData?.details?.cotisationSur100Pourcent || false;
+    // Ne pas prendre en compte en mode simplifié
+    const isSimplified = simulationData?.mode === 'simplified' || simulationData?.mode === 'simplifie';
+    const cotisationSur100Pourcent = (!isSimplified && simulationData?.details?.cotisationSur100Pourcent) || false;
     const salaireBrutTempsPlein = baseData.salaireBrut;
 
     const calculateScenario = (percentage) => {
@@ -51,7 +53,7 @@ const ScenarioComparator = ({
       let pensionProgressiveNet = 0;
       
       if (percentage < 100) {
-        pensionProgressiveBrut = baseData.salaireBrut * 0.1733;
+        pensionProgressiveBrut = baseData.salaireBrut * 0.1738;
         pensionProgressiveNet = pensionProgressiveBrut * 0.9;
       }
       

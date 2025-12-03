@@ -23,13 +23,13 @@ const ScenarioChart = ({ data }) => {
     // Si on a une pension complète dans les données (mode avancé)
     if (data.revenusBruts.pensionComplete && data.revenusBruts.pensionComplete > 0) {
       // Mode avancé : utiliser la pension complète calculée
-      // La pension progressive = 17.33% du salaire brut (ratio exact M@rel)
-      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1733;
+      // La pension progressive = 17.38% du salaire brut (ratio corrigé basé sur chiffres officiels)
+      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1738;
       pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     } else {
-      // Mode simplifié : calcul selon les valeurs M@rel exactes
-      // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
-      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1733;
+      // Mode simplifié : calcul selon les valeurs officielles exactes
+      // Pension progressive brut = 17.38% du salaire brut (ratio corrigé basé sur chiffres officiels)
+      pensionProgressiveBrut = data.revenusBruts.tempsPlein * 0.1738;
       pensionProgressiveNet = pensionProgressiveBrut * 0.9;
     }
     

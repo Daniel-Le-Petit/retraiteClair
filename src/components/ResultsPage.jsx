@@ -102,15 +102,47 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
 
   const totalNet = data.revenusNets?.total || 0;
   const salairePartiel = data.revenusNets?.tempsPartiel || 0;
-  const pensionNet = data.revenusNets?.pension || 0;
+  // Vérifier et corriger la pension progressive nette si nécessaire
+  // La valeur correcte doit être calculée avec 17.38% du salaire brut × 90%
+  let pensionNet = data.revenusNets?.pension || 0;
+  const salaireBrutTempsPlein = data.revenusBruts?.tempsPlein || 0;
+  const pensionComplete = data.revenusNets?.pensionComplete || data.revenusBruts?.pensionComplete || 0;
+  const isAdvancedMode = pensionComplete > 0 && (data.mode === 'advanced' || data.mode === 'avance');
+  
+  // Recalculer la pension progressive nette pour garantir la cohérence
+  let totalNetRecalcule = totalNet;
+  if (salaireBrutTempsPlein > 0) {
+    let pensionProgressiveBrut;
+    if (isAdvancedMode) {
+      // Mode avancé : 40% de la pension complète
+      const pensionCompleteBrut = pensionComplete / 0.9;
+      pensionProgressiveBrut = pensionCompleteBrut * 0.4;
+    } else {
+      // Mode simplifié : 17.38% du salaire brut
+      pensionProgressiveBrut = salaireBrutTempsPlein * 0.1738;
+    }
+    const pensionProgressiveNetCorrecte = pensionProgressiveBrut * 0.9;
+    
+    // Utiliser la valeur recalculée si elle diffère significativement (plus de 10€)
+    if (Math.abs(pensionNet - pensionProgressiveNetCorrecte) > 10) {
+      pensionNet = pensionProgressiveNetCorrecte;
+      // Recalculer le total net avec la pension corrigée
+      const revenusComplementaires = data.revenusNets?.revenusComplementaires || 0;
+      totalNetRecalcule = salairePartiel + pensionNet + revenusComplementaires;
+    }
+  }
+  
   const salaireActuel = data.revenusNets?.tempsPlein || 0;
   const tempsPartiel = data?.details?.tempsPartiel || 60;
   
+  // Utiliser le total recalculé si la pension a été corrigée
+  const totalNetFinal = totalNetRecalcule !== totalNet ? totalNetRecalcule : totalNet;
+  
   // Calculer le pourcentage par rapport au salaire actuel
-  const pourcentageSalaire = salaireActuel > 0 ? Math.round((totalNet / salaireActuel) * 100) : 0;
+  const pourcentageSalaire = salaireActuel > 0 ? Math.round((totalNetFinal / salaireActuel) * 100) : 0;
   
   // Calculer les pourcentages pour chaque composante
-  const pourcentagePension = totalNet > 0 ? Math.round((pensionNet / totalNet) * 100) : 0;
+  const pourcentagePension = totalNetFinal > 0 ? Math.round((pensionNet / totalNetFinal) * 100) : 0;
 
   return (
     <div className={styles.container}>
@@ -124,7 +156,7 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
           <div className={styles.mainResult}>
             <div className={styles.resultAmount}>
               <AnimatedAmount 
-                value={totalNet} 
+                value={totalNetFinal} 
                 formatCurrency={true} 
               />
             </div>
@@ -187,7 +219,11 @@ const ResultsPage = ({ data, mode, onScenarioChange }) => {
               totalNet: data.revenusNets?.total || 0,
               revenusComplementaires: data.revenusNets?.revenusComplementaires || 0,
               impactFiscal: data.impactFiscal,
-              cotisationSur100Pourcent: data.details?.cotisationSur100Pourcent || false
+              cotisationSur100Pourcent: data.details?.cotisationSur100Pourcent || false,
+              age: data.details?.age || null,
+              anneeNaissance: data.details?.anneeNaissance || null,
+              pensionComplete: data.revenusNets?.pensionComplete || data.revenusBruts?.pensionComplete || null,
+              mode: data.mode || 'simplified'
             }}
             formulaVersion={process.env.REACT_APP_FORMULA_VERSION || '1.0.0'}
           />

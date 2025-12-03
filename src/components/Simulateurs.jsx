@@ -158,9 +158,16 @@ const Simulateurs = () => {
     
     setIsCalculating(true);
     
+    // En mode simplifié, forcer cotisationSur100Pourcent à false
+    const dataToCalculate = mode === 'simplifie' 
+      ? { ...data, cotisationSur100Pourcent: false }
+      : data;
+    
     // Calculs précis basés sur les règles officielles de la retraite progressive
     setTimeout(() => {
-      const results = calculateRetraiteProgressive(data);
+      const results = calculateRetraiteProgressive(dataToCalculate);
+      // Ajouter le mode dans les résultats pour que CalculationDetails puisse le détecter
+      results.mode = mode === 'avance' ? 'advanced' : 'simplified';
       setSimulationData(results);
       setIsCalculating(false);
       
@@ -178,10 +185,13 @@ const Simulateurs = () => {
 
   // Fonction de calcul précise de la retraite progressive selon la génération
   const calculateRetraiteProgressive = (data) => {
-    const { salaireBrut, tempsPartiel, age, trimestres, sam, pensionComplete, revenusComplementaires = 0, cotisationSur100Pourcent = false } = data;
+    const { salaireBrut, tempsPartiel, age, trimestres, sam, pensionComplete, revenusComplementaires = 0, cotisationSur100Pourcent = false, anneeNaissance: anneeNaissanceInput } = data;
     
-    // Calculer l'année de naissance à partir de l'âge si disponible
-    const anneeNaissance = age ? new Date().getFullYear() - parseInt(age) : null;
+    // Utiliser l'année de naissance si fournie directement, sinon la calculer à partir de l'âge
+    // ATTENTION : Le calcul depuis l'âge peut être imprécis (dépend du mois de naissance)
+    const anneeNaissance = anneeNaissanceInput 
+      ? (typeof anneeNaissanceInput === 'string' ? parseInt(anneeNaissanceInput, 10) : anneeNaissanceInput)
+      : (age ? new Date().getFullYear() - parseInt(age) : null);
     
     // Calculs selon les valeurs M@rel exactes
     // Salaire brut temps partiel (selon M@rel)
@@ -238,7 +248,8 @@ const Simulateurs = () => {
         pensionCompleteBrut = pensionComplete / 0.9; // Convertir net en brut (10% cotisations)
       } else {
         // Estimation si pas de données précises
-        pensionCompleteBrut = salaireBrut * 0.5178;
+        // Pension complète après RP = 57.58% du salaire brut (basé sur chiffres officiels)
+        pensionCompleteBrut = salaireBrut * 0.5758;
         pensionCompleteNet = pensionCompleteBrut * 0.9;
       }
     } else {
@@ -250,10 +261,12 @@ const Simulateurs = () => {
         // Estimation de la pension progressive (40% de la pension complète)
         pensionProgressiveBrut = (pensionCompleteBrut * 0.4);
       } else {
-        // Mode simplifié : calcul selon les valeurs M@rel exactes
-        // Pension progressive brut = 17.33% du salaire brut (ratio exact M@rel)
-        pensionProgressiveBrut = salaireBrut * 0.1733;
-        pensionCompleteBrut = salaireBrut * 0.5178;
+        // Mode simplifié : calcul selon les valeurs officielles exactes
+        // Pension progressive brut = 17.38% du salaire brut (basé sur chiffres officiels)
+        pensionProgressiveBrut = salaireBrut * 0.1738;
+        // Pension complète après RP = 57.58% du salaire brut (basé sur chiffres officiels)
+        // Cette pension prend en compte les droits accumulés pendant la retraite progressive
+        pensionCompleteBrut = salaireBrut * 0.5758;
         pensionCompleteNet = pensionCompleteBrut * 0.9;
       }
     }

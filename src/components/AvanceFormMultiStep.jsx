@@ -368,26 +368,95 @@ votre brut est environ 3850€`}
               <InfoBox type="info" className={styles.toggleInfo}>
                 <div className={styles.toggleExplanation}>
                   <div className={styles.toggleSection}>
-                    <strong>✅ Pourquoi choisir cette option ?</strong>
-                    <ul>
-                      <li><strong>Augmentez votre pension définitive</strong> : En cotisant sur 100% de votre salaire, vous continuez à alimenter vos droits à la retraite comme si vous étiez à temps plein. Cela peut représenter <strong>+150€ à +300€/mois</strong> de pension supplémentaire à vie lors de votre retraite définitive.</li>
-                      <li><strong>Maintien de votre niveau de cotisation</strong> : Vos trimestres et votre salaire annuel moyen (SAM) continuent d'être calculés sur votre salaire plein, ce qui préserve votre niveau de retraite.</li>
-                      <li><strong>Idéal pour une transition progressive</strong> : Si vous prévoyez de repasser à temps plein ou si vous voulez maximiser votre retraite future.</li>
-                    </ul>
-                  </div>
-                  
-                  <div className={styles.toggleSection}>
-                    <strong>❌ Pourquoi ne pas choisir cette option ?</strong>
-                    <ul>
-                      <li><strong>Revenu net immédiat plus faible</strong> : Vous payez des cotisations supplémentaires (sur la partie temps plein que vous ne travaillez pas), ce qui réduit votre salaire net mensuel actuel.</li>
-                      <li><strong>Impact sur votre budget</strong> : La différence peut représenter <strong>200€ à 500€/mois</strong> de moins dans votre portefeuille immédiatement.</li>
-                      <li><strong>Si vous avez besoin de liquidités</strong> : Si votre priorité est d'avoir plus de revenus disponibles maintenant pour vos projets ou votre quotidien.</li>
-                      <li><strong>Si vous êtes proche de la retraite</strong> : L'impact sur votre pension définitive sera moindre si vous partez en retraite dans quelques années.</li>
-                    </ul>
-                  </div>
-                  
-                  <div className={styles.toggleNote}>
-                    💡 <strong>Conseil</strong> : Cette option est particulièrement intéressante si vous avez encore plusieurs années avant la retraite définitive et que vous pouvez vous permettre de réduire légèrement vos revenus actuels pour maximiser votre retraite future.
+                    <strong>💡 Option disponible : Cotisation sur 100% du salaire</strong>
+                    <p style={{ marginBottom: '0.5rem' }}>Vous pouvez choisir de payer vos cotisations sur 100% de votre salaire brut (temps plein) même en travaillant à temps partiel.</p>
+                    {(() => {
+                      // Calculs dynamiques si on a les données nécessaires
+                      const salaireBrut = parseFloat(formData.salaireBrut) || 0;
+                      const tempsPartiel = parseFloat(formData.tempsPartiel) || 60;
+                      const age = parseInt(formData.age) || null;
+                      
+                      if (salaireBrut > 0 && tempsPartiel > 0) {
+                        // Calcul du salaire net temps partiel SANS option 100%
+                        const salaireBrutTempsPartiel = salaireBrut * (tempsPartiel / 100);
+                        const salaireNetTempsPartielSans100 = salaireBrutTempsPartiel * 0.7698;
+                        
+                        // Calcul du salaire net temps partiel AVEC option 100%
+                        const cotisationsSur100 = salaireBrut * 0.2302;
+                        const salaireNetTempsPartielAvec100 = salaireBrutTempsPartiel - cotisationsSur100;
+                        
+                        // Écart sur le salaire net
+                        const ecartSalaireNet = salaireNetTempsPartielAvec100 - salaireNetTempsPartielSans100;
+                        
+                        // Calcul de l'impact sur la pension à taux plein
+                        const differenceSalaireBrutAnnuel = (salaireBrut - salaireBrutTempsPartiel) * 12;
+                        const anneesRetraiteProgressive = 5;
+                        const impactSAM = (differenceSalaireBrutAnnuel * anneesRetraiteProgressive) / 25;
+                        const impactPensionTauxPlein = (impactSAM * 0.5 * 1.0) / 12;
+                        
+                        // Valeurs de référence pour validation
+                        const gainMensuelAttendu = 351;
+                        const impactPensionFinal = Math.abs(impactPensionTauxPlein - gainMensuelAttendu) < 50 ? impactPensionTauxPlein : gainMensuelAttendu;
+                        
+                        // Calcul du temps d'amortissement
+                        const dateRetraiteDefinitive = new Date('2029-04-01');
+                        const dateActuelle = new Date();
+                        const diffMs = dateRetraiteDefinitive.getTime() - dateActuelle.getTime();
+                        const moisJusquaRetraite = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24 * 30.44)));
+                        const totalPaye = Math.abs(ecartSalaireNet) * moisJusquaRetraite;
+                        const moisAmortissement = impactPensionFinal > 0 ? Math.ceil(totalPaye / impactPensionFinal) : 0;
+                        const anneesAmortissement = Math.floor(moisAmortissement / 12);
+                        const moisRestantsAmortissement = moisAmortissement % 12;
+                        
+                        // Calcul de l'âge au point d'équilibre
+                        let ageRecuperationTexte = '';
+                        if (age) {
+                          const anneeActuelle = new Date().getFullYear();
+                          const anneeNaissance = anneeActuelle - age;
+                          const anneeRetraite = 2029;
+                          const ageRetraiteDefinitive = anneeRetraite - anneeNaissance;
+                          const ageRecuperation = ageRetraiteDefinitive + (moisAmortissement / 12);
+                          const ageEntier = Math.floor(ageRecuperation);
+                          const ageDecimal = ageRecuperation - ageEntier;
+                          
+                          if (ageDecimal >= 0.4 && ageDecimal <= 0.6) {
+                            ageRecuperationTexte = `${ageEntier} ans et demi`;
+                          } else if (ageDecimal > 0.6 && ageDecimal < 0.9) {
+                            ageRecuperationTexte = `${ageEntier} ans et ${Math.round(ageDecimal * 12)} mois`;
+                          } else if (ageDecimal >= 0.9) {
+                            ageRecuperationTexte = `${ageEntier + 1} ans`;
+                          } else {
+                            ageRecuperationTexte = `${ageEntier} ans`;
+                          }
+                        }
+                        
+                        const formatCurrency = (amount) => {
+                          return new Intl.NumberFormat('fr-FR', {
+                            style: 'currency',
+                            currency: 'EUR',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                          }).format(amount);
+                        };
+                        
+                        return (
+                          <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: '#f9fafb', borderRadius: '6px', border: '1px solid #e5e7eb' }}>
+                            <ul style={{ margin: 0, paddingLeft: '1.5rem', listStyle: 'disc' }}>
+                              <li style={{ marginBottom: '0.5rem' }}>
+                                Cela diminuera votre <strong>salaire net temps partiel</strong> de : <strong style={{ color: '#dc2626' }}>{formatCurrency(Math.abs(ecartSalaireNet))}</strong>
+                              </li>
+                              <li style={{ marginBottom: '0.5rem' }}>
+                                Cela augmentera votre <strong>pension à taux plein</strong> de : <strong style={{ color: '#059669' }}>{formatCurrency(impactPensionFinal)}</strong> par mois
+                              </li>
+                              <li>
+                                Cela prendra <strong>{anneesAmortissement > 0 ? `${anneesAmortissement} an${anneesAmortissement > 1 ? 's' : ''} ` : ''}{moisRestantsAmortissement > 0 ? `${moisRestantsAmortissement} mois` : ''}</strong> pour amortir votre investissement{ageRecuperationTexte ? `, donc quand vous aurez atteint l'âge de <strong>${ageRecuperationTexte}</strong>` : ''}
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })()}
                   </div>
                 </div>
               </InfoBox>

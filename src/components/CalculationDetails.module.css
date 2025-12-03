@@ -244,8 +244,8 @@
   color: #134e4a;
 }
 
-/* Comparaison des modes de calcul */
-.comparisonBox {
+/* Comparaison simplifiée */
+.comparisonSimple {
   margin-top: 1.5rem;
   padding: 1.5rem;
   background: #f8f9fa;
@@ -253,84 +253,178 @@
   border: 2px solid #e9ecef;
 }
 
-.comparisonTitle {
+.comparisonSimpleTitle {
   font-size: 1.1rem;
   font-weight: 700;
   color: #2c3e50;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   text-align: center;
 }
 
-.comparisonGrid {
+.comparisonSimpleGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.comparisonColumn {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e9ecef;
-}
-
-.comparisonHeader {
-  padding: 0.75rem 1rem;
-  font-weight: 600;
-  font-size: 0.95rem;
+.comparisonSimpleCard {
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 2px solid;
   text-align: center;
 }
 
-.comparisonContent {
-  padding: 1rem;
-}
-
-.comparisonRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
+.comparisonSimpleLabel {
   font-size: 0.9rem;
-}
-
-.comparisonRow span:first-child {
   color: #6c757d;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
-.comparisonRow strong {
-  color: #2c3e50;
+.comparisonSimpleValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-.comparisonDifference {
+.comparisonSimpleSubtext {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.comparisonSimpleNote {
+  font-size: 0.8rem;
+  color: #059669;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* Box d'amortissement */
+.amortissementBox {
   margin-top: 1rem;
   padding: 1rem;
   background: white;
   border-radius: 8px;
-  border: 2px solid #2563eb;
+  border: 2px solid #10b981;
 }
 
-.comparisonDifferenceLabel {
-  font-weight: 600;
-  color: #2563eb;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.comparisonDifferenceValue {
-  font-size: 1.2rem;
+.amortissementTitle {
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #2563eb;
+  color: #059669;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.amortissementContent {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.comparisonDifferenceNote {
+.amortissementRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 0.85rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.amortissementRow:last-of-type {
+  border-bottom: none;
+}
+
+.amortissementRow span {
   color: #6c757d;
-  font-weight: 400;
-  line-height: 1.4;
+  flex: 1;
+}
+
+.amortissementRow strong {
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: right;
+}
+
+.amortissementNote {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Box retraite à taux plein */
+.retraiteTauxPleinBox {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 2px solid #3b82f6;
+}
+
+.retraiteTauxPleinTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #bfdbfe;
+}
+
+.retraiteTauxPleinContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.retraiteTauxPleinRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  padding: 0.5rem 0;
+}
+
+.retraiteTauxPleinRow span {
+  color: #374151;
+  flex: 1;
+}
+
+.retraiteTauxPleinRow strong {
+  color: #1e40af;
+  font-weight: 600;
+  text-align: right;
+}
+
+.retraiteTauxPleinNote {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #bfdbfe;
+  font-size: 0.8rem;
+  color: #4b5563;
+  text-align: center;
+  font-style: italic;
+}
+
+.comparisonSimpleAdvice {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.comparisonSimpleAdvice strong {
+  color: #1e40af;
 }
 
 /* Info box pour l'option disponible */
@@ -409,14 +503,8 @@
     width: 100%;
   }
   
-  .comparisonGrid {
+  .comparisonSimpleGrid {
     grid-template-columns: 1fr;
-  }
-  
-  .comparisonRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
   }
   
   .infoBoxRow {
@@ -426,107 +514,8 @@
   }
 }
 
-/* Explication détaillée des avantages/inconvénients */
-.explanationBox {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 12px;
-  border: 2px solid #e9ecef;
-}
-
-.explanationTitle {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e9ecef;
-}
-
-.explanationGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.explanationColumn {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e9ecef;
-}
-
-.explanationHeader {
-  padding: 1rem;
-  font-weight: 700;
-  font-size: 1rem;
-  text-align: center;
-}
-
-.explanationContent {
-  padding: 1rem;
-}
-
-.explanationItem {
-  margin-bottom: 1.25rem;
-}
-
-.explanationItem:last-child {
-  margin-bottom: 0;
-}
-
-.explanationItem strong {
-  display: block;
-  color: #2c3e50;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-
-.explanationItem p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #6c757d;
-}
-
-.explanationItem p strong {
-  display: inline;
-  color: #2563eb;
-  font-weight: 600;
-}
-
-.explanationConclusion {
-  padding: 1.25rem;
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-radius: 8px;
-  border-left: 4px solid #f59e0b;
-}
-
-.explanationConclusion strong {
-  display: block;
-  color: #92400e;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.explanationConclusion p {
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #78350f;
-}
-
-.explanationConclusion p strong {
-  display: inline;
-  color: #92400e;
-  font-weight: 600;
-}
-
 @media (max-width: 768px) {
-  .explanationGrid {
+  .comparisonSimpleGrid {
     grid-template-columns: 1fr;
   }
 }

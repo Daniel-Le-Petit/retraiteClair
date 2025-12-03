@@ -387,6 +387,95 @@ const HomePage = () => {
       {/* FAQ Section */}
       <FAQSection />
 
+      {/* Resources Section - Internal Linking for AI SEO */}
+      <section className="content-section" style={{ background: '#f8fafc', padding: '60px 20px' }}>
+        <div className="section-container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
+            Guides et ressources complémentaires
+          </h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/guide-retraite-2025" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  📚 Guide complet 2025
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Guide détaillé sur la retraite progressive : fonctionnement, éligibilité, calcul, avantages et stratégies d'optimisation.
+              </p>
+              <a href="/#/guide-retraite-2025" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                Lire le guide →
+              </a>
+            </div>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/faq-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  ❓ FAQ Retraite
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote et l'éligibilité.
+              </p>
+              <a href="/#/faq-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                Voir les FAQ →
+              </a>
+            </div>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  🔍 Comment ça marche ?
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Découvrez comment fonctionne la retraite progressive : conditions, calcul, avantages et démarches.
+              </p>
+              <a href="/#/retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                En savoir plus →
+              </a>
+            </div>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/decote-surcote" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  📊 Décote et surcote
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Comprenez comment la décote et la surcote impactent votre pension et comment optimiser votre départ.
+              </p>
+              <a href="/#/decote-surcote" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                Lire le guide →
+              </a>
+            </div>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/calcul-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  🧮 Calcul retraite
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Apprenez à calculer votre pension et découvrez les stratégies pour optimiser vos revenus de retraite.
+              </p>
+              <a href="/#/calcul-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                Voir le guide →
+              </a>
+            </div>
+            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
+                <a href="/#/pieges-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  ⚠️ Pièges à éviter
+                </a>
+              </h3>
+              <p style={{ color: '#666', lineHeight: '1.6' }}>
+                Découvrez les erreurs courantes lors de la prise de retraite et comment les éviter pour optimiser vos revenus.
+              </p>
+              <a href="/#/pieges-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
+                Lire l'article →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section className="final-cta-section">
         <div className="section-container">

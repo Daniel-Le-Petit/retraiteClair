@@ -14,6 +14,12 @@ import ConditionsUtilisation from './ConditionsUtilisation';
 import Footer from './Footer';
 import CookieBanner from './CookieBanner';
 import ProtectedDashboard from './ProtectedDashboard';
+import RetraiteProgressivePage from '../pages/retraite-progressive';
+import DecoteSurcotePage from '../pages/decote-surcote';
+import CalculRetraitePage from '../pages/calcul-retraite';
+import PiegesRetraitePage from '../pages/pieges-retraite';
+import FAQRetraitePage from '../pages/faq-retraite';
+import GuideRetraite2025Page from '../pages/guide-retraite-2025';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
@@ -368,6 +374,14 @@ const AppContent = () => {
         
         {/* Routes pour les articles de blog */}
         <Route path="/blog/:slug" element={<SwipeNavigationWrapper />} />
+        
+        {/* Routes pour les guides et FAQ optimisés IA */}
+        <Route path="/retraite-progressive" element={<RetraiteProgressivePage />} />
+        <Route path="/decote-surcote" element={<DecoteSurcotePage />} />
+        <Route path="/calcul-retraite" element={<CalculRetraitePage />} />
+        <Route path="/pieges-retraite" element={<PiegesRetraitePage />} />
+        <Route path="/faq-retraite" element={<FAQRetraitePage />} />
+        <Route path="/guide-retraite-2025" element={<GuideRetraite2025Page />} />
         
         {/* Route par défaut */}
         <Route path="*" element={<Navigate to="/" replace />} />
