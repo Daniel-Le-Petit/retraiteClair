@@ -21,6 +21,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [openPopup, setOpenPopup] = useState(null);
   const [openEligibilityTest, setOpenEligibilityTest] = useState(false);
+  const [openResourceModal, setOpenResourceModal] = useState(null);
 
   // Navigation sticky
   const navItems = React.useMemo(() => [
@@ -393,84 +394,686 @@ const HomePage = () => {
           <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
             Guides et ressources complémentaires
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/guide-retraite-2025" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  📚 Guide complet 2025
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Guide détaillé sur la retraite progressive : fonctionnement, éligibilité, calcul, avantages et stratégies d'optimisation.
-              </p>
-              <a href="/#/guide-retraite-2025" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                Lire le guide →
-              </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '900px', margin: '0 auto' }}>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/guide-retraite-2025" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Guide complet 2025
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Guide détaillé sur la retraite progressive : fonctionnement, éligibilité, calcul, avantages et stratégies d'optimisation.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('guide-retraite-2025')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/faq-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  ❓ FAQ Retraite
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote et l'éligibilité.
-              </p>
-              <a href="/#/faq-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                Voir les FAQ →
-              </a>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/faq-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    FAQ Retraite
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote et l'éligibilité.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('faq-retraite')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  🔍 Comment ça marche ?
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Découvrez comment fonctionne la retraite progressive : conditions, calcul, avantages et démarches.
-              </p>
-              <a href="/#/retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                En savoir plus →
-              </a>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M21 21l-4.35-4.35"></path>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Comment ça marche ?
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Découvrez comment fonctionne la retraite progressive : conditions, calcul, avantages et démarches.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/decote-surcote" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  📊 Décote et surcote
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Comprenez comment la décote et la surcote impactent votre pension et comment optimiser votre départ.
-              </p>
-              <a href="/#/decote-surcote" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                Lire le guide →
-              </a>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/decote-surcote" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Décote et surcote
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Comprenez comment la décote et la surcote impactent votre pension et comment optimiser votre départ.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('decote-surcote')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/calcul-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  🧮 Calcul retraite
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Apprenez à calculer votre pension et découvrez les stratégies pour optimiser vos revenus de retraite.
-              </p>
-              <a href="/#/calcul-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                Voir le guide →
-              </a>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/calcul-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Calcul retraite
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Apprenez à calculer votre pension et découvrez les stratégies pour optimiser vos revenus de retraite.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('calcul-retraite')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
-            <div style={{ background: 'white', padding: '25px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ color: '#2563eb', marginTop: 0, marginBottom: '10px' }}>
-                <a href="/#/pieges-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  ⚠️ Pièges à éviter
-                </a>
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Découvrez les erreurs courantes lors de la prise de retraite et comment les éviter pour optimiser vos revenus.
-              </p>
-              <a href="/#/pieges-retraite" style={{ color: '#2563eb', fontWeight: 'bold', textDecoration: 'none' }}>
-                Lire l'article →
-              </a>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/pieges-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Pièges à éviter
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Découvrez les erreurs courantes lors de la prise de retraite et comment les éviter pour optimiser vos revenus.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('pieges-retraite')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
+            </div>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/demarche-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Démarches et formalités
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Guide complet des démarches pour faire une demande de retraite progressive : étapes, documents et délais.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('demarche-retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
+            </div>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/temps-partiel-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Temps partiel
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Comparatif des revenus selon le taux de temps partiel : 40%, 50%, 60%, 70%, 80% et impact sur vos revenus.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('temps-partiel-retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
+            </div>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/fiscalite-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Fiscalité
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Guide complet sur la fiscalité de la retraite progressive : impôts, cotisations, pensions complémentaires.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('fiscalite-retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
+            </div>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/cas-pratiques-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Cas pratiques
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Exemples concrets de retraite progressive : salarié cadre, temps partiel, carrière incomplète, multi-régimes.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('cas-pratiques-retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
+            </div>
+            <div style={{ 
+              background: '#d1fae5', 
+              border: '2px solid #10b981', 
+              padding: '20px', 
+              borderRadius: '12px', 
+              display: 'flex', 
+              gap: '20px', 
+              alignItems: 'center'
+            }}>
+              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" 
+                  alt=""
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                  }}
+                />
+                <div style={{ 
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)',
+                  width: '50px',
+                  height: '50px'
+                }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                  <a href="/#/statut-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    Selon votre statut
+                  </a>
+                </h3>
+                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
+                  Retraite progressive selon votre statut : fonction publique, indépendants, auto-entrepreneurs, expatriés.
+                </p>
+                <button 
+                  onClick={() => setOpenResourceModal('statut-retraite-progressive')}
+                  style={{ 
+                    color: '#10b981', 
+                    fontWeight: 'bold', 
+                    background: 'none', 
+                    border: 'none', 
+                    cursor: 'pointer', 
+                    fontSize: '0.95rem',
+                    padding: 0,
+                    textAlign: 'left'
+                  }}
+                >
+                  En savoir plus &gt;
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -582,6 +1185,652 @@ const HomePage = () => {
                   🟩 Lancer la simulation
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Resource Modal */}
+      {openResourceModal && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '20px'
+          }}
+          onClick={() => setOpenResourceModal(null)}
+        >
+          <div 
+            style={{
+              background: 'white',
+              borderRadius: '16px',
+              maxWidth: '600px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              position: 'relative',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setOpenResourceModal(null)}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'none',
+                border: 'none',
+                fontSize: '28px',
+                cursor: 'pointer',
+                color: '#666',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => e.target.style.background = '#f3f4f6'}
+              onMouseLeave={(e) => e.target.style.background = 'none'}
+            >
+              <X size={24} />
+            </button>
+
+            <div style={{ padding: '40px' }}>
+              {openResourceModal === 'guide-retraite-2025' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Guide complet 2025
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Ce guide complet vous explique tout sur la retraite progressive en 2025 : fonctionnement, conditions d'éligibilité, 
+                    calcul de votre pension, décote et surcote, avantages fiscaux, démarches administratives et stratégies d'optimisation.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Ce que vous découvrirez :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Comment fonctionne la retraite progressive</li>
+                      <li>Les conditions d'éligibilité détaillées</li>
+                      <li>Le calcul précis de votre pension</li>
+                      <li>Les stratégies d'optimisation</li>
+                      <li>Les démarches administratives</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/guide-retraite-2025';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Lire le guide complet →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'faq-retraite' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    FAQ Retraite Progressive
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Retrouvez les réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote, 
+                    l'éligibilité et les démarches en 2025.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Questions abordées :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Qu'est-ce que la retraite progressive ?</li>
+                      <li>Comment optimiser sa retraite en 2025 ?</li>
+                      <li>Comment fonctionne la décote et la surcote ?</li>
+                      <li>Comment demander sa retraite progressive ?</li>
+                      <li>Qui peut en bénéficier ?</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/faq-retraite';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Voir toutes les questions →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Comment fonctionne la retraite progressive ?
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    La retraite progressive vous permet de travailler à temps partiel (entre 40% et 80%) tout en percevant une partie 
+                    de votre pension de retraite (entre 30% et 50%). C'est une transition en douceur vers la retraite définitive.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Points clés :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Conditions d'éligibilité (âge, trimestres, accord employeur)</li>
+                      <li>Calcul de votre pension progressive</li>
+                      <li>Avantages financiers et personnels</li>
+                      <li>Démarches pour faire la demande</li>
+                      <li>Pièges à éviter</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Découvrir le guide complet →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'decote-surcote' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Décote et surcote
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    La décote et la surcote sont deux mécanismes qui ajustent le montant de votre pension selon votre âge de départ 
+                    et le nombre de trimestres validés. Comprendre ces mécanismes est essentiel pour optimiser votre départ.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Vous apprendrez :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Comment calculer la décote (-0,625% par trimestre manquant)</li>
+                      <li>Comment calculer la surcote (+0,75% par trimestre supplémentaire)</li>
+                      <li>Tableau comparatif des impacts</li>
+                      <li>Stratégies pour éviter la décote</li>
+                      <li>Comment maximiser la surcote</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/decote-surcote';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Lire le guide détaillé →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'calcul-retraite' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Calcul retraite : comment optimiser sa pension ?
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Optimiser sa pension nécessite de comprendre les mécanismes de calcul et de choisir la meilleure stratégie de départ. 
+                    Ce guide vous explique étape par étape comment calculer et maximiser votre pension.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Contenu du guide :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Calcul du salaire annuel moyen (SAM)</li>
+                      <li>Vérification des trimestres validés</li>
+                      <li>Calcul du taux de pension</li>
+                      <li>Impact de la décote ou surcote</li>
+                      <li>4 stratégies d'optimisation</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/calcul-retraite';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Voir le guide complet →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'pieges-retraite' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Pièges à éviter pour prendre sa retraite
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Prendre sa retraite est une décision importante qui peut avoir des conséquences financières durables. 
+                    Découvrez les erreurs courantes et comment les éviter pour optimiser votre départ.
+                  </p>
+                  <div style={{ background: '#fef2f2', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#991b1b', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>7 pièges à éviter :</h3>
+                    <ul style={{ color: '#b91c1c', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Partir trop tôt sans vérifier sa situation</li>
+                      <li>Ignorer la retraite progressive</li>
+                      <li>Ne pas tenir compte de la fiscalité</li>
+                      <li>Mal calculer ses revenus</li>
+                      <li>Ne pas vérifier son éligibilité</li>
+                      <li>Oublier de négocier avec son employeur</li>
+                      <li>Ne pas comparer les scénarios</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/pieges-retraite';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Lire l'article complet →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'demarche-retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Démarches et formalités
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Faire une demande de retraite progressive nécessite de suivre plusieurs étapes administratives. 
+                    Ce guide vous explique pas à pas comment procéder, quels documents fournir et quels sont les délais à prévoir.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Étapes détaillées :</h3>
+                    <ol style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Vérifier votre éligibilité via le simulateur</li>
+                      <li>Informer votre employeur et obtenir l'accord écrit</li>
+                      <li>Remplir le formulaire officiel de demande</li>
+                      <li>Joindre les justificatifs nécessaires</li>
+                      <li>Envoyer la demande au régime de retraite</li>
+                    </ol>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/demarche-retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Voir le guide complet →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'temps-partiel-retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Retraite progressive : impact selon votre temps partiel
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Le choix du pourcentage de temps partiel (entre 40% et 80%) a un impact direct sur vos revenus, 
+                    votre pension partielle et votre qualité de vie. Comparez les différents taux pour faire le meilleur choix.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Comparatif disponible :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Tableau comparatif 40%, 50%, 60%, 70%, 80%</li>
+                      <li>Impact sur le salaire net et pension partielle</li>
+                      <li>Avantages et limites de chaque taux</li>
+                      <li>Scénarios personnalisés selon votre profil</li>
+                      <li>Conseils pour choisir le meilleur taux</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/temps-partiel-retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Comparer les taux →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'fiscalite-retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Fiscalité et impact social
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    La retraite progressive a un impact important sur votre fiscalité. Comprendre ces impacts vous permet 
+                    d'optimiser vos revenus nets et de faire les meilleurs choix pour votre situation.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Sujets abordés :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Impôts et cotisations sociales</li>
+                      <li>Impact sur les pensions complémentaires</li>
+                      <li>Tableau comparatif impact fiscal</li>
+                      <li>Optimisation des revenus nets</li>
+                      <li>Conseils pratiques pour réduire vos impôts</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/fiscalite-retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    En savoir plus →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'cas-pratiques-retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Cas pratiques et exemples concrets
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    Découvrez des exemples concrets de retraite progressive adaptés à différentes situations : 
+                    salarié cadre, temps partiel, carrière incomplète, multi-régimes.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Exemples détaillés :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Salarié cadre à 60 ans (simulation complète)</li>
+                      <li>Salarié déjà à temps partiel (ajustement)</li>
+                      <li>Carrière incomplète (solutions possibles)</li>
+                      <li>Multi-régimes (gestion complexe)</li>
+                      <li>Tableaux comparatifs avant/après</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/cas-pratiques-retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Voir les exemples →
+                  </button>
+                </>
+              )}
+
+              {openResourceModal === 'statut-retraite-progressive' && (
+                <>
+                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
+                    Retraite progressive selon votre statut
+                  </h2>
+                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
+                    La retraite progressive s'adapte à différents statuts professionnels : fonction publique, indépendants, 
+                    auto-entrepreneurs, multi-caisses, expatriés. Chaque statut a ses spécificités et ses conditions.
+                  </p>
+                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
+                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Statuts couverts :</h3>
+                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
+                      <li>Fonction publique (CNRACL, RAFP)</li>
+                      <li>Indépendants / auto-entrepreneurs</li>
+                      <li>Multi-caisses / expatriés</li>
+                      <li>Conditions spécifiques par statut</li>
+                      <li>Tableau comparatif des démarches</li>
+                    </ul>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenResourceModal(null);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                      setTimeout(() => {
+                        window.location.href = '/#/statut-retraite-progressive';
+                      }, 50);
+                    }}
+                    style={{
+                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      border: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '8px',
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      cursor: 'pointer',
+                      width: '100%',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  >
+                    Voir mon statut →
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const DecoteSurcotePage = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -46,33 +52,21 @@ const DecoteSurcotePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Comment fonctionne la décote et la surcote ? Guide 2025 | RetraiteClair</title>
-        <meta name="description" content="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ." />
-        <meta name="keywords" content="décote retraite, surcote retraite, calcul décote, calcul surcote, impact pension" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/decote-surcote" />
-        <meta property="og:title" content="Comment fonctionne la décote et la surcote ? Guide 2025" />
-        <meta property="og:description" content="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Comment fonctionne la décote et la surcote ? Guide 2025" />
-        <meta name="twitter:description" content="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/decote-surcote" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="Comment fonctionne la décote et la surcote ? Guide 2025 | RetraiteClair"
+        description="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ."
+        keywords="décote retraite, surcote retraite, calcul décote, calcul surcote, impact pension"
+        ogTitle="Comment fonctionne la décote et la surcote ? Guide 2025"
+        ogDescription="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/decote-surcote"
+        twitterTitle="Comment fonctionne la décote et la surcote ? Guide 2025"
+        twitterDescription="Comment fonctionne la décote et la surcote ? Découvrez comment ces mécanismes impactent votre pension de retraite et comment optimiser votre départ."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/decote-surcote"
+        structuredData={[structuredData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">

@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const FAQRetraitePage = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const faqs = [
     {
       question: "Qu'est-ce que la retraite progressive ?",
@@ -100,33 +106,21 @@ const FAQRetraitePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>FAQ Retraite Progressive : Questions fréquentes 2025 | RetraiteClair</title>
-        <meta name="description" content="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025." />
-        <meta name="keywords" content="FAQ retraite, questions retraite progressive, décote, surcote, éligibilité retraite, démarches retraite" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/faq-retraite" />
-        <meta property="og:title" content="FAQ Retraite Progressive : Questions fréquentes 2025" />
-        <meta property="og:description" content="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="FAQ Retraite Progressive : Questions fréquentes 2025" />
-        <meta name="twitter:description" content="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/faq-retraite" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(faqStructuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="FAQ Retraite Progressive : Questions fréquentes 2025 | RetraiteClair"
+        description="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025."
+        keywords="FAQ retraite, questions retraite progressive, décote, surcote, éligibilité retraite, démarches retraite"
+        ogTitle="FAQ Retraite Progressive : Questions fréquentes 2025"
+        ogDescription="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/faq-retraite"
+        twitterTitle="FAQ Retraite Progressive : Questions fréquentes 2025"
+        twitterDescription="FAQ retraite progressive : réponses à toutes vos questions sur la retraite progressive, la décote, la surcote, l'éligibilité et les démarches en 2025."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/faq-retraite"
+        structuredData={[faqStructuredData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">

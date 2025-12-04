@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const CalculRetraitePage = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "HowTo",
@@ -76,36 +82,21 @@ const CalculRetraitePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Calcul retraite : comment optimiser sa pension ? Guide 2025 | RetraiteClair</title>
-        <meta name="description" content="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite." />
-        <meta name="keywords" content="calcul retraite, optimiser pension, SAM, trimestres, décote, surcote, stratégie retraite" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/calcul-retraite" />
-        <meta property="og:title" content="Calcul retraite : comment optimiser sa pension ? Guide 2025" />
-        <meta property="og:description" content="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Calcul retraite : comment optimiser sa pension ? Guide 2025" />
-        <meta name="twitter:description" content="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/calcul-retraite" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(articleData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="Calcul retraite : comment optimiser sa pension ? Guide 2025 | RetraiteClair"
+        description="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite."
+        keywords="calcul retraite, optimiser pension, SAM, trimestres, décote, surcote, stratégie retraite"
+        ogTitle="Calcul retraite : comment optimiser sa pension ? Guide 2025"
+        ogDescription="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/calcul-retraite"
+        twitterTitle="Calcul retraite : comment optimiser sa pension ? Guide 2025"
+        twitterDescription="Calcul retraite : comment optimiser sa pension ? Découvrez comment calculer votre pension, optimiser votre départ et maximiser vos revenus de retraite."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/calcul-retraite"
+        structuredData={[structuredData, articleData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">

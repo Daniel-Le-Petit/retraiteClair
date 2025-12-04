@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const GuideRetraite2025Page = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -46,33 +52,21 @@ const GuideRetraite2025Page = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Guide complet de la retraite progressive 2025 | RetraiteClair</title>
-        <meta name="description" content="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul de la pension, décote, surcote, avantages fiscaux, démarches et stratégies d'optimisation." />
-        <meta name="keywords" content="guide retraite progressive, retraite progressive 2025, calcul retraite, décote, surcote, éligibilité, démarches, optimisation" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/guide-retraite-2025" />
-        <meta property="og:title" content="Guide complet de la retraite progressive 2025" />
-        <meta property="og:description" content="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul, avantages, démarches et stratégies d'optimisation." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Guide complet de la retraite progressive 2025" />
-        <meta name="twitter:description" content="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul, avantages, démarches et stratégies d'optimisation." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/guide-retraite-2025" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="Guide complet de la retraite progressive 2025 | RetraiteClair"
+        description="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul de la pension, décote, surcote, avantages fiscaux, démarches et stratégies d'optimisation."
+        keywords="guide retraite progressive, retraite progressive 2025, calcul retraite, décote, surcote, éligibilité, démarches, optimisation"
+        ogTitle="Guide complet de la retraite progressive 2025"
+        ogDescription="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul, avantages, démarches et stratégies d'optimisation."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/guide-retraite-2025"
+        twitterTitle="Guide complet de la retraite progressive 2025"
+        twitterDescription="Guide complet et détaillé sur la retraite progressive en 2025 : fonctionnement, éligibilité, calcul, avantages, démarches et stratégies d'optimisation."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/guide-retraite-2025"
+        structuredData={[structuredData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">
@@ -447,6 +441,11 @@ const GuideRetraite2025Page = () => {
                 <li><a href="/#/decote-surcote" style={{ color: '#2563eb', fontWeight: 'bold' }}>Décote et surcote</a> - Guide détaillé</li>
                 <li><a href="/#/calcul-retraite" style={{ color: '#2563eb', fontWeight: 'bold' }}>Calcul retraite</a> - Comment optimiser sa pension</li>
                 <li><a href="/#/pieges-retraite" style={{ color: '#2563eb', fontWeight: 'bold' }}>Pièges à éviter</a> - Erreurs courantes</li>
+                <li><a href="/#/demarche-retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold' }}>Démarches et formalités</a> - Guide complet des démarches</li>
+                <li><a href="/#/temps-partiel-retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold' }}>Temps partiel</a> - Comparatif 40%, 50%, 60%, 70%, 80%</li>
+                <li><a href="/#/fiscalite-retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold' }}>Fiscalité</a> - Impôts et cotisations</li>
+                <li><a href="/#/cas-pratiques-retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold' }}>Cas pratiques</a> - Exemples concrets</li>
+                <li><a href="/#/statut-retraite-progressive" style={{ color: '#2563eb', fontWeight: 'bold' }}>Selon votre statut</a> - Fonction publique, indépendants, expatriés</li>
               </ul>
             </div>
           </section>

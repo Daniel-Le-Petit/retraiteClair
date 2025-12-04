@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const RetraiteProgressivePage = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -46,33 +52,21 @@ const RetraiteProgressivePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Comment fonctionne la retraite progressive ? Guide complet 2025 | RetraiteClair</title>
-        <meta name="description" content="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre pour bénéficier de cette transition en douceur vers la retraite." />
-        <meta name="keywords" content="retraite progressive, comment ça marche, fonctionnement, conditions, éligibilité, calcul pension" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/retraite-progressive" />
-        <meta property="og:title" content="Comment fonctionne la retraite progressive ? Guide complet 2025" />
-        <meta property="og:description" content="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Comment fonctionne la retraite progressive ? Guide complet 2025" />
-        <meta name="twitter:description" content="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/retraite-progressive" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="Comment fonctionne la retraite progressive ? Guide complet 2025 | RetraiteClair"
+        description="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre pour bénéficier de cette transition en douceur vers la retraite."
+        keywords="retraite progressive, comment ça marche, fonctionnement, conditions, éligibilité, calcul pension"
+        ogTitle="Comment fonctionne la retraite progressive ? Guide complet 2025"
+        ogDescription="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/retraite-progressive"
+        twitterTitle="Comment fonctionne la retraite progressive ? Guide complet 2025"
+        twitterDescription="Comment fonctionne la retraite progressive ? Découvrez les conditions d'éligibilité, le calcul de votre pension, les avantages fiscaux et les démarches à suivre."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/retraite-progressive"
+        structuredData={[structuredData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
 import HomePage from './HomePage';
 import Simulateurs from './Simulateurs';
@@ -20,6 +20,11 @@ import CalculRetraitePage from '../pages/calcul-retraite';
 import PiegesRetraitePage from '../pages/pieges-retraite';
 import FAQRetraitePage from '../pages/faq-retraite';
 import GuideRetraite2025Page from '../pages/guide-retraite-2025';
+import DemarcheRetraiteProgressivePage from '../pages/demarche-retraite-progressive';
+import TempsPartielRetraiteProgressivePage from '../pages/temps-partiel-retraite-progressive';
+import FiscaliteRetraiteProgressivePage from '../pages/fiscalite-retraite-progressive';
+import CasPratiquesRetraiteProgressivePage from '../pages/cas-pratiques-retraite-progressive';
+import StatutRetraiteProgressivePage from '../pages/statut-retraite-progressive';
 import { useGA4 } from '../hooks/useGA4';
 import './HorizontalNavigation.css';
 import './SwipeNavigation.css';
@@ -347,10 +352,34 @@ const SwipeNavigationWrapper = () => {
   return <SwipeNavigation currentArticle={currentArticle} />;
 };
 
+// Composant pour scroller vers le haut à chaque changement de route
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Scroll vers le haut immédiatement
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Double vérification après un court délai pour s'assurer que le scroll fonctionne
+    const timeoutId = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [pathname]);
+
+  return null;
+};
+
 // Composant principal avec Routes pour les redirections
 const AppContent = () => {
   return (
     <>
+      <ScrollToTop />
       <CookieBanner />
       <Routes>
         {/* Redirections des anciennes URLs */}
@@ -382,6 +411,11 @@ const AppContent = () => {
         <Route path="/pieges-retraite" element={<PiegesRetraitePage />} />
         <Route path="/faq-retraite" element={<FAQRetraitePage />} />
         <Route path="/guide-retraite-2025" element={<GuideRetraite2025Page />} />
+        <Route path="/demarche-retraite-progressive" element={<DemarcheRetraiteProgressivePage />} />
+        <Route path="/temps-partiel-retraite-progressive" element={<TempsPartielRetraiteProgressivePage />} />
+        <Route path="/fiscalite-retraite-progressive" element={<FiscaliteRetraiteProgressivePage />} />
+        <Route path="/cas-pratiques-retraite-progressive" element={<CasPratiquesRetraiteProgressivePage />} />
+        <Route path="/statut-retraite-progressive" element={<StatutRetraiteProgressivePage />} />
         
         {/* Route par défaut */}
         <Route path="*" element={<Navigate to="/" replace />} />

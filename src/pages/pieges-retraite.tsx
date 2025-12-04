@@ -1,8 +1,14 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect } from 'react';
+import PageMetadata from '../components/PageMetadata';
 import '../legal-styles.css';
 
 const PiegesRetraitePage = () => {
+  // Scroll vers le haut au chargement de la page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -46,33 +52,21 @@ const PiegesRetraitePage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025 | RetraiteClair</title>
-        <meta name="description" content="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ." />
-        <meta name="keywords" content="pièges retraite, erreurs retraite, éviter décote, optimiser retraite, conseils retraite" />
-        
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://retraiteclair.onrender.com/#/pieges-retraite" />
-        <meta property="og:title" content="Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025" />
-        <meta property="og:description" content="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ." />
-        <meta property="og:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025" />
-        <meta name="twitter:description" content="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ." />
-        <meta name="twitter:image" content="https://retraiteclair.onrender.com/retraite-progressive-hero.png" />
-        
-        <link rel="canonical" href="https://retraiteclair.onrender.com/#/pieges-retraite" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbData)}
-        </script>
-      </Helmet>
+      <PageMetadata
+        title="Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025 | RetraiteClair"
+        description="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ."
+        keywords="pièges retraite, erreurs retraite, éviter décote, optimiser retraite, conseils retraite"
+        ogTitle="Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025"
+        ogDescription="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ."
+        ogImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        ogUrl="https://retraiteclair.onrender.com/#/pieges-retraite"
+        twitterTitle="Quels sont les pièges à éviter pour prendre sa retraite ? Guide 2025"
+        twitterDescription="Quels sont les pièges à éviter pour prendre sa retraite ? Découvrez les erreurs courantes, leurs conséquences et comment les éviter pour optimiser votre départ."
+        twitterImage="https://retraiteclair.onrender.com/retraite-progressive-hero.png"
+        canonical="https://retraiteclair.onrender.com/#/pieges-retraite"
+        structuredData={[structuredData]}
+        breadcrumbData={breadcrumbData}
+      />
 
       <div className="legal-page-container">
         <div className="legal-content">

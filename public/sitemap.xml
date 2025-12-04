@@ -70,6 +70,46 @@
     <priority>0.8</priority>
   </url>
   
+  <!-- Démarches et formalités -->
+  <url>
+    <loc>https://retraiteclair.onrender.com/#/demarche-retraite-progressive</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Temps partiel retraite progressive -->
+  <url>
+    <loc>https://retraiteclair.onrender.com/#/temps-partiel-retraite-progressive</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Fiscalité retraite progressive -->
+  <url>
+    <loc>https://retraiteclair.onrender.com/#/fiscalite-retraite-progressive</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Cas pratiques retraite progressive -->
+  <url>
+    <loc>https://retraiteclair.onrender.com/#/cas-pratiques-retraite-progressive</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Statut retraite progressive -->
+  <url>
+    <loc>https://retraiteclair.onrender.com/#/statut-retraite-progressive</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- Blog -->
   <url>
     <loc>https://retraiteclair.onrender.com/#/blog</loc>
