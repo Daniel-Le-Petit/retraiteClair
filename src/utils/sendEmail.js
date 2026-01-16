@@ -36,16 +36,32 @@ export const sendSimulationEmail = async (recipientEmail, simulationData) => {
   const economieFiscale = simulationData.impactFiscal?.economieAnnuelle ?? 
                          (simulationData.impactFiscal?.economie ? simulationData.impactFiscal.economie * 12 : 0);
 
+  // Extraire le nom de l'email (format: prenom.nom@email.com -> Prenom Nom)
+  const extractNameFromEmail = (email) => {
+    const emailPart = email.split('@')[0];
+    // Si format prenom.nom ou prenom_nom, formater en "Prenom Nom"
+    if (emailPart.includes('.') || emailPart.includes('_')) {
+      const parts = emailPart.split(/[._]/);
+      return parts.map(part => 
+        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+      ).join(' ');
+    }
+    // Sinon, capitaliser la première lettre
+    return emailPart.charAt(0).toUpperCase() + emailPart.slice(1);
+  };
+
+  const userName = extractNameFromEmail(recipientEmail);
+
   // Formater les données pour le template email selon le format demandé
   const templateParams = {
     // ⚠️ IMPORTANT : Le template EmailJS doit utiliser {{to_email}} dans le champ "To Email"
     // et non une adresse email en dur, sinon tous les emails iront à cette adresse
     to_email: recipientEmail,  // Email de l'utilisateur qui recevra les résultats
-    to_name: recipientEmail.split('@')[0], // Nom dérivé de l'email
+    to_name: userName,
     
-    // 📧 Informations de l'expéditeur
-    sender_name: 'RetraiteClair',
-    sender_email: 'retraiteClair@gmail.com',
+    // 📧 Informations de l'expéditeur (L'UTILISATEUR qui a demandé la simulation)
+    sender_name: userName,  // Nom de l'utilisateur
+    sender_email: recipientEmail,  // Email de l'utilisateur
     
     // Date et heure séparées pour plus de flexibilité dans le template
     date: formattedDate,
@@ -85,9 +101,13 @@ L'équipe RetraiteClair
   };
 
   console.log('Paramètres EmailJS (simulation):', templateParams);
+  console.log('Email destinataire (to_email):', templateParams.to_email);
+  console.log('Service ID:', EMAILJS_CONFIG.serviceId);
+  console.log('Template ID:', EMAILJS_CONFIG.templateId);
 
   try {
     // Envoi via EmailJS - Même structure que ContactForm
+    // ⚠️ IMPORTANT : Assurez-vous que le template EmailJS utilise bien {{to_email}} dans "To Email"
     const response = await emailjs.send(
       EMAILJS_CONFIG.serviceId,
       EMAILJS_CONFIG.templateId,
