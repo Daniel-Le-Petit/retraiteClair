@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { aboutContent, contactReasons } from '../data/data';
+import { useLanguage } from '../contexts/LanguageContext';
+import { t } from '../translations/translations';
 import styles from './Contact.module.css';
 
 const Contact = () => {
+  const { language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -66,9 +69,11 @@ const Contact = () => {
       <div className={styles.content}>
         <header className={styles.header}>
           <div className={styles.headerContent}>
-            <h1 className={styles.title}>Contact & Assistance</h1>
+            <h1 className={styles.title}>{t('contact.title', language)}</h1>
             <p className={styles.subtitle}>
-              Une question ? Besoin d'aide ? Notre équipe vous répond sous 24h
+              {language === 'en' 
+                ? 'Have a question? Need help? Our team responds within 24 hours'
+                : 'Une question ? Besoin d\'aide ? Notre équipe vous répond sous 24h'}
             </p>
           </div>
         </header>
@@ -99,7 +104,7 @@ const Contact = () => {
               <div className={styles.formRow}>
                 <div className={styles.fieldGroup}>
                   <label htmlFor="name" className={styles.label}>
-                    Nom complet *
+                    {t('contact.form.name', language)}
                   </label>
                   <input
                     type="text"
@@ -108,14 +113,14 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     className={styles.input}
-                    placeholder="Votre nom"
+                    placeholder={t('contact.form.namePlaceholder', language)}
                     required
                   />
                 </div>
                 
                 <div className={styles.fieldGroup}>
                   <label htmlFor="email" className={styles.label}>
-                    Email *
+                    {t('contact.form.email', language)}
                   </label>
                   <input
                     type="email"
@@ -124,7 +129,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={styles.input}
-                    placeholder="votre@email.com"
+                    placeholder={t('contact.form.emailPlaceholder', language)}
                     required
                   />
                 </div>
@@ -172,12 +177,12 @@ const Contact = () => {
                 className={styles.submitButton}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                {isSubmitting ? t('contact.form.sending', language) : t('contact.form.submit', language)}
               </button>
 
               {submitStatus === 'success' && (
                 <div className={styles.successMessage}>
-                  Message envoyé avec succès ! Nous vous répondrons sous 24h.
+                  {t('contact.form.success', language)}
                 </div>
               )}
             </form>

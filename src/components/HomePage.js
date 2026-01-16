@@ -16,9 +16,11 @@ import CTASection from './CTASection';
 import FAQSection from './FAQSection';
 import Accordion from './Accordion';
 import { trackEvent } from '../utils/tracking';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const { language } = useLanguage();
   const [openPopup, setOpenPopup] = useState(null);
   const [openEligibilityTest, setOpenEligibilityTest] = useState(false);
   const [openResourceModal, setOpenResourceModal] = useState(null);
@@ -335,7 +337,7 @@ const HomePage = () => {
               return (
                 <div key={index} className="eligibility-item">
                   <div className="eligibility-icon">
-                    <IconComponent size={24} />
+                    <IconComponent size={32} />
                   </div>
                   <div className="eligibility-text">
                     <h3 className="eligibility-title">{item.title}</h3>
@@ -392,688 +394,836 @@ const HomePage = () => {
       <section className="content-section" style={{ background: '#f8fafc', padding: '60px 20px' }}>
         <div className="section-container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
-            Guides et ressources complémentaires
+            {language === 'en' ? 'Guides and Additional Resources' : 'Guides et ressources complémentaires'}
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '900px', margin: '0 auto' }}>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/guide-retraite-2025" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Complete Guide 2025' : 'Guide complet 2025'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Complete Guide 2025' : 'Guide complet 2025'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Detailed guide on progressive retirement: how it works, eligibility, calculation, benefits and optimization strategies.'
+                  : 'Guide détaillé sur la retraite progressive : fonctionnement, éligibilité, calcul, avantages et stratégies d\'optimisation.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('guide-retraite-2025')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/guide-retraite-2025" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Guide complet 2025
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Guide détaillé sur la retraite progressive : fonctionnement, éligibilité, calcul, avantages et stratégies d'optimisation.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('guide-retraite-2025')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/faq-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Retirement FAQ' : 'FAQ Retraite'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Retirement FAQ' : 'FAQ Retraite'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Answers to the most frequently asked questions about progressive retirement, discount, surcharge and eligibility.'
+                  : 'Réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote et l\'éligibilité.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('faq-retraite')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/faq-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    FAQ Retraite
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Réponses aux questions les plus fréquentes sur la retraite progressive, la décote, la surcote et l'éligibilité.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('faq-retraite')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" 
-                  alt=""
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover', 
-                    borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
-                  }}
-                />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
-                }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="M21 21l-4.35-4.35"></path>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Comment ça marche ?
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Découvrez comment fonctionne la retraite progressive : conditions, calcul, avantages et démarches.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('retraite-progressive')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
-            </div>
-            <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
-            }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" 
-                  alt=""
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover', 
-                    borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
-                  }}
-                />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
-                }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <line x1="12" y1="20" x2="12" y2="10"></line>
-                    <line x1="18" y1="20" x2="18" y2="4"></line>
-                    <line x1="6" y1="20" x2="6" y2="16"></line>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/decote-surcote" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Décote et surcote
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Comprenez comment la décote et la surcote impactent votre pension et comment optimiser votre départ.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('decote-surcote')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
-            </div>
-            <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
-            }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/calcul-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Retirement Calculation' : 'Calcul retraite'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Retirement Calculation' : 'Calcul retraite'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Learn how to calculate your pension and discover strategies to optimize your retirement income.'
+                  : 'Apprenez à calculer votre pension et découvrez les stratégies pour optimiser vos revenus de retraite.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('calcul-retraite')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                    <line x1="8" y1="21" x2="16" y2="21"></line>
-                    <line x1="12" y1="17" x2="12" y2="21"></line>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/calcul-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Calcul retraite
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Apprenez à calculer votre pension et découvrez les stratégies pour optimiser vos revenus de retraite.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('calcul-retraite')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/decote-surcote" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Discount and Surcharge' : 'Décote et surcote'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" 
-                  alt=""
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" 
+                  alt={language === 'en' ? 'Discount and Surcharge' : 'Décote et surcote'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Understand how discount and surcharge impact your pension and how to optimize your departure.'
+                  : 'Comprenez comment la décote et la surcote impactent votre pension et comment optimiser votre départ.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('decote-surcote')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                    <line x1="12" y1="9" x2="12" y2="13"></line>
-                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/pieges-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Pièges à éviter
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Découvrez les erreurs courantes lors de la prise de retraite et comment les éviter pour optimiser vos revenus.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('pieges-retraite')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
-                <img 
-                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80" 
-                  alt=""
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover', 
-                    borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
-                  }}
-                />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
-                }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/demarche-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Démarches et formalités
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Guide complet des démarches pour faire une demande de retraite progressive : étapes, documents et délais.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('demarche-retraite-progressive')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
-            </div>
-            <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
-            }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/demarche-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Procedures and Formalities' : 'Démarches et formalités'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Part-Time' : 'Temps partiel'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Income comparison by part-time rate: 40%, 50%, 60%, 70%, 80% and impact on your income.'
+                  : 'Comparatif des revenus selon le taux de temps partiel : 40%, 50%, 60%, 70%, 80% et impact sur vos revenus.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('temps-partiel-retraite-progressive')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/temps-partiel-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Temps partiel
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Comparatif des revenus selon le taux de temps partiel : 40%, 50%, 60%, 70%, 80% et impact sur vos revenus.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('temps-partiel-retraite-progressive')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/fiscalite-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Taxation' : 'Fiscalité'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Taxation' : 'Fiscalité'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Complete guide on progressive retirement taxation: taxes, contributions, supplementary pensions.'
+                  : 'Guide complet sur la fiscalité de la retraite progressive : impôts, cotisations, pensions complémentaires.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('fiscalite-retraite-progressive')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/fiscalite-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Fiscalité
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Guide complet sur la fiscalité de la retraite progressive : impôts, cotisations, pensions complémentaires.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('fiscalite-retraite-progressive')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/cas-pratiques-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Case Studies' : 'Cas pratiques'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80" 
-                  alt=""
+                  alt={language === 'en' ? 'Case Studies' : 'Cas pratiques'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Concrete examples of progressive retirement: executive employee, part-time, incomplete career, multi-regime.'
+                  : 'Exemples concrets de retraite progressive : salarié cadre, temps partiel, carrière incomplète, multi-régimes.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('cas-pratiques-retraite-progressive')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/cas-pratiques-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Cas pratiques
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Exemples concrets de retraite progressive : salarié cadre, temps partiel, carrière incomplète, multi-régimes.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('cas-pratiques-retraite-progressive')}
-                  style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
-                  }}
-                >
-                  En savoir plus &gt;
-                </button>
-              </div>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
             <div style={{ 
-              background: '#d1fae5', 
-              border: '2px solid #10b981', 
-              padding: '20px', 
-              borderRadius: '12px', 
-              display: 'flex', 
-              gap: '20px', 
-              alignItems: 'center'
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
             }}>
-              <div style={{ position: 'relative', flexShrink: 0, width: '120px', height: '120px' }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/pieges-retraite" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'Pitfalls to Avoid' : 'Pièges à éviter'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
                 <img 
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" 
-                  alt=""
+                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" 
+                  alt={language === 'en' ? 'Pitfalls to Avoid' : 'Pièges à éviter'}
                   style={{ 
                     width: '100%', 
-                    height: '100%', 
+                    height: '200px', 
                     objectFit: 'cover', 
                     borderRadius: '8px',
-                    filter: 'blur(2px) grayscale(40%) brightness(0.9)'
+                    transition: 'transform 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
                   }}
                 />
-                <div style={{ 
-                  position: 'absolute', 
-                  top: '50%', 
-                  left: '50%', 
-                  transform: 'translate(-50%, -50%)',
-                  width: '50px',
-                  height: '50px'
+              </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Discover common mistakes when retiring and how to avoid them to optimize your income.'
+                  : 'Découvrez les erreurs courantes lors de la prise de retraite et comment les éviter pour optimiser vos revenus.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('pieges-retraite')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
                 }}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '100%', height: '100%' }}>
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                </div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ color: '#1f2937', marginTop: 0, marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  <a href="/#/statut-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
-                    Selon votre statut
-                  </a>
-                </h3>
-                <p style={{ color: '#4b5563', lineHeight: '1.6', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  Retraite progressive selon votre statut : fonction publique, indépendants, auto-entrepreneurs, expatriés.
-                </p>
-                <button 
-                  onClick={() => setOpenResourceModal('statut-retraite-progressive')}
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
+            </div>
+            <div style={{ 
+              background: 'white',
+              border: '1px solid #e9ecef',
+              borderRadius: '12px',
+              boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.3s ease',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-5px)';
+              e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+            }}>
+              <h3 style={{ 
+                fontSize: '1.25rem', 
+                fontWeight: 600, 
+                color: '#2c3e50', 
+                padding: '1.5rem 1.5rem 0 1.5rem', 
+                margin: 0, 
+                lineHeight: '1.3' 
+              }}>
+                <a href="/#/statut-retraite-progressive" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  {language === 'en' ? 'By Your Status' : 'Selon votre statut'}
+                </a>
+              </h3>
+              <div style={{ padding: '1rem 1.5rem', margin: 0 }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80" 
+                  alt={language === 'en' ? 'By Your Status' : 'Selon votre statut'}
                   style={{ 
-                    color: '#10b981', 
-                    fontWeight: 'bold', 
-                    background: 'none', 
-                    border: 'none', 
-                    cursor: 'pointer', 
-                    fontSize: '0.95rem',
-                    padding: 0,
-                    textAlign: 'left'
+                    width: '100%', 
+                    height: '200px', 
+                    objectFit: 'cover', 
+                    borderRadius: '8px',
+                    transition: 'transform 0.3s ease'
                   }}
-                >
-                  En savoir plus &gt;
-                </button>
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
+                  }}
+                />
               </div>
+              <p style={{ 
+                color: '#6c757d', 
+                lineHeight: '1.6', 
+                fontSize: '1rem', 
+                padding: '0 1.5rem', 
+                margin: 0 
+              }}>
+                {language === 'en' 
+                  ? 'Progressive retirement according to your status: civil service, self-employed, freelancers, expatriates.'
+                  : 'Retraite progressive selon votre statut : fonction publique, indépendants, auto-entrepreneurs, expatriés.'}
+              </p>
+              <button 
+                onClick={() => setOpenResourceModal('statut-retraite-progressive')}
+                style={{ 
+                  padding: '1rem 1.5rem 1.5rem 1.5rem',
+                  marginTop: 'auto',
+                  background: 'transparent',
+                  border: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: 'fit-content',
+                  gap: '0.5rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#2980b9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.querySelector('span').style.color = '#3498db';
+                }}
+              >
+                <span style={{ 
+                  color: '#3498db', 
+                  fontWeight: 500, 
+                  fontSize: '0.9rem', 
+                  transition: 'color 0.3s ease' 
+                }}>
+                  {language === 'en' ? 'Learn more →' : 'En savoir plus →'}
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1349,59 +1499,6 @@ const HomePage = () => {
                     }}
                   >
                     Voir toutes les questions →
-                  </button>
-                </>
-              )}
-
-              {openResourceModal === 'retraite-progressive' && (
-                <>
-                  <h2 style={{ color: '#1f2937', marginTop: 0, marginBottom: '20px', fontSize: '1.8rem' }}>
-                    Comment fonctionne la retraite progressive ?
-                  </h2>
-                  <p style={{ color: '#4b5563', lineHeight: '1.8', marginBottom: '20px', fontSize: '1rem' }}>
-                    La retraite progressive vous permet de travailler à temps partiel (entre 40% et 80%) tout en percevant une partie 
-                    de votre pension de retraite (entre 30% et 50%). C'est une transition en douceur vers la retraite définitive.
-                  </p>
-                  <div style={{ background: '#f0f9ff', padding: '20px', borderRadius: '8px', marginBottom: '20px' }}>
-                    <h3 style={{ color: '#1e40af', marginTop: 0, marginBottom: '12px', fontSize: '1.1rem' }}>Points clés :</h3>
-                    <ul style={{ color: '#1e3a8a', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
-                      <li>Conditions d'éligibilité (âge, trimestres, accord employeur)</li>
-                      <li>Calcul de votre pension progressive</li>
-                      <li>Avantages financiers et personnels</li>
-                      <li>Démarches pour faire la demande</li>
-                      <li>Pièges à éviter</li>
-                    </ul>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setOpenResourceModal(null);
-                      window.scrollTo({ top: 0, behavior: 'auto' });
-                      setTimeout(() => {
-                        window.location.href = '/#/retraite-progressive';
-                      }, 50);
-                    }}
-                    style={{
-                      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                      color: 'white',
-                      border: 'none',
-                      padding: '14px 28px',
-                      borderRadius: '8px',
-                      fontSize: '1rem',
-                      fontWeight: 'bold',
-                      cursor: 'pointer',
-                      width: '100%',
-                      transition: 'transform 0.2s, box-shadow 0.2s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 8px 20px rgba(16, 185, 129, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                  >
-                    Découvrir le guide complet →
                   </button>
                 </>
               )}

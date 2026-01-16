@@ -388,7 +388,7 @@ const AppContent = () => {
         <Route path="/calculez-vos-revenus" element={<Navigate to="/simulateurs" replace />} />
         <Route path="/conseils" element={<Navigate to="/blog" replace />} />
         
-        {/* Routes principales */}
+        {/* Routes principales - Français */}
         <Route path="/" element={<SwipeNavigation />} />
         <Route path="/simulateurs" element={<SwipeNavigation />} />
         <Route path="/blog" element={<SwipeNavigation />} />
@@ -396,15 +396,30 @@ const AppContent = () => {
         <Route path="/contact" element={<SwipeNavigation />} />
         <Route path="/dashboard" element={<SwipeNavigation />} />
         
-        {/* Routes légales */}
+        {/* Routes principales - Anglais */}
+        <Route path="/en/" element={<SwipeNavigation />} />
+        <Route path="/en" element={<SwipeNavigation />} />
+        <Route path="/en/simulateurs" element={<SwipeNavigation />} />
+        <Route path="/en/blog" element={<SwipeNavigation />} />
+        <Route path="/en/guide-pratique" element={<SwipeNavigation />} />
+        <Route path="/en/contact" element={<SwipeNavigation />} />
+        <Route path="/en/dashboard" element={<SwipeNavigation />} />
+        
+        {/* Routes légales - Français */}
         <Route path="/mentions-legales" element={<MentionsLegales />} />
         <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
         <Route path="/conditions-utilisation" element={<ConditionsUtilisation />} />
         
+        {/* Routes légales - Anglais */}
+        <Route path="/en/mentions-legales" element={<MentionsLegales />} />
+        <Route path="/en/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+        <Route path="/en/conditions-utilisation" element={<ConditionsUtilisation />} />
+        
         {/* Routes pour les articles de blog */}
         <Route path="/blog/:slug" element={<SwipeNavigationWrapper />} />
+        <Route path="/en/blog/:slug" element={<SwipeNavigationWrapper />} />
         
-        {/* Routes pour les guides et FAQ optimisés IA */}
+        {/* Routes pour les guides et FAQ optimisés IA - Français */}
         <Route path="/retraite-progressive" element={<RetraiteProgressivePage />} />
         <Route path="/decote-surcote" element={<DecoteSurcotePage />} />
         <Route path="/calcul-retraite" element={<CalculRetraitePage />} />
@@ -416,6 +431,19 @@ const AppContent = () => {
         <Route path="/fiscalite-retraite-progressive" element={<FiscaliteRetraiteProgressivePage />} />
         <Route path="/cas-pratiques-retraite-progressive" element={<CasPratiquesRetraiteProgressivePage />} />
         <Route path="/statut-retraite-progressive" element={<StatutRetraiteProgressivePage />} />
+        
+        {/* Routes pour les guides et FAQ optimisés IA - Anglais */}
+        <Route path="/en/retraite-progressive" element={<RetraiteProgressivePage />} />
+        <Route path="/en/decote-surcote" element={<DecoteSurcotePage />} />
+        <Route path="/en/calcul-retraite" element={<CalculRetraitePage />} />
+        <Route path="/en/pieges-retraite" element={<PiegesRetraitePage />} />
+        <Route path="/en/faq-retraite" element={<FAQRetraitePage />} />
+        <Route path="/en/guide-retraite-2025" element={<GuideRetraite2025Page />} />
+        <Route path="/en/demarche-retraite-progressive" element={<DemarcheRetraiteProgressivePage />} />
+        <Route path="/en/temps-partiel-retraite-progressive" element={<TempsPartielRetraiteProgressivePage />} />
+        <Route path="/en/fiscalite-retraite-progressive" element={<FiscaliteRetraiteProgressivePage />} />
+        <Route path="/en/cas-pratiques-retraite-progressive" element={<CasPratiquesRetraiteProgressivePage />} />
+        <Route path="/en/statut-retraite-progressive" element={<StatutRetraiteProgressivePage />} />
         
         {/* Route par défaut */}
         <Route path="*" element={<Navigate to="/" replace />} />

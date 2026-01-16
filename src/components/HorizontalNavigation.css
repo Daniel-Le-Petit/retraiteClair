@@ -22,6 +22,8 @@
   margin: 0;
   padding: 0;
   height: 60px;
+  align-items: center;
+  position: relative;
 }
 
 .nav-item {
@@ -44,8 +46,18 @@
   border-bottom-left-radius: 16px;
 }
 
-.nav-item:last-child {
+.nav-item:last-of-type {
   border-bottom-right-radius: 16px;
+}
+
+/* Le sélecteur de langue ne doit pas prendre flex:1 */
+.nav-container > .language-switcher {
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  margin-right: 12px !important;
+  order: 999 !important; /* Toujours à la fin */
+  position: relative !important;
+  z-index: 1002 !important;
 }
 
 .nav-item:hover {

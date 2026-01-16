@@ -17,7 +17,8 @@ const ContactForm = () => {
       // ✅ CONFIGURATION EMAILJS - Clés configurées
       const EMAILJS_CONFIG = {
         serviceId: 'service_go62bxn',        // Service ID Gmail configuré (nouveau)
-        templateId: 'template_sirltvl',      // Template ID configuré
+        templateId: 'template_sirltvl',      // Template ID pour l'email au destinataire
+        confirmationTemplateId: 'template_amj5ayi', // Template ID pour l'email de confirmation à l'expéditeur
         publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
       };
 
@@ -101,7 +102,7 @@ const ContactForm = () => {
 
       console.log('Paramètres EmailJS:', templateParams);
 
-      // Envoi via EmailJS
+      // 1. Envoi de l'email au destinataire (RetraiteClair)
       const response = await emailjs.send(
         EMAILJS_CONFIG.serviceId,
         EMAILJS_CONFIG.templateId,
@@ -109,7 +110,39 @@ const ContactForm = () => {
         EMAILJS_CONFIG.publicKey
       );
 
-      console.log('Email envoyé avec succès:', response);
+      console.log('Email envoyé avec succès au destinataire:', response);
+
+      // 2. Envoi de l'email de confirmation à l'expéditeur
+      try {
+        const confirmationParams = {
+          to_name: formData.name,
+          to_email: formData.email,
+          from_name: 'RetraiteClair',
+          message: formData.message, // Inclure le message original pour référence
+          date: new Date().toLocaleString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        };
+
+        const confirmationResponse = await emailjs.send(
+          EMAILJS_CONFIG.serviceId,
+          EMAILJS_CONFIG.confirmationTemplateId,
+          confirmationParams,
+          EMAILJS_CONFIG.publicKey
+        );
+
+        console.log('Email de confirmation envoyé avec succès:', confirmationResponse);
+      } catch (confirmationError) {
+        // Si l'email de confirmation échoue, on log l'erreur mais on continue
+        // car l'email principal a réussi
+        console.warn('L\'email de confirmation n\'a pas pu être envoyé:', confirmationError);
+        // Ne pas changer le status - l'email principal a réussi
+      }
+
       setStatus('sent');
       setFormData({ name: '', email: '', message: '', honeypot: '' });
 
@@ -137,7 +170,7 @@ const ContactForm = () => {
       case 'sending':
         return 'Envoi en cours...';
       case 'sent':
-        return 'Message envoyé avec succès ! Merci pour votre retour.';
+        return 'Message envoyé avec succès ! Vous recevrez un email de confirmation sous peu. Merci pour votre retour.';
       case 'error':
         return errorMessage;
       default:

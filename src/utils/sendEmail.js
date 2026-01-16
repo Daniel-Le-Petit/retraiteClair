@@ -1,9 +1,9 @@
 import emailjs from '@emailjs/browser';
 
-// ✅ CONFIGURATION EMAILJS - Même configuration que ContactForm
+// ✅ CONFIGURATION EMAILJS - Configuration pour les simulations
 const EMAILJS_CONFIG = {
   serviceId: 'service_go62bxn',        // Service ID Gmail configuré
-  templateId: 'template_sirltvl',      // Template ID configuré (à créer un nouveau template pour les simulations)
+  templateId: 'template_amj5ayi',      // Template ID pour l'email de confirmation avec résultats
   publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
 };
 
@@ -15,50 +15,73 @@ const EMAILJS_CONFIG = {
  * @returns {Promise} - Promise qui se résout quand l'email est envoyé
  */
 export const sendSimulationEmail = async (recipientEmail, simulationData) => {
-  // Formater les données pour le template email
+  // Formater la date et l'heure séparément
+  const now = new Date();
+  const formattedDate = now.toLocaleDateString('fr-FR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const formattedTime = now.toLocaleTimeString('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  const fullDateTime = `${formattedDate} ${formattedTime}`;
+
+  // Extraire les données de simulation
+  const revenuTotal = simulationData.revenusNets?.total || 0;
+  const salaireTempsPartiel = simulationData.revenusNets?.tempsPartiel || 0;
+  const pensionRetraite = simulationData.revenusNets?.pension || 0;
+  const tempsPartiel = simulationData.details?.tempsPartiel || simulationData.tempsPartiel || 80;
+  const economieFiscale = simulationData.impactFiscal?.economieAnnuelle ?? 
+                         (simulationData.impactFiscal?.economie ? simulationData.impactFiscal.economie * 12 : 0);
+
+  // Formater les données pour le template email selon le format demandé
   const templateParams = {
-    // Paramètres destinataire (comme dans ContactForm)
-    to_email: recipientEmail,
-    to_name: 'Utilisateur RetraiteClair',
+    // ⚠️ IMPORTANT : Le template EmailJS doit utiliser {{to_email}} dans le champ "To Email"
+    // et non une adresse email en dur, sinon tous les emails iront à cette adresse
+    to_email: recipientEmail,  // Email de l'utilisateur qui recevra les résultats
+    to_name: recipientEmail.split('@')[0], // Nom dérivé de l'email
     
-    // Paramètres expéditeur (pour que l'email arrive de retraiteClair@gmail.com)
-    from_email: 'retraiteClair@gmail.com',
-    from_name: 'RetraiteClair',
-    reply_to: 'retraiteClair@gmail.com',
+    // 📧 Informations de l'expéditeur
+    sender_name: 'RetraiteClair',
+    sender_email: 'retraiteClair@gmail.com',
     
-    // Sujet de l'email
+    // Date et heure séparées pour plus de flexibilité dans le template
+    date: formattedDate,
+    time: formattedTime,
+    date_time: fullDateTime,
+    
+    // 🎯 Sujet
     subject: 'Votre simulation Retraite Progressive - RetraiteClair',
     
-    // Message principal avec toutes les données de simulation
-    message: `Voici votre simulation de retraite progressive générée le ${new Date().toLocaleDateString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })}
+    // 💬 Message avec résultats formatés
+    message: `Voici votre simulation de retraite progressive générée le ${fullDateTime}
 
 VOS RÉSULTATS :
 
-💰 Revenu total net mensuel : ${formatCurrency(simulationData.revenusNets?.total || 0)}
-💼 Salaire temps partiel : ${formatCurrency(simulationData.revenusNets?.tempsPartiel || 0)}
-🏦 Pension retraite : ${formatCurrency(simulationData.revenusNets?.pension || 0)}
-⏰ Temps partiel : ${simulationData.details?.tempsPartiel || simulationData.tempsPartiel || 80}%
-📈 Économie fiscale annuelle : ${formatCurrency(simulationData.impactFiscal?.economieAnnuelle ?? (simulationData.impactFiscal?.economie ? simulationData.impactFiscal.economie * 12 : 0))}
+💰 Revenu total net mensuel : ${formatCurrency(revenuTotal)}
+💼 Salaire temps partiel : ${formatCurrency(salaireTempsPartiel)}
+🏦 Pension retraite : ${formatCurrency(pensionRetraite)}
+⏰ Temps partiel : ${tempsPartiel}%
+📈 Économie fiscale annuelle : ${formatCurrency(economieFiscale)}
 
-Pour plus de détails et pour modifier vos paramètres, visitez https://retraiteclair.com
+Pour plus de détails et pour modifier vos paramètres, visitez https://retraiteclair.onrender.com
 
 Cordialement,
-L'équipe RetraiteClair`,
+L'équipe RetraiteClair
+📧 Répondre à retraiteclair@gmail.com`,
     
-    // Date formatée
-    date: new Date().toLocaleString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
+    // Variables individuelles pour les résultats (pour faciliter le formatage dans le template)
+    revenu_total: formatCurrency(revenuTotal),
+    salaire_temps_partiel: formatCurrency(salaireTempsPartiel),
+    pension_retraite: formatCurrency(pensionRetraite),
+    temps_partiel: `${tempsPartiel}%`,
+    economie_fiscale: formatCurrency(economieFiscale),
+    
+    // Informations supplémentaires pour le template
+    reply_to: 'retraiteclair@gmail.com',
+    website_url: 'https://retraiteclair.onrender.com'
   };
 
   console.log('Paramètres EmailJS (simulation):', templateParams);

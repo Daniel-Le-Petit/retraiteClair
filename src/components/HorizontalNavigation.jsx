@@ -6,41 +6,45 @@ import {
   CheckCircle, 
   MessageSquare
 } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '../contexts/LanguageContext';
+import { t } from '../translations/translations';
 
 const HorizontalNavigation = ({ currentPage, onPageChange }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { language } = useLanguage();
 
   const navigationItems = React.useMemo(() => {
     const baseItems = [
       {
         id: 'accueil',
-        label: 'Accueil',
+        label: t('nav.accueil', language),
         icon: Home,
-        description: 'Découvrez la retraite progressive'
+        description: language === 'en' ? 'Discover progressive retirement' : 'Découvrez la retraite progressive'
       },
       {
         id: 'simulateurs',
-        label: 'Simulateurs',
+        label: t('nav.simulateurs', language),
         icon: Calculator,
-        description: 'Calculez vos revenus'
+        description: language === 'en' ? 'Calculate your income' : 'Calculez vos revenus'
       },
       {
         id: 'blog',
-        label: 'Blog',
+        label: t('nav.blog', language),
         icon: BookOpen,
-        description: 'Conseils et actualités'
+        description: language === 'en' ? 'Tips and news' : 'Conseils et actualités'
       },
       {
         id: 'guide-pratique',
-        label: 'Guide pratique',
+        label: t('nav.guidePratique', language),
         icon: CheckCircle,
-        description: 'FAQ et ressources'
+        description: language === 'en' ? 'FAQ and resources' : 'FAQ et ressources'
       },
       {
         id: 'contact',
-        label: 'Contact',
+        label: t('nav.contact', language),
         icon: MessageSquare,
-        description: 'Nous contacter'
+        description: language === 'en' ? 'Contact us' : 'Nous contacter'
       }
     ];
 
@@ -52,7 +56,7 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
     console.log('🔄 [DEBUG] HorizontalNavigation items:', baseItems.map(i => i.id));
 
     return baseItems;
-  }, []);
+  }, [language]);
 
   // Trouver l'index de la page actuelle
   useEffect(() => {
@@ -107,13 +111,16 @@ const HorizontalNavigation = ({ currentPage, onPageChange }) => {
                     )}
                   </div>
                   <div className="nav-item-description">
-                    {isOnArticle && item.id === 'blog' ? 'Article en cours' : item.description}
+                    {isOnArticle && item.id === 'blog' 
+                      ? (language === 'en' ? 'Current article' : 'Article en cours') 
+                      : item.description}
                   </div>
                 </div>
               </div>
             </button>
           );
         })}
+        <LanguageSwitcher />
       </div>
     </div>
   );

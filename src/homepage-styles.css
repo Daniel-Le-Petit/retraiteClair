@@ -1245,50 +1245,87 @@ section + section {
   text-decoration: underline;
 }
 
-/* Eligibility Content - Sans cadres */
+/* Eligibility Content - Harmonisé avec definition-grid */
 .eligibility-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
   margin-top: 2rem;
 }
 
 .eligibility-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: #f8fafc;
-  border-radius: 12px;
-  border-left: 4px solid #10b981;
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.eligibility-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
 .eligibility-item:hover {
-  background: #f1f5f9;
-  transform: translateX(4px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.eligibility-item:hover::before {
+  transform: scaleX(1);
 }
 
 .eligibility-text {
   flex: 1;
+  width: 100%;
 }
 
 .eligibility-item .eligibility-icon {
   color: #10b981;
   flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.eligibility-item:hover .eligibility-icon {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  transform: scale(1.1);
 }
 
 .eligibility-item .eligibility-title {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
 }
 
 .eligibility-item .eligibility-description {
-  color: #64748b;
+  color: #6b7280;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
 .eligibility-item .eligibility-link {
@@ -1339,6 +1376,12 @@ section + section {
   text-decoration: underline;
 }
 
+.eligibility-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
 .eligibility-button {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
@@ -1350,7 +1393,6 @@ section + section {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-  margin-top: 2rem;
 }
 
 .eligibility-button:hover {
@@ -1358,7 +1400,7 @@ section + section {
   box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
-/* Steps Grid */
+/* Steps Grid - Harmonisé avec definition-grid */
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1372,46 +1414,70 @@ section + section {
   padding: 2rem;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
   position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
 .step-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border-color: #10b981;
+}
+
+.step-card:hover::before {
+  transform: scaleX(1);
 }
 
 .step-number {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
+  background: rgba(16, 185, 129, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  font-size: 1.5rem;
+  color: #10b981;
+  margin: 0 auto 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover .step-number {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  transform: scale(1.1);
 }
 
 .step-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 1rem 0 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
 }
 
 .step-description {
-  color: #64748b;
+  color: #6b7280;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  font-size: 1rem;
+  flex: 1;
 }
 
 .step-link {
@@ -1934,10 +2000,13 @@ section + section {
   }
 
   /* Eligibility Content Mobile */
+  .eligibility-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
   .eligibility-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.75rem;
+    padding: 1.5rem;
   }
 
   .eligibility-item .eligibility-icon {

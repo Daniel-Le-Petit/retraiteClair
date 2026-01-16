@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { AppContent } from './components/SwipeNavigationNew';
 import BackgroundImage from './components/BackgroundImage';
+import { LanguageProvider } from './contexts/LanguageContext';
 import './index.css';
 import './definition-styles.css';
 import './hero-styles.css';
@@ -18,8 +19,10 @@ import './about-styles.css';
 function App() {
   return (
     <Router>
-      <BackgroundImage />
-      <AppContent />
+      <LanguageProvider>
+        <BackgroundImage />
+        <AppContent />
+      </LanguageProvider>
     </Router>
   );
 }
