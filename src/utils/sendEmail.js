@@ -128,6 +128,11 @@ L'équipe RetraiteClair
     return response;
   } catch (error) {
     console.error('Erreur lors de l\'envoi de l\'email de simulation:', error);
+    console.error('Détails de l\'erreur:', {
+      status: error.status,
+      text: error.text,
+      message: error.message
+    });
     
     // Gestion d'erreur similaire à ContactForm
     let errorMessage = 'Une erreur est survenue lors de l\'envoi de l\'email.';
@@ -136,8 +141,10 @@ L'équipe RetraiteClair
       errorMessage = 'Service EmailJS introuvable. Vérifiez que le service est actif sur https://dashboard.emailjs.com/admin';
     } else if (error.status === 400 && error.text && error.text.includes('template ID not found')) {
       errorMessage = `Template EmailJS introuvable : "${EMAILJS_CONFIG.templateId}". Veuillez vérifier que le template existe bien dans votre dashboard EmailJS : https://dashboard.emailjs.com/admin/templates. Si le template n'existe pas encore, créez-le et utilisez le bon Template ID.`;
+    } else if (error.status === 422 && error.text && error.text.includes('corrupted')) {
+      errorMessage = 'Erreur EmailJS : L\'adresse email est corrompue. Vérifiez que le template EmailJS utilise exactement {{user_email}} dans le champ "To Email" (sans espaces, sans texte autour). Le problème peut aussi venir d\'une configuration incorrecte du service EmailJS.';
     } else if (error.status === 422) {
-      errorMessage = 'Erreur de configuration EmailJS : L\'adresse de destination est vide. Vérifiez la configuration du template.';
+      errorMessage = `Erreur de configuration EmailJS : ${error.text || 'L\'adresse de destination est vide ou invalide'}. Vérifiez la configuration du template.`;
     } else if (error.message && error.message.includes('400')) {
       errorMessage = 'Configuration EmailJS manquante. Veuillez vérifier la configuration.';
     } else if (error.message && error.message.includes('Invalid')) {
