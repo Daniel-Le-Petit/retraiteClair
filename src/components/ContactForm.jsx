@@ -16,10 +16,10 @@ const ContactForm = () => {
 
       // ✅ CONFIGURATION EMAILJS - Clés configurées
       const EMAILJS_CONFIG = {
-        serviceId: 'service_go62bxn',        // Service ID Gmail configuré (nouveau)
+        serviceId: 'service_7l45cwp',        // Service ID Gmail configuré
         templateId: 'template_sirltvl',      // Template ID pour l'email au destinataire
         confirmationTemplateId: 'template_amj5ayi', // Template ID pour l'email de confirmation à l'expéditeur
-        publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
+        publicKey: 'M2iGfrY568BDBjtCY'      // Clé publique configurée
       };
 
   const handleInputChange = (e) => {
