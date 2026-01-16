@@ -15,6 +15,11 @@ const EMAILJS_CONFIG = {
  * @returns {Promise} - Promise qui se résout quand l'email est envoyé
  */
 export const sendSimulationEmail = async (recipientEmail, simulationData) => {
+  // Vérifier que l'email est valide
+  if (!recipientEmail || !recipientEmail.includes('@')) {
+    throw new Error('Adresse email invalide');
+  }
+
   // Formater la date et l'heure séparément
   const now = new Date();
   const formattedDate = now.toLocaleDateString('fr-FR', {
@@ -53,10 +58,11 @@ export const sendSimulationEmail = async (recipientEmail, simulationData) => {
   const userName = extractNameFromEmail(recipientEmail);
 
   // Formater les données pour le template email selon le format demandé
+  // ⚠️ IMPORTANT : Toutes ces variables doivent correspondre aux variables du template EmailJS
   const templateParams = {
-    // ⚠️ IMPORTANT : Le template EmailJS doit utiliser {{to_email}} dans le champ "To Email"
-    // et non une adresse email en dur, sinon tous les emails iront à cette adresse
-    to_email: recipientEmail,  // Email de l'utilisateur qui recevra les résultats
+    // Email du destinataire - UTILISÉ dans le champ "To Email" du template
+    to_email: recipientEmail.trim(),  // Email de l'utilisateur qui recevra les résultats
+    user_email: recipientEmail.trim(), // Alternative pour certains templates
     to_name: userName,
     
     // 📧 Informations de l'expéditeur (L'UTILISATEUR qui a demandé la simulation)
@@ -100,10 +106,13 @@ L'équipe RetraiteClair
     website_url: 'https://retraiteclair.onrender.com'
   };
 
-  console.log('Paramètres EmailJS (simulation):', templateParams);
-  console.log('Email destinataire (to_email):', templateParams.to_email);
+  // Logs de débogage
+  console.log('=== ENVOI EMAIL SIMULATION ===');
+  console.log('Email destinataire reçu:', recipientEmail);
+  console.log('Email destinataire dans params (to_email):', templateParams.to_email);
   console.log('Service ID:', EMAILJS_CONFIG.serviceId);
   console.log('Template ID:', EMAILJS_CONFIG.templateId);
+  console.log('Tous les paramètres:', templateParams);
 
   try {
     // Envoi via EmailJS - Même structure que ContactForm
