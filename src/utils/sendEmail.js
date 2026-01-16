@@ -2,9 +2,9 @@ import emailjs from '@emailjs/browser';
 
 // ✅ CONFIGURATION EMAILJS - Configuration pour les simulations
 const EMAILJS_CONFIG = {
-  serviceId: 'service_go62bxn',        // Service ID Gmail configuré
+  serviceId: 'service_7l45cwp',        // Service ID Gmail configuré
   templateId: 'template_amj5ayi',      // Template ID pour l'email de confirmation avec résultats
-  publicKey: 'gBCd9v4gii2QckAgK'      // Clé publique configurée
+  publicKey: 'M2iGfrY568BDBjtCY'      // Clé publique configurée
 };
 
 /**
@@ -105,6 +105,8 @@ L'équipe RetraiteClair
     
     if (error.status === 400 && error.text && error.text.includes('service ID not found')) {
       errorMessage = 'Service EmailJS introuvable. Vérifiez que le service est actif sur https://dashboard.emailjs.com/admin';
+    } else if (error.status === 400 && error.text && error.text.includes('template ID not found')) {
+      errorMessage = `Template EmailJS introuvable : "${EMAILJS_CONFIG.templateId}". Veuillez vérifier que le template existe bien dans votre dashboard EmailJS : https://dashboard.emailjs.com/admin/templates. Si le template n'existe pas encore, créez-le et utilisez le bon Template ID.`;
     } else if (error.status === 422) {
       errorMessage = 'Erreur de configuration EmailJS : L\'adresse de destination est vide. Vérifiez la configuration du template.';
     } else if (error.message && error.message.includes('400')) {
