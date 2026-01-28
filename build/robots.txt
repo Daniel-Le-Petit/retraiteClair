@@ -1,21 +1,47 @@
+# robots.txt for retraiteclair.onrender.com
+# Optimized for AI search engines (ChatGPT, Perplexity, Claude, Gemini)
+
 User-agent: *
 Allow: /
 
 # Sitemap
 Sitemap: https://retraiteclair.onrender.com/sitemap.xml
 
-# Pages principales
+# Allow all AI crawlers
+User-agent: GPTBot
 Allow: /
-Allow: /calculateur
-Allow: /blog
-Allow: /conseils
-Allow: /contact
 
-# Fichiers statiques
-Allow: /static/
-Allow: /favicon.ico
-Allow: /manifest.json
+User-agent: ChatGPT-User
+Allow: /
 
-# Blocage des répertoires techniques
-Disallow: /admin/
-Disallow: /api/
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Disallow admin/dashboard pages
+Disallow: /dashboard
+Disallow: /admin
+
+# Allow all other pages
+Allow: /#
+Allow: /#/simulateurs
+Allow: /#/guide-retraite-2025
+Allow: /#/faq-retraite
+Allow: /#/retraite-progressive
+Allow: /#/decote-surcote
+Allow: /#/calcul-retraite
+Allow: /#/pieges-retraite
+Allow: /#/blog
+Allow: /#/guide-pratique
+Allow: /#/contact

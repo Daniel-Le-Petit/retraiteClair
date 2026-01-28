@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Exemples de cadres</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    background: #f9fafb;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .card {
+    width: 200px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+
+  /* Option 1 : Violet/Indigo */
+  .indigo {
+    border: 2px solid #6366f1;
+    border-radius: 6px;
+    background: #e0e7ff;
+    color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.2);
+  }
+  .indigo:hover {
+    background: #4f46e5;
+    color: white;
+  }
+
+  /* Option 2 : Orange/Corail */
+  .orange {
+    border: 2px solid #f97316;
+    border-radius: 8px;
+    background: #ffedd5;
+    color: #f97316;
+    box-shadow: 0 4px 8px rgba(249,115,22,0.15);
+  }
+  .orange:hover {
+    background: #ea580c;
+    color: white;
+  }
+
+  /* Option 3 : Bleu foncé/Teal */
+  .teal {
+    border: 2px solid #0d9488;
+    border-radius: 4px;
+    background: #ccfbf1;
+    color: #0d9488;
+    box-shadow: 0 3px 10px rgba(13,148,136,0.2);
+  }
+  .teal:hover {
+    background: #0f766e;
+    color: white;
+  }
+
+  /* Option 4 : Rose/Saumon */
+  .rose {
+    border: 2px solid #ec4899;
+    border-radius: 10px;
+    background: #fce7f3;
+    color: #ec4899;
+    box-shadow: 0 4px 12px rgba(236,72,153,0.15);
+  }
+  .rose:hover {
+    background: #db2777;
+    color: white;
+  }
+
+  /* Option 5 : Bleu royal/Bleu ciel */
+  .royal {
+    border: 2px solid #2563eb;
+    border-radius: 6px;
+    background: #dbeafe;
+    color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+  }
+  .royal:hover {
+    background: #1d4ed8;
+    color: white;
+  }
+
+  /* Option 6 : Violet doux/Lavande */
+  .lavande {
+    border: 2px solid #8b5cf6;
+    border-radius: 8px;
+    background: #ede9fe;
+    color: #8b5cf6;
+    box-shadow: 0 4px 12px rgba(139,92,246,0.15);
+  }
+  .lavande:hover {
+    background: #7c3aed;
+    color: white;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="card indigo">Indigo</div>
+<div class="card orange">Orange</div>
+<div class="card teal">Teal</div>
+<div class="card rose">Rose</div>
+<div class="card royal">Bleu Royal</div>
+<div class="card lavande">Lavande</div>
+
+</body>
+</html>

@@ -11,7 +11,7 @@ $logFile = ".\git.log"
 
 # Définir le repo
 $repoUrl = "https://github.com/Daniel-Le-Petit/retraiteClair.git"
-$repoPath = "C:\Users\AIFinesHerbes\AIFB\retraiteclair"
+$repoPath = "."
 
 try {
     # Vérifier le remote

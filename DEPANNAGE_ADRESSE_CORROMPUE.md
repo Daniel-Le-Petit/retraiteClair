@@ -22,7 +22,60 @@ Dans EmailJS Dashboard → Template `template_amj5ayi` :
 
 1. Ouvrez le template
 2. **SUPPRIMEZ TOUT** dans le champ "To Email"
-3. **TAPEZ EXACTEMENT** : `{{user_email}}`
+3. **TAPEZ EXACTEMENT** : === ENVOI EMAIL SIMULATION ===
+sendEmail.js:111 Email destinataire reçu: dlepetit@hotmail.fr
+sendEmail.js:112 Email destinataire dans params (to_email): dlepetit@hotmail.fr
+sendEmail.js:113 Service ID: service_7l45cwp
+sendEmail.js:114 Template ID: template_amj5ayi
+sendEmail.js:115 Tous les paramètres: {to_email: 'dlepetit@hotmail.fr', user_email: 'dlepetit@hotmail.fr', to_name: 'Dlepetit', sender_name: 'Dlepetit', sender_email: 'dlepetit@hotmail.fr', …}
+sendEmail.js:120   POST https://api.emailjs.com/api/v1.0/email/send 422 (Unprocessable Content)
+Mm @ sendPost.js:4
+Ym @ send.js:45
+await in Ym
+(anonymous) @ sendEmail.js:120
+onSubmit @ PostResultsActions.jsx:65
+Ie @ react-dom.production.min.js:54
+Be @ react-dom.production.min.js:54
+(anonymous) @ react-dom.production.min.js:55
+zn @ react-dom.production.min.js:105
+Fn @ react-dom.production.min.js:106
+(anonymous) @ react-dom.production.min.js:117
+lc @ react-dom.production.min.js:273
+Le @ react-dom.production.min.js:52
+Vn @ react-dom.production.min.js:109
+Gt @ react-dom.production.min.js:74
+Wt @ react-dom.production.min.js:73
+sendEmail.js:130  Erreur lors de l'envoi de l'email de simulation: Dm {status: 422, text: 'The recipients address is corrupted'}
+(anonymous) @ sendEmail.js:130
+await in (anonymous)
+onSubmit @ PostResultsActions.jsx:65
+Ie @ react-dom.production.min.js:54
+Be @ react-dom.production.min.js:54
+(anonymous) @ react-dom.production.min.js:55
+zn @ react-dom.production.min.js:105
+Fn @ react-dom.production.min.js:106
+(anonymous) @ react-dom.production.min.js:117
+lc @ react-dom.production.min.js:273
+Le @ react-dom.production.min.js:52
+Vn @ react-dom.production.min.js:109
+Gt @ react-dom.production.min.js:74
+Wt @ react-dom.production.min.js:73
+PostResultsActions.jsx:83  Erreur lors de l'envoi: Error: Erreur de configuration EmailJS : L'adresse de destination est vide. Vérifiez la configuration du template.
+    at sendEmail.js:149:11
+    at async onSubmit (PostResultsActions.jsx:63:5)
+onSubmit @ PostResultsActions.jsx:83
+await in onSubmit
+Ie @ react-dom.production.min.js:54
+Be @ react-dom.production.min.js:54
+(anonymous) @ react-dom.production.min.js:55
+zn @ react-dom.production.min.js:105
+Fn @ react-dom.production.min.js:106
+(anonymous) @ react-dom.production.min.js:117
+lc @ react-dom.production.min.js:273
+Le @ react-dom.production.min.js:52
+Vn @ react-dom.production.min.js:109
+Gt @ react-dom.production.min.js:74
+Wt @ react-dom.production.min.js:73
    - ⚠️ Pas d'espaces avant ou après
    - ⚠️ Pas de texte autour
    - ⚠️ Exactement : `{{user_email}}`

@@ -13,7 +13,7 @@ if ($proc) {
     Write-Host "Port $PORT libre."
 }
 
-# Lancer npm start (React utilise 'start' et non 'dev')
-Write-Host "Lancement de npm start sur le port $PORT..."
+# Lancer npm run dev (ou npm start - les deux fonctionnent)
+Write-Host "Lancement de npm run dev sur le port $PORT..."
 $env:PORT=$PORT
-npm start
+npm run dev
