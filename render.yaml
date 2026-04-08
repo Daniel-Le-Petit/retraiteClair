@@ -1,12 +1,8 @@
-# Service web Node.js — Next.js (next build + next start).
-# L’ancienne config « static site » + staticPublishPath: build servait encore
-# l’ancienne app CRA du dossier build/ : d’où le site « toujours pareil ».
+# Site statique Next.js : export → dossier `out/` (CDN, pas de Node au runtime).
+# Spéc Render : type web + runtime static (voir docs Blueprint).
 services:
   - type: web
     name: retraiteclair
-    runtime: node
-    buildCommand: npm ci && npm run build
-    startCommand: npm start
-    envVars:
-      - key: NODE_ENV
-        value: production
+    runtime: static
+    buildCommand: NEXT_STATIC_EXPORT=true npm ci && npm run build
+    staticPublishPath: out

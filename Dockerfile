@@ -16,6 +16,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+# Ne pas définir NEXT_STATIC_EXPORT : ce Dockerfile attend un build classique (.next) + next start.
 RUN npm run build
 
 FROM base AS runner
