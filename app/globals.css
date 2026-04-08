@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-900: #0a4a35;
+  --green-700: #0f6e56;
+  --green-500: #1d9e75;
+  --green-100: #e1f5ee;
+  --green-50: #f0faf6;
+  --amber-100: #faeeda;
+  --amber-700: #854f0b;
+  --neutral-900: #1a1a1a;
+  --neutral-600: #4a4a4a;
+  --neutral-200: #e8e8e8;
+  --neutral-50: #fafaf9;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen text-neutral-900 antialiased;
+    background-color: var(--neutral-50);
+    background-image: radial-gradient(
+        ellipse 120% 80% at 50% -20%,
+        rgba(224, 245, 237, 0.65),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 80% 50% at 100% 50%,
+        rgba(250, 238, 218, 0.35),
+        transparent 50%
+      );
+  }
+}
+
+/* Print: rapport simulation */
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+}
+
+.print-only {
+  display: none;
+}
