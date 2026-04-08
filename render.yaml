@@ -1,14 +1,12 @@
+# Service web Node.js — Next.js (next build + next start).
+# L’ancienne config « static site » + staticPublishPath: build servait encore
+# l’ancienne app CRA du dossier build/ : d’où le site « toujours pareil ».
 services:
-  - type: static
+  - type: web
     name: retraiteclair
-    buildCommand: npm run build
-    staticPublishPath: build
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-
-
-
-
-
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production

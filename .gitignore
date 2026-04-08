@@ -1,6 +1,8 @@
 node_modules/
 .next/
 out/
+# Ancienne sortie Create React App (ne pas publier à la place de Next.js)
+build/
 *.log
 *.tmp
 *.DS_Store
