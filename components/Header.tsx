@@ -30,7 +30,7 @@ export function Header() {
             onClick={() => scrollToId("comment-ca-marche")}
             className="hover:text-green-700 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
           >
-            Comment ça marche
+            Étapes
           </button>
           <button
             type="button"
@@ -52,7 +52,7 @@ export function Header() {
           onClick={() => scrollToId("simulator")}
           className="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-green-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
         >
-          Commencer la simulation
+          Simuler
         </button>
       </div>
     </header>
