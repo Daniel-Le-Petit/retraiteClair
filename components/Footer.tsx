@@ -27,6 +27,9 @@ export function Footer() {
             <Link className="hover:text-white underline-offset-4 hover:underline" href="/contact">
               Contact
             </Link>
+            <Link className="hover:text-white underline-offset-4 hover:underline" href="/admin">
+              Admin
+            </Link>
           </nav>
         </div>
         <p className="mt-8 max-w-3xl text-xs text-green-100/80">

@@ -8,15 +8,20 @@
     "build": "next build",
     "build:static": "NEXT_STATIC_EXPORT=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy:admin-function": "npx supabase functions deploy admin --no-verify-jwt"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@supabase/supabase-js": "^2.45.0",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.2.0",
     "lucide-react": "^0.544.0",
     "next": "14.2.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.2",
+    "recharts": "^2.15.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

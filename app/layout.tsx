@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { CookieBanner } from "@/components/CookieBanner";
+import { LogVisit } from "@/components/LogVisit";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="fr" className={`${dmSans.variable} ${dmSerif.variable}`}>
       <body className="min-h-screen font-sans text-neutral-900">
         {children}
+        <LogVisit />
         <CookieBanner />
       </body>
     </html>

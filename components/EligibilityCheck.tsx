@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 import { getEligibility } from "@/lib/pension";
@@ -20,15 +19,6 @@ export function EligibilityCheck() {
   return (
     <section className="print-hidden border-b border-green-200/60 bg-gradient-to-br from-teal-50/80 via-amber-50/40 to-emerald-50/70 py-14 sm:px-6">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="mb-8 overflow-hidden rounded-xl border border-green-200/80 shadow-md shadow-green-900/10">
-          <Image
-            src="/images/illustration-transition.svg"
-            alt=""
-            width={800}
-            height={240}
-            className="h-16 w-full object-cover object-center sm:h-20"
-          />
-        </div>
         <h2 className="font-serif text-2xl text-green-950 sm:text-3xl">
           Éligibilité — premier repère
         </h2>

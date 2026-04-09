@@ -1,7 +1,7 @@
-/** URLs Unsplash (licence libre) — utilisateurs professionnels, contexte bureau / conseil */
+/** URLs Unsplash (licence libre) */
 export const heroImage = {
-  src: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=900&h=900&fit=crop&q=80",
-  alt: "Professionnels en réunion autour d’un projet d’organisation",
+  src: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=900&h=900&fit=crop&crop=faces&q=85",
+  alt: "Personne consultant un outil en ligne pour estimer revenus, pension et étapes — tout sur une page",
 };
 
 /** Médaillon à la place de l’ancienne horloge décorative */
@@ -12,12 +12,12 @@ export const heroCoupleMedallion = {
 
 export const howItWorksImages = [
   {
-    src: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop&q=80",
-    alt: "Documents et préparation de dossier",
+    src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop&q=85",
+    alt: "Bureau lumineux, ordinateur — saisir son âge, ses trimestres et son salaire",
   },
   {
-    src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=400&fit=crop&q=80",
-    alt: "Réunion et organisation du temps de travail",
+    src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop&q=85",
+    alt: "Travail flexible à domicile — ajuster son rythme et son temps partiel",
   },
   {
     src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&q=80",
@@ -27,8 +27,8 @@ export const howItWorksImages = [
 
 /** Bandeau au-dessus du simulateur */
 export const simulatorBanner = {
-  src: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=450&fit=crop&q=80",
-  alt: "Documents, calcul et projection de revenus",
+  src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=450&fit=crop&q=85",
+  alt: "Tableaux et projection — visualiser ses revenus et sa pension",
 };
 
 export const testimonialPortraits = [

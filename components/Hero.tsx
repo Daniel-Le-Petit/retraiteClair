@@ -40,17 +40,27 @@ export function Hero() {
           </div>
         </div>
         <figure className="relative mx-auto w-full max-w-md lg:max-w-none">
-          <div className="relative aspect-[4/5] max-h-[min(520px,78vh)] w-full overflow-hidden rounded-2xl border-2 border-white shadow-xl shadow-green-900/15 ring-1 ring-green-200/80">
+          {/* Styles inline : si le CSS /_next/… ne charge pas, aspect-* Tailwind est absent et l’image remplit l’écran. */}
+          <div
+            className="relative aspect-[4/5] max-h-[min(520px,78vh)] w-full overflow-hidden rounded-2xl border-2 border-white shadow-xl shadow-green-900/15 ring-1 ring-green-200/80"
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              aspectRatio: "4 / 5",
+              maxHeight: "min(520px, 78vh)",
+              width: "100%",
+            }}
+          >
             <Image
               src={heroImage.src}
               alt={heroImage.alt}
               fill
-              className="object-cover object-top"
+              className="object-cover object-top sm:object-center"
               sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-green-950/50 via-transparent to-amber-50/10" />
-            {/* Couple de retraités : dans le cadre pour éviter la coupure (overflow section) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-green-950/45 via-transparent to-amber-50/10" />
+            {/* Médaillon : complément humain (projection de vie) */}
             <div className="absolute bottom-4 right-4 z-20 h-24 w-24 sm:bottom-5 sm:right-5 sm:h-28 sm:w-28">
               <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-amber-200 shadow-lg shadow-black/20 ring-2 ring-white">
                 <Image

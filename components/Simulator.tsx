@@ -8,7 +8,7 @@ import { z } from "zod";
 import { computeSimulatorResult } from "@/lib/pension";
 import { simulatorBanner } from "@/lib/imageAssets";
 import type { RegimeRetraite, TauxTempsPartiel } from "@/lib/types";
-import { ResultsPanel } from "./ResultsPanel";
+import { ResultsPanel, ResultsPanelFollowUp } from "./ResultsPanel";
 
 const tauxOptions: { value: TauxTempsPartiel; label: string }[] = [
   { value: 0.4, label: "40 %" },
@@ -107,7 +107,14 @@ export function Simulator() {
         </p>
 
         <div className="print-hidden relative mt-8 overflow-hidden rounded-2xl border border-green-200/90 shadow-lg shadow-green-900/10">
-          <div className="relative aspect-[21/8] min-h-[140px] w-full sm:aspect-[24/7]">
+          <div
+            className="relative aspect-[21/8] min-h-[140px] w-full sm:aspect-[24/7]"
+            style={{
+              position: "relative",
+              aspectRatio: "21 / 8",
+              minHeight: 140,
+            }}
+          >
             <Image
               src={simulatorBanner.src}
               alt={simulatorBanner.alt}
@@ -122,7 +129,7 @@ export function Simulator() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
+        <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12 md:items-start">
           <form className="space-y-6" noValidate>
             <div className="rounded-lg border-[0.5px] border-neutral-200 bg-neutral-50 p-4">
               <label htmlFor="sim-age" className="text-sm font-medium text-neutral-900">
@@ -258,6 +265,12 @@ export function Simulator() {
             )}
           </div>
         </div>
+
+        {parsed && (
+          <div className="mt-10">
+            <ResultsPanelFollowUp result={parsed.result} />
+          </div>
+        )}
       </div>
     </section>
   );

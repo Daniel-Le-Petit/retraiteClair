@@ -51,7 +51,8 @@ git push origin main
 
 1. **New** → **Static Site** (ou **Web Service** avec **Runtime Static** selon l’UI).
 2. Repo **`Daniel-Le-Petit/retraiteClair`**, branche **`main`**.
-3. **Build command** : `NEXT_STATIC_EXPORT=true npm ci && npm run build`
+3. **Build command** : `npm ci && npm run build:static`  
+   (ne pas utiliser `NEXT_STATIC_EXPORT=true npm ci && npm run build` : la variable ne s’applique qu’à `npm ci`, pas au build → pas de dossier `out/`.)
 4. **Publish directory** : **`out`**
 5. Pas de **Start command** (fichiers statiques uniquement).
 

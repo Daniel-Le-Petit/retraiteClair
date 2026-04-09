@@ -38,7 +38,11 @@ export function Testimonials() {
               key={author}
               className="flex flex-col overflow-hidden rounded-xl border border-green-200/90 bg-white/95 shadow-lg shadow-green-900/10"
             >
-              <div className="relative h-36 w-full shrink-0" aria-hidden>
+              <div
+                className="relative h-36 w-full shrink-0"
+                aria-hidden
+                style={{ position: "relative", height: "9rem", width: "100%" }}
+              >
                 <Image
                   src={testimonialPortraits[i].src}
                   alt=""

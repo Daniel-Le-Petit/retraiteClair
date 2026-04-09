@@ -4,5 +4,6 @@ services:
   - type: web
     name: retraiteclair
     runtime: static
-    buildCommand: NEXT_STATIC_EXPORT=true npm ci && npm run build
+    # Important : `VAR= cmd && cmd` ne passe VAR qu'au 1er cmd — utiliser build:static.
+    buildCommand: npm ci && npm run build:static
     staticPublishPath: out

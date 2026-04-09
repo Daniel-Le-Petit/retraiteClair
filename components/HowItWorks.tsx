@@ -40,7 +40,10 @@ export function HowItWorks() {
               key={title}
               className="overflow-hidden rounded-xl border border-green-200/90 border-l-[4px] border-l-green-600 bg-white shadow-md shadow-green-900/10"
             >
-              <div className="relative aspect-[16/10] w-full">
+              <div
+                className="relative aspect-[16/10] w-full"
+                style={{ position: "relative", aspectRatio: "16 / 10" }}
+              >
                 <Image
                   src={howItWorksImages[i].src}
                   alt={howItWorksImages[i].alt}

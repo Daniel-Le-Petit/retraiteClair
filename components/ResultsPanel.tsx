@@ -39,6 +39,73 @@ export interface ResultsPanelProps {
   result: SimulatorResult;
 }
 
+export interface ResultsPanelFollowUpProps {
+  result: SimulatorResult;
+}
+
+/** Blocs pleine largeur sous le tableau de résultats (évite une colonne vide à gauche). */
+export function ResultsPanelFollowUp({ result }: ResultsPanelFollowUpProps) {
+  const [openAdmin, setOpenAdmin] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="rounded-lg border border-neutral-200 bg-neutral-100/80 p-4 text-sm print-break-inside-avoid">
+        <p className="font-medium text-neutral-900">Impact fiscal (estimation)</p>
+        <p className="mt-2 text-neutral-900">
+          Revenu net mensuel estimé (après prélèvements, ordre de grandeur ~23 %) :{" "}
+          <strong>{formatEUR(result.revenuNetEstimeMensuel)}</strong>
+        </p>
+        <p className="mt-2 text-neutral-600">
+          Estimation indicative — consultez un conseiller pour votre situation
+          précise.
+        </p>
+      </div>
+
+      <div className="overflow-hidden rounded-lg border-[0.5px] border-neutral-200 bg-white print-break-inside-avoid">
+        <button
+          type="button"
+          id="admin-accordion-button"
+          aria-expanded={openAdmin}
+          aria-controls="admin-accordion-panel"
+          onClick={() => setOpenAdmin((o) => !o)}
+          className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-sm font-medium text-neutral-900 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+        >
+          Vos démarches administratives
+          <ChevronDown
+            className={`h-5 w-5 shrink-0 transition-transform ${openAdmin ? "rotate-180" : ""}`}
+            aria-hidden
+          />
+        </button>
+        <div
+          id="admin-accordion-panel"
+          role="region"
+          aria-labelledby="admin-accordion-button"
+          className={`overflow-hidden border-neutral-200 transition-[max-height] duration-300 ease-out ${openAdmin ? "max-h-96 border-t" : "max-h-0"}`}
+        >
+          <ol className="list-decimal space-y-2 px-4 py-3 pl-9 text-sm text-neutral-600">
+            {adminSteps.map((step) => (
+              <li key={step}>{step}</li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      <div className="print-only mt-6 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
+        Les résultats sont des estimations indicatives. Consultez votre caisse de
+        retraite pour une évaluation officielle.
+      </div>
+
+      <button
+        type="button"
+        onClick={() => window.print()}
+        className="print-hidden w-full rounded-lg border border-green-700 bg-white py-3 text-sm font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 sm:w-auto sm:self-start"
+      >
+        Télécharger mon rapport
+      </button>
+    </div>
+  );
+}
+
 export function ResultsPanel({
   age,
   trimestres,
@@ -47,7 +114,6 @@ export function ResultsPanel({
   regime,
   result,
 }: ResultsPanelProps) {
-  const [openAdmin, setOpenAdmin] = useState(true);
 
   const salaire = result.salaireTempsPartiel;
   const pension = result.pensionProgressive;
@@ -223,60 +289,6 @@ export function ResultsPanel({
           </li>
         </ul>
       </div>
-
-      <div className="rounded-lg border border-neutral-200 bg-neutral-100/80 p-4 text-sm print-break-inside-avoid">
-        <p className="font-medium text-neutral-900">Impact fiscal (estimation)</p>
-        <p className="mt-2 text-neutral-900">
-          Revenu net mensuel estimé (après prélèvements, ordre de grandeur ~23 %) :{" "}
-          <strong>{formatEUR(result.revenuNetEstimeMensuel)}</strong>
-        </p>
-        <p className="mt-2 text-neutral-600">
-          Estimation indicative — consultez un conseiller pour votre situation
-          précise.
-        </p>
-      </div>
-
-      <div className="overflow-hidden rounded-lg border-[0.5px] border-neutral-200 bg-white print-break-inside-avoid">
-        <button
-          type="button"
-          id="admin-accordion-button"
-          aria-expanded={openAdmin}
-          aria-controls="admin-accordion-panel"
-          onClick={() => setOpenAdmin((o) => !o)}
-          className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left text-sm font-medium text-neutral-900 hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
-        >
-          Vos démarches administratives
-          <ChevronDown
-            className={`h-5 w-5 shrink-0 transition-transform ${openAdmin ? "rotate-180" : ""}`}
-            aria-hidden
-          />
-        </button>
-        <div
-          id="admin-accordion-panel"
-          role="region"
-          aria-labelledby="admin-accordion-button"
-          className={`overflow-hidden border-neutral-200 transition-[max-height] duration-300 ease-out ${openAdmin ? "max-h-96 border-t" : "max-h-0"}`}
-        >
-          <ol className="list-decimal space-y-2 px-4 py-3 pl-9 text-sm text-neutral-600">
-            {adminSteps.map((step) => (
-              <li key={step}>{step}</li>
-            ))}
-          </ol>
-        </div>
-      </div>
-
-      <div className="print-only mt-6 border-t border-neutral-200 pt-4 text-xs text-neutral-600">
-        Les résultats sont des estimations indicatives. Consultez votre caisse de
-        retraite pour une évaluation officielle.
-      </div>
-
-      <button
-        type="button"
-        onClick={() => window.print()}
-        className="print-hidden w-full rounded-lg border border-green-700 bg-white py-3 text-sm font-medium text-green-700 transition hover:bg-green-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 sm:w-auto sm:self-start"
-      >
-        Télécharger mon rapport
-      </button>
     </div>
   );
 }
